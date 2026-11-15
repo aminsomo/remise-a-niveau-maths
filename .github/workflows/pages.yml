@@ -1,0 +1,53 @@
+# Publication du site sur GitHub Pages à chaque push sur main.
+# Prérequis (une seule fois) : Settings → Pages → Build and deployment → Source : « GitHub Actions ».
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # permet aussi un déploiement manuel depuis l'onglet Actions
+
+permissions:
+  contents: read
+  pages: write              # nécessaire pour publier
+  id-token: write           # nécessaire pour l'authentification OIDC de deploy-pages
+
+concurrency:                # un seul déploiement à la fois, le plus récent gagne
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # On ne publie pas un site cassé : les tests doivent passer d'abord
+      # (ignoré tant que le dossier tests/ n'existe pas).
+      - name: Tests
+        run: if [ -d tests ]; then python -m unittest discover -s tests -v; fi
+      # Le site est statique : on copie uniquement les fichiers publics dans _site/
+      # (pas les tests, modèles ni la configuration).
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          for p in index.html assets maths physique prepa .nojekyll; do
+            [ -e "$p" ] && cp -r "$p" _site/
+          done
+          ls -R _site | head -50
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
