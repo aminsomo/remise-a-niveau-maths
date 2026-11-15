@@ -183,7 +183,42 @@ window.COURSE = /* BEGIN-JSON */ {
       "short": "Prépa",
       "color": "prepa",
       "desc": "Ce qu'on attend de toi dès septembre en CPGE (TSI, PTSI, TPC) : rigueur de calcul, raisonnement, méthodes.",
-      "chapters": []
+      "chapters": [
+        {
+          "slug": "calcul-algebrique",
+          "title": "Calcul algébrique sans faute",
+          "summary": "Fractions, puissances, identités, second degré, inéquations.",
+          "tags": [
+            "indispensable",
+            "essentiel"
+          ]
+        },
+        {
+          "slug": "logique-raisonnement",
+          "title": "Logique et raisonnement",
+          "summary": "Quantificateurs, implication, contraposée, absurde, rédaction.",
+          "tags": [
+            "rédaction"
+          ]
+        },
+        {
+          "slug": "sommes-recurrence",
+          "title": "Sommes et récurrence",
+          "summary": "Symbole Σ, télescopage, sommes usuelles, récurrence.",
+          "tags": [
+            "outils",
+            "essentiel"
+          ]
+        },
+        {
+          "slug": "attendus-prepa",
+          "title": "Réussir son entrée en prépa",
+          "summary": "Prépa TSI, colles, méthodes, auto-diagnostic et planning.",
+          "tags": [
+            "méthode"
+          ]
+        }
+      ]
     }
   ]
 } /* END-JSON */;
