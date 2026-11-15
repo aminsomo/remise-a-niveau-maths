@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Énergie, puissance et rendement · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="physique/energie">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Physique · Énergie</p>
+    <h1>Énergie, puissance et rendement</h1>
+    <p class="lead">L'énergie se conserve mais se transforme, avec des pertes. Énergie cinétique et potentielle, théorème de l'énergie cinétique,
+      puissance, chaînes de conversion et rendement : le fil rouge de toute la spécialité STI2D.</p>
+    <p class="prereq">Prérequis : <a href="mecanique.html">lois de Newton</a>, <a href="../maths/produit-scalaire.html">produit scalaire</a>.</p>
+  </header>
+
+  <section>
+    <h2>1. Énergie et puissance</h2>
+    <div class="box def"><p class="box-title">Définitions</p>
+      <ul>
+        <li>L'<b>énergie</b> \(E\) s'exprime en joules (J). Autres unités : 1 Wh = 3 600 J ; 1 kWh = 3,6 MJ ; 1 cal ≈ 4,18 J.</li>
+        <li>La <b>puissance</b> est un débit d'énergie : \(P = \dfrac{E}{\Delta t}\) en watts (W = J/s). Si \(P\) varie : \(E = \int P(t)\,\mathrm{d}t\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — ordres de grandeur</p>
+      <p>Un radiateur de 2 kW fonctionne 5 h par jour pendant 30 jours. Énergie consommée et coût à 0,25 €/kWh ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(E = 2 \times 5 \times 30 = 300\) kWh \(= 1{,}08 \times 10^{9}\) J ; coût : 75 €.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Énergie mécanique</h2>
+    <div class="box def"><p class="box-title">Formes d'énergie mécanique</p>
+      <ul>
+        <li><b>Cinétique</b> (translation) : \(E_c = \tfrac12 mv^2\) ; (rotation) : \(E_c = \tfrac12 J\omega^2\) avec \(J\) moment d'inertie.</li>
+        <li><b>Potentielle de pesanteur</b> : \(E_{pp} = mgz\) (axe \(z\) vers le haut).</li>
+        <li><b>Potentielle élastique</b> : \(E_{pe} = \tfrac12 kx^2\).</li>
+        <li><b>Mécanique</b> : \(E_m = E_c + E_p\).</li>
+      </ul>
+    </div>
+    <div class="box prop"><p class="box-title">Théorèmes</p>
+      <ul>
+        <li><b>Travail</b> d'une force constante : \(W_{AB}(\vec F) = \vec F \cdot \overrightarrow{AB}\). Puissance d'une force : \(P = \vec F \cdot \vec v\) ; d'un couple : \(P = C\omega\).</li>
+        <li><b>Théorème de l'énergie cinétique</b> : \(\Delta E_c = \sum W(\vec F_{\text{ext}})\).</li>
+        <li>Si seules des forces conservatives (poids, ressort) travaillent : \(E_m\) se <b>conserve</b>. Sinon \(\Delta E_m = W(\text{forces non conservatives})\), négatif pour des frottements.</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — chute libre et freinage</p>
+      <p>Un objet de 2 kg tombe de 20 m sans vitesse initiale. Vitesse à l'arrivée ? Si on mesure en réalité 18 m/s, quelle énergie a été dissipée ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>Conservation : \(mgh = \tfrac12 mv^2 \Rightarrow v = \sqrt{2gh} = \sqrt{392} \approx 19{,}8\) m/s.</p>
+        <p>Énergie dissipée : \(mgh - \tfrac12 m \times 18^2 = 392 - 324 = 68\) J (frottements de l'air).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Chaînes de conversion et rendement</h2>
+    <div class="box def"><p class="box-title">Rendement</p>
+      <p>Pour un convertisseur : \(\eta = \dfrac{P_{\text{utile}}}{P_{\text{absorbée}}} = \dfrac{E_{\text{utile}}}{E_{\text{absorbée}}}\), avec \(0 \leq \eta &lt; 1\).
+        Pertes : \(P_{\text{pertes}} = P_{\text{abs}} - P_{\text{u}}\) (souvent sous forme thermique).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Chaîne de convertisseurs en série</p>
+      <p>Le rendement global est le <b>produit</b> des rendements : \(\eta = \eta_1 \times \eta_2 \times \dots \times \eta_n\). Il est toujours inférieur au plus petit d'entre eux.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — éolienne</p>
+      <p>Une éolienne : rotor (\(\eta = 0{,}45\)), multiplicateur (\(0{,}95\)), génératrice (\(0{,}93\)), onduleur (\(0{,}97\)).
+        Le vent apporte 2 MW sur la surface balayée. Puissance électrique injectée ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\eta = 0{,}45 \times 0{,}95 \times 0{,}93 \times 0{,}97 \approx 0{,}386\). \(P_e \approx 0{,}77\) MW.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-skate">
+      <p class="widget-title">Échanges Ec ↔ Ep sur une piste</p>
+      <p class="hint">Un mobile glisse dans une cuvette. Sans frottement, \(E_m\) reste constante : il remonte à la même hauteur. Avec frottement, \(E_m\) diminue et l'énergie part en chaleur.</p>
+      <div class="controls">
+        <label>hauteur de départ (m) <input type="range" data-k="h" min="1" max="5" step="0.1" value="4"> <output data-show="h"></output></label>
+        <label>frottement <input type="range" data-k="mu" min="0" max="0.5" step="0.01" value="0.05"> <output data-show="mu"></output></label>
+        <button class="btn" type="button" id="skate-go">Lâcher</button>
+      </div>
+      <canvas class="plot short" id="skate-track"></canvas>
+      <canvas class="plot short" id="skate-bars"></canvas>
+      <div class="legend"><span><i style="background:var(--c1)"></i>Ec</span><span><i style="background:var(--c2)"></i>Ep</span><span><i style="background:var(--c4)"></i>énergie dissipée</span></div>
+    </div>
+
+    <div class="widget" id="w-chaine">
+      <p class="widget-title">Rendement d'une chaîne</p>
+      <p class="hint">Règle le rendement de chaque étage d'un véhicule électrique (batterie → onduleur → moteur → transmission).</p>
+      <div class="controls">
+        <label>batterie <input type="range" data-k="e1" min="0.5" max="1" step="0.01" value="0.95"> <output data-show="e1"></output></label>
+        <label>onduleur <input type="range" data-k="e2" min="0.5" max="1" step="0.01" value="0.97"> <output data-show="e2"></output></label>
+        <label>moteur <input type="range" data-k="e3" min="0.5" max="1" step="0.01" value="0.92"> <output data-show="e3"></output></label>
+        <label>transmission <input type="range" data-k="e4" min="0.5" max="1" step="0.01" value="0.96"> <output data-show="e4"></output></label>
+      </div>
+      <canvas class="plot short"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement</p>
+      <p class="hint">Résultat à 0,1 près, en unités SI (\(g = 9{,}81\) N/kg).</p>
+      <div class="drill-q"></div>
+      <div class="drill"><input type="text" aria-label="Ta réponse"><button class="btn drill-check" type="button">Vérifier</button><button class="btn ghost drill-new" type="button">Nouvelle question</button></div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <ul>
+        <li>Énergie potentielle générale : \(\vec F = -\overrightarrow{\text{grad}}\,E_p\), positions d'équilibre et stabilité.</li>
+        <li>Premier principe de la thermodynamique \(\Delta U + \Delta E_m = W + Q\) : la version complète du bilan d'énergie.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="2">
+        <p>Si la vitesse d'un véhicule double, son énergie cinétique est multipliée par :</p>
+        <ol class="choices"><li>2</li><li>√2</li><li>4</li><li>8</li></ol>
+        <p class="explain">\(E_c\) est proportionnelle à \(v^2\). C'est pour ça que la distance de freinage explose avec la vitesse.</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>1 kWh vaut :</p>
+        <ol class="choices"><li>3,6 MJ</li><li>1 000 J</li><li>3 600 J</li><li>60 kJ</li></ol>
+        <p class="explain">\(1000\ \text{W} \times 3600\ \text{s}\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Deux convertisseurs de rendements 0,9 et 0,8 en série ont un rendement global de :</p>
+        <ol class="choices"><li>1,7</li><li>0,85</li><li>0,8</li><li>0,72</li></ol>
+        <p class="explain">Les rendements se multiplient.</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Un moteur fournit un couple de 20 N·m à 1 500 tr/min. Sa puissance utile vaut environ :</p>
+        <ol class="choices"><li>30 kW</li><li>3,1 kW</li><li>500 W</li><li>20 kW</li></ol>
+        <p class="explain">\(\omega = 1500 \times 2\pi/60 \approx 157\) rad/s ; \(P = C\omega \approx 3\,140\) W.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=energie+mecanique+conservation+cours+lycee">Conservation de l'énergie mécanique<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=theoreme+energie+cinetique+travail+force">Travail et théorème de l'énergie cinétique<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=rendement+chaine+energetique+STI2D">Chaîne énergétique et rendement (STI2D)<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var g0 = 9.81, m = 1;
+
+  /* --- Piste en cuvette z(x) = 0,25 x² sur [−4,5 ; 4,5] --- */
+  function z(x) { return 0.25 * x * x; }
+  function dz(x) { return 0.5 * x; }
+  var ws = document.getElementById('w-skate');
+  var PT = Course.plot(document.getElementById('skate-track'), { xmin: -5, xmax: 5, ymin: -0.5, ymax: 6, grid: false });
+  var PB = Course.plot(document.getElementById('skate-bars'), { xmin: 0, xmax: 4, ymin: 0, ymax: 1, grid: false, axes: false });
+  var sv = {}, st = null, anim = null;
+
+  // état initial : immobile au point de hauteur h, côté gauche
+  function reset() { st = { x: -Math.sqrt(sv.h / 0.25), v: 0, lost: 0 }; }
+  /* Pas d'intégration le long de la piste (abscisse curviligne approchée par x) :
+     accélération tangentielle = −g sinθ − μ g cosθ · signe(v), avec tanθ = z'(x). */
+  function step(dt) {
+    var th = Math.atan(dz(st.x));
+    var aT = -g0 * Math.sin(th) - (Math.abs(st.v) > 1e-3 ? sv.mu * g0 * Math.cos(th) * Math.sign(st.v) : 0);
+    var vOld = st.v;
+    st.v += aT * dt;
+    var ds = st.v * dt;
+    st.x += ds * Math.cos(th);
+    st.lost += Math.abs(sv.mu * m * g0 * Math.cos(th) * ds);   // travail des frottements
+    if (vOld * st.v < 0 && Math.abs(Math.tan(th)) < sv.mu) st.v = 0;   // arrêt si la pente ne suffit plus
+  }
+  function drawSkate() {
+    var Ep = m * g0 * z(st.x), Ec = 0.5 * m * st.v * st.v, E0 = m * g0 * sv.h;
+    PT.draw = function (g) {
+      g.fn(z, '--muted', { width: 3 });
+      g.seg(-5, sv.h, 5, sv.h, '--c2', { dash: [4, 4], width: 1 });
+      g.point(st.x, z(st.x) + 0.2, '--c4', null, { r: 9 });
+    };
+    PT.redraw();
+    // barres d'énergie normalisées par l'énergie initiale
+    PB.draw = function (g) {
+      [[Ec, '--c1', 'Ec'], [Ep, '--c2', 'Ep'], [st.lost, '--c4', 'dissipée']].forEach(function (b, i) {
+        var y = 0.8 - i * 0.3, L = 3.2 * Math.min(1, b[0] / E0);
+        g.poly([[0.6, y - 0.1], [0.6 + L, y - 0.1], [0.6 + L, y + 0.1], [0.6, y + 0.1]], b[1], { close: true, fill: true, alpha: 0.8 });
+        g.text(0.05, y, b[2], '--text', { size: 12 });
+      });
+    };
+    PB.redraw();
+  }
+  Course.onInput(ws, function (v) { sv = v; cancelAnimationFrame(anim); reset(); drawSkate(); });
+  document.getElementById('skate-go').addEventListener('click', function () {
+    cancelAnimationFrame(anim); reset();
+    var last = performance.now(), t = 0;
+    (function loop(now) {
+      var dt = Math.min(0.05, (now - last) / 1000); last = now; t += dt;
+      for (var i = 0; i < 20; i++) step(dt / 20);       // sous-pas pour la stabilité
+      drawSkate();
+      if (t < 25 && !(st.v === 0 && Math.abs(dz(st.x)) < sv.mu)) anim = requestAnimationFrame(loop);
+    })(last);
+  });
+
+  /* --- Chaîne de rendement : diagramme en cascade de la puissance restante --- */
+  var wc = document.getElementById('w-chaine');
+  var PC = Course.plot(wc.querySelector('canvas'), { xmin: 0, xmax: 5, ymin: 0, ymax: 110, grid: false });
+  Course.onInput(wc, function (v) {
+    var etas = [v.e1, v.e2, v.e3, v.e4], p = [100];
+    etas.forEach(function (e) { p.push(p[p.length - 1] * e); });
+    PC.draw = function (g) {
+      p.forEach(function (val, i) {
+        g.poly([[i + 0.15, 0], [i + 0.15, val], [i + 0.85, val], [i + 0.85, 0]], i === p.length - 1 ? '--c2' : '--c1', { close: true, fill: true, alpha: 0.7 });
+        g.text(i + 0.5, val + 5, Course.fmt(val, 1) + ' %', '--text', { align: 'center', size: 12 });
+      });
+    };
+    PC.redraw();
+    wc.querySelector('.readout').textContent = 'η global = ' + etas.map(function (e) { return Course.fmt(e, 2); }).join(' × ') + ' = ' + Course.fmt(p[4] / 100, 3) +
+      '\npour 100 kWh tirés de la batterie : ' + Course.fmt(p[4], 1) + ' kWh arrivent aux roues, ' + Course.fmt(100 - p[4], 1) + ' kWh de pertes (chaleur)';
+  });
+
+  /* --- Exercices --- */
+  Course.drill('#w-drill', function () {
+    var R = Course.rand, k = R(0, 2);
+    if (k === 0) { var mm = R(1, 1500), vv = R(1, 40);
+      return { html: '<p>Énergie cinétique (en J) d\'une masse de ' + mm + ' kg à ' + vv + ' m/s ?</p>', answer: 0.5 * mm * vv * vv, tol: 0.5, explain: '\\(E_c = \\tfrac12 mv^2\\).' }; }
+    if (k === 1) { var h = R(2, 50);
+      return { html: '<p>Vitesse (m/s) après une chute libre de ' + h + ' m sans vitesse initiale ni frottement ?</p>', answer: Math.sqrt(2 * g0 * h), tol: 0.1, explain: '\\(v = \\sqrt{2gh}\\).' }; }
+    var Pa = R(5, 50) * 100, eta = R(60, 95) / 100;
+    return { html: '<p>Un moteur absorbe ' + Pa + ' W avec un rendement de ' + String(eta).replace('.', ',') + '. Puissance perdue (W) ?</p>', answer: Pa * (1 - eta), tol: 0.5,
+      explain: '\\(P_{\\text{pertes}} = P_a(1 - \\eta)\\).' };
+  });
+});
+</script>
+</body>
+</html>

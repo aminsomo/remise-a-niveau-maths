@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Électricité : circuits, condensateur, alternatif · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="physique/electricite">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Physique · Énergie électrique</p>
+    <h1>Électricité : circuits, condensateur, alternatif</h1>
+    <p class="lead">Lois de Kirchhoff, loi d'Ohm et effet Joule ; stockage d'énergie dans un condensateur et circuit RC ;
+      grandeurs sinusoïdales, valeurs efficaces et puissances en régime alternatif.</p>
+    <p class="prereq">Prérequis : <a href="../maths/exponentielle.html">exponentielle</a>, <a href="../maths/equations-differentielles.html">équations différentielles</a>, <a href="../maths/complexes.html">complexes</a> (partie 4).</p>
+  </header>
+
+  <section>
+    <h2>1. Lois des circuits</h2>
+    <div class="box prop"><p class="box-title">Lois fondamentales</p>
+      <ul>
+        <li><b>Loi des nœuds</b> : la somme des intensités qui arrivent à un nœud égale la somme de celles qui en partent (conservation de la charge).</li>
+        <li><b>Loi des mailles</b> : la somme algébrique des tensions le long d'une maille est nulle.</li>
+        <li><b>Loi d'Ohm</b> : \(U = RI\) (convention récepteur). Associations : série \(R = R_1 + R_2\) ; parallèle \(\dfrac1R = \dfrac1{R_1} + \dfrac1{R_2}\).</li>
+        <li><b>Diviseur de tension</b> : \(U_2 = E\dfrac{R_2}{R_1 + R_2}\).</li>
+        <li><b>Puissance</b> : \(P = UI\) ; effet Joule dans une résistance : \(P_J = RI^2 = \dfrac{U^2}{R}\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — générateur réel</p>
+      <p>Une batterie de f.é.m. \(E = 12\) V et de résistance interne \(r = 0{,}5\ \Omega\) alimente une charge \(R = 5{,}5\ \Omega\). Intensité, tension aux bornes, rendement ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>Loi des mailles : \(E = rI + RI \Rightarrow I = \dfrac{12}{6} = 2\) A. \(U = E - rI = 11\) V.</p>
+        <p>\(\eta = \dfrac{UI}{EI} = \dfrac{11}{12} \approx 92\,\%\). Pertes Joule internes : \(rI^2 = 2\) W.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Condensateur et circuit RC</h2>
+    <div class="box def"><p class="box-title">Condensateur</p>
+      <p>Deux armatures séparées par un isolant. Charge \(q = Cu\) (\(C\) capacité en farads). Comme \(i = \dfrac{\mathrm{d}q}{\mathrm{d}t}\) :
+        \[i = C\frac{\mathrm{d}u}{\mathrm{d}t}, \qquad E_{\text{stockée}} = \tfrac12 Cu^2.\]
+        La tension aux bornes d'un condensateur est <b>continue</b> (elle ne peut pas sauter brutalement).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Charge sous tension constante \(E\)</p>
+      <p>Loi des mailles : \(E = Ri + u = RC\dfrac{\mathrm{d}u}{\mathrm{d}t} + u\). Avec \(u(0) = 0\) :
+        \[u(t) = E\left(1 - e^{-t/\tau}\right), \qquad i(t) = \frac{E}{R}e^{-t/\tau}, \qquad \tau = RC.\]
+        Décharge : \(u(t) = E\,e^{-t/\tau}\). À \(5\tau\), le régime transitoire est terminé.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — supercondensateur</p>
+      <p>Un supercondensateur de 100 F est chargé sous 2,7 V. Énergie stockée ? Temps de charge à travers 0,05 Ω ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(E = \tfrac12 \times 100 \times 2{,}7^2 \approx 365\) J. \(\tau = 0{,}05 \times 100 = 5\) s, charge quasi complète en 25 s.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Régime sinusoïdal</h2>
+    <div class="box def"><p class="box-title">Valeurs efficaces et puissances</p>
+      <p>\(u(t) = U\sqrt2\cos(\omega t)\), \(i(t) = I\sqrt2\cos(\omega t - \varphi)\), où \(U\) et \(I\) sont les valeurs <b>efficaces</b> (lues par un multimètre en mode AC).</p>
+      <ul>
+        <li>Puissance <b>active</b> (moyenne, en W) : \(P = UI\cos\varphi\) ; \(\cos\varphi\) est le facteur de puissance.</li>
+        <li>Puissance <b>apparente</b> (en VA) : \(S = UI\). Puissance <b>réactive</b> (en var) : \(Q = UI\sin\varphi\). On a \(S^2 = P^2 + Q^2\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — relever le facteur de puissance</p>
+      <p>Une installation absorbe 10 A sous 230 V avec \(\cos\varphi = 0{,}7\). Calculer \(P\), \(Q\), \(S\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(S = 2\,300\) VA, \(P = 1\,610\) W, \(\sin\varphi = \sqrt{1 - 0{,}49} \approx 0{,}714\), \(Q \approx 1\,642\) var.
+          Pour la même puissance utile, un meilleur \(\cos\varphi\) réduirait l'intensité, donc les pertes en ligne.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-rc">
+      <p class="widget-title">Oscilloscope virtuel : circuit RC alimenté par un signal carré</p>
+      <p class="hint">Compare la demi-période du signal à \(\tau = RC\). Si \(\tau\) est petit, le condensateur a le temps de se charger ; si \(\tau\) est grand, \(u_C\) devient un « triangle » de faible amplitude (filtrage).</p>
+      <div class="controls">
+        <label>\(R\) (kΩ) <input type="range" data-k="R" min="0.1" max="10" step="0.1" value="1"> <output data-show="R"></output></label>
+        <label>\(C\) (µF) <input type="range" data-k="C" min="0.1" max="10" step="0.1" value="1"> <output data-show="C"></output></label>
+        <label>\(f\) (Hz) <input type="range" data-k="f" min="10" max="2000" step="10" value="100"> <output data-show="f"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="legend"><span><i style="background:var(--c4)"></i>tension du générateur e(t)</span><span><i style="background:var(--c1)"></i>u<sub>C</sub>(t)</span></div>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-puissance">
+      <p class="widget-title">Puissance instantanée en alternatif</p>
+      <p class="hint">\(p(t) = u(t)\,i(t)\). Sa valeur moyenne (pointillés) vaut \(UI\cos\varphi\). À \(\varphi = 90°\) (bobine ou condensateur parfait), la puissance moyenne est nulle.</p>
+      <div class="controls"><label>\(\varphi\) (°) <input type="range" data-k="phi" min="-90" max="90" step="1" value="30"> <output data-show="phi"></output></label></div>
+      <canvas class="plot"></canvas>
+      <div class="legend"><span><i style="background:var(--c1)"></i>u(t)</span><span><i style="background:var(--c2)"></i>i(t) (×50)</span><span><i style="background:var(--c3)"></i>p(t)</span></div>
+    </div>
+
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement</p>
+      <p class="hint">Résultat à 0,01 près, en unités SI.</p>
+      <div class="drill-q"></div>
+      <div class="drill"><input type="text" aria-label="Ta réponse"><button class="btn drill-check" type="button">Vérifier</button><button class="btn ghost drill-new" type="button">Nouvelle question</button></div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <ul>
+        <li>Bobine \(u = L\dfrac{\mathrm{d}i}{\mathrm{d}t}\), circuits RL et RLC (2<sup>d</sup> ordre), facteur de qualité.</li>
+        <li>Théorèmes de Thévenin / Norton, Millman, filtres du 1<sup>er</sup> et 2<sup>d</sup> ordre, diagrammes de Bode.</li>
+        <li>En TSI : électronique de puissance (hacheurs, onduleurs), machines électriques.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>Deux résistances de 100 Ω en parallèle équivalent à :</p>
+        <ol class="choices"><li>200 Ω</li><li>50 Ω</li><li>100 Ω</li><li>10 kΩ</li></ol>
+        <p class="explain">\(\dfrac{1}{R} = \dfrac{2}{100}\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>\(\tau = RC\) avec \(R = 2\) kΩ et \(C = 50\) µF vaut :</p>
+        <ol class="choices"><li>100 s</li><li>0,01 s</li><li>40 s</li><li>0,1 s</li></ol>
+        <p class="explain">\(2\,000 \times 50 \times 10^{-6} = 0{,}1\) s.</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Le secteur affiche 230 V. Cette valeur est :</p>
+        <ol class="choices"><li>la valeur efficace</li><li>la valeur maximale</li><li>la valeur moyenne</li><li>la valeur crête-à-crête</li></ol>
+        <p class="explain">La valeur maximale est \(230\sqrt2 \approx 325\) V ; la moyenne est nulle.</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Juste après la fermeture de l'interrupteur (condensateur initialement déchargé), l'intensité dans un circuit RC vaut :</p>
+        <ol class="choices"><li>0</li><li>\(E/(RC)\)</li><li>\(E/R\)</li><li>infinie</li></ol>
+        <p class="explain">\(u_C(0) = 0\) donc toute la tension est aux bornes de \(R\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=loi+des+mailles+loi+des+noeuds+exercice">Lois de Kirchhoff — exercices<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=charge+decharge+condensateur+terminale+cours">Charge et décharge d'un condensateur<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=puissance+active+reactive+apparente+facteur+de+puissance">Puissances en alternatif<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  /* --- RC excité par un créneau 0 / E : on intègre l'équation τ u' + u = e(t) ---
+     Solution exacte par morceaux : sur chaque demi-période, u tend vers la valeur
+     du créneau avec la constante de temps τ. */
+  var E = 5;
+  var w = document.getElementById('w-rc');
+  var P = Course.plot(w.querySelector('canvas'), { ylabel: 'u (V)', xlabel: 't (ms)' });
+  Course.onInput(w, function (v) {
+    var tau = v.R * 1e3 * v.C * 1e-6, T = 1 / v.f, half = T / 2;
+    var periods = 4, Tend = periods * T;
+    function e(t) { return (Math.floor(t / half) % 2 === 0) ? E : 0; }
+    // échantillonnage : on propage u d'une demi-période à l'autre (solution exacte)
+    var N = 1600, pts = [], u = 0;
+    for (var i = 0; i <= N; i++) {
+      var t = Tend * i / N, dt = Tend / N;
+      pts.push([t * 1000, u]);
+      u = e(t) + (u - e(t)) * Math.exp(-dt / tau);
+    }
+    P.draw = function (g) {
+      g.fn(function (tms) { return e(tms / 1000); }, '--c4', { width: 1.5 });
+      g.poly(pts, '--c1', { width: 2.4 });
+    };
+    P.redraw({ xmin: 0, xmax: Tend * 1000, ymin: -0.5, ymax: E * 1.2 });
+    var ratio = half / tau;
+    w.querySelector('.readout').textContent = 'τ = RC = ' + Course.fmt(tau * 1000, 3) + ' ms    demi-période T/2 = ' + Course.fmt(half * 1000, 3) + ' ms    (T/2)/τ = ' + Course.fmt(ratio, 2) +
+      '\n' + (ratio > 5 ? 'T/2 > 5τ : le condensateur se charge et se décharge complètement.' : ratio < 0.5 ? 'T/2 ≪ τ : u_C reste proche de sa valeur moyenne E/2 → effet de filtrage passe-bas.' : 'régime intermédiaire : charge incomplète.');
+  });
+
+  /* --- Puissance instantanée u·i pour U = 230 V, I = 5 A --- */
+  var w2 = document.getElementById('w-puissance');
+  var P2 = Course.plot(w2.querySelector('canvas'), { xmin: 0, xmax: 40, ymin: -1000, ymax: 2600, xlabel: 't (ms)' });
+  Course.onInput(w2, function (v) {
+    var U = 230, I = 5, om = 2 * Math.PI * 50 / 1000, ph = v.phi * Math.PI / 180;   // ω en rad/ms
+    function u(t) { return U * Math.SQRT2 * Math.cos(om * t); }
+    function i(t) { return I * Math.SQRT2 * Math.cos(om * t - ph); }
+    P2.draw = function (g) {
+      g.fn(u, '--c1', { width: 1.6 });
+      g.fn(function (t) { return 50 * i(t); }, '--c2', { width: 1.6 });
+      g.fn(function (t) { return u(t) * i(t); }, '--c3', { width: 2.4 });
+      g.seg(0, U * I * Math.cos(ph), 40, U * I * Math.cos(ph), '--c3', { dash: [6, 4] });
+      g.text(1, U * I * Math.cos(ph) + 120, 'P = UI cos φ = ' + Course.fmt(U * I * Math.cos(ph), 0) + ' W', '--c3');
+    };
+    P2.redraw();
+  });
+
+  /* --- Exercices : association de résistances, τ, énergie stockée --- */
+  Course.drill('#w-drill', function () {
+    var R = Course.rand, k = R(0, 2);
+    if (k === 0) { var a = R(1, 20) * 10, b = R(1, 20) * 10;
+      return { html: '<p>Résistance équivalente (Ω) de ' + a + ' Ω et ' + b + ' Ω <b>en parallèle</b> ?</p>', answer: a * b / (a + b), tol: 0.01, explain: '\\(\\frac{R_1R_2}{R_1 + R_2}\\).' }; }
+    if (k === 1) { var r = R(1, 100), c = R(1, 100);
+      return { html: '<p>\\(R = ' + r + '\\) kΩ, \\(C = ' + c + '\\) µF. Durée pratique de charge \\(5\\tau\\) (en s) ?</p>', answer: 5 * r * 1e3 * c * 1e-6, tol: 0.01, explain: '\\(5RC\\), attention aux puissances de 10.' }; }
+    var C = R(1, 50) / 10, U = R(1, 12);
+    return { html: '<p>Énergie (J) stockée dans un condensateur de ' + String(C).replace('.', ',') + ' F chargé sous ' + U + ' V ?</p>', answer: 0.5 * C * U * U, tol: 0.01, explain: '\\(\\tfrac12 CU^2\\).' };
+  });
+});
+</script>
+</body>
+</html>
