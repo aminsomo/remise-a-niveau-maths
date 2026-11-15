@@ -96,18 +96,37 @@ flowchart LR
 | `Course.plot(canvas, vue, dessin)` | repère (grille, axes, graduations, π) + primitives `fn`, `param`, `point`, `seg`, `arrow`, `area`, `poly`, `circle`, `text` ; redessin automatique (redimensionnement, thème) |
 | `Course.onInput(racine, maj)` | lit tous les champs `[data-k]` d'un widget, met à jour les `<output data-show>` et appelle `maj(valeurs)` |
 | `Course.drill(racine, générateur)` | exercice infini : le générateur renvoie `{q ou html, answer, tol, explain}` ; saisie tolérante (`3/4`, `2,5`, `ln(2)`, `pi`) |
-| `Course.fmt`, `parseNum`, `tex`, `renderMath`, `rand`, `pick`, `el`, `color` | utilitaires |
+| `Course.fmt`, `parseNum`, `tex`, `renderMath`, `rand`, `pick`, `el`, `color`, `icon` | utilitaires |
+
+Automatique, sans rien écrire dans les pages :
+
+- **Plein écran** : chaque `.widget` qui contient un `<canvas>` reçoit un bouton plein écran
+  (graphique + réglages ; côte à côte en paysage, empilés en portrait ; Échap pour sortir).
+- **Brouillon + calculatrice** (`assets/brouillon.js`) : chaque exercice `Course.drill` reçoit, à
+  côté de « Vérifier », un bouton calculatrice qui ouvre une feuille noire plein écran (saisie
+  clavier ou stylo), une palette de symboles (fractions, puissances, √, ln, log, ∫, Σ, lim, ≤, ∈…)
+  et une calculatrice scientifique (degrés/radians, Ans, historique) dont le résultat peut être
+  envoyé dans la feuille ou utilisé comme réponse. La feuille est conservée par chapitre.
+- **Mobile** : menu des matières repliable, sommaire repliable, formules larges découpées ou
+  défilantes, tableaux défilants, cibles tactiles de 44 px, zones sûres de l'encoche.
+
+`assets/core.js` regroupe les fonctions pures (sans DOM), testées unitairement : évaluateur
+d'expressions sûr (`evaluate`, sans `eval`), `parseNum`, `fmt`, `fmtCalc`, graduations
+(`tickStep`, `decimalsFor`), `insertSnippet`, `splitTopLevel`.
 
 ## Structure
 
 ```
 index.html            accueil (liste des chapitres générée depuis le manifeste)
 assets/chapters.js    manifeste : matières et chapitres (JSON entre marqueurs)
-assets/app.js         moteur commun : navigation, quiz, traceur de courbes, exercices
+assets/core.js        fonctions pures testées : évaluateur, formatage, graduations
+assets/app.js         moteur commun : navigation, quiz, traceur de courbes, exercices, plein écran
+assets/brouillon.js   brouillon plein écran + palette de symboles + calculatrice
 assets/style.css      styles communs (thème clair/sombre)
 maths/ physique/ prepa/   un fichier HTML par chapitre
 templates/chapitre.html   modèle pour écrire un nouveau chapitre
-tests/                tests de cohérence (bibliothèque standard Python)
+tests/                tests de cohérence (Python), tests/js/ (unitaires, node --test),
+                      tests/e2e/ (navigateur : ordinateur, Android, iPhone, iPad)
 ```
 
 ## Ajouter un chapitre
@@ -119,8 +138,13 @@ tests/                tests de cohérence (bibliothèque standard Python)
 ## Tests
 
 ```bash
-python3 -m unittest discover -s tests -v
+python3 -m unittest discover -s tests -v   # structure + tests unitaires JS (si node est installé)
+npm ci && npx playwright install chromium   # une fois
+npm run test:e2e                            # navigateur : ordinateur, Android, iPhone, iPad
 ```
+
+Les tests de bout en bout vérifient sur chaque appareil émulé : aucune page ne déborde
+horizontalement, menu mobile, plein écran des graphiques, brouillon, calculatrice, stylo.
 
 Ils vérifient : manifeste ↔ fichiers, HTML bien formé, liens locaux, ancres, délimiteurs de
 formules équilibrés, structure de chaque chapitre (définitions, ≥ 2 exemples, ≥ 1 widget,

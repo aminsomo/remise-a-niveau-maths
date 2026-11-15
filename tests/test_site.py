@@ -24,7 +24,8 @@ def load_manifest():
 
 def html_files():
     return sorted(p for p in ROOT.rglob("*.html")
-                  if ".git" not in p.parts and "templates" not in p.parts)
+                  if not {".git", ".claude", "templates", "node_modules", "playwright-report",
+                          "test-results", ".worktrees"} & set(p.parts))
 
 
 def chapter_entries():
@@ -207,6 +208,51 @@ class ScriptTests(unittest.TestCase):
                     f.write_text(src, encoding="utf-8")
                     r = subprocess.run(["node", "--check", str(f)], capture_output=True, text=True)
                     self.assertEqual(r.returncode, 0, r.stderr)
+
+
+class EngineWiringTests(unittest.TestCase):
+    """Chaque page charge les modules dans le bon ordre et reste utilisable sur mobile."""
+    ORDER = ["core.js", "chapters.js", "app.js", "brouillon.js"]
+
+    def test_scripts_loaded_in_order(self):
+        for p in html_files():
+            with self.subTest(page=str(p.relative_to(ROOT))):
+                tree = parse(p.read_text(encoding="utf-8")).root
+                srcs = [n.attrs.get("src", "") for n in tree.iter() if n.tag == "script" and n.attrs.get("src")]
+                local = [Path(urlparse(x).path).name for x in srcs if not x.startswith("http")]
+                self.assertEqual(local, self.ORDER, "scripts locaux attendus dans cet ordre : " + ", ".join(self.ORDER))
+                for n in tree.iter():
+                    if n.tag == "script" and n.attrs.get("src") and not n.attrs["src"].startswith("http"):
+                        self.assertIn("defer", n.attrs, f"{n.attrs['src']} doit être en defer")
+
+    def test_viewport_supports_notch(self):
+        for p in html_files():
+            with self.subTest(page=str(p.relative_to(ROOT))):
+                meta = parse(p.read_text(encoding="utf-8")).root.find("meta", name="viewport")
+                content = meta.attrs.get("content", "")
+                self.assertIn("width=device-width", content)
+                self.assertIn("viewport-fit=cover", content)
+                self.assertNotIn("user-scalable=no", content, "ne jamais bloquer le zoom (accessibilité)")
+                self.assertNotIn("maximum-scale", content)
+
+    def test_core_has_no_dynamic_code_execution(self):
+        src = (ROOT / "assets" / "core.js").read_text(encoding="utf-8")
+        code = re.sub(r"/\*.*?\*/|//[^\n]*", "", src, flags=re.S)
+        for bad in ("eval(", "Function(", "new Function"):
+            self.assertNotIn(bad, code, "l'évaluateur doit rester sûr (pas d'eval)")
+        app = (ROOT / "assets" / "app.js").read_text(encoding="utf-8")
+        self.assertNotIn("Function(", app)
+
+    def test_hidden_attribute_always_wins(self):
+        css = (ROOT / "assets" / "style.css").read_text(encoding="utf-8")
+        self.assertRegex(css, r"\[hidden\]\s*\{\s*display:\s*none\s*!important")
+
+
+@unittest.skipUnless(shutil.which("node"), "node absent : tests unitaires JavaScript ignorés")
+class JavaScriptUnitTests(unittest.TestCase):
+    def test_node_unit_tests(self):
+        r = subprocess.run(["node", "--test", str(ROOT / "tests" / "js")], capture_output=True, text=True, cwd=ROOT)
+        self.assertEqual(r.returncode, 0, r.stdout[-4000:] + r.stderr[-2000:])
 
 
 if __name__ == "__main__":
