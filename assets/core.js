@@ -196,6 +196,327 @@
     try { return evaluate(expr, opts); } catch (e) { return NaN; }
   }
 
+  /* ---------- évaluation d'une expression LaTeX (calculatrice « comme au stylo ») ---------- */
+  /*
+   * Le brouillon produit du LaTeX (MathLive) : \frac{1}{2}, \sqrt[3]{8}, x^{2}, \int_{0}^{1}x^{2}\,\mathrm{d}x,
+   * \sum_{k=1}^{10}k, \ln\left(2\right), \left|-3\right|… On le compile en une fonction env → nombre :
+   * les variables (x d'une intégrale, k d'une somme) sont lues dans env au moment du calcul.
+   */
+  var LATEX_FUNCS = { sin: 1, cos: 1, tan: 1, arcsin: 1, arccos: 1, arctan: 1, ln: 1, log: 1, exp: 1, sinh: 1, cosh: 1, tanh: 1 };
+  var SPACES = { ',': 1, ';': 1, ':': 1, '!': 1, ' ': 1, quad: 1, qquad: 1, thinspace: 1, medspace: 1, thickspace: 1, enspace: 1 };
+
+  function latexPrepare(src) {
+    return String(src)
+      .replace(/\\(left|right|bigl|bigr|Bigl|Bigr|big|Big)(?![a-zA-Z])/g, '')
+      .replace(/\\(mathrm|operatorname|text|mathit)\{\s*d\s*\}/g, '\\diffd ')
+      .replace(/\\differentialD(?![a-zA-Z])/g, '\\diffd ')
+      .replace(/\\(mathrm|operatorname|text)\{\s*Ans\s*\}/gi, '\\ans ')
+      .replace(/\\(mathrm|operatorname|text)\{\s*e\s*\}/g, 'e')
+      .replace(/\\(mathrm|operatorname)\{\s*(sin|cos|tan|ln|log|exp|arcsin|arccos|arctan)\s*\}/g, '\\$2 ')
+      .replace(/\\exponentialE(?![a-zA-Z])/g, 'e')
+      .replace(/\\[dt]frac(?![a-zA-Z])/g, '\\frac')
+      .replace(/\\(cdot|times|ast)(?![a-zA-Z])/g, '*')
+      .replace(/\\div(?![a-zA-Z])/g, '/')
+      .replace(/\\(lvert|rvert|vert|mid)(?![a-zA-Z])/g, '|')
+      .replace(/\\\{/g, '(').replace(/\\\}/g, ')')
+      .replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-').replace(/π/g, '\\pi ');
+  }
+
+  function latexTokenize(s) {
+    var toks = [], i = 0, m;
+    while (i < s.length) {
+      var c = s[i], rest = s.slice(i);
+      if (/\s/.test(c)) { i++; continue; }
+      if ((m = /^\d+(?:(?:\{,\}|[.,])\d+)?/.exec(rest)) || (m = /^(?:\{,\}|[.,])\d+/.exec(rest))) {
+        toks.push({ t: 'num', v: parseFloat(m[0].replace('{,}', '.').replace(',', '.')), raw: m[0] });
+        i += m[0].length; continue;
+      }
+      if (c === '\\') {
+        if ((m = /^\\([a-zA-Z]+)/.exec(rest))) {
+          i += m[0].length;
+          if (!SPACES[m[1]]) toks.push({ t: 'cmd', v: m[1] });
+          continue;
+        }
+        var nx = s[i + 1];
+        i += 2;
+        if (nx === '%') toks.push({ t: '%' });
+        else if (nx === '|') toks.push({ t: '|' });
+        else if (!SPACES[nx]) throw new CalcError('Symbole non reconnu : \\' + (nx || ''));
+        continue;
+      }
+      if (/[a-zA-Z]/.test(c)) { toks.push({ t: 'id', v: c }); i++; continue; }
+      if ('+-*/^_(){}[]|!%=\''.indexOf(c) >= 0) { toks.push({ t: c }); i++; continue; }
+      throw new CalcError('Caractère non reconnu : « ' + c + ' »');
+    }
+    return toks;
+  }
+
+  function simpson(f, a, b, n) {
+    if (a === b) return 0;
+    n = n || 1000;
+    var h = (b - a) / n, s = f(a) + f(b);
+    for (var i = 1; i < n; i++) s += (i % 2 ? 4 : 2) * f(a + i * h);
+    var r = s * h / 3;
+    if (!isFinite(r)) throw new CalcError('Intégrale non calculable : la fonction n’est pas définie partout sur l’intervalle');
+    return r;
+  }
+
+  /**
+   * compileLatex(latex, opts) → fonction env → nombre (lève CalcError).
+   * opts.angle : 'rad' | 'deg' ; opts.ans : valeur de Ans.
+   */
+  function compileLatex(src, opts) {
+    opts = opts || {};
+    var deg = opts.angle === 'deg';
+    var toks = latexTokenize(latexPrepare(src)), p = 0, inIntegrand = 0;
+    if (!toks.length) throw new CalcError('Expression vide');
+    function peek(k) { return toks[p + (k || 0)]; }
+    function is(t, v) { var tk = toks[p]; return !!tk && tk.t === t && (v === undefined || tk.v === v); }
+    function eat(t, v) { if (is(t, v)) { p++; return true; } return false; }
+    function expect(t, msg) { if (!eat(t)) throw new CalcError(msg || 'Expression mal formée'); }
+    function isDiff() {
+      if (is('cmd', 'diffd')) return true;
+      return inIntegrand > 0 && is('id', 'd') && peek(1) && peek(1).t === 'id';
+    }
+    function startsPrimary() {
+      var tk = peek();
+      if (!tk || isDiff()) return false;
+      if (tk.t === 'cmd') return tk.v !== 'diffd';
+      return tk.t === 'num' || tk.t === 'id' || tk.t === '(' || tk.t === '{' || tk.t === '[';
+    }
+    function bin(a, b, op) {
+      return function (env) {
+        var x = a(env), y = b(env);
+        if (op === '+') return x + y;
+        if (op === '-') return x - y;
+        if (op === '*') return x * y;
+        if (y === 0) throw new CalcError('Division par zéro');
+        return x / y;
+      };
+    }
+    function parseExpr() {
+      var v = parseTerm();
+      for (;;) {
+        if (eat('+')) v = bin(v, parseTerm(), '+');
+        else if (eat('-')) v = bin(v, parseTerm(), '-');
+        else return v;
+      }
+    }
+    function parseTerm() {
+      var v = parseUnary();
+      for (;;) {
+        if (eat('*')) v = bin(v, parseUnary(), '*');
+        else if (eat('/')) v = bin(v, parseUnary(), '/');
+        else if (startsPrimary()) v = bin(v, parsePower(), '*');
+        else return v;
+      }
+    }
+    function parseUnary() {
+      if (eat('-')) { var a = parseUnary(); return function (env) { return -a(env); }; }
+      if (eat('+')) return parseUnary();
+      return parsePower();
+    }
+    /** En LaTeX, un argument sans accolades est un seul caractère : \\frac12 = 1/2, x^23 = x²·3. */
+    function singleDigit() {
+      var tk = peek();
+      if (tk && tk.t === 'num' && /^\d\d/.test(tk.raw)) {
+        var d = +tk.raw[0];
+        tk.raw = tk.raw.slice(1); tk.v = parseFloat(tk.raw.replace('{,}', '.').replace(',', '.'));
+        return function () { return d; };
+      }
+      return null;
+    }
+    /** argument d'un ^ ou d'un _ : {groupe} ou un seul symbole */
+    function parseScript() {
+      if (eat('{')) { var g = parseExpr(); expect('}', 'Accolade fermante manquante'); return g; }
+      if (is('cmd', 'circ')) { p++; return 'circ'; }
+      var one = singleDigit(); if (one) return one;
+      if (is('num') || is('id') || is('cmd')) return parsePrimary();
+      throw new CalcError('Exposant incomplet');
+    }
+    function degreeNode(a) { return function (env) { return deg ? a(env) : a(env) * Math.PI / 180; }; }
+    function parsePower() {
+      var b = parsePostfix();
+      while (is('^')) {
+        p++;
+        if (is('{') && peek(1) && peek(1).t === 'cmd' && peek(1).v === 'circ' && peek(2) && peek(2).t === '}') { p += 3; b = degreeNode(b); continue; }
+        var e = parseScript();
+        if (e === 'circ') { b = degreeNode(b); continue; }
+        b = (function (base, ex) { return function (env) { var r = Math.pow(base(env), ex(env)); if (isNaN(r)) throw new CalcError('Puissance non définie'); return r; }; })(b, e);
+      }
+      return b;
+    }
+    function parsePostfix() {
+      var v = parsePrimary();
+      for (;;) {
+        if (eat('!')) v = (function (a) { return function (env) { return factorial(a(env)); }; })(v);
+        else if (eat('%')) v = (function (a) { return function (env) { return a(env) / 100; }; })(v);
+        else if (is('\'')) throw new CalcError('La dérivée f′ ne se calcule pas ici');
+        else return v;
+      }
+    }
+    function group() {
+      if (eat('{')) { var g = parseExpr(); expect('}', 'Accolade fermante manquante'); return g; }
+      return singleDigit() || parsePrimary();
+    }
+    function applyLatexFn(name, x) {
+      var toRad = deg ? Math.PI / 180 : 1, fromRad = deg ? 180 / Math.PI : 1;
+      switch (name) {
+        case 'sin': return snap(Math.sin(x * toRad));
+        case 'cos': return snap(Math.cos(x * toRad));
+        case 'tan':
+          if (Math.abs(Math.cos(x * toRad)) < 1e-12) throw new CalcError('tan non définie pour cet angle');
+          return snap(Math.tan(x * toRad));
+        case 'arcsin': if (x < -1 || x > 1) throw new CalcError('arcsin demande un nombre entre −1 et 1'); return Math.asin(x) * fromRad;
+        case 'arccos': if (x < -1 || x > 1) throw new CalcError('arccos demande un nombre entre −1 et 1'); return Math.acos(x) * fromRad;
+        case 'arctan': return Math.atan(x) * fromRad;
+        case 'ln': if (x <= 0) throw new CalcError('ln demande un nombre strictement positif'); return Math.log(x);
+        case 'log': if (x <= 0) throw new CalcError('log demande un nombre strictement positif'); return Math.log(x) / Math.LN10;
+        case 'exp': return Math.exp(x);
+        case 'sinh': return Math.sinh(x);
+        case 'cosh': return Math.cosh(x);
+        case 'tanh': return Math.tanh(x);
+      }
+      throw new CalcError('Fonction inconnue');
+    }
+    function parseFunction(name) {
+      var pw = null, base = null;
+      for (;;) {
+        if (eat('^')) pw = parseScript();
+        else if (eat('_')) base = parseScript();
+        else break;
+      }
+      // \sin^{-1} = arcsin
+      if (pw && pw !== 'circ' && /^(sin|cos|tan)$/.test(name)) {
+        try { if (pw({}) === -1) { name = 'arc' + name; pw = null; } } catch (e) { /* exposant variable */ }
+      }
+      var arg = (is('(') || is('{') || is('[') || is('|')) ? parsePrimary() : parsePower();
+      var f = function (env) {
+        var x = arg(env), r;
+        if (name === 'log' && base) {
+          var b = base(env);
+          if (b <= 0 || b === 1) throw new CalcError('Base de logarithme invalide');
+          if (x <= 0) throw new CalcError('log demande un nombre strictement positif');
+          r = Math.log(x) / Math.log(b);
+        } else r = applyLatexFn(name, x);
+        return pw ? Math.pow(r, pw(env)) : r;
+      };
+      return f;
+    }
+    function parseBounds() {
+      var lo = null, hi = null;
+      for (var k = 0; k < 2; k++) {
+        if (eat('_')) lo = parseScript();
+        else if (eat('^')) hi = parseScript();
+      }
+      return { lo: lo, hi: hi };
+    }
+    function parsePrimary() {
+      var tk = peek();
+      if (!tk) throw new CalcError('Expression incomplète');
+      if (tk.t === 'num') { p++; return function () { return tk.v; }; }
+      if (tk.t === '(' || tk.t === '[' || tk.t === '{') {
+        p++;
+        var close = tk.t === '(' ? ')' : tk.t === '[' ? ']' : '}';
+        var g = parseExpr();
+        if (!eat(close)) { if (!(close === ')' && p >= toks.length)) throw new CalcError('Parenthèse fermante manquante'); }
+        return g;
+      }
+      if (tk.t === '|') {
+        p++; var a = parseExpr(); expect('|', 'Barre de valeur absolue manquante');
+        return function (env) { return Math.abs(a(env)); };
+      }
+      if (tk.t === 'id') {
+        p++;
+        if (tk.v === 'e') return function () { return Math.E; };
+        var name = tk.v;
+        return function (env) {
+          if (env && typeof env[name] === 'number') return env[name];
+          throw new CalcError('Variable « ' + name + ' » sans valeur : elle n’a de sens que dans une intégrale ou une somme');
+        };
+      }
+      if (tk.t === 'cmd') {
+        p++;
+        var c = tk.v;
+        if (c === 'pi') return function () { return Math.PI; };
+        if (c === 'ans') {
+          if (typeof opts.ans !== 'number') throw new CalcError('Pas encore de résultat Ans');
+          var av = opts.ans; return function () { return av; };
+        }
+        if (c === 'placeholder') { if (eat('{')) { while (p < toks.length && !eat('}')) p++; } throw new CalcError('Une case est vide : complète-la'); }
+        if (c === 'frac') {
+          var num = group(), den = group();
+          return bin(num, den, '/');
+        }
+        if (c === 'sqrt') {
+          var idx = null;
+          if (eat('[')) { idx = parseExpr(); expect(']', 'Crochet fermant manquant'); }
+          var rad = group();
+          return function (env) {
+            var x = rad(env);
+            if (!idx) { if (x < 0) throw new CalcError('Racine carrée d’un nombre négatif'); return Math.sqrt(x); }
+            var n = idx(env);
+            if (n === 0) throw new CalcError('Racine d’indice 0');
+            if (x < 0) { if (Math.round(n) === n && Math.abs(n) % 2 === 1) return -Math.pow(-x, 1 / n); throw new CalcError('Racine paire d’un nombre négatif'); }
+            return Math.pow(x, 1 / n);
+          };
+        }
+        if (LATEX_FUNCS[c]) return parseFunction(c);
+        if (c === 'int') {
+          var bd = parseBounds();
+          if (!bd.lo || !bd.hi) throw new CalcError('Il faut les deux bornes a et b de l’intégrale');
+          inIntegrand++;
+          var body = isDiff() ? function () { return 1; } : parseExpr();
+          inIntegrand--;
+          if (!(eat('cmd', 'diffd') || eat('id', 'd'))) throw new CalcError('Il manque « dx » à la fin de l’intégrale');
+          var vt = peek(); if (!vt || vt.t !== 'id') throw new CalcError('Variable d’intégration manquante après d'); p++;
+          var vname = vt.v;
+          return function (env) {
+            var a = bd.lo(env), b = bd.hi(env), e2 = Object.assign({}, env);
+            if (!isFinite(a) || !isFinite(b)) throw new CalcError('Bornes infinies non prises en charge');
+            return simpson(function (x) { e2[vname] = x; return body(e2); }, a, b);
+          };
+        }
+        if (c === 'sum' || c === 'prod') {
+          if (!eat('_')) throw new CalcError('Écris la somme sous la forme k = début en bas');
+          var hasBrace = eat('{');
+          var iv = peek(); if (!iv || iv.t !== 'id') throw new CalcError('Indice de la somme manquant'); p++;
+          expect('=', 'Écris l’indice sous la forme k = début');
+          var from = parseExpr();
+          if (hasBrace) expect('}', 'Accolade fermante manquante');
+          if (!eat('^')) throw new CalcError('Il manque la borne du haut de la somme');
+          var to = parseScript();
+          var term = parseTerm();
+          var isSum = c === 'sum';
+          return function (env) {
+            var a = from(env), b = to(env), e3 = Object.assign({}, env), acc = isSum ? 0 : 1;
+            if (Math.round(a) !== a || Math.round(b) !== b) throw new CalcError('Les bornes d’une somme sont des entiers');
+            if (b - a > 1e6) throw new CalcError('Somme trop longue');
+            for (var k2 = a; k2 <= b; k2++) { e3[iv.v] = k2; acc = isSum ? acc + term(e3) : acc * term(e3); }
+            return acc;
+          };
+        }
+        if (c === 'infty') throw new CalcError('∞ n’est pas un nombre : la calculatrice ne calcule pas de limite');
+        if (c === 'lim') throw new CalcError('Les limites ne se calculent pas à la calculatrice');
+        throw new CalcError('Commande non reconnue : \\' + c);
+      }
+      if (tk.t === '=') throw new CalcError('Un seul calcul à la fois, sans signe =');
+      throw new CalcError('Expression incomplète');
+    }
+    var root = parseExpr();
+    if (p < toks.length) {
+      var t = toks[p];
+      throw new CalcError(t.t === '=' ? 'Un seul calcul à la fois, sans signe =' : t.t === ')' || t.t === '}' ? 'Parenthèse fermante en trop' : 'Expression mal formée');
+    }
+    return root;
+  }
+
+  function evaluateLatex(src, opts) {
+    var v = compileLatex(src, opts)({});
+    if (typeof v !== 'number' || isNaN(v)) throw new CalcError('Résultat non défini');
+    return v;
+  }
+
   /** Lit une réponse d'élève : « 2,5 », « 3/4 », « -2 », « ln(2) », « pi/3 », « 2√3 »… NaN si illisible. */
   function parseNum(s) {
     if (s === null || s === undefined) return NaN;
@@ -319,6 +640,7 @@
     evaluate: evaluate, tryEvaluate: tryEvaluate, parseNum: parseNum, CalcError: CalcError,
     fmt: fmt, fmtCalc: fmtCalc,
     niceStep: niceStep, tickStep: tickStep, decimalsFor: decimalsFor, piLabel: piLabel, clampLabel: clampLabel,
-    insertSnippet: insertSnippet, CARET: CARET, splitTopLevel: splitTopLevel
+    insertSnippet: insertSnippet, CARET: CARET, splitTopLevel: splitTopLevel,
+    compileLatex: compileLatex, evaluateLatex: evaluateLatex, simpson: simpson
   };
 });
