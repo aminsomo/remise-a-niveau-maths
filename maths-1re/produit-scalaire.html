@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Produit scalaire dans le plan · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="maths-1re/produit-scalaire">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths 1re · Géométrie · Spécialité PCM</p>
+    <h1>Produit scalaire dans le plan</h1>
+    <p class="lead">Le produit scalaire mesure « combien un vecteur va dans la direction d'un autre ». En physique, c'est exactement
+      le travail d'une force : \(W = \vec F \cdot \overrightarrow{AB}\). En géométrie, il donne angles, longueurs et orthogonalité.</p>
+    <p class="prereq">Prérequis : vecteurs et coordonnées (seconde), <a href="trigonometrie.html">cosinus</a>.</p>
+  </header>
+
+  <section>
+    <h2>1. Projection orthogonale et définition</h2>
+    <div class="box def"><p class="box-title">Projection d'un vecteur sur un axe</p>
+      <p>Sur un axe dirigé par un vecteur unitaire, la projection orthogonale de \(\vec u\) a pour mesure algébrique \(\|\vec u\|\cos\theta\),
+        où \(\theta\) est l'angle entre \(\vec u\) et l'axe : positive si \(\theta\) est aigu, négative s'il est obtus, nulle s'il est droit.</p>
+    </div>
+    <div class="box def"><p class="box-title">Définition géométrique</p>
+      <p>Si \(\vec u\) et \(\vec v\) sont non nuls et forment un angle \(\theta\) :
+        \[\vec u \cdot \vec v = \|\vec u\| \times \|\vec v\| \times \cos\theta.\]
+        Si l'un des deux vecteurs est nul, \(\vec u \cdot \vec v = 0\).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Interprétation par projection</p>
+      <p>Si \(\vec{v'}\) est le projeté orthogonal de \(\vec v\) sur la droite dirigée par \(\vec u\), alors \(\vec u \cdot \vec v = \vec u \cdot \vec{v'}\) :
+        c'est \(\pm\|\vec u\| \times \|\vec{v'}\|\), avec le signe \(+\) si \(\vec u\) et \(\vec{v'}\) ont le même sens.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1</p>
+      <p>\(\|\vec u\| = 4\), \(\|\vec v\| = 3\), angle \(120^\circ\). Calculer \(\vec u \cdot \vec v\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(4 \times 3 \times \cos 120^\circ = 12 \times (-\tfrac12) = -6\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Dans un repère orthonormé</h2>
+    <div class="box prop"><p class="box-title">Expression analytique</p>
+      <p>Si \(\vec u\,(x\,;\,y)\) et \(\vec v\,(x'\,;\,y')\) dans une base orthonormée :
+        \[\vec u \cdot \vec v = xx' + yy' \qquad\qquad \|\vec u\| = \sqrt{\vec u \cdot \vec u} = \sqrt{x^2 + y^2}.\]</p>
+    </div>
+    <div class="box prop"><p class="box-title">Propriétés</p>
+      <ul>
+        <li>Symétrie : \(\vec u \cdot \vec v = \vec v \cdot \vec u\).</li>
+        <li>Bilinéarité : \(\vec u \cdot (\vec v + \vec w) = \vec u \cdot \vec v + \vec u \cdot \vec w\) et \((k\vec u) \cdot \vec v = k(\vec u \cdot \vec v)\).</li>
+        <li><b>Orthogonalité</b> : \(\vec u \perp \vec v \iff \vec u \cdot \vec v = 0\).</li>
+      </ul>
+    </div>
+    <div class="box method"><p class="box-title">Méthode : calculer un angle</p>
+      <p>\(\cos\theta = \dfrac{\vec u \cdot \vec v}{\|\vec u\|\,\|\vec v\|}\), puis \(\theta = \arccos(\dots)\) à la calculatrice (touche <code>cos⁻¹</code>).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2</p>
+      <p>\(\vec u\,(3\,;\,1)\) et \(\vec v\,(-1\,;\,3)\) sont-ils orthogonaux ? Angle entre \(\vec u\) et \(\vec w\,(2\,;\,4)\) ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\vec u \cdot \vec v = -3 + 3 = 0\) : orthogonaux.</p>
+        <p>\(\vec u \cdot \vec w = 6 + 4 = 10\), \(\|\vec u\| = \sqrt{10}\), \(\|\vec w\| = \sqrt{20}\) ; \(\cos\theta = \dfrac{10}{\sqrt{200}} = \dfrac{\sqrt2}{2}\), donc \(\theta = 45^\circ\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Al Kashi et parallélogramme</h2>
+    <div class="box prop"><p class="box-title">Théorème d'Al Kashi (Pythagore généralisé)</p>
+      <p>Dans un triangle \(ABC\) avec \(a = BC\), \(b = AC\), \(c = AB\) et \(\hat A\) l'angle en \(A\) :
+        \[a^2 = b^2 + c^2 - 2bc\cos\hat A.\]
+        Si \(\hat A = 90^\circ\), on retrouve Pythagore.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Égalité du parallélogramme</p>
+      <p>\(\|\vec u + \vec v\|^2 + \|\vec u - \vec v\|^2 = 2\left(\|\vec u\|^2 + \|\vec v\|^2\right)\) : la somme des carrés des diagonales vaut la somme des carrés des quatre côtés.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — distance inaccessible</p>
+      <p>Depuis un point \(A\), on vise deux bouées \(B\) et \(C\) : \(AB = 300\) m, \(AC = 500\) m, \(\widehat{BAC} = 60^\circ\). Distance \(BC\) ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(BC^2 = 500^2 + 300^2 - 2 \times 500 \times 300 \times \tfrac12 = 190\,000\), donc \(BC \approx 435{,}9\) m.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Travail d'une force</h2>
+    <div class="box prop"><p class="box-title">Lien avec la physique</p>
+      <p>Le travail d'une force constante \(\vec F\) sur un déplacement rectiligne \(\overrightarrow{AB}\) est
+        \[W_{AB}(\vec F) = \vec F \cdot \overrightarrow{AB} = F \times AB \times \cos\alpha.\]
+        Une force perpendiculaire au déplacement ne travaille pas ; par bilinéarité, le travail de la résultante est la somme des travaux.
+        Voir <a href="../physique-1re/energie-mecanique.html">Mouvement et énergie mécanique</a>.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
+    <div class="widget" id="w-ps">
+      <p class="widget-title">Produit scalaire et projection</p>
+      <p class="hint">Le segment orange est la projection de \(\vec v\) sur la droite de \(\vec u\). Le produit scalaire change de signe quand l'angle dépasse 90°.</p>
+      <div class="controls">
+        <label>\(\vec u\) : x <input type="range" data-k="ux" min="-5" max="5" step="0.5" value="4"> <output data-show="ux"></output></label>
+        <label>y <input type="range" data-k="uy" min="-5" max="5" step="0.5" value="1"> <output data-show="uy"></output></label>
+        <label>\(\vec v\) : x <input type="range" data-k="vx" min="-5" max="5" step="0.5" value="1.5"> <output data-show="vx"></output></label>
+        <label>y <input type="range" data-k="vy" min="-5" max="5" step="0.5" value="3"> <output data-show="vy"></output></label>
+      </div>
+      <canvas class="plot tall"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : produit scalaire</p>
+      <p class="hint">Valeur exacte ou arrondie à 0,01 près ; les angles en degrés.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="0">
+        <p>\(\vec u\,(2\,;\,-3)\) et \(\vec v\,(6\,;\,4)\) :</p>
+        <ol class="choices"><li>sont orthogonaux</li><li>sont colinéaires</li><li>ont un produit scalaire égal à 24</li><li>forment un angle aigu</li></ol>
+        <p class="explain">\(12 - 12 = 0\).</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Si \(\vec u \cdot \vec v &lt; 0\), l'angle entre \(\vec u\) et \(\vec v\) est :</p>
+        <ol class="choices"><li>nul</li><li>aigu</li><li>obtus</li><li>droit</li></ol>
+        <p class="explain">\(\cos\theta &lt; 0 \iff \theta \in ]90^\circ\,;\,180^\circ]\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Le poids d'une valise tirée horizontalement sur 10 m :</p>
+        <ol class="choices"><li>a un travail positif</li><li>a un travail négatif</li><li>a un travail égal à \(mg \times 10\)</li><li>ne travaille pas</li></ol>
+        <p class="explain">Le poids est vertical, perpendiculaire au déplacement : \(\cos 90^\circ = 0\).</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Dans un triangle, \(b = 3\), \(c = 4\), \(\hat A = 90^\circ\). Alors \(a =\)</p>
+        <ol class="choices"><li>7</li><li>5</li><li>\(\sqrt7\)</li><li>12</li></ol>
+        <p class="explain">Al Kashi avec \(\cos 90^\circ = 0\) : Pythagore, \(a^2 = 25\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+produit+scalaire+definition+projection">Produit scalaire et projection — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+produit+scalaire+coordonnees">Produit scalaire avec les coordonnées<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+theoreme+Al+Kashi">Théorème d'Al Kashi<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  var w = document.getElementById('w-ps'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { xmin: -6, xmax: 6, ymin: -6, ymax: 6, equal: true });
+  Course.onInput(w, function (v) {
+    var dot = v.ux * v.vx + v.uy * v.vy, nu = Math.hypot(v.ux, v.uy), nv = Math.hypot(v.vx, v.vy);
+    var k = nu ? dot / (nu * nu) : 0, px = k * v.ux, py = k * v.uy;
+    G.draw = function (g) {
+      if (nu) g.seg(-12 * v.ux / nu, -12 * v.uy / nu, 12 * v.ux / nu, 12 * v.uy / nu, '--muted', { dash: [3, 4], width: 1 });
+      g.seg(v.vx, v.vy, px, py, '--muted', { dash: [4, 3], width: 1 });
+      g.seg(0, 0, px, py, '--c4', { width: 6 });
+      g.arrow(0, 0, v.ux, v.uy, '--c1', 'u');
+      g.arrow(0, 0, v.vx, v.vy, '--c2', 'v');
+    };
+    G.redraw();
+    var ang = nu && nv ? Math.acos(Math.max(-1, Math.min(1, dot / (nu * nv)))) * 180 / Math.PI : NaN;
+    out.textContent = 'u · v = ' + Course.fmt(v.ux) + ' × ' + Course.fmt(v.vx) + ' + ' + Course.fmt(v.uy) + ' × ' + Course.fmt(v.vy) + ' = ' + Course.fmt(dot) +
+      '\n‖u‖ = ' + Course.fmt(nu) + '   ‖v‖ = ' + Course.fmt(nv) + '   angle = ' + Course.fmt(ang, 1) + '°' +
+      (Math.abs(dot) < 1e-9 && nu && nv ? '\n→ vecteurs orthogonaux' : '');
+  });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 3);
+    if (k === 0) { var a = R(-5, 5), b = R(-5, 5), c = R(-5, 5), d = R(-5, 5);
+      return { html: '<p>\\(\\vec u\\,(' + a + ' ; ' + b + ')\\) et \\(\\vec v\\,(' + c + ' ; ' + d + ')\\). Calcule \\(\\vec u \\cdot \\vec v\\).</p>', answer: a * c + b * d, explain: '\\(xx\' + yy\'\\).' }; }
+    if (k === 1) { var n1 = R(2, 8), n2 = R(2, 8), th = P([30, 45, 60, 90, 120, 135, 150]), ans = n1 * n2 * Math.cos(th * Math.PI / 180);
+      ans = Math.round(ans * 1e9) / 1e9;
+      return { html: '<p>\\(\\|\\vec u\\| = ' + n1 + '\\), \\(\\|\\vec v\\| = ' + n2 + '\\), angle \\(' + th + '^\\circ\\). Calcule \\(\\vec u \\cdot \\vec v\\).</p>', answer: ans, tol: A(ans), explain: '\\(' + n1 + ' \\times ' + n2 + ' \\times \\cos ' + th + '^\\circ\\).' }; }
+    if (k === 2) { var bb = R(3, 9), cc = R(3, 9), A0 = P([30, 45, 60, 120]), a2 = Math.sqrt(bb * bb + cc * cc - 2 * bb * cc * Math.cos(A0 * Math.PI / 180));
+      return { html: '<p>Triangle \\(ABC\\) : \\(AB = ' + cc + '\\), \\(AC = ' + bb + '\\), \\(\\widehat{BAC} = ' + A0 + '^\\circ\\). Calcule \\(BC\\).</p>', answer: a2, tol: A(a2), explain: 'Al Kashi : \\(BC^2 = AB^2 + AC^2 - 2\\,AB \\times AC\\cos\\hat A\\).' }; }
+    var F = R(2, 20) * 10, d2 = R(2, 30), al = P([0, 30, 45, 60, 90, 120, 180]), W = Math.round(F * d2 * Math.cos(al * Math.PI / 180) * 1e9) / 1e9;
+    return { html: '<p>Une force de ' + F + ' N fait un angle de ' + al + '° avec un déplacement de ' + d2 + ' m. Travail (en J) ?</p>', answer: W, tol: A(W), explain: '\\(W = F \\times d \\times \\cos\\alpha\\).' };
+  });
+});
+</script>
+</body>
+</html>

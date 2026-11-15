@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Algorithmique et programmation en Python · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="maths-1re/algorithmique">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths 1re · Algorithmique et programmation · Tronc commun</p>
+    <h1>Algorithmique et programmation en Python</h1>
+    <p class="lead">Variables, conditions, boucles, fonctions et listes en Python : de quoi calculer les termes d'une suite,
+      trouver un seuil, approcher une solution par balayage ou simuler une expérience aléatoire.</p>
+    <p class="prereq">Prérequis : les bases de Python vues en seconde.</p>
+  </header>
+
+  <section>
+    <h2>1. Variables, affectation, fonctions</h2>
+    <div class="box def"><p class="box-title">Affectation</p>
+      <p><code>x = 3</code> range la valeur 3 dans la variable <code>x</code> (en langage naturel : \(x \leftarrow 3\)). <code>x = x + 1</code> remplace l'ancienne valeur par la nouvelle.
+        Types usuels : entier (<code>int</code>), flottant (<code>float</code>), booléen (<code>True</code>/<code>False</code>), chaîne (<code>str</code>), liste (<code>list</code>).</p>
+    </div>
+    <div class="box def"><p class="box-title">Fonction</p>
+<pre><code>def f(x):
+    return 3 * x**2 - 2 * x + 1   # ** est la puissance en Python
+
+print(f(2))   # 9</code></pre>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — échange</p>
+      <p>Que contiennent <code>a</code> et <code>b</code> après <code>a = 5</code>, <code>b = 2</code>, <code>a = a + b</code>, <code>b = a - b</code>, <code>a = a - b</code> ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(a = 7\), puis \(b = 7 - 2 = 5\), puis \(a = 7 - 5 = 2\) : les valeurs ont été échangées (\(a = 2\), \(b = 5\)).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Conditions et boucles</h2>
+    <div class="box def"><p class="box-title">Instruction conditionnelle et opérateurs logiques</p>
+<pre><code>if x &gt; 0 and x &lt; 10:      # and (ET), or (OU), not (NON)
+    print("entre 0 et 10")
+elif x == 0:               # == teste l'égalité, = affecte
+    print("nul")
+else:
+    print("ailleurs")</code></pre>
+    </div>
+    <div class="box def"><p class="box-title">Boucles</p>
+      <ul>
+        <li><code>for k in range(n):</code> répète \(n\) fois, \(k\) prenant les valeurs \(0, 1, \dots, n - 1\).</li>
+        <li><code>while condition:</code> répète tant que la condition est vraie (nombre de tours inconnu à l'avance : algorithme de seuil).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — somme et seuil</p>
+<pre><code>def somme(n):            # 1 + 2 + ... + n
+    s = 0
+    for k in range(1, n + 1):
+        s = s + k
+    return s
+
+def seuil(S):            # premier n tel que 1,05^n &gt; S
+    n, u = 0, 1
+    while u &lt;= S:
+        n, u = n + 1, u * 1.05
+    return n
+
+print(somme(10), seuil(2))   # 55 15</code></pre>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Listes et balayage</h2>
+    <div class="box def"><p class="box-title">Listes</p>
+      <p>Une liste se crée en <b>extension</b> <code>L = [2, 3, 5, 7]</code> ou en <b>compréhension</b> <code>carres = [k**2 for k in range(6)]</code>
+        (→ <code>[0, 1, 4, 9, 16, 25]</code>), éventuellement filtrée : <code>[k for k in range(20) if k % 3 == 0]</code>.
+        <code>L[0]</code> est le premier élément, <code>len(L)</code> la longueur, <code>L.append(x)</code> ajoute \(x\) à la fin.</p>
+    </div>
+    <div class="box method"><p class="box-title">Résoudre \(f(x) = 0\) par balayage</p>
+<pre><code>def balayage(f, a, pas):
+    x = a
+    while f(x) * f(x + pas) &gt; 0:   # pas de changement de signe
+        x = x + pas
+    return x, x + pas              # la solution est entre les deux
+
+print(balayage(lambda x: x**3 - 2, 0, 0.01))   # (1.25..., 1.26...) car ∛2 ≈ 1,2599</code></pre>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — simulation</p>
+      <p>Écrire une fonction qui simule \(n\) lancers d'un dé et renvoie la fréquence des 6.</p>
+      <details class="solution"><summary>Solution</summary>
+<pre><code>from random import randint
+
+def freq6(n):
+    return len([1 for _ in range(n) if randint(1, 6) == 6]) / n
+
+print(freq6(10000))   # proche de 1/6 ≈ 0,167</code></pre>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-scan">
+      <p class="widget-title">Balayage pas à pas pour \(x^3 - c = 0\)</p>
+      <p class="hint">Le programme avance de \(x\) en \(x + \text{pas}\) jusqu'au changement de signe. Un pas 10 fois plus petit : un chiffre exact de plus, mais 10 fois plus de tours.</p>
+      <div class="controls">
+        <label>\(c\) <input type="range" data-k="c" min="1" max="20" step="1" value="2"> <output data-show="c"></output></label>
+        <label>pas <select data-k="pas"><option value="1">1</option><option value="0.1" selected>0,1</option><option value="0.01">0,01</option><option value="0.001">0,001</option></select></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : que renvoie ce programme ?</p>
+      <p class="hint">Exécute le programme « à la main » et donne la valeur affichée.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="2">
+        <p>Combien de fois s'exécute le corps de <code>for k in range(2, 9):</code> ?</p>
+        <ol class="choices"><li>9</li><li>8</li><li>7</li><li>6</li></ol>
+        <p class="explain">\(k\) va de 2 à 8 inclus : \(9 - 2 = 7\) tours.</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p><code>[2 * k for k in range(4)]</code> vaut :</p>
+        <ol class="choices"><li><code>[0, 2, 4, 6]</code></li><li><code>[2, 4, 6, 8]</code></li><li><code>[0, 1, 2, 3]</code></li><li><code>[2, 4, 6]</code></li></ol>
+        <p class="explain"><code>range(4)</code> donne 0, 1, 2, 3.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Pour répéter un calcul jusqu'à dépasser un seuil, on utilise :</p>
+        <ol class="choices"><li>un <code>if</code></li><li>une liste</li><li>une boucle <code>for</code> de longueur fixe</li><li>une boucle <code>while</code></li></ol>
+        <p class="explain">On ne connaît pas le nombre de tours à l'avance.</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Que vaut <code>7 % 3</code> en Python ?</p>
+        <ol class="choices"><li>2,33</li><li>1</li><li>2</li><li>21</li></ol>
+        <p class="explain"><code>%</code> donne le reste de la division euclidienne : \(7 = 2 \times 3 + 1\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+python+boucle+while">Boucles while en Python — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+python+listes+comprehension">Listes en compréhension<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=methode+de+balayage+python+premiere">Méthode de balayage<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  var w = document.getElementById('w-scan'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), {});
+  Course.onInput(w, function (v) {
+    var pas = parseFloat(v.pas), f = function (x) { return x * x * x - v.c; }, x = 0, tours = 0;
+    while (f(x) * f(x + pas) > 0 && tours < 100000) { x += pas; tours++; }
+    var r = Math.cbrt(v.c), lim = r + 1;
+    G.draw = function (g) {
+      g.fn(f, '--c1');
+      if (pas >= 0.01) for (var t = 0; t <= x + 1e-9; t += pas) g.point(t, f(t), '--c2', null, { r: pas >= 0.1 ? 3 : 1.5 });
+      g.seg(x, f(x), x, 0, '--c4', { width: 2 }); g.seg(x + pas, f(x + pas), x + pas, 0, '--c4', { width: 2 });
+      g.point(r, 0, '--c3', '∛c');
+    };
+    G.redraw({ xmin: -0.3, xmax: lim + 0.3, ymin: -v.c - 1, ymax: Math.pow(lim, 3) - v.c + 1 });
+    out.textContent = 'balayage(f, 0, ' + v.pas + ') → (' + Course.fmt(x, 4) + ', ' + Course.fmt(x + pas, 4) + ')  en ' + tours + ' tours de boucle' +
+      '\nvaleur exacte ∛' + v.c + ' = ' + Course.fmt(r, 6);
+  });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 3), code, ans;
+    if (k === 0) { var n = R(3, 8), a = R(1, 4); code = 's = 0\nfor k in range(' + n + '):\n    s = s + ' + a + ' * k\nprint(s)'; ans = a * n * (n - 1) / 2; }
+    else if (k === 1) { var u0 = R(1, 5), m = R(2, 3), b = R(-3, 3), n1 = R(2, 4), u = u0; for (var i = 0; i < n1; i++) u = m * u + b;
+      code = 'u = ' + u0 + '\nfor i in range(' + n1 + '):\n    u = ' + m + ' * u ' + (b < 0 ? '- ' + -b : '+ ' + b) + '\nprint(u)'; ans = u; }
+    else if (k === 2) { var S = R(20, 200), q = P([2, 3]), n2 = 0, v2 = 1; while (v2 <= S) { v2 *= q; n2++; }
+      code = 'n, v = 0, 1\nwhile v &lt;= ' + S + ':\n    n = n + 1\n    v = v * ' + q + '\nprint(n)'; ans = n2; }
+    else { var lim = R(10, 30), d = P([2, 3, 4, 5]); code = 'L = [k for k in range(' + lim + ') if k % ' + d + ' == 0]\nprint(len(L))'; ans = Math.ceil(lim / d); }
+    return { html: '<pre><code>' + code + '</code></pre>', answer: ans, explain: 'Fais un tableau d\'état des variables, tour par tour.' };
+  });
+});
+</script>
+</body>
+</html>

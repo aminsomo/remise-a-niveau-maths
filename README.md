@@ -1,8 +1,16 @@
 # Remise à niveau — Terminale STI2D → Prépa
 
 Cours interactif en français (maths + physique-chimie) pour consolider tout le programme de
-**Terminale STI2D** (tronc commun, spécialité maths, spécialité physique-chimie et mathématiques)
-et arriver en **classe préparatoire** (TSI, PTSI…) sans lacune.
+**Première et Terminale STI2D** (tronc commun de maths, spécialité « physique-chimie et
+mathématiques ») et arriver en **classe préparatoire** (TSI, PTSI…) sans lacune.
+
+| Niveau | Matière | Dossier | Chapitres |
+|---|---|---|---|
+| Première | Mathématiques | `maths-1re/` | 14 |
+| Première | Physique-chimie | `physique-1re/` | 14 |
+| Terminale | Mathématiques | `maths/` | 11 |
+| Terminale | Physique-chimie | `physique/` | 7 |
+| Vers la prépa | Méthodes | `prepa/` | 4 |
 
 Chaque chapitre contient : cours, exemples rédigés, animations manipulables, exercices
 auto-générés, quiz corrigé et liens vers des vidéos en français.
@@ -28,8 +36,8 @@ directement depuis le disque et se publie tel quel sur GitHub Pages.
 flowchart TB
     subgraph Pages["Pages HTML"]
         IDX["index.html<br/>accueil"]
-        M["maths/*.html<br/>chapitres de maths"]
-        PH["physique/*.html<br/>chapitres de physique-chimie"]
+        M["maths-1re/, maths/*.html<br/>chapitres de maths (1re, Tle)"]
+        PH["physique-1re/, physique/*.html<br/>chapitres de physique-chimie (1re, Tle)"]
         PR["prepa/*.html<br/>pont vers la prépa"]
     end
 
@@ -117,13 +125,14 @@ d'expressions sûr (`evaluate`, sans `eval`), `parseNum`, `fmt`, `fmtCalc`, grad
 ## Structure
 
 ```
-index.html            accueil (liste des chapitres générée depuis le manifeste)
+index.html            accueil (chapitres regroupés par niveau, générés depuis le manifeste)
 assets/chapters.js    manifeste : matières et chapitres (JSON entre marqueurs)
 assets/core.js        fonctions pures testées : évaluateur, formatage, graduations
 assets/app.js         moteur commun : navigation, quiz, traceur de courbes, exercices, plein écran
 assets/brouillon.js   brouillon plein écran + palette de symboles + calculatrice
 assets/style.css      styles communs (thème clair/sombre)
-maths/ physique/ prepa/   un fichier HTML par chapitre
+maths-1re/ physique-1re/  Première : un fichier HTML par chapitre
+maths/ physique/ prepa/   Terminale et pont vers la prépa
 templates/chapitre.html   modèle pour écrire un nouveau chapitre
 tests/                tests de cohérence (Python), tests/js/ (unitaires, node --test),
                       tests/e2e/ (navigateur : ordinateur, Android, iPhone, iPad)
@@ -132,7 +141,8 @@ tests/                tests de cohérence (Python), tests/js/ (unitaires, node -
 ## Ajouter un chapitre
 
 1. Copier `templates/chapitre.html` vers `<matière>/<slug>.html`.
-2. Ajouter l'entrée `{ "slug", "title", "summary", "tags" }` dans `assets/chapters.js`.
+2. Ajouter l'entrée `{ "slug", "title", "summary", "tags" }` dans `assets/chapters.js`
+   (chaque matière porte un `level` : `1re`, `tle` ou `prepa`, décrit dans `levels`).
 3. Lancer les tests.
 
 ## Tests
@@ -154,9 +164,11 @@ quiz ≥ 4 questions avec réponse valide et explication, ≥ 2 liens vidéo), u
 
 ## Sources
 
-Le contenu est original et suit les programmes officiels de Terminale STI2D publiés au Bulletin
-officiel (voir eduscol.education.fr) — les mêmes que suivent les manuels utilisés en classe
-(*Algomaths Tle séries techno*, Delagrave, pour les maths ; *Physique-Chimie Tle STI2D
-enseignement de spécialité*, Nathan 2020, pour la physique-chimie). Aucun contenu de ces
-manuels n'est reproduit. Les liens vidéo pointent vers des recherches YouTube
+Le contenu est original et suit les programmes officiels publiés au Bulletin officiel (voir
+eduscol.education.fr) : programme de mathématiques de la classe de première technologique
+(enseignement commun) et programme de spécialité « physique-chimie et mathématiques » de
+première STI2D (BO spécial n° 1 du 22 janvier 2019), puis ceux de Terminale. Ce sont les mêmes
+programmes que suivent les manuels utilisés en classe (*Algomaths 1re et Tle séries techno*,
+Delagrave ; *Physique-Chimie 1re STI2D*, Delagrave ; *Physique-Chimie Tle STI2D*, Nathan).
+Aucun contenu de ces manuels n'est reproduit. Les liens vidéo pointent vers des recherches YouTube
 (chaînes pédagogiques françaises : Yvan Monka, etc.) pour rester valides dans le temps.

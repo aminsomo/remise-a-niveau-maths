@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Suites : modèles d'évolutions discrètes · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="maths-1re/suites">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths 1re · Analyse · Tronc commun</p>
+    <h1>Suites : modèles d'évolutions discrètes</h1>
+    <p class="lead">Une suite décrit une grandeur mesurée à intervalles réguliers : un capital chaque année, une population
+      de bactéries chaque heure, la charge d'une batterie à chaque cycle. On apprend à la générer, à la représenter
+      et à reconnaître une croissance linéaire ou exponentielle.</p>
+    <p class="prereq">Prérequis : <a href="automatismes.html">évolutions en pourcentage</a>, fonctions affines.</p>
+  </header>
+
+  <section>
+    <h2>1. Générer une suite</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Une <b>suite</b> \(u\) associe à chaque entier naturel \(n\) un nombre réel noté \(u(n)\) ou \(u_n\) : le <b>terme de rang \(n\)</b>.</p>
+      <ul>
+        <li><b>Relation fonctionnelle</b> : \(u_n = f(n)\), par exemple \(u_n = n^2 + 1\). On calcule directement \(u_{10} = 101\).</li>
+        <li><b>Relation de récurrence</b> : on donne \(u_0\) et une règle \(u_{n+1} = f(u_n)\). Pour \(u_3\), il faut \(u_1\), puis \(u_2\).</li>
+      </ul>
+    </div>
+    <div class="box def"><p class="box-title">Sens de variation et représentation</p>
+      <p>\(u\) est <b>croissante</b> si \(u_{n+1} \geq u_n\) pour tout \(n\), <b>décroissante</b> si \(u_{n+1} \leq u_n\).
+        On représente une suite par le <b>nuage de points</b> de coordonnées \((n\,;\,u_n)\) : des points isolés, sans les relier.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — une suite ni arithmétique ni géométrique</p>
+      <p>\(u_0 = 1\) et \(u_{n+1} = 2u_n - 3\). Calculer \(u_1, u_2, u_3\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(u_1 = 2 \times 1 - 3 = -1\), \(u_2 = 2 \times (-1) - 3 = -5\), \(u_3 = -13\).
+          Les écarts \(-2, -4, -8\) ne sont pas constants et les quotients non plus : elle n'est ni arithmétique ni géométrique.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Suites arithmétiques : croissance linéaire</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>\(u\) est <b>arithmétique de raison \(r\)</b> si, pour tout \(n\), \(u_{n+1} = u_n + r\) : on ajoute toujours la même quantité.
+        C'est le modèle d'une <b>évolution absolue constante</b>.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Propriétés</p>
+      <ul>
+        <li>Croissante si \(r > 0\), décroissante si \(r &lt; 0\), constante si \(r = 0\).</li>
+        <li>Les points \((n\,;\,u_n)\) sont <b>alignés</b>. Terme de rang \(n\) : \(u_n = u_0 + nr\).</li>
+      </ul>
+    </div>
+    <div class="box method"><p class="box-title">Méthode : démontrer qu'une suite est arithmétique</p>
+      <p>On calcule \(u_{n+1} - u_n\) pour un \(n\) quelconque et on montre que le résultat ne dépend pas de \(n\).
+        Ex. \(u_n = 5 - 3n\) : \(u_{n+1} - u_n = 5 - 3(n+1) - 5 + 3n = -3\). Arithmétique de raison \(-3\).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Suites géométriques : croissance exponentielle</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>\(u\) (à termes strictement positifs) est <b>géométrique de raison \(q > 0\)</b> si \(u_{n+1} = q \times u_n\) : on multiplie toujours par le même nombre.
+        C'est le modèle d'une <b>évolution relative constante</b> : \(+t\,\%\) par période donne \(q = 1 + \tfrac{t}{100}\).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Propriétés (\(u_0 > 0\))</p>
+      <ul>
+        <li>Croissante si \(q > 1\), décroissante si \(0 &lt; q &lt; 1\), constante si \(q = 1\).</li>
+        <li>Terme de rang \(n\) : \(u_n = u_0 \times q^n\) (formule étudiée en détail en Terminale).</li>
+      </ul>
+    </div>
+    <div class="box method"><p class="box-title">Méthode : démontrer qu'une suite est géométrique</p>
+      <p>On montre que \(\dfrac{u_{n+1}}{u_n}\) est constant. Ex. \(u_n = 3 \times 2^n\) : \(\dfrac{u_{n+1}}{u_n} = \dfrac{3 \times 2^{n+1}}{3 \times 2^n} = 2\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — deux offres d'abonnement</p>
+      <p>Offre A : 600 € la 1re année puis +40 € par an. Offre B : 600 € puis +6 % par an. Laquelle est la moins chère la 5e année ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>A est arithmétique : \(a_4 = 600 + 4 \times 40 = 760\) €. B est géométrique : \(b_4 = 600 \times 1{,}06^4 \approx 757{,}49\) €.</p>
+        <p>B est encore un peu moins chère la 5e année, mais la croissance exponentielle finit toujours par dépasser la linéaire : dès la 6e année, \(b_5 \approx 802{,}94 > a_5 = 800\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Algorithme de seuil</h2>
+    <p>Pour trouver le premier rang où une suite dépasse un seuil, on calcule les termes un par un avec une boucle <code>while</code> :</p>
+<pre><code>def seuil(u0, S):
+    n, u = 0, u0
+    while u &lt;= S:
+        u = 2 * u - 3      # relation de récurrence
+        n = n + 1
+    return n
+
+print(seuil(4, 1000))   # 10 : u_10 = 1 027 est le premier terme &gt; 1 000</code></pre>
+    <div class="box example"><p class="box-title">Exemple 3</p>
+      <p>Une colonie de 500 bactéries augmente de 20 % par heure. Au bout de combien d'heures dépasse-t-elle 2 000 ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(u_{n+1} = 1{,}2\,u_n\) : 500 ; 600 ; 720 ; 864 ; 1 036,8 ; 1 244,2 ; 1 493 ; 1 791,6 ; 2 149,9. Il faut <b>8 heures</b>.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
+    <div class="widget" id="w-rec">
+      <p class="widget-title">Suite définie par \(u_{n+1} = a\,u_n + b\)</p>
+      <p class="hint">Avec \(a = 1\) elle est arithmétique, avec \(b = 0\) géométrique. Ailleurs, elle n'est ni l'une ni l'autre : observe le nuage de points.</p>
+      <div class="controls">
+        <label>\(u_0\) <input type="range" data-k="u0" min="-5" max="10" step="0.5" value="2"> <output data-show="u0"></output></label>
+        <label>\(a\) <input type="range" data-k="a" min="0" max="2" step="0.05" value="1.2"> <output data-show="a"></output></label>
+        <label>\(b\) <input type="range" data-k="b" min="-3" max="3" step="0.5" value="0"> <output data-show="b"></output></label>
+        <label>seuil <input type="range" data-k="S" min="5" max="60" step="1" value="20"> <output data-show="S"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : calculer des termes</p>
+      <p class="hint">Valeur exacte ou arrondie à 0,01 près.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <p>La suite \(u_{n+1} = a u_n + b\) (arithmético-géométrique) est un grand classique : on cherche le point fixe \(\ell = a\ell + b\)
+        puis on montre que \(u_n - \ell\) est géométrique. Les suites récurrentes \(u_{n+1} = f(u_n)\) sont étudiées dès le premier trimestre.
+        Voir <a href="../maths/suites.html">Suites (Terminale)</a> et <a href="../prepa/sommes-recurrence.html">Sommes et récurrence</a>.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>\(u_0 = 3\) et \(u_{n+1} = u_n - 2\). Alors \(u_3 =\)</p>
+        <ol class="choices"><li>\(1\)</li><li>\(-3\)</li><li>\(-5\)</li><li>\(-6\)</li></ol>
+        <p class="explain">\(3 \to 1 \to -1 \to -3\).</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Une population baisse de 8 % par an. Elle est modélisée par une suite :</p>
+        <ol class="choices"><li>arithmétique de raison \(-8\)</li><li>géométrique de raison \(-0{,}08\)</li><li>géométrique de raison \(0{,}92\)</li><li>arithmétique de raison \(0{,}92\)</li></ol>
+        <p class="explain">Baisse relative constante : on multiplie par \(1 - 0{,}08 = 0{,}92\).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Le nuage de points d'une suite arithmétique est :</p>
+        <ol class="choices"><li>formé de points alignés</li><li>une courbe exponentielle</li><li>une parabole</li><li>une droite continue</li></ol>
+        <p class="explain">Points alignés (isolés : on ne les relie pas).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>\(u\) géométrique de raison \(0{,}5\) avec \(u_0 = 10\). Elle est :</p>
+        <ol class="choices"><li>croissante</li><li>constante</li><li>ni croissante ni décroissante</li><li>décroissante</li></ol>
+        <p class="explain">\(0 &lt; q &lt; 1\) et \(u_0 > 0\) : décroissante.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+suite+definie+par+recurrence">Suites définies par récurrence — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+demontrer+suite+arithmetique+geometrique">Démontrer qu'une suite est arithmétique / géométrique<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=algorithme+de+seuil+suite+python+premiere">Algorithme de seuil en Python<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  /* Nuage de points de u_{n+1} = a u_n + b, avec la ligne de seuil */
+  var w = document.getElementById('w-rec'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), {});
+  Course.onInput(w, function (v) {
+    var u = [v.u0];
+    for (var n = 1; n < 20; n++) u.push(v.a * u[n - 1] + v.b);
+    var shown = u.map(function (x) { return Math.max(-1e4, Math.min(1e4, x)); });
+    var lo = Math.min(0, v.S, Math.min.apply(null, shown)), hi = Math.max(1, v.S, Math.max.apply(null, shown));
+    hi = Math.min(hi, Math.max(v.S * 3, 10)); lo = Math.max(lo, -Math.max(v.S * 3, 10));
+    var pad = (hi - lo) * 0.08 || 1, first = -1;
+    for (var k = 0; k < u.length; k++) if (u[k] > v.S) { first = k; break; }
+    G.draw = function (g) {
+      g.seg(-1, v.S, 20, v.S, '--c4', { dash: [6, 4], width: 1.5 });
+      u.forEach(function (y, i) { if (y >= lo - pad && y <= hi + pad) g.point(i, y, i === first ? '--c4' : '--c2', null, { r: i === first ? 6 : 4 }); });
+    };
+    G.redraw({ xmin: -1, xmax: 20, ymin: lo - pad, ymax: hi + pad });
+    var nat = v.a === 1 ? 'arithmétique de raison ' + Course.fmt(v.b) : v.b === 0 ? 'géométrique de raison ' + Course.fmt(v.a) : 'ni arithmétique ni géométrique';
+    out.textContent = 'Nature : ' + nat + '\nu_1 = ' + Course.fmt(u[1]) + '   u_2 = ' + Course.fmt(u[2]) + '   u_5 = ' + Course.fmt(u[5]) +
+      '\npremier rang où u_n > ' + v.S + ' : ' + (first >= 0 ? 'n = ' + first : 'pas avant n = 19');
+  });
+
+  /* Exercices : terme par récurrence, raison, rang de seuil */
+  Course.drill('#w-drill', function () {
+    var k = R(0, 3);
+    if (k === 0) {
+      var u0 = R(-3, 6), a = P([2, 3, -1, 0.5]), b = R(-4, 4), n = R(2, 4), u = u0;
+      for (var i = 0; i < n; i++) u = a * u + b;
+      return { html: '<p>\\(u_0 = ' + u0 + '\\) et \\(u_{n+1} = ' + String(a).replace('.', '{,}') + 'u_n ' + (b < 0 ? '- ' + -b : '+ ' + b) + '\\). Calcule \\(u_{' + n + '}\\).</p>',
+        answer: u, tol: A(u), explain: 'On calcule les termes un par un à partir de \\(u_0\\).' };
+    }
+    if (k === 1) {
+      var t = P([2, 3, 5, 8, 12, 15, 20, -5, -10, -25]), q = 1 + t / 100;
+      return { html: '<p>Une grandeur évolue de \\(' + (t > 0 ? '+' : '') + t + '\\,\\%\\) chaque année. Raison \\(q\\) de la suite géométrique ?</p>',
+        answer: q, tol: A(q), explain: '\\(q = 1 + \\frac{t}{100}\\).' };
+    }
+    if (k === 2) {
+      var v0 = R(1, 9) * 100, r = R(2, 9) * 10, m = R(5, 30);
+      return { html: '<p>\\(v\\) est arithmétique de premier terme \\(v_0 = ' + v0 + '\\) et de raison \\(' + r + '\\). Calcule \\(v_{' + m + '}\\).</p>',
+        answer: v0 + m * r, explain: '\\(v_n = v_0 + nr\\).' };
+    }
+    var c0 = P([100, 200, 500, 1000]), tt = P([10, 20, 25, 50]), mult = P([2, 3]), c = c0, steps = 0;
+    while (c <= mult * c0) { c *= 1 + tt / 100; steps++; }
+    return { html: '<p>Une quantité vaut ' + c0 + ' et augmente de ' + tt + ' % par heure. Au bout de combien d\'heures dépasse-t-elle ' + mult * c0 + ' ?</p>',
+      answer: steps, explain: 'On multiplie par \\(' + String(1 + tt / 100).replace('.', '{,}') + '\\) jusqu\'à dépasser le seuil.' };
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mesures et incertitudes · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="physique-1re/mesures-incertitudes">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Physique-chimie 1re · Méthode · Transversal</p>
+    <h1>Mesures et incertitudes</h1>
+    <p class="lead">Aucune mesure n'est parfaite. Savoir écrire un résultat avec son unité, son incertitude et le bon nombre de chiffres,
+      et juger s'il est compatible avec une valeur de référence : c'est ce qu'on attend dans <b>chaque</b> chapitre et chaque TP.</p>
+    <p class="prereq">Prérequis : moyenne et écart-type (seconde), puissances de 10.</p>
+  </header>
+
+  <section>
+    <h2>1. Grandeurs, unités, écriture des nombres</h2>
+    <div class="box def"><p class="box-title">Grandeur, valeur, unité</p>
+      <p>Une <b>grandeur</b> (longueur, masse…) se mesure : on obtient une <b>valeur</b> numérique suivie d'une <b>unité</b>. « 2,5 » ne veut rien dire ; « 2,5 m » oui.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Les 7 unités de base du Système international (SI)</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th>grandeur</th><th>longueur</th><th>masse</th><th>temps</th><th>intensité électrique</th><th>température</th><th>quantité de matière</th><th>intensité lumineuse</th></tr></thead>
+        <tbody><tr><th>unité</th><td>mètre (m)</td><td>kilogramme (kg)</td><td>seconde (s)</td><td>ampère (A)</td><td>kelvin (K)</td><td>mole (mol)</td><td>candela (cd)</td></tr></tbody>
+      </table></div>
+    </div>
+    <div class="box prop"><p class="box-title">Notation scientifique et chiffres significatifs</p>
+      <p>\(a \times 10^n\) avec \(1 \leq a &lt; 10\). Les <b>chiffres significatifs</b> sont tous les chiffres à partir du premier non nul :
+        \(0{,}00340\) en a 3 (\(3{,}40 \times 10^{-3}\)). Un résultat de calcul garde autant de chiffres significatifs que la donnée qui en a le moins.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Erreurs et incertitude-type</h2>
+    <div class="box def"><p class="box-title">Vocabulaire</p>
+      <ul>
+        <li><b>Mesure</b> : valeur obtenue ; <b>erreur</b> : écart entre la mesure et la valeur vraie (inconnue).</li>
+        <li><b>Erreur aléatoire</b> : varie d'une mesure à l'autre (lecture, bruit) → elle disperse les résultats : défaut de <b>fidélité</b>.</li>
+        <li><b>Erreur systématique</b> : toujours dans le même sens (appareil mal étalonné, zéro décalé) → elle décale la moyenne : défaut de <b>justesse</b>.</li>
+        <li><b>Incertitude-type</b> \(u(x)\) : rend compte de l'étendue des valeurs qu'on peut raisonnablement attribuer à la grandeur.</li>
+      </ul>
+    </div>
+    <div class="box prop"><p class="box-title">Évaluation de type A (série de mesures)</p>
+      <p>Pour \(n\) mesures indépendantes de moyenne \(\bar x\) et d'écart-type \(s\) :
+        \[u(\bar x) = \frac{s}{\sqrt n}.\]
+        Une évaluation de <b>type B</b> concerne une mesure unique : on l'estime à partir de la notice de l'appareil, de la graduation, etc.</p>
+    </div>
+    <div class="box method"><p class="box-title">Écrire un résultat</p>
+      <p>On arrondit l'incertitude-type à <b>1 ou 2 chiffres significatifs</b>, puis la valeur à la même décimale : \(g = 9{,}79\ \mathrm{m\,s^{-2}}\) avec \(u(g) = 0{,}03\ \mathrm{m\,s^{-2}}\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1</p>
+      <p>Cinq mesures de la période d'un pendule (s) : 1,42 ; 1,45 ; 1,40 ; 1,44 ; 1,43. Moyenne, écart-type, incertitude-type ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\bar T = 1{,}428\) s ; \(s \approx 0{,}019\) s (calculatrice, écart-type d'échantillon) ; \(u(\bar T) = \dfrac{0{,}019}{\sqrt5} \approx 0{,}009\) s.</p>
+        <p>Résultat : \(T = 1{,}428\) s avec \(u(T) = 0{,}009\) s.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Comparer à une valeur de référence</h2>
+    <div class="box prop"><p class="box-title">Écart normalisé</p>
+      <p>On compare l'écart entre la mesure \(x\) et la valeur de référence \(x_{\text{réf}}\) à l'incertitude-type :
+        \[z = \frac{|x - x_{\text{réf}}|}{u(x)}.\]
+        Si \(z \leq 2\), le résultat est jugé compatible avec la référence ; sinon, on cherche une erreur systématique ou on remet en cause le modèle.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2</p>
+      <p>On mesure \(c = 1{,}48 \times 10^3\) m/s avec \(u(c) = 0{,}02 \times 10^3\) m/s pour la célérité du son dans l'eau ; la référence est \(1{,}50 \times 10^3\) m/s. Compatible ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(z = \dfrac{0{,}02 \times 10^3}{0{,}02 \times 10^3} = 1 \leq 2\) : compatible.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-mes">
+      <p class="widget-title">Série de mesures : fidélité, justesse et incertitude</p>
+      <p class="hint">« Dispersion » = erreur aléatoire, « biais » = erreur systématique. La ligne orange est la valeur de référence (10).</p>
+      <div class="controls">
+        <label>dispersion <input type="range" data-k="s" min="0.05" max="1.5" step="0.05" value="0.4"> <output data-show="s" data-digits="2"></output></label>
+        <label>biais <input type="range" data-k="b" min="-1.5" max="1.5" step="0.05" value="0"> <output data-show="b" data-digits="2"></output></label>
+        <label>\(n\) mesures <input type="range" data-k="n" min="3" max="100" step="1" value="20"> <output data-show="n"></output></label>
+        <button class="btn ghost" type="button" id="mes-new">Refaire la série</button>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : traiter des mesures</p>
+      <p class="hint">Résultat avec 3 chiffres significatifs (la notation 1,23e-4 est acceptée).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="3">
+        <p>Combien de chiffres significatifs dans \(0{,}0507\) ?</p>
+        <ol class="choices"><li>5</li><li>4</li><li>2</li><li>3</li></ol>
+        <p class="explain">On compte à partir du premier chiffre non nul : 5, 0, 7.</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Un thermomètre affiche toujours 0,5 °C de trop. C'est :</p>
+        <ol class="choices"><li>une erreur aléatoire</li><li>une erreur systématique</li><li>une incertitude de type A</li><li>un défaut de fidélité</li></ol>
+        <p class="explain">Toujours le même décalage, dans le même sens : défaut de justesse.</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Si on multiplie par 4 le nombre de mesures, l'incertitude-type de la moyenne est :</p>
+        <ol class="choices"><li>divisée par 2</li><li>divisée par 4</li><li>multipliée par 2</li><li>inchangée</li></ol>
+        <p class="explain">\(u = s/\sqrt n\) et \(\sqrt4 = 2\).</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Quelle grandeur n'est <b>pas</b> une grandeur de base du SI ?</p>
+        <ol class="choices"><li>le temps</li><li>la quantité de matière</li><li>la vitesse</li><li>l'intensité électrique</li></ol>
+        <p class="explain">La vitesse est une grandeur dérivée (m/s).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=incertitude+type+A+type+B+lycee+physique">Incertitudes de type A et B<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=chiffres+significatifs+physique+chimie+lycee">Chiffres significatifs<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=ecart+normalise+z+score+physique+lycee">Écart normalisé (z-score)<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  var w = document.getElementById('w-mes'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { xlabel: 'valeur mesurée', ystep: 100 });
+  var base = [];
+  function gauss() { var u = 1 - Math.random(), v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+  function refill() { base = []; for (var i = 0; i < 100; i++) base.push(gauss()); }
+  refill();
+  var update = Course.onInput(w, function (v) {
+    var xs = base.slice(0, v.n).map(function (g) { return 10 + v.b + v.s * g; });
+    var m = xs.reduce(function (a, b) { return a + b; }, 0) / v.n;
+    var sd = Math.sqrt(xs.reduce(function (a, b) { return a + (b - m) * (b - m); }, 0) / (v.n - 1));
+    var u = sd / Math.sqrt(v.n), z = Math.abs(m - 10) / u;
+    var bins = {}, bw = 0.2, top = 1;
+    xs.forEach(function (x) { var k = Math.floor(x / bw); bins[k] = (bins[k] || 0) + 1; top = Math.max(top, bins[k]); });
+    G.draw = function (g) {
+      Object.keys(bins).forEach(function (k) { var x0 = k * bw; g.poly([[x0, 0], [x0, bins[k]], [x0 + bw, bins[k]], [x0 + bw, 0]], '--c1', { close: true, fill: true, alpha: 0.4 }); });
+      g.seg(10, 0, 10, top * 1.15, '--c4', { width: 2 });
+      g.seg(m, 0, m, top * 1.15, '--c2', { width: 2, dash: [5, 4] });
+      g.area(function () { return top * 1.15; }, m - 2 * u, m + 2 * u, '--c2', { alpha: 0.15 });
+    };
+    G.redraw({ xmin: 6.5, xmax: 13.5, ymin: -top * 0.08, ymax: top * 1.25 });
+    out.textContent = 'moyenne = ' + Course.fmt(m, 3) + '   écart-type s = ' + Course.fmt(sd, 3) + '   u = s/√n = ' + Course.fmt(u, 3) +
+      '\nécart normalisé z = |moyenne − 10| / u = ' + Course.fmt(z, 2) + (z <= 2 ? '  → compatible' : '  → non compatible : erreur systématique ?');
+  });
+  document.getElementById('mes-new').addEventListener('click', function () { refill(); update(); });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 3);
+    if (k === 0) { var s = R(5, 60) / 100, n = P([4, 9, 16, 25, 10, 20]), u = s / Math.sqrt(n);
+      return { html: '<p>Une série de \\(n = ' + n + '\\) mesures a un écart-type \\(s = ' + String(s).replace('.', '{,}') + '\\) cm. Incertitude-type de la moyenne (cm) ?</p>', answer: u, tol: A(u, true), explain: '\\(u = s/\\sqrt n\\).' }; }
+    if (k === 1) { var xr = P([9.81, 340, 1500, 4.18]), T = function (q) { return String(q).replace('.', '{,}'); };
+      var uu = Math.round(xr * R(1, 5) * 10) / 1000, x = Math.round((xr + P([-1, 1]) * uu * R(1, 40) / 10) * 1000) / 1000, z = Math.abs(x - xr) / uu;
+      return { html: '<p>Mesure \\(x = ' + T(x) + '\\), incertitude-type \\(u(x) = ' + T(uu) + '\\), valeur de référence \\(' + T(xr) + '\\). Écart normalisé \\(z\\) ?</p>',
+        answer: z, tol: A(z, true), explain: '\\(z = |x - x_{\\text{réf}}| / u(x)\\).' }; }
+    if (k === 2) { var vals = [R(140, 150), R(140, 150), R(140, 150), R(140, 150)].map(function (q) { return q / 100; }), m = vals.reduce(function (a, b) { return a + b; }, 0) / 4;
+      return { html: '<p>Mesures (s) : ' + vals.map(function (q) { return String(q).replace('.', ','); }).join(' ; ') + '. Moyenne ?</p>', answer: m, tol: A(m, true), explain: 'Somme divisée par 4.' }; }
+    var e = R(-6, -2), mant = R(100, 999) / 100, val = mant * Math.pow(10, e);
+    return { html: '<p>Quel est l\'exposant \\(n\\) de l\'écriture scientifique \\(a \\times 10^n\\) de \\(' + String(Math.round(val * Math.pow(10, -e + 2)) / Math.pow(10, -e + 2)).replace('.', '{,}') + '\\) ?</p>', answer: e, explain: 'On déplace la virgule juste après le premier chiffre non nul.' };
+  });
+});
+</script>
+</body>
+</html>

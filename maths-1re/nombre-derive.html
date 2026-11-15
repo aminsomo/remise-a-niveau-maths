@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nombre dérivé et tangente · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="maths-1re/nombre-derive">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths 1re · Analyse · Tronc commun + spé</p>
+    <h1>Nombre dérivé et tangente</h1>
+    <p class="lead">Une vitesse moyenne se calcule sur un intervalle de temps ; la vitesse affichée par le compteur est une vitesse
+      <em>instantanée</em>. Le nombre dérivé formalise ce passage à la limite. C'est l'outil central de la physique (vitesse,
+      puissance instantanée) et de toute l'analyse.</p>
+    <p class="prereq">Prérequis : coefficient directeur d'une droite (<a href="automatismes.html">automatismes</a>).</p>
+  </header>
+
+  <section>
+    <h2>1. Taux de variation et sécante</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Soit \(f\) une fonction et \(a \neq b\). Le <b>taux de variation</b> de \(f\) entre \(a\) et \(b\) est
+        \[\frac{f(b) - f(a)}{b - a}.\]
+        C'est le coefficient directeur de la <b>sécante</b> passant par \(A(a\,;\,f(a))\) et \(B(b\,;\,f(b))\).
+        En posant \(b = a + h\), il s'écrit \(\dfrac{f(a + h) - f(a)}{h}\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — vitesse moyenne</p>
+      <p>Un mobile parcourt \(x(t) = 2t^2\) mètres en \(t\) secondes. Vitesse moyenne entre \(t = 1\) et \(t = 3\) ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\dfrac{x(3) - x(1)}{3 - 1} = \dfrac{18 - 2}{2} = 8\) m/s.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Nombre dérivé et tangente</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Si le taux de variation \(\dfrac{f(a + h) - f(a)}{h}\) tend vers un nombre réel quand \(h\) tend vers 0, ce nombre est le
+        <b>nombre dérivé</b> de \(f\) en \(a\), noté \(f'(a)\) :
+        \[f'(a) = \lim_{h \to 0} \frac{f(a + h) - f(a)}{h}.\]
+        Géométriquement, les sécantes \((AB)\) se rapprochent d'une droite limite : la <b>tangente</b> en \(A\), de coefficient directeur \(f'(a)\).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Équation de la tangente</p>
+      <p>La tangente à la courbe de \(f\) au point d'abscisse \(a\) a pour équation
+        \[y = f'(a)(x - a) + f(a).\]</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — calcul par la limite</p>
+      <p>Pour \(f(x) = x^2\), calculer \(f'(3)\) puis l'équation de la tangente en 3.</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\dfrac{(3 + h)^2 - 9}{h} = \dfrac{6h + h^2}{h} = 6 + h \to 6\) quand \(h \to 0\). Donc \(f'(3) = 6\).</p>
+        <p>Tangente : \(y = 6(x - 3) + 9 = 6x - 9\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Notations des physiciens et approximation affine</h2>
+    <div class="box def"><p class="box-title">Notations</p>
+      <p>Si \(y = f(x)\) relie deux grandeurs, on note le taux de variation \(\left(\dfrac{\Delta y}{\Delta x}\right)_{x_0}\) et le nombre dérivé
+        \[f'(x_0) = \frac{\mathrm{d}y}{\mathrm{d}x}(x_0) = \frac{\mathrm{d}f}{\mathrm{d}x}(x_0).\]
+        C'est un <b>taux de variation infinitésimal</b>. Ex. : vitesse \(v = \dfrac{\mathrm{d}x}{\mathrm{d}t}\), puissance \(p = \dfrac{\mathrm{d}E}{\mathrm{d}t}\).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Approximation affine</p>
+      <p>Au voisinage de \(x_0\), la courbe se confond avec sa tangente : pour \(h\) petit,
+        \[f(x_0 + h) \approx f(x_0) + f'(x_0)\,h, \qquad \text{autrement dit} \qquad \Delta y \approx f'(x_0)\,\Delta x.\]</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — valeur approchée</p>
+      <p>Avec \(f(x) = x^2\) et \(f'(3) = 6\), donner une valeur approchée de \(3{,}02^2\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(3{,}02^2 \approx 9 + 6 \times 0{,}02 = 9{,}12\) (valeur exacte : \(9{,}1204\)).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-sec">
+      <p class="widget-title">De la sécante à la tangente</p>
+      <p class="hint">Fais tendre \(h\) vers 0 : la sécante (rose) pivote et se confond avec la tangente (violette).</p>
+      <div class="controls">
+        <label>fonction <select data-k="f"><option value="sq">x²</option><option value="cu" selected>x³ − 3x</option><option value="inv">1/x</option></select></label>
+        <label>\(a\) <input type="range" data-k="a" min="-2.5" max="2.5" step="0.1" value="1.5"> <output data-show="a"></output></label>
+        <label>\(h\) <input type="range" data-k="h" min="-2" max="2" step="0.01" value="1.2"> <output data-show="h" data-digits="2"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : taux de variation et tangentes</p>
+      <p class="hint">Valeur exacte ou arrondie à 0,01 près.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>Le nombre dérivé \(f'(a)\) est :</p>
+        <ol class="choices"><li>l'ordonnée du point d'abscisse \(a\)</li><li>le coefficient directeur de la tangente en \(a\)</li><li>l'ordonnée à l'origine de la tangente</li><li>la valeur maximale de \(f\)</li></ol>
+        <p class="explain">C'est la pente de la tangente : la limite des pentes des sécantes.</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Si \(f(2) = 5\) et \(f'(2) = -3\), la tangente en 2 a pour équation :</p>
+        <ol class="choices"><li>\(y = 5x - 3\)</li><li>\(y = -3x + 5\)</li><li>\(y = -3x + 11\)</li><li>\(y = -3x - 1\)</li></ol>
+        <p class="explain">\(y = -3(x - 2) + 5 = -3x + 11\).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>La position d'un mobile est \(x(t)\). Sa vitesse instantanée à \(t_0\) est :</p>
+        <ol class="choices"><li>\(\dfrac{\mathrm{d}x}{\mathrm{d}t}(t_0)\)</li><li>\(\dfrac{x(t_0)}{t_0}\)</li><li>\(x(t_0)\)</li><li>\(\dfrac{\mathrm{d}t}{\mathrm{d}x}(t_0)\)</li></ol>
+        <p class="explain">Vitesse = nombre dérivé de la position par rapport au temps.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Avec \(f(4) = 2\) et \(f'(4) = 0{,}25\), l'approximation affine de \(f(4{,}2)\) vaut :</p>
+        <ol class="choices"><li>\(2{,}2\)</li><li>\(2{,}25\)</li><li>\(2{,}5\)</li><li>\(2{,}05\)</li></ol>
+        <p class="explain">\(2 + 0{,}25 \times 0{,}2 = 2{,}05\) (c'est \(\sqrt{4{,}2} \approx 2{,}0494\)).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+nombre+derive+taux+de+variation">Nombre dérivé par le taux de variation — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+equation+tangente">Équation d'une tangente<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=approximation+affine+nombre+derive">Approximation affine<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  var F = {
+    sq: { f: function (x) { return x * x; }, d: function (x) { return 2 * x; }, v: [-3, 3, -1, 8] },
+    cu: { f: function (x) { return x * x * x - 3 * x; }, d: function (x) { return 3 * x * x - 3; }, v: [-3, 3, -5, 5] },
+    inv: { f: function (x) { return 1 / x; }, d: function (x) { return -1 / (x * x); }, v: [-3, 3, -4, 4] }
+  };
+  var w = document.getElementById('w-sec'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), {});
+  Course.onInput(w, function (v) {
+    var o = F[v.f], a = v.a, h = v.h;
+    if (v.f === 'inv' && Math.abs(a) < 0.2) a = a < 0 ? -0.2 : 0.2;
+    if (v.f === 'inv' && a * (a + h) <= 0) h = (a > 0 ? 0.1 : -0.1) - a; // B reste sur la même branche que A
+    var fa = o.f(a), slope = Math.abs(h) < 1e-9 ? o.d(a) : (o.f(a + h) - fa) / h, d = o.d(a);
+    G.draw = function (g) {
+      g.fn(o.f, '--c1');
+      g.fn(function (x) { return d * (x - a) + fa; }, '--c3', { width: 1.6 });
+      if (Math.abs(h) > 1e-9) { g.fn(function (x) { return slope * (x - a) + fa; }, '--c2', { dash: [6, 4] }); g.point(a + h, o.f(a + h), '--c2', 'B'); }
+      g.point(a, fa, '--c4', 'A');
+    };
+    G.redraw({ xmin: o.v[0], xmax: o.v[1], ymin: o.v[2], ymax: o.v[3] });
+    out.textContent = 'taux de variation entre a et a + h : ' + Course.fmt(slope, 4) +
+      '\nnombre dérivé f\'(' + Course.fmt(a) + ') = ' + Course.fmt(d, 4) + '   écart : ' + Course.fmt(Math.abs(slope - d), 4) +
+      '\ntangente : y = ' + Course.fmt(d, 3) + '(x − ' + Course.fmt(a) + ') + ' + Course.fmt(fa, 3);
+  });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 3);
+    if (k === 0) { var a = R(-3, 2), b = a + R(1, 4), c = P([1, 2, -1]);
+      var f = function (x) { return c * x * x; }, t = (f(b) - f(a)) / (b - a);
+      return { html: '<p>\\(f(x) = ' + (c === 1 ? '' : c === -1 ? '-' : c) + 'x^2\\). Taux de variation entre \\(' + a + '\\) et \\(' + b + '\\) ?</p>', answer: t, explain: '\\(\\frac{f(' + b + ') - f(' + a + ')}{' + b + ' - (' + a + ')}\\).' }; }
+    if (k === 1) { var fa = R(-5, 5), d = R(-4, 4), x0 = R(-3, 3), p = fa - d * x0;
+      return { html: '<p>\\(f(' + x0 + ') = ' + fa + '\\) et \\(f\'(' + x0 + ') = ' + d + '\\). La tangente s\'écrit \\(y = mx + p\\). Que vaut \\(p\\) ?</p>', answer: p, explain: '\\(y = ' + d + '(x - (' + x0 + ')) + ' + fa + '\\), on développe.' }; }
+    if (k === 2) { var x1 = R(-4, 4);
+      return { html: '<p>Pour \\(f(x) = x^2\\), \\(\\frac{f(' + x1 + ' + h) - f(' + x1 + ')}{h} = ' + 2 * x1 + ' + h\\). Que vaut \\(f\'(' + x1 + ')\\) ?</p>', answer: 2 * x1, explain: 'On fait tendre \\(h\\) vers 0.' }; }
+    var y0 = R(2, 9), dd = P([0.5, 1.5, 2, -1, 3]), hh = P([0.1, 0.05, 0.02, -0.1]), ap = y0 + dd * hh;
+    return { html: '<p>\\(f(1) = ' + y0 + '\\), \\(f\'(1) = ' + String(dd).replace('.', '{,}') + '\\). Approximation affine de \\(f(' + String(1 + hh).replace('.', '{,}') + ')\\) ?</p>', answer: ap, tol: A(ap), explain: '\\(f(1 + h) \\approx f(1) + f\'(1)\\,h\\).' };
+  });
+});
+</script>
+</body>
+</html>

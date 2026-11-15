@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ondes sonores et ultrasonores · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="physique-1re/ondes-sonores">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Physique-chimie 1re · Ondes et informations</p>
+    <h1>Ondes sonores et ultrasonores</h1>
+    <p class="lead">Radar de recul, sonar, échographie : on mesure des distances grâce à l'écho d'un son ou d'un ultrason. On relie aussi ce qu'on entend
+      (hauteur, intensité) aux grandeurs physiques de l'onde (fréquence, amplitude, puissance).</p>
+    <p class="prereq">Prérequis : <a href="ondes.html">introduction à la notion d'onde</a>.</p>
+  </header>
+
+  <section>
+    <h2>1. Propagation du son</h2>
+    <div class="box prop"><p class="box-title">Un milieu matériel est obligatoire</p>
+      <p>Le son et les ultrasons sont des ondes <b>mécaniques longitudinales</b> : ils ne se propagent pas dans le vide.
+        Leur célérité dépend du milieu : elle est plus grande dans les liquides et les solides que dans les gaz.</p>
+    </div>
+    <div class="table-scroll"><table>
+      <thead><tr><th>milieu</th><th>air (20 °C)</th><th>eau</th><th>acier</th></tr></thead>
+      <tbody><tr><th>célérité (m/s)</th><td>≈ 340</td><td>≈ 1 500</td><td>≈ 5 000 à 6 000</td></tr></tbody>
+    </table></div>
+    <div class="box prop"><p class="box-title">Domaines de fréquences</p>
+      <p>L'oreille humaine perçoit les sons de <b>20 Hz à 20 kHz</b> environ. En dessous : infrasons ; au-dessus : <b>ultrasons</b> (chauves-souris, échographie, nettoyage, sonar).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Mesurer une distance par écho</h2>
+    <div class="box method"><p class="box-title">Principe</p>
+      <p>Un émetteur envoie une salve ; elle se <b>réfléchit</b> sur l'obstacle et revient au récepteur après une durée \(\Delta t\). L'onde a fait l'<b>aller-retour</b> :
+        \[2d = v \times \Delta t \qquad \Longrightarrow \qquad d = \frac{v \times \Delta t}{2}.\]</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — sonar</p>
+      <p>Un sonar reçoit l'écho du fond marin 0,40 s après l'émission (\(v = 1\,500\) m/s). Profondeur ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(d = \dfrac{1\,500 \times 0{,}40}{2} = 300\) m.</p>
+      </details>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — orage</p>
+      <p>On entend le tonnerre 6 s après l'éclair. À quelle distance est l'orage ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>La lumière arrive quasi instantanément ; le son met 6 s : \(d = 340 \times 6 \approx 2\) km (pas d'aller-retour ici).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Ce que l'on perçoit</h2>
+    <div class="box prop"><p class="box-title">Hauteur et intensité</p>
+      <ul>
+        <li>La <b>hauteur</b> d'un son (grave ou aigu) est liée à sa <b>fréquence</b> : plus \(f\) est grande, plus le son est aigu (la₃ : 440 Hz).</li>
+        <li>L'<b>intensité</b> perçue (fort ou faible) est liée à l'<b>amplitude</b> de l'onde.</li>
+      </ul>
+    </div>
+    <div class="box def"><p class="box-title">Intensité et puissance acoustiques</p>
+      <p>L'<b>intensité acoustique</b> \(I\) est la puissance sonore reçue par unité de surface (W/m²) : \(I = \dfrac{P}{S}\).
+        Pour une source qui émet uniformément dans toutes les directions, la puissance se répartit sur une sphère de rayon \(r\) :
+        \[I = \frac{P}{4\pi r^2}.\]
+        Doubler la distance divise donc l'intensité par 4.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3</p>
+      <p>Un haut-parleur émet une puissance sonore de 0,10 W dans toutes les directions. Intensité à 2,0 m ? à 4,0 m ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(I(2) = \dfrac{0{,}10}{4\pi \times 4} \approx 2{,}0 \times 10^{-3}\ \mathrm{W\,m^{-2}}\) ; \(I(4) \approx 5{,}0 \times 10^{-4}\ \mathrm{W\,m^{-2}}\) (4 fois moins).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-echo">
+      <p class="widget-title">Mesure d'une distance par écho</p>
+      <p class="hint">La salve émise (bleu) revient après un aller-retour (rose). Change le milieu : pour la même distance, le retard change.</p>
+      <div class="controls">
+        <label>milieu <select data-k="v"><option value="340" selected>air (340 m/s)</option><option value="1500">eau (1 500 m/s)</option><option value="5900">acier (5 900 m/s)</option></select></label>
+        <label>distance (m) <input type="range" data-k="d" min="0.2" max="10" step="0.1" value="1.7"> <output data-show="d"></output></label>
+      </div>
+      <canvas class="plot short"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : son et ultrasons</p>
+      <p class="hint">3 chiffres significatifs, dans l'unité demandée.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="2">
+        <p>Un son de 30 kHz est :</p>
+        <ol class="choices"><li>un infrason</li><li>un son grave audible</li><li>un ultrason</li><li>une onde électromagnétique</li></ol>
+        <p class="explain">Au-delà de 20 kHz : ultrason.</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Dans quel milieu le son est-il le plus rapide ?</p>
+        <ol class="choices"><li>l'acier</li><li>l'eau</li><li>l'air</li><li>le vide</li></ol>
+        <p class="explain">Plus le milieu est rigide, plus la célérité est grande ; dans le vide, pas de son.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Un écho revient 0,02 s après l'émission dans l'air. L'obstacle est à :</p>
+        <ol class="choices"><li>6,8 m</li><li>0,68 m</li><li>13,6 m</li><li>3,4 m</li></ol>
+        <p class="explain">\(d = 340 \times 0{,}02 / 2 = 3{,}4\) m.</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Un son plus aigu correspond à :</p>
+        <ol class="choices"><li>une amplitude plus grande</li><li>une fréquence plus grande</li><li>une célérité plus grande</li><li>une période plus grande</li></ol>
+        <p class="explain">La hauteur est liée à la fréquence.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=mesure+distance+echo+ultrason+sonar+lycee">Mesurer une distance par écho<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=hauteur+timbre+intensite+son+frequence">Hauteur, intensité d'un son<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=intensite+acoustique+puissance+P%2F4pi+r2">Intensité acoustique et distance<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  var w = document.getElementById('w-echo'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { xlabel: 't (ms)' });
+  Course.onInput(w, function (v) {
+    var c = parseFloat(v.v), dt = 2 * v.d / c * 1000, span = Math.max(dt * 1.3, 2);
+    var burst = function (t0, A) { return function (t) { var u = t - t0; return u < 0 || u > span * 0.08 ? 0 : A * Math.sin(2 * Math.PI * u / (span * 0.012)) * Math.sin(Math.PI * u / (span * 0.08)); }; };
+    var e = burst(0, 1), r = burst(dt, 0.45);
+    G.draw = function (g) {
+      g.fn(function (t) { return e(t) + 1.4; }, '--c1', { width: 1.6 });
+      g.fn(function (t) { return r(t) - 1.1; }, '--c2', { width: 1.6 });
+      g.arrow(0, 0.15, dt, 0.15, '--c4', 'Δt');
+      g.text(0, 2.5, 'émission', '--c1', { align: 'left' });
+      g.text(dt, -2.2, 'réception', '--c2', { align: 'center' });
+    };
+    G.redraw({ xmin: -span * 0.05, xmax: span, ymin: -2.6, ymax: 2.8, ystep: 10 });
+    out.textContent = 'Δt = 2d / v = 2 × ' + Course.fmt(v.d, 2) + ' / ' + c + ' = ' + Course.fmt(dt, 3) + ' ms' +
+      '\nréciproquement d = v × Δt / 2 = ' + Course.fmt(c * dt / 1000 / 2, 3) + ' m';
+  });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 3), T = function (q) { return String(q).replace('.', '{,}'); };
+    if (k === 0) { var med = P([['l\'air', 340], ['l\'eau', 1500]]), dt = R(2, 400) / 100, d = med[1] * dt / 2;
+      return { html: '<p>Un écho revient \\(' + T(dt) + '\\) s après l\'émission dans ' + med[0] + ' (\\(v = ' + med[1] + '\\) m/s). Distance de l\'obstacle (m) ?</p>', answer: d, tol: A(d, true), explain: '\\(d = v\\Delta t/2\\) (aller-retour).' }; }
+    if (k === 1) { var dd = R(1, 50) / 10, ms = 2 * dd / 340 * 1000;
+      return { html: '<p>Un radar de recul (ultrasons dans l\'air, 340 m/s) détecte un obstacle à \\(' + T(dd) + '\\) m. Retard de l\'écho (en ms) ?</p>', answer: ms, tol: A(ms, true), explain: '\\(\\Delta t = 2d/v\\), puis en ms.' }; }
+    if (k === 2) { var Pw = P([0.01, 0.05, 0.1, 1]), r = R(1, 20), I = Pw / (4 * Math.PI * r * r);
+      return { html: '<p>Une source émet \\(' + T(Pw) + '\\) W uniformément dans toutes les directions. Intensité acoustique (W/m²) à ' + r + ' m ?</p>', answer: I, tol: A(I, true), explain: '\\(I = P/(4\\pi r^2)\\).' }; }
+    var f = P([20, 440, 1000, 20000, 40000]), lam = 340 / f;
+    return { html: '<p>Longueur d\'onde (m) dans l\'air (340 m/s) d\'un son de ' + f + ' Hz ?</p>', answer: lam, tol: A(lam, true), explain: '\\(\\lambda = v/f\\).' };
+  });
+});
+</script>
+</body>
+</html>

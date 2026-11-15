@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fonctions dérivées et variations · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="maths-1re/fonctions-derivees">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths 1re · Analyse · Tronc commun + spé</p>
+    <h1>Fonctions dérivées et variations</h1>
+    <p class="lead">Calculer une fonction dérivée sans repasser par la limite, puis lire dans son signe les variations de la fonction :
+      c'est la méthode universelle pour trouver un maximum, un minimum, un optimum.</p>
+    <p class="prereq">Prérequis : <a href="nombre-derive.html">nombre dérivé et tangente</a>, <a href="trigonometrie.html">cos et sin</a>.</p>
+  </header>
+
+  <section>
+    <h2>1. Dérivées des fonctions usuelles</h2>
+    <div class="box prop"><p class="box-title">Tableau à connaître</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th>\(f(x)\)</th><th>\(f'(x)\)</th><th>validité</th></tr></thead>
+        <tbody>
+          <tr><td>\(k\) (constante)</td><td>\(0\)</td><td>\(\mathbb{R}\)</td></tr>
+          <tr><td>\(x\)</td><td>\(1\)</td><td>\(\mathbb{R}\)</td></tr>
+          <tr><td>\(x^n\) (\(n \geq 1\) entier)</td><td>\(n\,x^{n-1}\)</td><td>\(\mathbb{R}\)</td></tr>
+          <tr><td>\(\dfrac{1}{x}\)</td><td>\(-\dfrac{1}{x^2}\)</td><td>\(x \neq 0\)</td></tr>
+          <tr><td>\(\cos x\)</td><td>\(-\sin x\)</td><td>\(\mathbb{R}\)</td></tr>
+          <tr><td>\(\sin x\)</td><td>\(\cos x\)</td><td>\(\mathbb{R}\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Moyen mnémotechnique : \((x^n)' = n x^{n-1}\) donne \((x^2)' = 2x\), \((x^3)' = 3x^2\)… et \(\left(\tfrac1x\right)' = (x^{-1})' = -x^{-2}\) suit la même règle.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Opérations sur les dérivées</h2>
+    <div class="box prop"><p class="box-title">Règles (\(u\), \(v\) dérivables, \(k\) réel)</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th>fonction</th><th>dérivée</th></tr></thead>
+        <tbody>
+          <tr><td>\(u + v\)</td><td>\(u' + v'\)</td></tr>
+          <tr><td>\(k\,u\)</td><td>\(k\,u'\)</td></tr>
+          <tr><td>\(u\,v\)</td><td>\(u'v + uv'\)</td></tr>
+          <tr><td>\(\dfrac{1}{v}\)</td><td>\(-\dfrac{v'}{v^2}\)</td></tr>
+          <tr><td>\(\dfrac{u}{v}\)</td><td>\(\dfrac{u'v - uv'}{v^2}\)</td></tr>
+          <tr><td>\(f(ax + b)\)</td><td>\(a\,f'(ax + b)\)</td></tr>
+          <tr><td>\(A\cos(\omega t + \varphi)\)</td><td>\(-A\omega\sin(\omega t + \varphi)\)</td></tr>
+          <tr><td>\(A\sin(\omega t + \varphi)\)</td><td>\(A\omega\cos(\omega t + \varphi)\)</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1</p>
+      <p>Dériver \(f(x) = (2x + 1)(x^2 - 3)\), \(g(x) = \dfrac{x}{x + 1}\) et \(h(t) = 5\cos(100\pi t)\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(f'(x) = 2(x^2 - 3) + (2x + 1) \times 2x = 6x^2 + 2x - 6\).</p>
+        <p>\(g'(x) = \dfrac{1 \times (x + 1) - x \times 1}{(x + 1)^2} = \dfrac{1}{(x + 1)^2}\).</p>
+        <p>\(h'(t) = -500\pi\sin(100\pi t)\) : c'est la vitesse d'une grandeur sinusoïdale de fréquence 50 Hz.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Signe de la dérivée et variations</h2>
+    <div class="box prop"><p class="box-title">Théorème (admis)</p>
+      <p>Sur un intervalle \(I\) : si \(f'(x) \geq 0\), \(f\) est croissante ; si \(f'(x) \leq 0\), \(f\) est décroissante ; si \(f' = 0\), \(f\) est constante.
+        Si \(f'\) s'annule en changeant de signe en \(x_0\), \(f\) admet un <b>extremum local</b> en \(x_0\).</p>
+    </div>
+    <div class="box method"><p class="box-title">Méthode : étudier les variations</p>
+      <ol>
+        <li>Calculer \(f'(x)\) et la factoriser.</li>
+        <li>Étudier son signe (tableau de signes).</li>
+        <li>En déduire le tableau de variations ; calculer les extremums.</li>
+      </ol>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — boîte de volume maximal</p>
+      <p>Dans une plaque carrée de 12 cm de côté, on découpe 4 carrés de côté \(x\) aux coins pour plier une boîte. \(V(x) = x(12 - 2x)^2\) pour \(x \in [0\,;\,6]\). Quel \(x\) maximise le volume ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(V(x) = 4x^3 - 48x^2 + 144x\), donc \(V'(x) = 12x^2 - 96x + 144 = 12(x - 2)(x - 6)\).</p>
+        <p>Sur \([0\,;\,6]\) : \(V' > 0\) sur \([0\,;\,2[\), \(V' &lt; 0\) sur \(]2\,;\,6[\). Maximum en \(x = 2\) : \(V(2) = 2 \times 8^2 = 128\) cm³.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-var">
+      <p class="widget-title">\(f(x) = ax^3 + bx^2 + cx\) et sa dérivée</p>
+      <p class="hint">Quand \(f'\) (pointillés) est au-dessus de l'axe, \(f\) monte ; ses racines donnent les extremums de \(f\).</p>
+      <div class="controls">
+        <label>\(a\) <input type="range" data-k="a" min="-1" max="1" step="0.05" value="0.3"> <output data-show="a"></output></label>
+        <label>\(b\) <input type="range" data-k="b" min="-2" max="2" step="0.1" value="0"> <output data-show="b"></output></label>
+        <label>\(c\) <input type="range" data-k="c" min="-6" max="6" step="0.25" value="-3"> <output data-show="c"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="legend"><span><i style="background:var(--c1)"></i>\(f\)</span><span><i style="background:var(--c2)"></i>\(f'\)</span></div>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : calculer \(f'(a)\)</p>
+      <p class="hint">Calcule la dérivée puis évalue-la. Valeur exacte ou arrondie à 0,01 près.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="2">
+        <p>La dérivée de \(x \mapsto x^5\) est :</p>
+        <ol class="choices"><li>\(x^4\)</li><li>\(5x^5\)</li><li>\(5x^4\)</li><li>\(4x^5\)</li></ol>
+        <p class="explain">\((x^n)' = nx^{n-1}\).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>La dérivée de \(x \mapsto \cos(3x + 1)\) est :</p>
+        <ol class="choices"><li>\(-3\sin(3x + 1)\)</li><li>\(-\sin(3x + 1)\)</li><li>\(3\sin(3x + 1)\)</li><li>\(3\cos(3x + 1)\)</li></ol>
+        <p class="explain">\((f(ax + b))' = a f'(ax + b)\) et \(\cos' = -\sin\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Si \(f'(x) = (x - 1)(x + 2)\), alors \(f\) est décroissante sur :</p>
+        <ol class="choices"><li>\(]-\infty\,;\,-2]\)</li><li>\([1\,;\,+\infty[\)</li><li>\(\mathbb{R}\)</li><li>\([-2\,;\,1]\)</li></ol>
+        <p class="explain">\(f' \leq 0\) entre ses racines (coefficient dominant positif).</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>La dérivée de \(\dfrac{1}{x}\) est :</p>
+        <ol class="choices"><li>\(\dfrac{1}{x^2}\)</li><li>\(-\dfrac{1}{x^2}\)</li><li>\(\ln x\)</li><li>\(-\dfrac{1}{x}\)</li></ol>
+        <p class="explain">\((x^{-1})' = -x^{-2}\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+derivee+produit+quotient">Dérivée d'un produit, d'un quotient — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+variations+fonction+signe+derivee">Variations et signe de la dérivée<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=derivee+cos+sin+omega+t+phi">Dériver A cos(ωt + φ)<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  var w = document.getElementById('w-var'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { xmin: -5, xmax: 5, ymin: -10, ymax: 10 });
+  Course.onInput(w, function (v) {
+    var f = function (x) { return v.a * x * x * x + v.b * x * x + v.c * x; };
+    var d = function (x) { return 3 * v.a * x * x + 2 * v.b * x + v.c; };
+    var A3 = 3 * v.a, B2 = 2 * v.b, roots = [];
+    if (Math.abs(A3) < 1e-9) { if (Math.abs(B2) > 1e-9) roots = [-v.c / B2]; }
+    else { var D = B2 * B2 - 4 * A3 * v.c; if (D > 1e-12) roots = [(-B2 - Math.sqrt(D)) / (2 * A3), (-B2 + Math.sqrt(D)) / (2 * A3)].sort(function (p, q) { return p - q; }); else if (Math.abs(D) <= 1e-12) roots = [-B2 / (2 * A3)]; }
+    G.draw = function (g) {
+      g.fn(d, '--c2', { dash: [6, 4] });
+      g.fn(f, '--c1');
+      roots.forEach(function (r) { g.point(r, f(r), '--c4'); g.seg(r, 0, r, f(r), '--c4', { dash: [2, 3], width: 1 }); });
+    };
+    G.redraw();
+    out.textContent = 'f\'(x) = ' + Course.fmt(A3) + 'x² + ' + Course.fmt(B2) + 'x + ' + Course.fmt(v.c) +
+      '\n' + (roots.length ? 'f\' s\'annule en ' + roots.map(function (r) { return Course.fmt(r, 2); }).join(' et ') + ' → extremums f = ' + roots.map(function (r) { return Course.fmt(f(r), 2); }).join(' ; ')
+        : 'f\' ne s\'annule pas en changeant de signe : f est monotone');
+  });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 4), x = R(-3, 3);
+    if (k === 0) { var a = R(-3, 3) || 1, b = R(-5, 5), c = R(-5, 5), ans = 3 * a * x * x + 2 * b * x + c;
+      return { html: '<p>\\(f(x) = ' + a + 'x^3 ' + (b < 0 ? '- ' + -b : '+ ' + b) + 'x^2 ' + (c < 0 ? '- ' + -c : '+ ' + c) + 'x + 7\\). Calcule \\(f\'(' + x + ')\\).</p>', answer: ans, explain: '\\(f\'(x) = ' + 3 * a + 'x^2 + ' + 2 * b + 'x + ' + c + '\\).' }; }
+    if (k === 1) { var p = R(1, 4), q = R(-4, 4), r = R(-4, 4), ans1 = p * (x * x + r) + (p * x + q) * 2 * x;
+      return { html: '<p>\\(f(x) = (' + p + 'x ' + (q < 0 ? '- ' + -q : '+ ' + q) + ')(x^2 ' + (r < 0 ? '- ' + -r : '+ ' + r) + ')\\). Calcule \\(f\'(' + x + ')\\).</p>', answer: ans1, explain: '\\((uv)\' = u\'v + uv\'\\).' }; }
+    if (k === 2) { var x2 = P([-4, -2, -1, 1, 2, 4, 5]), ans2 = -1 / (x2 * x2);
+      return { html: '<p>\\(f(x) = \\dfrac{1}{x}\\). Calcule \\(f\'(' + x2 + ')\\).</p>', answer: ans2, tol: A(ans2), explain: '\\(f\'(x) = -\\frac{1}{x^2}\\).' }; }
+    if (k === 3) { var aa = R(2, 5), n = R(2, 4), x3 = P([-1, 1, 2]), ans3 = aa * n * Math.pow(aa * x3 - 1, n - 1);
+      return { html: '<p>\\(f(x) = (' + aa + 'x - 1)^' + n + '\\). Calcule \\(f\'(' + x3 + ')\\).</p>', answer: ans3, explain: '\\((u(ax + b))\' = a\\,u\'(ax + b)\\) : \\(f\'(x) = ' + aa * n + '(' + aa + 'x - 1)^{' + (n - 1) + '}\\).' }; }
+    var Am = R(2, 10), om = P([1, 2, 3, 4]), ans4 = Am * om;
+    return { html: '<p>\\(f(t) = ' + Am + '\\sin(' + om + 't)\\). Calcule \\(f\'(0)\\).</p>', answer: ans4, explain: '\\(f\'(t) = ' + Am * om + '\\cos(' + om + 't)\\) et \\(\\cos 0 = 1\\).' };
+  });
+});
+</script>
+</body>
+</html>

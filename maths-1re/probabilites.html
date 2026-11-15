@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Probabilités conditionnelles et indépendance · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="maths-1re/probabilites">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths 1re · Probabilités · Tronc commun</p>
+    <h1>Probabilités conditionnelles et indépendance</h1>
+    <p class="lead">Un test de dépistage est positif : quelle est la probabilité d'être réellement malade ? Les probabilités conditionnelles
+      répondent à ce genre de question, et l'indépendance permet de modéliser des épreuves répétées (contrôle de pièces, tirs, transmissions).</p>
+    <p class="prereq">Prérequis : <a href="statistiques.html">fréquences conditionnelles</a>, probabilités de seconde.</p>
+  </header>
+
+  <section>
+    <h2>1. Probabilité conditionnelle</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>On choisit au hasard un individu d'une population. Si \(P(A) \neq 0\), la probabilité de \(B\) <b>sachant</b> \(A\) est
+        \[P_A(B) = \frac{P(A \cap B)}{P(A)}.\]
+        Avec un tableau croisé d'effectifs : \(P_A(B) = \dfrac{\mathrm{Card}(A \cap B)}{\mathrm{Card}(A)}\).</p>
+    </div>
+    <div class="box warning"><p class="box-title">Ne pas confondre</p>
+      <p>\(P(A \cap B)\) (A <b>et</b> B, sur toute la population), \(P_A(B)\) (B parmi les A) et \(P_B(A)\) (A parmi les B) sont trois nombres différents.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — test de dépistage</p>
+      <p>Sur 10 000 personnes, 100 sont malades (M). Le test est positif (T) chez 95 malades et chez 495 non-malades.
+        Calculer la sensibilité \(P_M(T)\), le taux de faux positifs \(P_{\bar M}(T)\) et \(P_T(M)\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(P_M(T) = \tfrac{95}{100} = 0{,}95\) ; \(P_{\bar M}(T) = \tfrac{495}{9\,900} = 0{,}05\).</p>
+        <p>Parmi les \(95 + 495 = 590\) positifs : \(P_T(M) = \tfrac{95}{590} \approx 0{,}16\). Un test positif ne signifie qu'une chance sur six d'être malade : la maladie est rare !</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Indépendance</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Pour \(P(A) \neq 0\), \(B\) est <b>indépendant</b> de \(A\) si \(P_A(B) = P(B)\) : savoir que A est réalisé ne change pas la probabilité de B.
+        Cela équivaut à \(P(A \cap B) = P(A) \times P(B)\), et la relation est symétrique (si \(P(B) \neq 0\), \(A\) est aussi indépendant de \(B\)).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2</p>
+      <p>Dans une classe de 30 élèves, 12 font du sport (S), 10 sont internes (I), 4 sont internes et sportifs. S et I sont-ils indépendants ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(P(S) \times P(I) = 0{,}4 \times \tfrac13 \approx 0{,}133\) et \(P(S \cap I) = \tfrac{4}{30} \approx 0{,}133\). Égalité : indépendants.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Épreuves indépendantes et arbres</h2>
+    <div class="box prop"><p class="box-title">Modèle produit</p>
+      <p>Lorsqu'on enchaîne des épreuves <b>indépendantes</b>, on représente l'expérience par un arbre : la probabilité d'un chemin
+        (une liste de résultats) est le <b>produit</b> des probabilités portées par ses branches. La probabilité d'un événement est la somme des probabilités des chemins qui le réalisent.</p>
+    </div>
+    <div class="box def"><p class="box-title">Épreuve de Bernoulli</p>
+      <p>Une épreuve à deux issues, <b>succès</b> (probabilité \(p\)) et <b>échec</b> (probabilité \(1 - p\)). En la répétant \(n\) fois de façon identique et indépendante,
+        un chemin comportant \(k\) succès a pour probabilité \(p^k(1 - p)^{n-k}\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — trois pièces contrôlées</p>
+      <p>Une pièce est défectueuse avec probabilité \(0{,}1\), indépendamment des autres. On en prélève 3. Probabilité d'exactement une défectueuse ? D'au moins une ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>Trois chemins réalisent « exactement une » (D en 1re, 2e ou 3e position), chacun de probabilité \(0{,}1 \times 0{,}9^2 = 0{,}081\) : total \(0{,}243\).</p>
+        <p>« Au moins une » est le contraire de « aucune » : \(1 - 0{,}9^3 = 0{,}271\).</p>
+      </details>
+    </div>
+    <div class="box prop"><p class="box-title">Formule des probabilités totales</p>
+      <p>Si \(A\) et \(\bar A\) partagent l'univers : \(P(B) = P(A \cap B) + P(\bar A \cap B) = P(A)P_A(B) + P(\bar A)P_{\bar A}(B)\).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-bern">
+      <p class="widget-title">\(n\) épreuves de Bernoulli : probabilité du nombre de succès</p>
+      <p class="hint">Chaque barre additionne tous les chemins de l'arbre ayant \(k\) succès.</p>
+      <div class="controls">
+        <label>\(n\) <input type="range" data-k="n" min="1" max="4" step="1" value="3"> <output data-show="n"></output></label>
+        <label>\(p\) <input type="range" data-k="p" min="0" max="1" step="0.05" value="0.3"> <output data-show="p" data-digits="2"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : probabilités</p>
+      <p class="hint">Réponse décimale arrondie à 0,01 près (ou 3 chiffres significatifs si elle est inférieure à 0,1).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>\(P(A) = 0{,}5\) et \(P(A \cap B) = 0{,}2\). Alors \(P_A(B) =\)</p>
+        <ol class="choices"><li>\(0{,}1\)</li><li>\(0{,}4\)</li><li>\(0{,}7\)</li><li>\(2{,}5\)</li></ol>
+        <p class="explain">\(0{,}2 / 0{,}5 = 0{,}4\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>A et B indépendants, \(P(A) = 0{,}3\), \(P(B) = 0{,}5\). \(P(A \cap B) =\)</p>
+        <ol class="choices"><li>\(0{,}8\)</li><li>\(0{,}2\)</li><li>\(0{,}6\)</li><li>\(0{,}15\)</li></ol>
+        <p class="explain">Produit des probabilités.</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>On lance 2 fois une pièce équilibrée. Probabilité d'obtenir deux « pile » :</p>
+        <ol class="choices"><li>\(0{,}25\)</li><li>\(0{,}5\)</li><li>\(1\)</li><li>\(0{,}75\)</li></ol>
+        <p class="explain">\(0{,}5 \times 0{,}5\).</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Avec un test fiable mais une maladie rare, la probabilité d'être malade sachant le test positif est :</p>
+        <ol class="choices"><li>forcément proche de 1</li><li>égale à la sensibilité</li><li>parfois faible, à cause des faux positifs</li><li>égale à \(P(M)\)</li></ol>
+        <p class="explain">Voir l'exemple 1 : \(P_T(M) \approx 0{,}16\) malgré une sensibilité de 0,95.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+probabilite+conditionnelle+tableau">Probabilités conditionnelles — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+evenements+independants">Événements indépendants<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+repetition+epreuves+de+Bernoulli+arbre">Répétition d'épreuves de Bernoulli<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  function C(n, k) { var r = 1; for (var i = 1; i <= k; i++) r = r * (n - k + i) / i; return r; }
+  var w = document.getElementById('w-bern'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { xstep: 1, ylabel: 'P' });
+  Course.onInput(w, function (v) {
+    var probs = [];
+    for (var k = 0; k <= v.n; k++) probs.push(C(v.n, k) * Math.pow(v.p, k) * Math.pow(1 - v.p, v.n - k));
+    G.draw = function (g) {
+      probs.forEach(function (q, k) {
+        g.poly([[k - 0.3, 0], [k - 0.3, q], [k + 0.3, q], [k + 0.3, 0]], '--c1', { close: true, fill: true, alpha: 0.45 });
+        g.text(k, q + 0.04, Course.fmt(q, 3), '--text', { align: 'center', bold: true });
+      });
+    };
+    G.redraw({ xmin: -0.7, xmax: v.n + 0.7, ymin: -0.05, ymax: 1.1 });
+    out.textContent = probs.map(function (q, k) { return 'P(' + k + ' succès) = ' + C(v.n, k) + ' chemin' + (C(v.n, k) > 1 ? 's' : '') + ' × ' + Course.fmt(Math.pow(v.p, k) * Math.pow(1 - v.p, v.n - k), 4) + ' = ' + Course.fmt(q, 4); }).join('\n');
+  });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 3);
+    if (k === 0) { var pa = R(2, 8) / 10, pab = Math.round(pa * R(1, 9)) / 10, ans = pab / pa;
+      if (pab === 0) pab = 0.1, ans = pab / pa;
+      return { html: '<p>\\(P(A) = ' + String(pa).replace('.', '{,}') + '\\) et \\(P(A \\cap B) = ' + String(pab).replace('.', '{,}') + '\\). Calcule \\(P_A(B)\\).</p>', answer: ans, tol: A(ans), explain: '\\(P_A(B) = \\frac{P(A \\cap B)}{P(A)}\\).' }; }
+    if (k === 1) { var p = P([0.1, 0.2, 0.3, 0.5, 0.6, 0.8]), n = R(2, 4), ans1 = 1 - Math.pow(1 - p, n);
+      return { html: '<p>' + n + ' épreuves indépendantes de succès \\(p = ' + String(p).replace('.', '{,}') + '\\). Probabilité d\'au moins un succès ?</p>', answer: ans1, tol: A(ans1), explain: '\\(1 - (1 - p)^n\\).' }; }
+    if (k === 2) { var p2 = P([0.2, 0.4, 0.5, 0.7]), n2 = R(2, 4), k2 = R(0, n2), ans2 = C(n2, k2) * Math.pow(p2, k2) * Math.pow(1 - p2, n2 - k2);
+      return { html: '<p>' + n2 + ' épreuves de Bernoulli indépendantes, \\(p = ' + String(p2).replace('.', '{,}') + '\\). Probabilité d\'exactement ' + k2 + ' succès ?</p>', answer: ans2, tol: A(ans2), explain: C(n2, k2) + ' chemin(s), chacun de probabilité \\(p^{' + k2 + '}(1-p)^{' + (n2 - k2) + '}\\).' }; }
+    var pA = P([0.3, 0.4, 0.6]), pBA = P([0.1, 0.2, 0.5]), pBnA = P([0.05, 0.3, 0.4]), ans3 = pA * pBA + (1 - pA) * pBnA;
+    return { html: '<p>\\(P(A) = ' + String(pA).replace('.', '{,}') + '\\), \\(P_A(B) = ' + String(pBA).replace('.', '{,}') + '\\), \\(P_{\\bar A}(B) = ' + String(pBnA).replace('.', '{,}') + '\\). Calcule \\(P(B)\\).</p>', answer: ans3, tol: A(ans3), explain: 'Probabilités totales : \\(P(A)P_A(B) + P(\\bar A)P_{\\bar A}(B)\\).' };
+  });
+});
+</script>
+</body>
+</html>

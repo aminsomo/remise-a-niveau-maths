@@ -331,9 +331,14 @@ th { background: var(--surface-2); }
 .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: .8rem 1.1rem; min-width: 150px; }
 .stat b { display: block; font-size: 1.6rem; line-height: 1.1; }
 .stat span { color: var(--muted); font-size: .88rem; }
+.level { margin: 3.5rem 0 1rem; padding-top: 1.75rem; border-top: 2px solid var(--border); }
+.level > .level-title { font-size: clamp(1.7rem, 5vw, 2.3rem); margin: 0 0 .35rem; padding: 0; border: 0; letter-spacing: -.02em; }
+.level > .lead { margin: 0 0 .5rem; }
 .subject { margin: 2.5rem 0; }
+.level .subject { margin: 2rem 0; }
 .subject-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1rem; }
-.subject-head h2 { border: 0; margin: 0; padding: 0; }
+.subject-head h2, .subject-head h3 { border: 0; margin: 0; padding: 0; }
+.subject-head h3 { font-size: 1.3rem; }
 .subject-head .bar { flex: 1 1 200px; height: 8px; background: var(--surface-2); border-radius: 999px; overflow: hidden; max-width: 260px; }
 .subject-head .bar i { display: block; height: 100%; background: var(--subject-color, var(--accent)); width: 0; transition: width .4s; }
 .subject-head small { color: var(--muted); }

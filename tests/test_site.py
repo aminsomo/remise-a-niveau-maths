@@ -66,6 +66,46 @@ class ManifestTests(unittest.TestCase):
                     self.assertIn(p, listed, "page absente du manifeste assets/chapters.js")
 
 
+class LevelTests(unittest.TestCase):
+    """Les chapitres sont regroupés par niveau et couvrent le programme officiel de Première."""
+    # Programme 2019 : maths de 1re technologique (enseignement commun) + spécialité PCM STI2D
+    PREMIERE = {
+        "maths-1re": {"automatismes", "suites", "second-degre", "degre-3", "nombre-derive", "fonctions-derivees",
+                      "trigonometrie", "produit-scalaire", "complexes", "primitives", "statistiques",
+                      "probabilites", "variables-aleatoires", "algorithmique"},
+        "physique-1re": {"mesures-incertitudes", "energie-enjeux", "energie-chimique", "energie-electrique",
+                         "energie-interne", "energie-mecanique", "pression-hydrostatique", "lumiere-energie",
+                         "matiere-materiaux", "combustions", "oxydoreduction", "ondes", "ondes-sonores",
+                         "ondes-electromagnetiques"},
+    }
+
+    def test_every_subject_has_a_known_level(self):
+        data = load_manifest()
+        levels = [l["id"] for l in data["levels"]]
+        self.assertEqual(levels, ["1re", "tle", "prepa"])
+        for s in data["subjects"]:
+            with self.subTest(subject=s["id"]):
+                self.assertIn(s.get("level"), levels)
+        order = [levels.index(s["level"]) for s in data["subjects"]]
+        self.assertEqual(order, sorted(order), "les matières suivent l'ordre des niveaux (navigation préc./suiv.)")
+
+    def test_premiere_covers_official_programme(self):
+        subjects = {s["id"]: s for s in load_manifest()["subjects"]}
+        for sid, slugs in self.PREMIERE.items():
+            with self.subTest(subject=sid):
+                self.assertIn(sid, subjects)
+                self.assertEqual(subjects[sid]["level"], "1re")
+                self.assertEqual({c["slug"] for c in subjects[sid]["chapters"]}, slugs)
+
+    def test_premiere_chapters_have_drill_and_plot(self):
+        for sid in self.PREMIERE:
+            for path in sorted((ROOT / sid).glob("*.html")):
+                with self.subTest(page=f"{sid}/{path.name}"):
+                    src = path.read_text(encoding="utf-8")
+                    self.assertIn("Course.drill(", src, "un entraînement auto-généré (avec calculatrice) par chapitre")
+                    self.assertIn('class="plot', src, "au moins un graphique manipulable (plein écran)")
+
+
 class HtmlTests(unittest.TestCase):
     def test_pages_are_well_formed(self):
         for p in html_files():

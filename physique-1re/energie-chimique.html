@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Énergie chimique : combustions · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="physique-1re/energie-chimique">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Physique-chimie 1re · Énergie</p>
+    <h1>Énergie chimique : combustions</h1>
+    <p class="lead">Brûler un combustible libère l'énergie stockée dans ses liaisons chimiques. On compare les combustibles par leur
+      <b>pouvoir calorifique</b>, on mesure l'énergie libérée, et on apprend à se protéger des dangers des combustions.</p>
+    <p class="prereq">Prérequis : <a href="energie-enjeux.html">l'énergie et ses enjeux</a>. L'écriture des équations est dans <a href="combustions.html">Réactions de combustion</a>.</p>
+  </header>
+
+  <section>
+    <h2>1. La combustion, une conversion d'énergie</h2>
+    <div class="box def"><p class="box-title">Triangle du feu</p>
+      <p>Une combustion nécessite trois éléments : un <b>combustible</b> (bois, gaz, essence, éthanol…), un <b>comburant</b> (le dioxygène de l'air)
+        et une <b>énergie d'activation</b> (flamme, étincelle, chaleur). Supprimer l'un des trois arrête le feu.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Une transformation exothermique</p>
+      <p>Une combustion libère de l'énergie thermique vers l'extérieur : elle est <b>exothermique</b>, ce qui correspond à une <b>diminution de l'énergie du système chimique</b>.
+        La combustion <b>complète</b> d'un hydrocarbure ou d'un alcool produit du <b>dioxyde de carbone</b> et de l'<b>eau</b>.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Pouvoir calorifique</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Le <b>pouvoir calorifique</b> \(PC\) d'un combustible est l'énergie libérée par la combustion complète d'un kilogramme (ou d'un litre, d'un m³) de combustible.
+        \[Q = m \times PC \qquad (Q \text{ en J},\ m \text{ en kg},\ PC \text{ en J/kg}).\]</p>
+    </div>
+    <div class="table-scroll"><table>
+      <thead><tr><th>combustible</th><th>bois sec</th><th>éthanol</th><th>essence</th><th>gazole</th><th>butane</th><th>méthane</th><th>dihydrogène</th></tr></thead>
+      <tbody><tr><th>\(PC\) (MJ/kg, ordre de grandeur)</th><td>18</td><td>27</td><td>44</td><td>43</td><td>46</td><td>50</td><td>120</td></tr></tbody>
+    </table></div>
+    <div class="box example"><p class="box-title">Exemple 1 — cartouche de camping</p>
+      <p>Une cartouche contient 450 g de gaz (\(PC \approx 46\) MJ/kg). Quelle énergie peut-elle libérer ? Combien de litres d'eau peut-on chauffer de 20 °C à 100 °C (il faut 4,18 kJ par kg et par °C), si 40 % de l'énergie va dans l'eau ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(Q = 0{,}450 \times 46 \times 10^6 \approx 2{,}07 \times 10^7\) J.</p>
+        <p>Énergie utile : \(0{,}40 \times 2{,}07 \times 10^7 = 8{,}28 \times 10^6\) J. Masse d'eau : \(\dfrac{8{,}28 \times 10^6}{4\,180 \times 80} \approx 24{,}8\) kg, soit environ 25 L.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Mesurer l'énergie libérée</h2>
+    <div class="box method"><p class="box-title">Protocole (calorimétrie simple)</p>
+      <ol>
+        <li>Peser la lampe à alcool (ou le brûleur) avant et après : on obtient la masse \(m\) de combustible brûlé.</li>
+        <li>Chauffer une masse \(m_e\) d'eau dans une canette ; relever \(\theta_i\) et \(\theta_f\).</li>
+        <li>Énergie reçue par l'eau : \(Q_e = m_e\,c_e\,(\theta_f - \theta_i)\) avec \(c_e = 4\,180\ \mathrm{J\,kg^{-1}\,{}^\circ C^{-1}}\).</li>
+        <li>\(PC_{\text{exp}} = \dfrac{Q_e}{m}\), à comparer à la valeur de référence (écart normalisé, voir <a href="mesures-incertitudes.html">Mesures et incertitudes</a>).</li>
+      </ol>
+      <p>La valeur trouvée est presque toujours <b>trop faible</b> : une grande partie de l'énergie chauffe l'air et la canette (erreur systématique).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2</p>
+      <p>On brûle 1,2 g d'éthanol ; 200 g d'eau passent de 18 °C à 38 °C. Pouvoir calorifique expérimental ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(Q_e = 0{,}200 \times 4\,180 \times 20 = 16\,720\) J ; \(PC = \dfrac{16\,720}{1{,}2 \times 10^{-3}} \approx 1{,}4 \times 10^7\) J/kg \(= 14\) MJ/kg, environ la moitié de la valeur de référence (27 MJ/kg).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Dangers et prévention</h2>
+    <div class="box warning"><p class="box-title">Risques liés aux combustions</p>
+      <ul>
+        <li><b>Monoxyde de carbone</b> CO (combustion incomplète, manque d'air) : gaz incolore, inodore, mortel. Prévention : aération, entretien des chaudières, détecteur de CO.</li>
+        <li><b>Incendie, explosion</b> : stockage des combustibles à l'écart, détecteurs de fumée, extincteurs adaptés (on retire un côté du triangle du feu).</li>
+        <li><b>Brûlures</b>, fumées toxiques. En TP : lunettes, cheveux attachés, pas de flamme près des solvants.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
+    <div class="widget" id="w-pc">
+      <p class="widget-title">Comparer les combustibles</p>
+      <p class="hint">Pour une même masse brûlée, compare l'énergie libérée. Le dihydrogène libère le plus d'énergie par kilogramme… mais il est très léger et difficile à stocker.</p>
+      <div class="controls">
+        <label>masse brûlée (kg) <input type="range" data-k="m" min="0.1" max="10" step="0.1" value="1"> <output data-show="m"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : pouvoir calorifique</p>
+      <p class="hint">3 chiffres significatifs (notation 1,23e7 acceptée).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>Dans une combustion, le dioxygène est :</p>
+        <ol class="choices"><li>le combustible</li><li>le comburant</li><li>l'énergie d'activation</li><li>un produit</li></ol>
+        <p class="explain">Le comburant entretient la combustion.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>La combustion complète de l'éthanol produit :</p>
+        <ol class="choices"><li>du CO et de l'eau</li><li>du carbone et du dihydrogène</li><li>du dioxygène</li><li>du CO₂ et de l'eau</li></ol>
+        <p class="explain">Hydrocarbures et alcools : CO₂ + H₂O en combustion complète.</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Une transformation exothermique :</p>
+        <ol class="choices"><li>libère de l'énergie : l'énergie du système chimique diminue</li><li>absorbe de l'énergie</li><li>ne transfère pas d'énergie</li><li>augmente l'énergie du système chimique</li></ol>
+        <p class="explain">« Exo » : vers l'extérieur.</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Énergie libérée par 2 kg de bois (\(PC = 18\) MJ/kg) :</p>
+        <ol class="choices"><li>9 MJ</li><li>20 MJ</li><li>36 MJ</li><li>18 MJ</li></ol>
+        <p class="explain">\(Q = m \times PC = 2 \times 18\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=pouvoir+calorifique+combustible+premiere">Pouvoir calorifique<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=triangle+du+feu+combustion+monoxyde+de+carbone">Triangle du feu, monoxyde de carbone<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=mesure+energie+combustion+canette+eau+TP">Mesurer l'énergie d'une combustion (TP)<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  var FUELS = [['bois', 18], ['éthanol', 27], ['gazole', 43], ['essence', 44], ['butane', 46], ['méthane', 50], ['H₂', 120]];
+  var w = document.getElementById('w-pc'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { ylabel: 'MJ', xstep: 100 });
+  Course.onInput(w, function (v) {
+    var top = 120 * v.m * 1.18;
+    G.draw = function (g) {
+      FUELS.forEach(function (f, i) {
+        var q = f[1] * v.m;
+        g.poly([[i + 0.15, 0], [i + 0.15, q], [i + 0.85, q], [i + 0.85, 0]], i === 6 ? '--c3' : '--c4', { close: true, fill: true, alpha: 0.45 });
+        g.text(i + 0.5, q + top * 0.04, Course.fmt(q, 0), '--text', { align: 'center', bold: true, size: 12 });
+        g.text(i + 0.5, -top * 0.06, f[0], '--muted', { align: 'center', size: 12 });
+      });
+    };
+    G.redraw({ xmin: -0.1, xmax: 7.1, ymin: -top * 0.12, ymax: top });
+    out.textContent = 'masse brûlée : ' + Course.fmt(v.m, 1) + ' kg\nessence : ' + Course.fmt(44 * v.m, 1) + ' MJ = ' + Course.fmt(44 * v.m / 3.6, 2) + ' kWh   bois : ' + Course.fmt(18 * v.m, 1) + ' MJ';
+  });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 3), f = P(FUELS), T = function (q) { return String(q).replace('.', '{,}'); };
+    if (k === 0) { var m = R(1, 50) / 10, Q = m * f[1] * 1e6;
+      return { html: '<p>Énergie (en J) libérée par la combustion complète de \\(' + T(m) + '\\) kg de ' + f[0] + ' (\\(PC = ' + f[1] + '\\) MJ/kg) ?</p>', answer: Q, tol: A(Q, true), explain: '\\(Q = m \\times PC\\), avec \\(PC\\) en J/kg.' }; }
+    if (k === 1) { var Qm = R(10, 500), mm = Qm / f[1];
+      return { html: '<p>Masse de ' + f[0] + ' (\\(PC = ' + f[1] + '\\) MJ/kg) à brûler pour libérer ' + Qm + ' MJ (en kg) ?</p>', answer: mm, tol: A(mm, true), explain: '\\(m = Q / PC\\).' }; }
+    if (k === 2) { var me = R(1, 5) / 10, dt = R(10, 60), Qe = me * 4180 * dt;
+      return { html: '<p>\\(' + T(me) + '\\) kg d\'eau s\'échauffent de \\(' + dt + '\\) °C (\\(c = 4\\,180\\ \\mathrm{J\\,kg^{-1}\\,{}^\\circ C^{-1}}\\)). Énergie reçue (J) ?</p>', answer: Qe, tol: A(Qe, true), explain: '\\(Q = mc\\Delta\\theta\\).' }; }
+    var Qx = R(8, 30) * 1000, mg = R(5, 20) / 10, PCx = Qx / (mg * 1e-3);
+    return { html: '<p>La combustion de \\(' + T(mg) + '\\) g d\'alcool a fourni \\(' + Qx + '\\) J à l\'eau. Pouvoir calorifique expérimental (J/kg) ?</p>', answer: PCx, tol: A(PCx, true), explain: '\\(PC = Q / m\\), avec \\(m\\) en kg.' };
+  });
+});
+</script>
+</body>
+</html>

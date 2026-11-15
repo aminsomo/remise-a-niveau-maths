@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Réactions d'oxydoréduction · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="physique-1re/oxydoreduction">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Physique-chimie 1re · Matière et matériaux</p>
+    <h1>Réactions d'oxydoréduction</h1>
+    <p class="lead">La rouille, une pile, une pile à combustible, la galvanisation d'une tôle : à chaque fois, des électrons passent d'une espèce à une autre.
+      On apprend à identifier oxydants et réducteurs, à écrire les demi-équations et l'équation d'oxydoréduction, et à analyser la corrosion.</p>
+    <p class="prereq">Prérequis : <a href="matiere-materiaux.html">atomes et ions</a>, ajustement d'équations.</p>
+  </header>
+
+  <section>
+    <h2>1. Oxydants, réducteurs, couples</h2>
+    <div class="box def"><p class="box-title">Définitions</p>
+      <ul>
+        <li>Un <b>oxydant</b> est une espèce capable de <b>capter</b> un ou plusieurs électrons ; un <b>réducteur</b> peut en <b>céder</b>.</li>
+        <li>Une <b>oxydation</b> est une perte d'électrons ; une <b>réduction</b> est un gain d'électrons. (Moyen mnémotechnique : « l'oxydant se réduit ».)</li>
+        <li>Un <b>couple oxydant/réducteur</b> Ox/Red est relié par une <b>demi-équation électronique</b> : \(\mathrm{Ox} + n\,e^- = \mathrm{Red}\).</li>
+      </ul>
+    </div>
+    <div class="table-scroll"><table>
+      <thead><tr><th>couple</th><th>demi-équation</th></tr></thead>
+      <tbody>
+        <tr><td>\(\mathrm{Cu^{2+}/Cu}\)</td><td>\(\mathrm{Cu^{2+}} + \mathrm{2\,e^-} = \mathrm{Cu}\)</td></tr>
+        <tr><td>\(\mathrm{Fe^{2+}/Fe}\)</td><td>\(\mathrm{Fe^{2+}} + \mathrm{2\,e^-} = \mathrm{Fe}\)</td></tr>
+        <tr><td>\(\mathrm{Zn^{2+}/Zn}\)</td><td>\(\mathrm{Zn^{2+}} + \mathrm{2\,e^-} = \mathrm{Zn}\)</td></tr>
+        <tr><td>\(\mathrm{Ag^{+}/Ag}\)</td><td>\(\mathrm{Ag^{+}} + \mathrm{e^-} = \mathrm{Ag}\)</td></tr>
+        <tr><td>\(\mathrm{Al^{3+}/Al}\)</td><td>\(\mathrm{Al^{3+}} + \mathrm{3\,e^-} = \mathrm{Al}\)</td></tr>
+        <tr><td>\(\mathrm{H^{+}/H_2}\)</td><td>\(\mathrm{2\,H^{+}} + \mathrm{2\,e^-} = \mathrm{H_2}\)</td></tr>
+        <tr><td>\(\mathrm{O_2/H_2O}\)</td><td>\(\mathrm{O_2} + \mathrm{4\,H^+} + \mathrm{4\,e^-} = \mathrm{2\,H_2O}\)</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>2. Écrire une équation d'oxydoréduction</h2>
+    <div class="box method"><p class="box-title">Méthode</p>
+      <ol>
+        <li>Écrire la demi-équation de chaque couple, dans le sens où il réagit (l'oxydant d'un couple réagit avec le réducteur de l'autre).</li>
+        <li>Multiplier les demi-équations pour que le <b>nombre d'électrons</b> cédés soit égal au nombre captés.</li>
+        <li>Additionner : les électrons disparaissent du bilan.</li>
+      </ol>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — lame de zinc dans du sulfate de cuivre</p>
+      <p>Une lame de zinc plonge dans une solution bleue d'ions \(\mathrm{Cu^{2+}}\) : un dépôt rouge de cuivre apparaît et la solution se décolore. Équation ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\mathrm{Zn} = \mathrm{Zn^{2+}} + \mathrm{2\,e^-}\) (oxydation) et \(\mathrm{Cu^{2+}} + \mathrm{2\,e^-} = \mathrm{Cu}\) (réduction).</p>
+        <p>Bilan : \(\mathrm{Zn} + \mathrm{Cu^{2+}} \longrightarrow \mathrm{Zn^{2+}} + \mathrm{Cu}\).</p>
+      </details>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — aluminium et ions argent</p>
+      <p>Écrire l'équation de la réaction entre l'aluminium Al et les ions \(\mathrm{Ag^+}\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\mathrm{Al} = \mathrm{Al^{3+}} + \mathrm{3\,e^-}\) (× 1) et \(\mathrm{Ag^+} + \mathrm{e^-} = \mathrm{Ag}\) (× 3) : \(\mathrm{Al} + \mathrm{3\,Ag^+} \longrightarrow \mathrm{Al^{3+}} + \mathrm{3\,Ag}\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Corrosion des matériaux</h2>
+    <div class="box prop"><p class="box-title">Une oxydation des métaux</p>
+      <p>La <b>corrosion</b> d'un métal est son oxydation par le milieu (dioxygène de l'air, eau, ions). Pour le fer : \(\mathrm{Fe} = \mathrm{Fe^{2+}} + \mathrm{2\,e^-}\), les électrons étant captés par le dioxygène dissous ;
+        les ions fer forment ensuite la rouille (oxydes et hydroxydes de fer), poreuse, qui n'arrête pas l'attaque.</p>
+    </div>
+    <div class="box method"><p class="box-title">Se protéger de la corrosion</p>
+      <ul>
+        <li>Revêtement isolant : peinture, vernis, plastique.</li>
+        <li><b>Galvanisation</b> : couche de zinc sur l'acier ; le zinc, plus réducteur, s'oxyde à la place du fer.</li>
+        <li><b>Anode sacrificielle</b> : bloc de zinc ou de magnésium fixé sur une coque de bateau ou une canalisation, qui se corrode à la place de la structure.</li>
+        <li>Alliages inoxydables (acier inox au chrome).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-redox">
+      <p class="widget-title">Construire une équation d'oxydoréduction</p>
+      <p class="hint">Choisis le réducteur (qui cède les électrons) et l'oxydant (qui les capte). Les flèches montrent le transfert d'électrons ; les coefficients assurent qu'aucun électron ne reste.</p>
+      <div class="controls">
+        <label>réducteur <select data-k="red"><option value="Zn" selected>Zn</option><option value="Fe">Fe</option><option value="Al">Al</option><option value="Cu">Cu</option><option value="H2">H₂</option></select></label>
+        <label>oxydant <select data-k="ox"><option value="Cu" selected>Cu²⁺</option><option value="Ag">Ag⁺</option><option value="H">H⁺</option><option value="Fe">Fe²⁺</option></select></label>
+      </div>
+      <canvas class="plot short"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : électrons et coefficients</p>
+      <p class="hint">Réponds par un entier.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="0">
+        <p>Dans \(\mathrm{Fe} = \mathrm{Fe^{2+}} + \mathrm{2\,e^-}\), le fer subit :</p>
+        <ol class="choices"><li>une oxydation</li><li>une réduction</li><li>une combustion</li><li>une dissolution sans échange d'électrons</li></ol>
+        <p class="explain">Il perd des électrons : oxydation (le fer est le réducteur).</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Dans le couple \(\mathrm{Ag^+/Ag}\), l'oxydant est :</p>
+        <ol class="choices"><li>Ag</li><li>\(e^-\)</li><li>\(\mathrm{Ag^+}\)</li><li>aucun</li></ol>
+        <p class="explain">On écrit toujours Ox/Red.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Une anode sacrificielle en zinc protège une coque en acier parce que :</p>
+        <ol class="choices"><li>le zinc est isolant</li><li>le zinc réduit l'eau de mer</li><li>le zinc ne réagit pas</li><li>le zinc s'oxyde à la place du fer</li></ol>
+        <p class="explain">Le zinc, plus réducteur, cède ses électrons en premier.</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Dans \(\mathrm{Al} + \mathrm{3\,Ag^+} \to \mathrm{Al^{3+}} + \mathrm{3\,Ag}\), combien d'électrons sont échangés ?</p>
+        <ol class="choices"><li>1</li><li>3</li><li>6</li><li>0</li></ol>
+        <p class="explain">Un Al cède 3 électrons, captés par 3 ions Ag⁺.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=demi+equation+electronique+oxydoreduction+premiere">Demi-équations électroniques<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=equation+oxydoreduction+methode+premiere">Écrire une équation d'oxydoréduction<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=corrosion+fer+protection+anode+sacrificielle">Corrosion et anode sacrificielle<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  // réducteurs : [formule, ion formé, électrons cédés, nb d'ions formés, E° du couple (V)]
+  // oxydants : [ion, espèce formée, électrons captés, nb d'ions consommés, E° du couple (V)]
+  var RED = { Zn: ['Zn', 'Zn²⁺', 2, 1, -0.76], Fe: ['Fe', 'Fe²⁺', 2, 1, -0.44], Al: ['Al', 'Al³⁺', 3, 1, -1.66], Cu: ['Cu', 'Cu²⁺', 2, 1, 0.34], H2: ['H₂', 'H⁺', 2, 2, 0] };
+  var OX = { Cu: ['Cu²⁺', 'Cu', 2, 1, 0.34], Ag: ['Ag⁺', 'Ag', 1, 1, 0.80], H: ['H⁺', 'H₂', 2, 2, 0], Fe: ['Fe²⁺', 'Fe', 2, 1, -0.44] };
+  function gcd(a, b) { return b ? gcd(b, a % b) : a; }
+  var w = document.getElementById('w-redox'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { grid: false, axes: false });
+  Course.onInput(w, function (v) {
+    var r = RED[v.red], o = OX[v.ox];
+    var same = (v.red === v.ox) || (v.red === 'H2' && v.ox === 'H');
+    var l = r[2] * o[2] / gcd(r[2], o[2]), cr = l / r[2], co = l / o[2];
+    var c = function (k, sp) { return (k === 1 ? '' : k + ' ') + sp; };
+    // côté réducteur : cr × (formule) donne cr × r[3] ions ; côté oxydant : co × r[3] ions consommés donnent co espèces
+    var redL = c(cr, r[0]), redR = c(cr * r[3], r[1]), oxL = c(co * o[3], o[0]), oxR = c(co, o[1]);
+    G.draw = function (g) {
+      g.text(2, 2.3, redL, '--c1', { align: 'center', bold: true, size: 18 });
+      g.text(2, 0.4, redR, '--c1', { align: 'center', size: 16 });
+      g.text(8, 2.3, oxL, '--c2', { align: 'center', bold: true, size: 18 });
+      g.text(8, 0.4, oxR, '--c2', { align: 'center', size: 16 });
+      g.arrow(2, 1.95, 2, 0.8, '--c1');
+      g.arrow(8, 1.95, 8, 0.8, '--c2');
+      if (!same) { g.arrow(3, 1.9, 7, 1.9, '--c4'); g.text(5, 2.25, l + ' e⁻', '--c4', { align: 'center', bold: true, size: 15 }); }
+      g.text(2, -0.35, 'oxydation', '--muted', { align: 'center' });
+      g.text(8, -0.35, 'réduction', '--muted', { align: 'center' });
+    };
+    G.redraw({ xmin: 0, xmax: 10, ymin: -0.8, ymax: 2.9 });
+    out.textContent = same ? 'Choisis deux couples différents.' :
+      'oxydation : ' + r[0] + ' = ' + c(r[3], r[1]) + ' + ' + r[2] + ' e⁻   (×\u00a0' + cr + ')\nréduction : ' + c(o[3], o[0]) + ' + ' + o[2] + ' e⁻ = ' + o[1] + '   (×\u00a0' + co + ')' +
+      '\nbilan : ' + redL + ' + ' + oxL + ' → ' + redR + ' + ' + oxR + '   (' + l + ' électrons échangés)' +
+      (o[4] <= r[4] ? '\n(en pratique, cette réaction n’est pas spontanée : l’oxydant est trop faible face à ce réducteur — voir Terminale)' : '');
+  });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 2);
+    // [réducteur, e⁻ cédés, oxydant, e⁻ captés par « unité », ions par unité] : pour H⁺, l'unité est 2 H⁺ + 2 e⁻ = H₂
+    var pairs = [['Al', 3, 'Ag^+', 1, 1], ['Al', 3, 'Cu^{2+}', 2, 1], ['Zn', 2, 'Ag^+', 1, 1], ['Fe', 2, 'Ag^+', 1, 1], ['Al', 3, 'H^+', 2, 2], ['Zn', 2, 'Cu^{2+}', 2, 1], ['Mg', 2, 'H^+', 2, 2]];
+    var p = P(pairs), l = p[1] * p[3] / gcd(p[1], p[3]), coef = l / p[3] * p[4];
+    if (k === 0) return { html: '<p>Réaction entre \\(\\mathrm{' + p[0] + '}\\) et \\(\\mathrm{' + p[2] + '}\\) : combien d\'électrons sont échangés dans l\'équation ajustée avec les plus petits entiers ?</p>', answer: l, explain: '\\(\\mathrm{' + p[0] + '}\\) cède ' + p[1] + ' e⁻ ; ' + (p[4] === 2 ? '2 H⁺ captent 2 e⁻' : '\\(\\mathrm{' + p[2] + '}\\) en capte ' + p[3]) + ' : PPCM = ' + l + '.' };
+    if (k === 1) return { html: '<p>Dans l\'équation ajustée (plus petits entiers) entre \\(\\mathrm{' + p[0] + '}\\) et \\(\\mathrm{' + p[2] + '}\\), quel est le coefficient de \\(\\mathrm{' + p[2] + '}\\) ?</p>', answer: coef, explain: 'Il faut ' + l + ' électrons captés' + (p[4] === 2 ? ', soit ' + l / 2 + ' H₂ formés à partir de ' + coef + ' H⁺.' : ', soit ' + coef + ' ions.') };
+    var ions = [['Fe^{3+}', 'Fe', 3], ['Cu^{2+}', 'Cu', 2], ['Ag^+', 'Ag', 1], ['Al^{3+}', 'Al', 3], ['Zn^{2+}', 'Zn', 2]], io = P(ions);
+    return { html: '<p>Combien d\'électrons apparaissent dans la demi-équation \\(\\mathrm{' + io[0] + ' + n\\,e^- = ' + io[1] + '}\\) ?</p>', answer: io[2], explain: 'La charge doit être conservée.' };
+  });
+});
+</script>
+</body>
+</html>

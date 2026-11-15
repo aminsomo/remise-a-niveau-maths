@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>L'énergie et ses enjeux · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="physique-1re/energie-enjeux">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Physique-chimie 1re · Énergie</p>
+    <h1>L'énergie et ses enjeux</h1>
+    <p class="lead">Chauffer, éclairer, se déplacer, communiquer : tout consomme de l'énergie, qui se convertit d'une forme à une autre
+      mais ne se crée jamais. Savoir schématiser une chaîne énergétique et calculer un rendement est la base de toute la partie « Énergie ».</p>
+    <p class="prereq">Prérequis : <a href="mesures-incertitudes.html">unités et notation scientifique</a>.</p>
+  </header>
+
+  <section>
+    <h2>1. Formes et sources d'énergie</h2>
+    <div class="box def"><p class="box-title">Formes d'énergie</p>
+      <p>Énergie cinétique (mouvement), potentielle (position, déformation), thermique ou interne (agitation des particules), chimique (liaisons),
+        électrique, rayonnante (lumière), nucléaire. L'unité SI est le <b>joule</b> (J) ; on utilise aussi le <b>kilowattheure</b> : \(1\ \mathrm{kWh} = 3{,}6 \times 10^6\ \mathrm{J}\).</p>
+    </div>
+    <div class="box def"><p class="box-title">Sources d'énergie</p>
+      <p>Une <b>source</b> est ce qui fournit l'énergie : pétrole, gaz, charbon, uranium (non renouvelables) ; Soleil, vent, eau, biomasse, géothermie (renouvelables).
+        Une ressource est dite <b>renouvelable</b> si son renouvellement naturel est assez rapide à l'échelle d'une vie humaine.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Modes de transport de l'énergie</p>
+      <p>Rayonnement électromagnétique, lignes électriques, circuits de fluides (eau chaude, gaz, carburant), liaisons mécaniques (arbre, courroie, engrenages).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Conversions et chaînes énergétiques</h2>
+    <div class="box def"><p class="box-title">Convertisseur</p>
+      <p>Un convertisseur transforme une forme d'énergie en une autre. Principales conversions : <b>thermodynamique</b> (moteur thermique, centrale),
+        <b>électromécanique</b> (moteur électrique, alternateur), <b>photoélectrique</b> (panneau photovoltaïque), <b>électrochimique</b> (pile, batterie, électrolyseur).</p>
+    </div>
+    <div class="box method"><p class="box-title">Schématiser une chaîne énergétique</p>
+      <p>Réservoirs et sources dans des ovales, convertisseurs dans des rectangles, transferts sur des flèches légendées par la forme d'énergie.
+        Ex. : <i>vent</i> → [éolienne] → électrique → [moteur] → mécanique, avec à chaque convertisseur une flèche de pertes (thermique).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Conservation et rendement</p>
+      <p>L'énergie se <b>conserve</b> : \(E_{\text{reçue}} = E_{\text{utile}} + E_{\text{pertes}}\). Le <b>rendement</b> d'un convertisseur est
+        \[\eta = \frac{E_{\text{utile}}}{E_{\text{reçue}}} = \frac{P_{\text{utile}}}{P_{\text{reçue}}} \qquad (0 \leq \eta &lt; 1).\]
+        Pour une chaîne de convertisseurs, le rendement global est le <b>produit</b> des rendements : \(\eta = \eta_1 \times \eta_2 \times \dots\)</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — véhicule électrique</p>
+      <p>Chargeur 92 %, batterie 90 %, moteur 88 %. Rendement global ? Énergie utile pour 50 kWh prélevés au réseau ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\eta = 0{,}92 \times 0{,}90 \times 0{,}88 \approx 0{,}729\) ; \(E_u = 0{,}729 \times 50 \approx 36{,}4\) kWh, le reste (13,6 kWh) est perdu en chaleur.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Puissance et énergie</h2>
+    <div class="box prop"><p class="box-title">Relation fondamentale</p>
+      <p>\[E = P \times \Delta t \qquad \text{(J = W × s, ou kWh = kW × h)}.\]
+        La <b>puissance moyenne</b> est \(P = \dfrac{E}{\Delta t}\). La <b>puissance instantanée</b> est la limite de la puissance moyenne pour un intervalle de temps infiniment petit :
+        \(p(t) = \dfrac{\mathrm{d}E}{\mathrm{d}t}\) (voir <a href="../maths-1re/nombre-derive.html">nombre dérivé</a>).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Ordres de grandeur</p>
+      <div class="table-scroll"><table>
+        <tbody>
+          <tr><td>LED</td><td>quelques W</td><td>ordinateur portable</td><td>≈ 50 W</td></tr>
+          <tr><td>four, radiateur</td><td>1 à 3 kW</td><td>voiture (moteur)</td><td>50 à 150 kW</td></tr>
+          <tr><td>éolienne terrestre</td><td>2 à 3 MW</td><td>réacteur nucléaire</td><td>≈ 1 GW (électrique)</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — facture</p>
+      <p>Un radiateur de 1,5 kW fonctionne 6 h par jour pendant 30 jours, à 0,25 € le kWh. Énergie et coût ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(E = 1{,}5 \times 6 \times 30 = 270\) kWh \(= 9{,}72 \times 10^8\) J ; coût : \(270 \times 0{,}25 = 67{,}50\) €.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-chain">
+      <p class="widget-title">Chaîne de trois convertisseurs</p>
+      <p class="hint">Chaque barre montre l'énergie qui reste après un convertisseur ; la partie rose est perdue. Le rendement global est un produit : il chute vite.</p>
+      <div class="controls">
+        <label>\(\eta_1\) (%) <input type="range" data-k="e1" min="10" max="100" step="1" value="92"> <output data-show="e1"></output></label>
+        <label>\(\eta_2\) (%) <input type="range" data-k="e2" min="10" max="100" step="1" value="90"> <output data-show="e2"></output></label>
+        <label>\(\eta_3\) (%) <input type="range" data-k="e3" min="10" max="100" step="1" value="88"> <output data-show="e3"></output></label>
+        <label>énergie reçue (kWh) <input type="range" data-k="E" min="1" max="100" step="1" value="50"> <output data-show="E"></output></label>
+      </div>
+      <canvas class="plot short"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : énergie, puissance, rendement</p>
+      <p class="hint">3 chiffres significatifs ; rendement en décimal (ex. 0,85).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="2">
+        <p>1 kWh vaut :</p>
+        <ol class="choices"><li>1 000 J</li><li>3 600 J</li><li>3,6 MJ</li><li>60 kJ</li></ol>
+        <p class="explain">\(1\,000\ \mathrm{W} \times 3\,600\ \mathrm{s} = 3{,}6 \times 10^6\) J.</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Un panneau photovoltaïque réalise une conversion :</p>
+        <ol class="choices"><li>photoélectrique</li><li>électromécanique</li><li>électrochimique</li><li>thermodynamique</li></ol>
+        <p class="explain">Lumière → électricité.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Deux convertisseurs de rendements 0,8 et 0,5 en série ont un rendement global de :</p>
+        <ol class="choices"><li>1,3</li><li>0,65</li><li>0,3</li><li>0,4</li></ol>
+        <p class="explain">Produit : \(0{,}8 \times 0{,}5 = 0{,}4\).</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Laquelle de ces ressources n'est <b>pas</b> renouvelable ?</p>
+        <ol class="choices"><li>le vent</li><li>le gaz naturel</li><li>la biomasse</li><li>le rayonnement solaire</li></ol>
+        <p class="explain">Le gaz s'est formé en millions d'années.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=chaine+energetique+rendement+premiere+STI2D">Chaîne énergétique et rendement<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=puissance+energie+kWh+joule+physique+lycee">Puissance, énergie, kWh<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.lumni.fr/lycee">Ressources vidéo du lycée — Lumni<small>lumni.fr</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  var w = document.getElementById('w-chain'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { grid: false, axes: false });
+  Course.onInput(w, function (v) {
+    var e = [v.e1 / 100, v.e2 / 100, v.e3 / 100], E = [v.E], names = ['reçue', 'après 1', 'après 2', 'utile'];
+    e.forEach(function (x, i) { E.push(E[i] * x); });
+    G.draw = function (g) {
+      E.forEach(function (val, i) {
+        var x = i * 1.4;
+        g.poly([[x, 0], [x, val], [x + 0.9, val], [x + 0.9, 0]], i === 3 ? '--ok' : '--c1', { close: true, fill: true, alpha: 0.45 });
+        if (i > 0) g.poly([[x, val], [x, E[i - 1]], [x + 0.9, E[i - 1]], [x + 0.9, val]], '--c2', { close: true, fill: true, alpha: 0.25 });
+        g.text(x + 0.45, val + v.E * 0.05, Course.fmt(val, 1), '--text', { align: 'center', bold: true });
+        g.text(x + 0.45, -v.E * 0.08, names[i], '--muted', { align: 'center' });
+      });
+    };
+    G.redraw({ xmin: -0.3, xmax: 5.2, ymin: -v.E * 0.16, ymax: v.E * 1.15 });
+    var eta = e[0] * e[1] * e[2];
+    out.textContent = 'η global = ' + e.map(function (x) { return Course.fmt(x, 2); }).join(' × ') + ' = ' + Course.fmt(eta, 3) +
+      '\nénergie utile : ' + Course.fmt(E[3], 2) + ' kWh   pertes : ' + Course.fmt(v.E - E[3], 2) + ' kWh (' + Course.fmt((1 - eta) * 100, 1) + ' %)';
+  });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 4), T = function (q) { return String(q).replace('.', '{,}'); };
+    if (k === 0) { var Pk = P([0.5, 1.2, 2, 2.5, 3]), h = R(1, 10), d = R(1, 30), E = Pk * h * d;
+      return { html: '<p>Un appareil de \\(' + T(Pk) + '\\) kW fonctionne ' + h + ' h par jour pendant ' + d + ' jours. Énergie consommée (kWh) ?</p>', answer: E, tol: A(E, true), explain: '\\(E = P \\times \\Delta t\\).' }; }
+    if (k === 1) { var kwh = R(2, 500), J = kwh * 3.6e6;
+      return { html: '<p>Convertis ' + kwh + ' kWh en joules.</p>', answer: J, tol: A(J, true), explain: '\\(1\\ \\mathrm{kWh} = 3{,}6 \\times 10^6\\ \\mathrm{J}\\).' }; }
+    if (k === 2) { var Pr = R(5, 50) * 100, eta = R(50, 98) / 100, Pu = Pr * eta;
+      return { html: '<p>Un moteur reçoit \\(' + Pr + '\\) W et fournit \\(' + T(Math.round(Pu)) + '\\) W de puissance mécanique. Rendement ?</p>', answer: Math.round(Pu) / Pr, tol: A(Math.round(Pu) / Pr, true), explain: '\\(\\eta = P_u / P_r\\).' }; }
+    if (k === 3) { var a = R(70, 99) / 100, b = R(70, 99) / 100, et = a * b;
+      return { html: '<p>Deux convertisseurs en série, rendements \\(' + T(a) + '\\) et \\(' + T(b) + '\\). Rendement global ?</p>', answer: et, tol: A(et, true), explain: 'Produit des rendements.' }; }
+    var EJ = R(2, 90) * 1000, t = R(10, 300), Pw = EJ / t;
+    return { html: '<p>Une énergie de \\(' + EJ + '\\) J est transférée en ' + t + ' s. Puissance moyenne (W) ?</p>', answer: Pw, tol: A(Pw, true), explain: '\\(P = E / \\Delta t\\).' };
+  });
+});
+</script>
+</body>
+</html>

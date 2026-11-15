@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Énergie électrique · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="physique-1re/energie-electrique">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Physique-chimie 1re · Énergie</p>
+    <h1>Énergie électrique</h1>
+    <p class="lead">Lire un chronogramme, distinguer valeur moyenne et valeur efficace, appliquer les lois de Kirchhoff et la loi d'Ohm,
+      calculer puissance et énergie : les outils de base de tout système électrique, du chargeur de téléphone à la ligne haute tension.</p>
+    <p class="prereq">Prérequis : <a href="energie-enjeux.html">puissance et énergie</a>.</p>
+  </header>
+
+  <section>
+    <h2>1. Circuit, conventions, mesures</h2>
+    <div class="box def"><p class="box-title">Tension et intensité</p>
+      <p>L'<b>intensité</b> \(i\) (en ampères, A) est le débit de charges ; elle se mesure avec un <b>ampèremètre en série</b>.
+        La <b>tension</b> \(u_{AB} = v_A - v_B\) (en volts, V) se mesure avec un <b>voltmètre en dérivation</b>. On les algébrise en choisissant un sens (flèches).</p>
+    </div>
+    <div class="box def"><p class="box-title">Conventions générateur et récepteur</p>
+      <p>En <b>convention récepteur</b>, les flèches de \(u\) et \(i\) sont en sens opposés ; en <b>convention générateur</b>, dans le même sens.
+        Avec la convention récepteur, la puissance reçue \(p = u \times i\) est positive si le dipôle se comporte en récepteur, négative s'il se comporte en générateur.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Lois de Kirchhoff</p>
+      <ul>
+        <li><b>Loi des nœuds</b> : la somme des intensités qui arrivent à un nœud est égale à la somme de celles qui en partent.</li>
+        <li><b>Loi des mailles</b> : en parcourant une maille dans un sens, la somme algébrique des tensions est nulle.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Grandeurs variables : moyenne et efficace</h2>
+    <div class="box def"><p class="box-title">Valeurs caractéristiques d'une grandeur périodique</p>
+      <ul>
+        <li><b>Valeur instantanée</b> \(u(t)\) ; période \(T\), fréquence \(f = 1/T\) ; valeurs maximale et minimale.</li>
+        <li><b>Valeur moyenne</b> \(\langle u\rangle\) (ou \(U_{\text{moy}}\)) : la <b>composante continue</b>. \(u - \langle u\rangle\) est la <b>composante alternative</b>.
+          Sur un chronogramme, c'est la hauteur qui égalise les aires au-dessus et en dessous.</li>
+        <li><b>Valeur efficace</b> \(U\) : la tension continue qui produirait <b>le même effet Joule</b> dans une résistance. Pour une sinusoïde d'amplitude \(U_{\max}\) : \(U = \dfrac{U_{\max}}{\sqrt2}\).</li>
+      </ul>
+      <p>Au multimètre : position DC pour la valeur moyenne, position AC+DC (TRMS) pour la valeur efficace.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — tension créneau</p>
+      <p>Une tension vaut 12 V pendant 3 ms puis 0 V pendant 1 ms, périodiquement. Fréquence, valeur moyenne, valeur efficace ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(T = 4\) ms, \(f = 250\) Hz. \(\langle u\rangle = \dfrac{12 \times 3 + 0 \times 1}{4} = 9\) V.</p>
+        <p>\(U^2 = \dfrac{12^2 \times 3}{4} = 108\), donc \(U \approx 10{,}4\) V (la valeur efficace d'un créneau dépasse sa moyenne).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Loi d'Ohm, effet Joule, puissance</h2>
+    <div class="box prop"><p class="box-title">Relations</p>
+      <ul>
+        <li>Loi d'Ohm (résistor, convention récepteur) : \(u = R\,i\) (\(R\) en ohms, Ω).</li>
+        <li>Puissance reçue par un dipôle en continu : \(P = U \times I\) ; pour un résistor : \(P = R I^2 = \dfrac{U^2}{R}\) (<b>effet Joule</b> : tout est converti en chaleur).</li>
+        <li>Énergie sur une durée \(\Delta t\) : \(E = P \times \Delta t\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — pertes en ligne</p>
+      <p>Une ligne de résistance 2 Ω transporte 10 kW. Pertes Joule si la tension est 400 V ? et 20 000 V ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>À 400 V : \(I = 10\,000/400 = 25\) A, pertes \(2 \times 25^2 = 1\,250\) W (12,5 %).</p>
+        <p>À 20 000 V : \(I = 0{,}5\) A, pertes \(2 \times 0{,}25 = 0{,}5\) W. C'est pourquoi on transporte l'électricité sous haute tension.</p>
+      </details>
+    </div>
+    <div class="box warning"><p class="box-title">Sécurité électrique</p>
+      <p>Le danger vient du courant qui traverse le corps. Disjoncteur (surintensités), différentiel 30 mA (fuites vers la terre, protège les personnes), prise de terre, double isolation.
+        En TP : on câble et modifie un montage hors tension.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-sig">
+      <p class="widget-title">Chronogramme : valeur moyenne et valeur efficace</p>
+      <p class="hint">Ajoute une composante continue, change la forme du signal : compare la ligne de la moyenne (orange) et celle de la valeur efficace (violette).</p>
+      <div class="controls">
+        <label>forme <select data-k="sh"><option value="sin">sinusoïde</option><option value="sq">créneau</option><option value="tri">triangle</option></select></label>
+        <label>amplitude (V) <input type="range" data-k="A" min="0" max="10" step="0.5" value="6"> <output data-show="A"></output></label>
+        <label>composante continue (V) <input type="range" data-k="c" min="-6" max="6" step="0.5" value="0"> <output data-show="c"></output></label>
+        <label>rapport cyclique <input type="range" data-k="a" min="0.1" max="0.9" step="0.05" value="0.5"> <output data-show="a" data-digits="2"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : circuits et puissances</p>
+      <p class="hint">3 chiffres significatifs, dans l'unité demandée.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>Un voltmètre se branche :</p>
+        <ol class="choices"><li>en série</li><li>en dérivation</li><li>indifféremment</li><li>uniquement en alternatif</li></ol>
+        <p class="explain">Il mesure une différence de potentiel entre deux points.</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Deux courants de 2 A et 3 A arrivent à un nœud ; un seul courant \(i\) en repart. \(i =\)</p>
+        <ol class="choices"><li>1 A</li><li>6 A</li><li>5 A</li><li>−5 A</li></ol>
+        <p class="explain">Loi des nœuds : ce qui entre ressort, \(i = 2 + 3 = 5\) A.</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>La valeur efficace d'une tension sinusoïdale d'amplitude 325 V vaut environ :</p>
+        <ol class="choices"><li>230 V</li><li>325 V</li><li>162 V</li><li>0 V</li></ol>
+        <p class="explain">\(325/\sqrt2 \approx 230\) V : la tension du secteur.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Un résistor de 50 Ω parcouru par 2 A dissipe :</p>
+        <ol class="choices"><li>100 W</li><li>25 W</li><li>52 W</li><li>200 W</li></ol>
+        <p class="explain">\(P = RI^2 = 50 \times 4\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=valeur+moyenne+valeur+efficace+chronogramme+STI2D">Valeur moyenne et valeur efficace<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=loi+des+mailles+loi+des+noeuds+exercice">Lois des nœuds et des mailles<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=effet+joule+puissance+electrique+premiere">Effet Joule et puissance électrique<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  var w = document.getElementById('w-sig'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { xlabel: 't (ms)', ylabel: 'u (V)' });
+  Course.onInput(w, function (v) {
+    var T = 10;
+    var wave = function (t) {
+      var ph = ((t % T) + T) % T / T;
+      if (v.sh === 'sin') return v.c + v.A * Math.sin(2 * Math.PI * ph);
+      if (v.sh === 'sq') return v.c + (ph < v.a ? v.A : 0);
+      return v.c + (ph < v.a ? v.A * ph / v.a : v.A * (1 - ph) / (1 - v.a));
+    };
+    var n = 2000, s = 0, s2 = 0;
+    for (var i = 0; i < n; i++) { var y = wave((i + 0.5) * T / n); s += y; s2 += y * y; }
+    var moy = s / n, eff = Math.sqrt(s2 / n);
+    w.querySelector('[data-k="a"]').closest('label').hidden = v.sh === 'sin';
+    G.draw = function (g) {
+      g.fn(wave, '--c1');
+      g.seg(0, moy, 25, moy, '--c4', { width: 2, dash: [8, 4] });
+      g.seg(0, eff, 25, eff, '--c3', { width: 2, dash: [3, 3] });
+      g.text(24.6, moy, '⟨u⟩', '--c4', { align: 'right', baseline: 'bottom', bold: true });
+      g.text(24.6, eff, 'U', '--c3', { align: 'right', baseline: 'bottom', bold: true });
+    };
+    G.redraw({ xmin: 0, xmax: 25, ymin: -12, ymax: 12 });
+    out.textContent = 'période T = 10 ms   f = 100 Hz\nvaleur moyenne ⟨u⟩ = ' + Course.fmt(moy, 2) + ' V   valeur efficace U = ' + Course.fmt(eff, 2) + ' V' +
+      '\nUmax = ' + Course.fmt(v.c + v.A, 2) + ' V   Umin = ' + Course.fmt(v.sh === 'sin' ? v.c - v.A : v.c, 2) + ' V';
+  });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 4), T = function (q) { return String(q).replace('.', '{,}'); };
+    if (k === 0) { var Rr = P([10, 22, 47, 100, 220, 470]), I = R(1, 50) / 100, U = Rr * I;
+      return { html: '<p>Un résistor de \\(' + Rr + '\\ \\Omega\\) est parcouru par \\(' + T(I) + '\\) A. Tension à ses bornes (V) ?</p>', answer: U, tol: A(U, true), explain: '\\(U = RI\\).' }; }
+    if (k === 1) { var U1 = P([5, 12, 24, 230]), Rx = P([4, 10, 50, 100]), Pw = U1 * U1 / Rx;
+      return { html: '<p>Un résistor de \\(' + Rx + '\\ \\Omega\\) est soumis à \\(' + U1 + '\\) V continus. Puissance dissipée (W) ?</p>', answer: Pw, tol: A(Pw, true), explain: '\\(P = U^2/R\\).' }; }
+    if (k === 2) { var E0 = P([4.5, 9, 12, 24]), u1 = Math.round(E0 * R(2, 8) * 10) / 100;
+      return { html: '<p>Dans une maille, un générateur de \\(' + T(E0) + '\\) V alimente deux résistors en série. L\'un a \\(' + T(u1) + '\\) V à ses bornes. Tension aux bornes de l\'autre (V) ?</p>', answer: E0 - u1, tol: A(E0 - u1, true), explain: 'Loi des mailles : \\(E = u_1 + u_2\\).' }; }
+    if (k === 3) { var Um = P([10, 12, 24, 325, 400]), Ueff = Um / Math.SQRT2;
+      return { html: '<p>Valeur efficace (V) d\'une tension sinusoïdale d\'amplitude \\(' + Um + '\\) V ?</p>', answer: Ueff, tol: A(Ueff, true), explain: '\\(U = U_{\\max}/\\sqrt2\\).' }; }
+    var Pa = P([60, 500, 1500, 2000]), h = R(1, 8), kwh = Pa * h / 1000;
+    return { html: '<p>Un appareil de \\(' + Pa + '\\) W fonctionne ' + h + ' h. Énergie consommée (kWh) ?</p>', answer: kwh, tol: A(kwh, true), explain: '\\(E = P\\Delta t\\), avec \\(P\\) en kW et \\(\\Delta t\\) en h.' };
+  });
+});
+</script>
+</body>
+</html>

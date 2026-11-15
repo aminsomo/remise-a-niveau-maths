@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Variables aléatoires et loi de Bernoulli · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="maths-1re/variables-aleatoires">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths 1re · Probabilités · Tronc commun</p>
+    <h1>Variables aléatoires et loi de Bernoulli</h1>
+    <p class="lead">Un gain à un jeu, un nombre de pièces défectueuses, un temps d'attente : ce sont des nombres aléatoires.
+      On décrit leur loi, on calcule leur valeur moyenne (l'espérance) et on observe par simulation comment la fréquence
+      fluctue d'un échantillon à l'autre.</p>
+    <p class="prereq">Prérequis : <a href="probabilites.html">probabilités conditionnelles et arbres</a>.</p>
+  </header>
+
+  <section>
+    <h2>1. Variable aléatoire et loi de probabilité</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Une <b>variable aléatoire</b> \(X\) associe un nombre réel à chaque issue d'une expérience aléatoire.
+        \(\{X = a\}\) désigne l'événement « \(X\) prend la valeur \(a\) », \(\{X \leq a\}\) l'événement « \(X\) prend une valeur inférieure ou égale à \(a\) ».
+        La <b>loi de probabilité</b> de \(X\) donne \(P(X = x_i)\) pour chaque valeur \(x_i\) (la somme de ces probabilités vaut 1).</p>
+    </div>
+    <div class="box def"><p class="box-title">Espérance</p>
+      <p>\[E(X) = x_1 P(X = x_1) + x_2 P(X = x_2) + \dots + x_n P(X = x_n).\]
+        C'est la valeur moyenne de \(X\) sur un grand nombre de répétitions. Pour un jeu, \(E(X) > 0\) signifie que le jeu est favorable au joueur à long terme.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — jeu de grattage</p>
+      <p>Un ticket coûte 2 €. On gagne 10 € avec probabilité \(0{,}1\), 4 € avec probabilité \(0{,}2\), rien sinon. \(X\) est le gain net. Loi et espérance de \(X\) ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <div class="table-scroll"><table><tbody>
+          <tr><th>\(x_i\)</th><td>\(8\)</td><td>\(2\)</td><td>\(-2\)</td></tr>
+          <tr><th>\(P(X = x_i)\)</th><td>\(0{,}1\)</td><td>\(0{,}2\)</td><td>\(0{,}7\)</td></tr>
+        </tbody></table></div>
+        <p>\(E(X) = 0{,}8 + 0{,}4 - 1{,}4 = -0{,}2\) : en moyenne, le joueur perd 20 centimes par ticket.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Loi de Bernoulli</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Une variable \(X\) suit la <b>loi de Bernoulli de paramètre \(p\)</b> si elle ne prend que les valeurs 1 (succès) et 0 (échec), avec \(P(X = 1) = p\) et \(P(X = 0) = 1 - p\).
+        Son espérance est \(E(X) = 1 \times p + 0 \times (1 - p) = p\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2</p>
+      <p>Un composant électronique est conforme avec probabilité \(0{,}97\). \(X\) vaut 1 s'il est conforme, 0 sinon. Loi et espérance ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>Bernoulli de paramètre \(0{,}97\) : \(P(X = 1) = 0{,}97\), \(P(X = 0) = 0{,}03\), \(E(X) = 0{,}97\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Simuler et observer la fluctuation</h2>
+    <div class="box method"><p class="box-title">Simuler une loi de Bernoulli en Python</p>
+<pre><code>from random import random
+
+def bernoulli(p):
+    return 1 if random() &lt; p else 0     # random() est uniforme sur [0 ; 1[
+
+def frequence(n, p):
+    return sum(bernoulli(p) for _ in range(n)) / n
+
+print(frequence(100, 0.3))   # environ 0,3, mais varie d'un appel à l'autre</code></pre>
+    </div>
+    <div class="box prop"><p class="box-title">Fluctuation d'échantillonnage</p>
+      <p>La fréquence observée des 1 dans un échantillon de taille \(n\) varie d'un échantillon à l'autre autour de \(p\).
+        Sur un grand nombre \(N\) d'échantillons, on observe que l'écart-type \(s\) de ces fréquences est de l'ordre de \(\dfrac{1}{\sqrt n}\) (plus précisément \(\sqrt{p(1-p)/n}\)) :
+        pour diviser la dispersion par \(k\), il faut multiplier la taille de l'échantillon par \(k^2\).
+        Environ 68 %, 95 % et 99,7 % des fréquences tombent respectivement à moins de \(s\), \(2s\) et \(3s\) de \(p\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — situation rare ?</p>
+      <p>Un fabricant annonce \(p = 0{,}5\). Sur un échantillon de 100, on observe une fréquence de 0,65. Est-ce surprenant ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(s \approx \sqrt{0{,}25/100} = 0{,}05\). L'écart \(0{,}15 = 3s\) : moins de 0,3 % des échantillons s'écartent autant. La situation est rare dans le cadre du modèle : on peut douter de l'annonce.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-fluct">
+      <p class="widget-title">\(N\) échantillons de taille \(n\) d'une loi de Bernoulli</p>
+      <p class="hint">Chaque point est la fréquence des 1 d'un échantillon. Multiplie \(n\) par 4 : la bande de largeur \(\pm 2s\) se rétrécit de moitié.</p>
+      <div class="controls">
+        <label>\(p\) <input type="range" data-k="p" min="0.05" max="0.95" step="0.05" value="0.3"> <output data-show="p" data-digits="2"></output></label>
+        <label>\(n\) <input type="range" data-k="n" min="10" max="1000" step="10" value="100"> <output data-show="n"></output></label>
+        <label>\(N\) <input type="range" data-k="N" min="50" max="500" step="50" value="200"> <output data-show="N"></output></label>
+        <button class="btn ghost" type="button" id="fl-new">Relancer la simulation</button>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : lois et espérances</p>
+      <p class="hint">Valeur exacte ou arrondie à 0,01 près.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="0">
+        <p>\(X\) suit une loi de Bernoulli de paramètre \(0{,}4\). \(E(X) =\)</p>
+        <ol class="choices"><li>\(0{,}4\)</li><li>\(0{,}6\)</li><li>\(1\)</li><li>\(0{,}24\)</li></ol>
+        <p class="explain">L'espérance d'une Bernoulli est son paramètre.</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Pour réduire de moitié la fluctuation d'une fréquence, il faut un échantillon :</p>
+        <ol class="choices"><li>2 fois plus grand</li><li>2 fois plus petit</li><li>4 fois plus grand</li><li>8 fois plus grand</li></ol>
+        <p class="explain">L'écart-type est en \(1/\sqrt n\) : diviser par 2 demande \(n \times 4\).</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Une loi donne \(P(X = 0) = 0{,}5\), \(P(X = 2) = 0{,}3\), \(P(X = 5) = a\). \(a =\)</p>
+        <ol class="choices"><li>\(0{,}3\)</li><li>\(0{,}2\)</li><li>\(0{,}8\)</li><li>\(1\)</li></ol>
+        <p class="explain">La somme des probabilités vaut 1.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Un jeu a une espérance de gain négative. Cela signifie :</p>
+        <ol class="choices"><li>on perd à chaque partie</li><li>on ne gagne jamais</li><li>le jeu est équitable</li><li>en moyenne, sur un grand nombre de parties, on perd</li></ol>
+        <p class="explain">L'espérance est une moyenne à long terme, pas un résultat garanti à chaque partie.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+variable+aleatoire+loi+esperance">Loi d'une variable aléatoire, espérance — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+loi+de+Bernoulli">Loi de Bernoulli<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=fluctuation+echantillonnage+simulation+python+premiere">Fluctuation d'échantillonnage en Python<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  var w = document.getElementById('w-fluct'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { xlabel: 'échantillon', ylabel: 'fréquence' });
+  var seed = 1;
+  var update = Course.onInput(w, function (v) {
+    var fr = [];
+    for (var j = 0; j < v.N; j++) { var c = 0; for (var i = 0; i < v.n; i++) if (Math.random() < v.p) c++; fr.push(c / v.n); }
+    var m = fr.reduce(function (a, b) { return a + b; }, 0) / v.N;
+    var s = Math.sqrt(fr.reduce(function (a, b) { return a + (b - m) * (b - m); }, 0) / v.N);
+    var inBand = function (k) { return fr.filter(function (f) { return Math.abs(f - v.p) <= k * s + 1e-12; }).length / v.N * 100; };
+    G.draw = function (g) {
+      g.area(function () { return v.p + 2 * s; }, 0, v.N, '--c1', { lower: function () { return v.p - 2 * s; }, alpha: 0.12 });
+      g.seg(0, v.p, v.N, v.p, '--c4', { width: 1.5 });
+      fr.forEach(function (f, j) { g.point(j + 0.5, f, Math.abs(f - v.p) > 2 * s ? '--c2' : '--c1', null, { r: 2.6 }); });
+    };
+    G.redraw({ xmin: 0, xmax: v.N, ymin: Math.max(-0.02, v.p - 0.5), ymax: Math.min(1.02, v.p + 0.5) });
+    out.textContent = 'écart-type observé s = ' + Course.fmt(s, 4) + '   (1/√n = ' + Course.fmt(1 / Math.sqrt(v.n), 4) + ', √(p(1−p)/n) = ' + Course.fmt(Math.sqrt(v.p * (1 - v.p) / v.n), 4) + ')' +
+      '\nà moins de s : ' + Course.fmt(inBand(1), 1) + ' %   2s : ' + Course.fmt(inBand(2), 1) + ' %   3s : ' + Course.fmt(inBand(3), 1) + ' %';
+    seed++;
+  });
+  document.getElementById('fl-new').addEventListener('click', function () { update(); });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 2);
+    if (k === 0) { var xs = [R(-5, 0), R(1, 5), R(6, 20)], p1 = R(1, 5) / 10, p2 = R(1, 9 - p1 * 10) / 10, p3 = Math.round((1 - p1 - p2) * 10) / 10, e = xs[0] * p1 + xs[1] * p2 + xs[2] * p3;
+      return { html: '<div class="table-scroll"><table><tbody><tr><th>\\(x_i\\)</th><td>' + xs.join('</td><td>') + '</td></tr><tr><th>\\(P(X = x_i)\\)</th><td>' + [p1, p2, p3].map(function (q) { return String(q).replace('.', ','); }).join('</td><td>') + '</td></tr></tbody></table></div><p>Calcule \\(E(X)\\).</p>',
+        answer: e, tol: A(e), explain: '\\(\\sum x_i P(X = x_i)\\).' }; }
+    if (k === 1) { var q1 = R(1, 4) / 10, q2 = R(1, 4) / 10, q3 = Math.round((1 - q1 - q2) * 10) / 10;
+      return { html: '<p>\\(X\\) prend les valeurs 1, 2, 3 avec \\(P(X = 1) = ' + String(q1).replace('.', '{,}') + '\\) et \\(P(X = 2) = ' + String(q2).replace('.', '{,}') + '\\). Calcule \\(P(X = 3)\\).</p>', answer: q3, tol: A(q3), explain: 'Les probabilités ont pour somme 1.' }; }
+    var n = P([25, 100, 400, 2500, 10000]), sd = 1 / Math.sqrt(n);
+    return { html: '<p>Ordre de grandeur \\(\\frac{1}{\\sqrt n}\\) de la fluctuation d\'une fréquence pour \\(n = ' + n + '\\) ?</p>', answer: sd, tol: A(sd), explain: '\\(\\frac{1}{\\sqrt{' + n + '}}\\).' };
+  });
+});
+</script>
+</body>
+</html>

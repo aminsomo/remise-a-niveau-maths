@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fonctions polynômes de degré 3 · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="maths-1re/degre-3">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths 1re · Fonctions · Tronc commun</p>
+    <h1>Fonctions polynômes de degré 3</h1>
+    <p class="lead">Le volume d'un cube, la puissance du vent sur une éolienne (\(P \propto v^3\)) : les fonctions cubes modélisent
+      des grandeurs qui varient « au cube ». Tu sauras les représenter, étudier leur signe et résoudre \(x^3 = c\).</p>
+    <p class="prereq">Prérequis : <a href="second-degre.html">second degré</a>, tableau de signes.</p>
+  </header>
+
+  <section>
+    <h2>1. Les fonctions \(x \mapsto ax^3\) et \(x \mapsto ax^3 + b\)</h2>
+    <div class="box prop"><p class="box-title">Allure</p>
+      <ul>
+        <li>\(x \mapsto x^3\) est croissante sur \(\mathbb{R}\) ; sa courbe est symétrique par rapport à l'origine (\((-x)^3 = -x^3\)).</li>
+        <li>\(x \mapsto ax^3\) : croissante si \(a > 0\), décroissante si \(a &lt; 0\) ; plus \(|a|\) est grand, plus la courbe est « raide ».</li>
+        <li>\(x \mapsto ax^3 + b\) : même courbe translatée verticalement de \(b\) ; elle passe par \((0\,;\,b)\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — éolienne</p>
+      <p>La puissance d'une éolienne vaut \(P(v) = 0{,}8\,v^3\) (en W, \(v\) en m/s). Que devient \(P\) si la vitesse du vent double ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(P(2v) = 0{,}8 \times (2v)^3 = 8 \times 0{,}8\,v^3 = 8\,P(v)\) : la puissance est multipliée par 8.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Racine cubique et équation \(x^3 = c\)</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Pour tout réel \(c \geq 0\), l'équation \(x^3 = c\) a une <b>unique</b> solution, notée \(\sqrt[3]{c}\) ou \(c^{1/3}\) : la <b>racine cubique</b> de \(c\).
+        Ex. : \(\sqrt[3]{8} = 2\), \(\sqrt[3]{1000} = 10\), \(\sqrt[3]{2} \approx 1{,}26\).</p>
+    </div>
+    <div class="box warning"><p class="box-title">Différence avec le carré</p>
+      <p>\(x^2 = 9\) a <b>deux</b> solutions (\(\pm 3\)) ; \(x^3 = 27\) n'en a <b>qu'une</b> : \(3\) (car \((-3)^3 = -27\)).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — cuve cubique</p>
+      <p>Quelle arête doit avoir une cuve cubique de 2 m³ ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(a^3 = 2 \iff a = \sqrt[3]{2} \approx 1{,}26\) m (à la calculatrice : <code>2^(1/3)</code>).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Forme factorisée \(a(x - x_1)(x - x_2)(x - x_3)\)</h2>
+    <div class="box prop"><p class="box-title">Racines et signe</p>
+      <p>\(f(x) = a(x - x_1)(x - x_2)(x - x_3)\) s'annule en \(x_1, x_2, x_3\). On étudie son signe avec un <b>tableau de signes</b> :
+        une ligne par facteur, puis la règle des signes.</p>
+    </div>
+    <div class="table-scroll"><table>
+      <thead><tr><th>\(x\)</th><th>\(-\infty\)</th><th>\(-1\)</th><th></th><th>\(1\)</th><th></th><th>\(2\)</th><th>\(+\infty\)</th></tr></thead>
+      <tbody>
+        <tr><td>\(x + 1\)</td><td>\(-\)</td><td>0</td><td>\(+\)</td><td></td><td>\(+\)</td><td></td><td>\(+\)</td></tr>
+        <tr><td>\(x - 1\)</td><td>\(-\)</td><td></td><td>\(-\)</td><td>0</td><td>\(+\)</td><td></td><td>\(+\)</td></tr>
+        <tr><td>\(x - 2\)</td><td>\(-\)</td><td></td><td>\(-\)</td><td></td><td>\(-\)</td><td>0</td><td>\(+\)</td></tr>
+        <tr><td>\(f(x) = (x+1)(x-1)(x-2)\)</td><td>\(-\)</td><td>0</td><td>\(+\)</td><td>0</td><td>\(-\)</td><td>0</td><td>\(+\)</td></tr>
+      </tbody>
+    </table></div>
+    <div class="box method"><p class="box-title">Méthode : vérifier une racine conjecturée</p>
+      <p>Pour vérifier que \(\alpha\) est racine de \(f\), on calcule \(f(\alpha)\) et on trouve 0. Ex. \(f(x) = x^3 - 2x^2 - x + 2\) : \(f(2) = 8 - 8 - 2 + 2 = 0\).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-cube">
+      <p class="widget-title">Cubique \(y = a(x - x_1)(x - x_2)(x - x_3)\)</p>
+      <p class="hint">Les zones vertes sont celles où \(f(x) > 0\). Observe comment le signe alterne à chaque racine.</p>
+      <div class="controls">
+        <label>\(a\) <input type="range" data-k="a" min="-2" max="2" step="0.1" value="0.5"> <output data-show="a"></output></label>
+        <label>\(x_1\) <input type="range" data-k="x1" min="-5" max="5" step="0.5" value="-3"> <output data-show="x1"></output></label>
+        <label>\(x_2\) <input type="range" data-k="x2" min="-5" max="5" step="0.5" value="0"> <output data-show="x2"></output></label>
+        <label>\(x_3\) <input type="range" data-k="x3" min="-5" max="5" step="0.5" value="2"> <output data-show="x3"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : cubes et racines cubiques</p>
+      <p class="hint">Valeur exacte ou arrondie à 0,01 près.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>L'équation \(x^3 = 64\) a pour solution(s) :</p>
+        <ol class="choices"><li>\(4\) et \(-4\)</li><li>\(4\) seulement</li><li>\(8\)</li><li>\(\tfrac{64}{3}\)</li></ol>
+        <p class="explain">\(4^3 = 64\) et la fonction cube est strictement croissante : une seule solution.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>\(f(x) = -2x^3 + 1\) est :</p>
+        <ol class="choices"><li>croissante sur \(\mathbb{R}\)</li><li>croissante puis décroissante</li><li>constante</li><li>décroissante sur \(\mathbb{R}\)</li></ol>
+        <p class="explain">\(a = -2 &lt; 0\) : décroissante ; le \(+1\) ne fait que translater la courbe.</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>\(f(x) = (x - 1)(x - 3)(x - 5)\) est négative sur :</p>
+        <ol class="choices"><li>\(]-\infty\,;\,1[ \cup ]3\,;\,5[\)</li><li>\(]1\,;\,3[\)</li><li>\(]5\,;\,+\infty[\)</li><li>\(]1\,;\,5[\)</li></ol>
+        <p class="explain">\(a = 1 > 0\) : signe \(-, +, -, +\) de gauche à droite.</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Si l'arête d'un cube est multipliée par 3, son volume est multiplié par :</p>
+        <ol class="choices"><li>3</li><li>9</li><li>27</li><li>6</li></ol>
+        <p class="explain">\((3a)^3 = 27a^3\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+fonction+polynome+degre+3+premiere+techno">Polynômes de degré 3 — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=racine+cubique+equation+x%5E3%3Dc+premiere">Racine cubique et équation x³ = c<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+tableau+de+signes+produit">Tableau de signes d'un produit<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  var w = document.getElementById('w-cube'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { xmin: -6, xmax: 6, ymin: -12, ymax: 12 });
+  Course.onInput(w, function (v) {
+    var f = function (x) { return v.a * (x - v.x1) * (x - v.x2) * (x - v.x3); };
+    var pos = function (x) { return Math.max(0, f(x)); };
+    G.draw = function (g) {
+      g.area(pos, -6, 6, '--ok', { alpha: 0.2 });
+      g.fn(f, '--c1');
+      [v.x1, v.x2, v.x3].forEach(function (r, i) { g.point(r, 0, '--c2', 'x' + '₁₂₃'[i]); });
+    };
+    G.redraw();
+    var rs = [v.x1, v.x2, v.x3].sort(function (p, q) { return p - q; });
+    var s = v.a > 0 ? ['−', '+', '−', '+'] : ['+', '−', '+', '−'];
+    out.textContent = v.a === 0 ? 'a = 0 : la fonction est nulle.' :
+      'racines : ' + rs.map(function (r) { return Course.fmt(r); }).join(' ; ') +
+      '\nsigne de f de gauche à droite : ' + s.join('  0  ') + '\nf(0) = ' + Course.fmt(f(0));
+  });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 3);
+    if (k === 0) { var n = R(2, 10); return { html: '<p>Résous \\(x^3 = ' + n * n * n + '\\).</p>', answer: n, explain: '\\(' + n + '^3 = ' + n * n * n + '\\).' }; }
+    if (k === 1) { var c = P([2, 3, 5, 10, 20, 50, 100]), r = Math.cbrt(c);
+      return { html: '<p>Donne \\(\\sqrt[3]{' + c + '}\\) arrondi à 0,01.</p>', answer: r, tol: A(r), explain: 'Calculatrice : <code>' + c + '^(1/3)</code>.' }; }
+    if (k === 2) { var a = P([-2, -1, 1, 2, 3]), b = R(-9, 9), x = R(-3, 3), y = a * x * x * x + b;
+      return { html: '<p>\\(f(x) = ' + a + 'x^3 ' + (b < 0 ? '- ' + -b : '+ ' + b) + '\\). Calcule \\(f(' + x + ')\\).</p>', answer: y, explain: '\\((' + x + ')^3 = ' + x * x * x + '\\).' }; }
+    var V = P([8, 27, 64, 125, 216, 1000]);
+    return { html: '<p>Un cube a un volume de ' + V + ' cm³. Longueur de son arête (cm) ?</p>', answer: Math.round(Math.cbrt(V)), explain: '\\(\\sqrt[3]{' + V + '}\\).' };
+  });
+});
+</script>
+</body>
+</html>

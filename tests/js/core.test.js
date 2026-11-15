@@ -179,3 +179,19 @@ test('splitTopLevel : découpe des formules trop larges', () => {
   assert.deepEqual(C.splitTopLevel('a \\qquadx', Q), ['a \\qquadx'], 'une autre commande qui commence pareil');
   assert.deepEqual(C.splitTopLevel('\\{1\\} \\qquad 2', Q), ['\\{1\\}', '2'], 'accolades échappées ignorées');
 });
+
+test('approxTol : arrondi au centième ou à 3 chiffres significatifs accepté', () => {
+  const ok = (ans, typed, sig) => Math.abs(C.parseNum(typed) - ans) <= C.approxTol(ans, sig);
+  assert.ok(ok(123.456, '123,46'));
+  assert.ok(ok(2 / 3, '0,67'));
+  assert.ok(ok(0.3333, '0,33'));
+  assert.ok(ok(1.6e-19 * 2.01, '3,22e-19'), 'petites valeurs : 3 chiffres significatifs');
+  assert.ok(ok(123456, '1,23e5', true), 'physique : 3 chiffres significatifs');
+  assert.ok(ok(2.998e8, '3,00e8', true));
+  assert.ok(!ok(123456, '1,2e5', true));
+  assert.ok(!ok(123456, '123000'), 'maths : il faut le centième');
+  assert.ok(ok(0.012345, '0,0123'));
+  assert.ok(!ok(2 / 3, '0,6'), 'un arrondi trop grossier est refusé');
+  assert.ok(!ok(123.456, '124'));
+  assert.ok(!ok(3.2e-19, '3,4e-19'));
+});

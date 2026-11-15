@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Organisation de la matière et matériaux · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="physique-1re/matiere-materiaux">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Physique-chimie 1re · Matière et matériaux</p>
+    <h1>Organisation de la matière et matériaux</h1>
+    <p class="lead">De l'atome à la molécule, puis à la solution et au matériau : comprendre la structure de la matière permet de préparer une solution
+      de concentration donnée et de choisir un matériau selon un cahier des charges (conducteur, isolant, résistant…).</p>
+    <p class="prereq">Prérequis : quantité de matière et masse molaire (seconde).</p>
+  </header>
+
+  <section>
+    <h2>1. Atomes et isotopes</h2>
+    <div class="box def"><p class="box-title">Structure de l'atome</p>
+      <p>Un atome est formé d'un <b>noyau</b> (protons chargés +, neutrons neutres) entouré d'<b>électrons</b> (chargés −). Notation \({}^{A}_{Z}\mathrm{X}\) :
+        \(Z\) = numéro atomique = nombre de protons (et d'électrons pour l'atome neutre) ; \(A\) = nombre de masse = protons + neutrons ; nombre de neutrons \(N = A - Z\).</p>
+    </div>
+    <div class="box def"><p class="box-title">Isotopes</p>
+      <p>Des <b>isotopes</b> ont le même \(Z\) (même élément) mais un nombre de neutrons différent : \({}^{12}_{6}\mathrm{C}\) et \({}^{14}_{6}\mathrm{C}\).
+        Applications : datation au carbone 14, traceurs isotopiques en médecine.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Molécules et schéma de Lewis</h2>
+    <div class="box prop"><p class="box-title">Règles du duet et de l'octet</p>
+      <p>Les atomes établissent des <b>liaisons covalentes</b> (mise en commun de doublets d'électrons) pour acquérir une couche externe saturée : 2 électrons pour l'hydrogène (duet), 8 pour les autres (octet).
+        Nombre de liaisons usuel : H et Cl : 1 ; O et S : 2 ; N : 3 ; C : 4. Une liaison peut être simple (C–C) ou double (C=O).</p>
+    </div>
+    <div class="box def"><p class="box-title">Formules et groupes caractéristiques</p>
+      <p>Éthanol : formule brute \(\mathrm{C_2H_6O}\), semi-développée \(\mathrm{CH_3{-}CH_2{-}OH}\) ; la développée montre toutes les liaisons.
+        Groupe <b>hydroxyle</b> –OH : fonction <b>alcool</b>. Groupe <b>carboxyle</b> –COOH : fonction <b>acide carboxylique</b> (ex. acide éthanoïque \(\mathrm{CH_3{-}COOH}\)).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Interactions intermoléculaires</p>
+      <p>Les molécules s'attirent par des interactions faibles (de Van der Waals, liaisons hydrogène pour les molécules comportant O–H ou N–H).
+        Plus elles sont fortes, plus la température d'ébullition est élevée : l'eau bout à 100 °C alors que le méthane, de masse comparable, bout à −162 °C.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Concentrations et dilution</h2>
+    <div class="box def"><p class="box-title">Deux concentrations</p>
+      <p>\[C_m = \frac{m}{V}\ (\mathrm{g\,L^{-1}}) \qquad\qquad C = \frac{n}{V}\ (\mathrm{mol\,L^{-1}}) \qquad\qquad C_m = C \times M.\]</p>
+    </div>
+    <div class="box prop"><p class="box-title">Dilution</p>
+      <p>Diluer ne change pas la quantité de soluté prélevée : \(C_{\text{mère}} \times V_{\text{prélevé}} = C_{\text{fille}} \times V_{\text{fille}}\).
+        Le <b>facteur de dilution</b> est \(F = \dfrac{C_{\text{mère}}}{C_{\text{fille}}} = \dfrac{V_{\text{fille}}}{V_{\text{prélevé}}}\).</p>
+    </div>
+    <div class="box method"><p class="box-title">Protocole de dilution</p>
+      <p>Prélever \(V_{\text{prélevé}}\) de solution mère à la <b>pipette jaugée</b>, verser dans une <b>fiole jaugée</b> de volume \(V_{\text{fille}}\), compléter avec de l'eau distillée jusqu'au trait de jauge, boucher et homogénéiser.
+        Respecter les pictogrammes de sécurité (règlement européen CLP) : gants et lunettes pour les produits corrosifs.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1</p>
+      <p>On veut 100 mL d'une solution à \(0{,}020\ \mathrm{mol\,L^{-1}}\) à partir d'une solution mère à \(0{,}50\ \mathrm{mol\,L^{-1}}\). Volume à prélever ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(V = \dfrac{0{,}020 \times 100}{0{,}50} = 4{,}0\) mL (facteur de dilution 25) : pipette jaugée de 4 mL… ou de 2 mL deux fois.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Propriétés des matériaux</h2>
+    <div class="box prop"><p class="box-title">Choisir selon un cahier des charges</p>
+      <ul>
+        <li><b>Électriques</b> : résistivité \(\rho\) (Ω·m) ; résistance d'un fil \(R = \rho \dfrac{L}{S}\). Cuivre \(1{,}7 \times 10^{-8}\) Ω·m (conducteur), verre \(\approx 10^{12}\) Ω·m (isolant).</li>
+        <li><b>Thermiques</b> : conductivité, résistance thermique surfacique (isolants : laine de verre, polystyrène).</li>
+        <li><b>Mécaniques</b> : rigidité, dureté, résistance à la rupture ; <b>optiques</b> : transparence, indice de réfraction ; <b>magnétiques</b> ; <b>chimiques</b> : résistance à la corrosion.</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — câble électrique</p>
+      <p>Résistance de 50 m de fil de cuivre de section 1,5 mm² ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(R = 1{,}7 \times 10^{-8} \times \dfrac{50}{1{,}5 \times 10^{-6}} \approx 0{,}57\ \Omega\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
+    <div class="widget" id="w-dil">
+      <p class="widget-title">Préparer une dilution</p>
+      <p class="hint">La teinte de la fiole représente la concentration. Le point rose montre la solution fille obtenue sur la droite \(C_{\text{fille}} = C_{\text{mère}} \times V_{\text{prélevé}} / V_{\text{fiole}}\).</p>
+      <div class="controls">
+        <label>\(C_{\text{mère}}\) (mol/L) <input type="range" data-k="C" min="0.1" max="2" step="0.1" value="0.5"> <output data-show="C"></output></label>
+        <label>\(V_{\text{prélevé}}\) (mL) <input type="range" data-k="v" min="1" max="50" step="1" value="10"> <output data-show="v"></output></label>
+        <label>fiole (mL) <select data-k="V"><option value="50">50</option><option value="100" selected>100</option><option value="250">250</option><option value="500">500</option></select></label>
+      </div>
+      <canvas class="plot short"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : atomes et solutions</p>
+      <p class="hint">3 chiffres significatifs, dans l'unité demandée.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="2">
+        <p>\({}^{35}_{17}\mathrm{Cl}\) contient :</p>
+        <ol class="choices"><li>35 neutrons</li><li>17 neutrons</li><li>18 neutrons</li><li>52 nucléons</li></ol>
+        <p class="explain">\(N = 35 - 17 = 18\).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Combien de liaisons covalentes établit habituellement un atome d'azote ?</p>
+        <ol class="choices"><li>3</li><li>1</li><li>2</li><li>4</li></ol>
+        <p class="explain">N a 5 électrons de valence : il lui en manque 3 pour l'octet.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>On dilue 10 fois une solution. Sa concentration est :</p>
+        <ol class="choices"><li>multipliée par 10</li><li>inchangée</li><li>divisée par 100</li><li>divisée par 10</li></ol>
+        <p class="explain">Facteur de dilution \(F = C_{\text{mère}}/C_{\text{fille}} = 10\).</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Le groupe –COOH caractérise :</p>
+        <ol class="choices"><li>un alcool</li><li>un acide carboxylique</li><li>un alcane</li><li>un ester</li></ol>
+        <p class="explain">Groupe carboxyle.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=schema+de+Lewis+regle+octet+duet+premiere">Schéma de Lewis<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=dilution+fiole+jaugee+pipette+protocole">Protocole de dilution<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=concentration+massique+molaire+lycee">Concentrations en masse et en quantité de matière<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  var w = document.getElementById('w-dil'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { xlabel: 'V prélevé (mL)', ylabel: 'C fille (mol/L)' });
+  Course.onInput(w, function (v) {
+    var Vf = parseFloat(v.V), vp = Math.min(v.v, Vf), Cf = v.C * vp / Vf, alpha = Math.min(1, Cf / 2) * 0.85 + 0.05;
+    G.draw = function (g) {
+      g.fn(function (x) { return v.C * x / Vf; }, '--c1', { from: 0, to: 50 });
+      g.point(vp, Cf, '--c2');
+      g.seg(vp, 0, vp, Cf, '--c2', { dash: [3, 3], width: 1 });
+      // fiole stylisée, teintée selon la concentration
+      var cx = 44, ytop = 0.95 * v.C;
+      g.poly([[cx - 1, ytop], [cx - 1, ytop * 0.62], [cx - 4, ytop * 0.22], [cx + 4, ytop * 0.22], [cx + 1, ytop * 0.62], [cx + 1, ytop]], '--muted', { width: 1.5 });
+      g.ctx.save(); g.ctx.globalAlpha = alpha; g.ctx.fillStyle = Course.color('--c3');
+      g.ctx.beginPath(); g.ctx.moveTo(g.X(cx - 3.2), g.Y(ytop * 0.34)); g.ctx.lineTo(g.X(cx - 4), g.Y(ytop * 0.22)); g.ctx.lineTo(g.X(cx + 4), g.Y(ytop * 0.22)); g.ctx.lineTo(g.X(cx + 3.2), g.Y(ytop * 0.34)); g.ctx.closePath(); g.ctx.fill(); g.ctx.restore();
+    };
+    G.redraw({ xmin: 0, xmax: 50, ymin: -v.C * 0.03, ymax: v.C * 1.05 });
+    out.textContent = (v.v > Vf ? 'Impossible : on ne peut pas prélever plus que le volume de la fiole.\n' : '') +
+      'C fille = ' + Course.fmt(v.C, 2) + ' × ' + vp + ' / ' + Vf + ' = ' + Course.fmt(Cf, 4) + ' mol/L   facteur de dilution F = ' + Course.fmt(Vf / vp, 2);
+  });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 4), T = function (q) { return String(q).replace('.', '{,}'); };
+    if (k === 0) { var el = P([['C', 6, 14], ['O', 8, 17], ['Cl', 17, 37], ['U', 92, 235], ['Fe', 26, 56], ['Na', 11, 23]]);
+      return { html: '<p>Nombre de neutrons dans \\({}^{' + el[2] + '}_{' + el[1] + '}\\mathrm{' + el[0] + '}\\) ?</p>', answer: el[2] - el[1], explain: '\\(N = A - Z\\).' }; }
+    if (k === 1) { var n = R(1, 50) / 1000, V = P([0.05, 0.1, 0.2, 0.25, 0.5]), C = n / V;
+      return { html: '<p>On dissout \\(' + T(n) + '\\) mol de soluté dans \\(' + T(V) + '\\) L de solution. Concentration (mol/L) ?</p>', answer: C, tol: A(C, true), explain: '\\(C = n/V\\).' }; }
+    if (k === 2) { var Cm = P([0.1, 0.2, 0.5, 1]), Cf = Cm / P([5, 10, 20, 25, 50]), Vf = P([50, 100, 250]), vp = Cf * Vf / Cm;
+      return { html: '<p>Volume (mL) de solution mère à \\(' + T(Cm) + '\\) mol/L à prélever pour préparer ' + Vf + ' mL à \\(' + T(Math.round(Cf * 1e4) / 1e4) + '\\) mol/L ?</p>', answer: vp, tol: A(vp, true), explain: '\\(C_m V_p = C_f V_f\\).' }; }
+    if (k === 3) { var Cmol = R(1, 20) / 100, M = P([58.5, 46, 180, 98]), Cmass = Cmol * M;
+      return { html: '<p>Une solution à \\(' + T(Cmol) + '\\) mol/L d\'un soluté de masse molaire \\(' + T(M) + '\\) g/mol : concentration en masse (g/L) ?</p>', answer: Cmass, tol: A(Cmass, true), explain: '\\(C_m = C \\times M\\).' }; }
+    var L = R(5, 100), S = P([0.75, 1.5, 2.5, 6]), Rf = 1.7e-8 * L / (S * 1e-6);
+    return { html: '<p>Résistance (Ω) de ' + L + ' m de fil de cuivre (\\(\\rho = 1{,}7 \\times 10^{-8}\\ \\Omega\\,\\mathrm{m}\\)) de section \\(' + T(S) + '\\ \\mathrm{mm^2}\\) ?</p>', answer: Rf, tol: A(Rf, true), explain: '\\(R = \\rho L / S\\), avec \\(S\\) en m².' };
+  });
+});
+</script>
+</body>
+</html>

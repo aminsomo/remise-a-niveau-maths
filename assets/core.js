@@ -204,6 +204,17 @@
     return isFinite(v) ? v : NaN;
   }
 
+  /**
+   * Tolérance d'un exercice dont la réponse n'est pas entière.
+   * - par défaut (maths) : arrondi au centième ; pour |a| < 0,1, 3 chiffres significatifs ;
+   * - sig = true (physique) : 3 chiffres significatifs, quelle que soit la taille du nombre.
+   */
+  function approxTol(a, sig) {
+    a = Math.abs(a);
+    if (sig || a < 0.1) return a * 0.0051 + 1e-300;
+    return 0.0051;
+  }
+
   /* ---------- formatage ---------- */
   function fmt(x, d) {
     if (typeof x !== 'number' || !isFinite(x)) return '—';
@@ -316,7 +327,7 @@
   }
 
   return {
-    evaluate: evaluate, tryEvaluate: tryEvaluate, parseNum: parseNum, CalcError: CalcError,
+    evaluate: evaluate, tryEvaluate: tryEvaluate, parseNum: parseNum, CalcError: CalcError, approxTol: approxTol,
     fmt: fmt, fmtCalc: fmtCalc,
     niceStep: niceStep, tickStep: tickStep, decimalsFor: decimalsFor, piLabel: piLabel, clampLabel: clampLabel,
     insertSnippet: insertSnippet, CARET: CARET, splitTopLevel: splitTopLevel
