@@ -19,6 +19,85 @@ Les formules sont rendues avec [KaTeX](https://katex.org) (chargé depuis un CDN
 connexion internet pour un affichage propre des formules). La progression est enregistrée dans le
 navigateur (localStorage).
 
+## Architecture
+
+Site **100 % statique** (HTML + CSS + JavaScript sans framework ni étape de build) : il s'ouvre
+directement depuis le disque et se publie tel quel sur GitHub Pages.
+
+```mermaid
+flowchart TB
+    subgraph Pages["Pages HTML"]
+        IDX["index.html<br/>accueil"]
+        M["maths/*.html<br/>chapitres de maths"]
+        PH["physique/*.html<br/>chapitres de physique-chimie"]
+        PR["prepa/*.html<br/>pont vers la prépa"]
+    end
+
+    subgraph Assets["assets/ (partagés)"]
+        MAN["chapters.js<br/>manifeste JSON :<br/>matières → chapitres"]
+        APP["app.js<br/>moteur commun<br/>window.Course"]
+        CSS["style.css<br/>thème clair / sombre"]
+    end
+
+    subgraph Ext["Externe (CDN)"]
+        KTX["KaTeX<br/>rendu des formules"]
+    end
+
+    subgraph Nav["Navigateur"]
+        LS[("localStorage<br/>progression, thème")]
+    end
+
+    IDX & M & PH & PR -->|chargent| MAN & APP & CSS & KTX
+    MAN -->|liste des chapitres| APP
+    APP -->|génère cartes d'accueil,<br/>barre de navigation,<br/>sommaire, préc./suiv.| Pages
+    APP <-->|lit / écrit| LS
+    M & PH & PR -->|script de page :<br/>Course.plot / onInput / drill| APP
+```
+
+### Cycle de vie d'une page de chapitre
+
+```mermaid
+sequenceDiagram
+    participant HTML as Page chapitre
+    participant KaTeX
+    participant MAN as chapters.js
+    participant APP as app.js
+    participant PAGE as Script de la page
+
+    HTML->>KaTeX: chargement (defer)
+    HTML->>MAN: chargement (defer) → window.COURSE
+    HTML->>APP: chargement (defer)
+    APP->>APP: barre du haut, sommaire,<br/>pied préc./suiv., quiz
+    APP->>KaTeX: renderMathInElement(body)
+    APP-->>PAGE: expose window.Course
+    Note over PAGE: DOMContentLoaded
+    PAGE->>APP: Course.plot(canvas, vue, dessin)
+    PAGE->>APP: Course.onInput(widget, maj)
+    PAGE->>APP: Course.drill(zone, générateur)
+```
+
+### Anatomie d'un chapitre
+
+```mermaid
+flowchart LR
+    H["En-tête<br/>kicker · h1 · objectifs · prérequis"] --> C["Cours<br/>encadrés définition,<br/>propriété, méthode"]
+    C --> E["Exemples rédigés<br/>solution dépliable"]
+    E --> W["Widgets interactifs<br/>canvas + curseurs"]
+    W --> D["Exercices auto-générés<br/>Course.drill"]
+    D --> P["En prépa<br/>ce qui t'attend en CPGE"]
+    P --> Q["Quiz corrigé<br/>score + explications"]
+    Q --> V["Vidéos<br/>recherches YouTube"]
+```
+
+### API `Course` (assets/app.js)
+
+| Fonction | Rôle |
+|---|---|
+| `Course.plot(canvas, vue, dessin)` | repère (grille, axes, graduations, π) + primitives `fn`, `param`, `point`, `seg`, `arrow`, `area`, `poly`, `circle`, `text` ; redessin automatique (redimensionnement, thème) |
+| `Course.onInput(racine, maj)` | lit tous les champs `[data-k]` d'un widget, met à jour les `<output data-show>` et appelle `maj(valeurs)` |
+| `Course.drill(racine, générateur)` | exercice infini : le générateur renvoie `{q ou html, answer, tol, explain}` ; saisie tolérante (`3/4`, `2,5`, `ln(2)`, `pi`) |
+| `Course.fmt`, `parseNum`, `tex`, `renderMath`, `rand`, `pick`, `el`, `color` | utilitaires |
+
 ## Structure
 
 ```
@@ -52,5 +131,8 @@ quiz ≥ 4 questions avec réponse valide et explication, ≥ 2 liens vidéo), u
 ## Sources
 
 Le contenu est original et suit les programmes officiels de Terminale STI2D publiés au Bulletin
-officiel (voir eduscol.education.fr). Les liens vidéo pointent vers des recherches YouTube
+officiel (voir eduscol.education.fr) — les mêmes que suivent les manuels utilisés en classe
+(*Algomaths Tle séries techno*, Delagrave, pour les maths ; *Physique-Chimie Tle STI2D
+enseignement de spécialité*, Nathan 2020, pour la physique-chimie). Aucun contenu de ces
+manuels n'est reproduit. Les liens vidéo pointent vers des recherches YouTube
 (chaînes pédagogiques françaises : Yvan Monka, etc.) pour rester valides dans le temps.

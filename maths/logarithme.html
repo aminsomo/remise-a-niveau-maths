@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logarithmes (ln et log) · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="maths/logarithme">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths · Analyse · Tronc commun + spécialité</p>
+    <h1>Logarithmes (ln et log)</h1>
+    <p class="lead">Le logarithme « défait » l'exponentielle : il sert à résoudre \(a^n = b\), à trouver un exposant, à mesurer
+      des grandeurs sur plusieurs ordres de grandeur (décibels, pH). Ses règles transforment les produits en sommes.</p>
+    <p class="prereq">Prérequis : <a href="exponentielle.html">fonction exponentielle</a>.</p>
+  </header>
+
+  <section>
+    <h2>1. Le logarithme népérien</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Pour tout réel \(x > 0\), l'équation \(e^{y} = x\) a une unique solution \(y\), notée \(\ln x\).
+        Ainsi \(\ln\) est la <b>fonction réciproque</b> de \(\exp\) :</p>
+      \[y = \ln x \iff x = e^{y} \qquad (x > 0)\]
+      <p>\(\ln(e^{a}) = a\) pour tout réel \(a\), \(e^{\ln x} = x\) pour tout \(x > 0\), \(\ln 1 = 0\), \(\ln e = 1\).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Règles de calcul (pour \(a, b > 0\))</p>
+      \[\ln(ab) = \ln a + \ln b \qquad \ln\frac{a}{b} = \ln a - \ln b \qquad \ln\frac{1}{b} = -\ln b \qquad \ln(a^{n}) = n\ln a \qquad \ln\sqrt{a} = \tfrac12\ln a\]
+    </div>
+    <div class="box warning"><p class="box-title">Pièges</p>
+      <ul>
+        <li>\(\ln(a + b) \neq \ln a + \ln b\) ! Il n'y a <b>aucune</b> formule pour \(\ln(a+b)\).</li>
+        <li>\(\ln x\) n'existe que pour \(x > 0\) : toujours commencer par le <b>domaine</b>.</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — simplifier</p>
+      <p>Écrire \(A = \ln 50 - 2\ln 5 + \ln 4\) le plus simplement possible.</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(A = \ln 50 - \ln 25 + \ln 4 = \ln\dfrac{50 \times 4}{25} = \ln 8 = 3\ln 2\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Étude de la fonction ln</h2>
+    <div class="box prop"><p class="box-title">Propriétés</p>
+      <ul>
+        <li>\(\ln\) est définie et dérivable sur \(]0\,;+\infty[\) avec \((\ln x)' = \dfrac{1}{x} > 0\) : strictement croissante.</li>
+        <li>\(\lim\limits_{x\to 0^+} \ln x = -\infty\) (asymptote verticale \(x = 0\)) ; \(\lim\limits_{x\to+\infty} \ln x = +\infty\).</li>
+        <li>Croissances comparées : \(\lim\limits_{x\to+\infty} \dfrac{\ln x}{x} = 0\) et \(\lim\limits_{x\to 0^+} x\ln x = 0\).</li>
+        <li>Signe : \(\ln x &lt; 0\) sur \(]0\,;1[\), \(\ln x > 0\) sur \(]1\,;+\infty[\).</li>
+        <li>Les courbes de \(\ln\) et \(\exp\) sont symétriques par rapport à la droite \(y = x\).</li>
+      </ul>
+    </div>
+    <div class="box method"><p class="box-title">Méthode : résoudre \(a^{n} \geq b\) (seuil d'une suite géométrique)</p>
+      <p>On applique \(\ln\) (croissante, donc l'ordre est conservé) : \(n\ln a \geq \ln b\).
+        <b>Attention</b> : si \(0 &lt; a &lt; 1\), \(\ln a &lt; 0\) et on change le sens en divisant.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — demi-vie</p>
+      <p>Une activité radioactive vaut \(A(t) = A_0 e^{-\lambda t}\) avec \(\lambda = 0{,}0866\ \text{an}^{-1}\). Au bout de combien de temps a-t-elle été divisée par 2 ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(e^{-\lambda t} = \tfrac12 \iff -\lambda t = \ln\tfrac12 = -\ln 2 \iff t = \dfrac{\ln 2}{\lambda} \approx 8{,}0\) ans.</p>
+      </details>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — seuil</p>
+      <p>À partir de quel rang \(n\) a-t-on \(0{,}9^{n} &lt; 0{,}01\) ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(n\ln 0{,}9 &lt; \ln 0{,}01\). Comme \(\ln 0{,}9 &lt; 0\) : \(n > \dfrac{\ln 0{,}01}{\ln 0{,}9} \approx 43{,}7\). Donc \(n \geq 44\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Logarithme décimal et échelles logarithmiques</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>\(\log x = \dfrac{\ln x}{\ln 10}\). Il vérifie les mêmes règles que \(\ln\), et \(\log(10^{n}) = n\) : il « compte les zéros ».
+        \(y = \log x \iff x = 10^{y}\).</p>
+    </div>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Grandeur</th><th>Formule</th><th>Remarque</th></tr></thead>
+      <tbody>
+        <tr><td>Niveau d'intensité sonore</td><td>\(L = 10\log\dfrac{I}{I_0}\) (dB), \(I_0 = 10^{-12}\ \text{W/m}^2\)</td><td>doubler \(I\) ajoute \(\approx 3\) dB</td></tr>
+        <tr><td>pH d'une solution</td><td>\(\text{pH} = -\log[\text{H}_3\text{O}^+]\)</td><td>pH 3 est 10 fois plus acide que pH 4</td></tr>
+        <tr><td>Gain d'un filtre</td><td>\(G_{\text{dB}} = 20\log\dfrac{U_s}{U_e}\)</td><td>diagramme de Bode</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 4 — deux machines</p>
+      <p>Une machine produit 80 dB. Quel niveau pour deux machines identiques ? Pour dix ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>Les intensités s'additionnent : \(L_2 = 10\log\dfrac{2I}{I_0} = 10\log 2 + L_1 \approx 83\) dB.
+          \(L_{10} = 10\log 10 + 80 = 90\) dB.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-reciproque">
+      <p class="widget-title">ln, réciproque de exp</p>
+      <p class="hint">Déplace \(x\). Le point \(M(x\,;\ln x)\) et le point \(M'(\ln x\,;x)\) sur la courbe de exp sont symétriques par rapport à \(y = x\).</p>
+      <div class="controls"><label>\(x\) <input type="range" data-k="x" min="0.1" max="7" step="0.05" value="3"> <output data-show="x"></output></label></div>
+      <canvas class="plot tall"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-db">
+      <p class="widget-title">Décibels : additionner des sources</p>
+      <p class="hint">\(n\) sources identiques de niveau \(L_1\) : le niveau total vaut \(L_1 + 10\log n\), pas \(n \times L_1\) !</p>
+      <div class="controls">
+        <label>\(L_1\) (dB) <input type="range" data-k="L" min="30" max="110" step="1" value="70"> <output data-show="L"></output></label>
+        <label>\(n\) sources <input type="range" data-k="n" min="1" max="100" step="1" value="2"> <output data-show="n"></output></label>
+      </div>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement</p>
+      <p class="hint">Valeur décimale à 0,01 près ou entier selon la question.</p>
+      <div class="drill-q"></div>
+      <div class="drill"><input type="text" aria-label="Ta réponse"><button class="btn drill-check" type="button">Vérifier</button><button class="btn ghost drill-new" type="button">Nouvelle question</button></div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <ul>
+        <li>\(a^{x} = e^{x\ln a}\) pour \(a > 0\) : c'est la <b>définition</b> des puissances réelles.</li>
+        <li>Inégalité classique \(\ln(1 + x) \leq x\) et limite \(\dfrac{\ln(1+x)}{x} \to 1\) en 0.</li>
+        <li>Dérivée logarithmique \(\dfrac{u'}{u}\), utile pour dériver des produits compliqués.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="2">
+        <p>\(\ln(e^{3}) - \ln 1 =\)</p>
+        <ol class="choices"><li>\(e^3\)</li><li>\(3 - 1\)</li><li>\(3\)</li><li>\(0\)</li></ol>
+        <p class="explain">\(\ln(e^{3}) = 3\) et \(\ln 1 = 0\).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>\(\ln 12 =\)</p>
+        <ol class="choices"><li>\(2\ln 2 + \ln 3\)</li><li>\(\ln 6 \times \ln 2\)</li><li>\(\ln 10 + \ln 2\)</li><li>\(6\ln 2\)</li></ol>
+        <p class="explain">\(12 = 2^2 \times 3\) donc \(\ln 12 = 2\ln 2 + \ln 3\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Le domaine de \(f(x) = \ln(3 - x)\) est :</p>
+        <ol class="choices"><li>\(]0\,;+\infty[\)</li><li>\(]3\,;+\infty[\)</li><li>\(\mathbb{R}\)</li><li>\(]-\infty\,;3[\)</li></ol>
+        <p class="explain">Il faut \(3 - x > 0\), soit \(x &lt; 3\).</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Une solution de pH 2 est, par rapport à une solution de pH 5 :</p>
+        <ol class="choices"><li>3 fois plus acide</li><li>1 000 fois plus concentrée en \(\text{H}_3\text{O}^+\)</li><li>2,5 fois moins acide</li><li>100 fois plus concentrée</li></ol>
+        <p class="explain">\([\text{H}_3\text{O}^+] = 10^{-\text{pH}}\) : \(10^{-2} / 10^{-5} = 10^{3}\).</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>La dérivée de \(x \mapsto \ln(x^2 + 1)\) est :</p>
+        <ol class="choices"><li>\(\dfrac{1}{x^2+1}\)</li><li>\(\dfrac{1}{2x}\)</li><li>\(\dfrac{2x}{x^2+1}\)</li><li>\(2x\ln x\)</li></ol>
+        <p class="explain">\((\ln u)' = \dfrac{u'}{u}\) avec \(u' = 2x\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+fonction+logarithme+neperien">Fonction logarithme népérien — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+logarithme+decimal">Logarithme décimal — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=niveau+sonore+decibel+calcul+lycee">Calculs en décibels<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  /* --- Widget 1 : symétrie ln / exp par rapport à y = x --- */
+  var w = document.getElementById('w-reciproque');
+  var P = Course.plot(w.querySelector('canvas'), { xmin: -3, xmax: 7.5, ymin: -3, ymax: 7.5, equal: true });
+  var out = w.querySelector('.readout');
+  Course.onInput(w, function (v) {
+    var y = Math.log(v.x);
+    P.draw = function (g) {
+      g.fn(function (x) { return x; }, '--muted', { dash: [4, 4], width: 1 });     // axe de symétrie
+      g.fn(Math.exp, '--c2');                                                       // courbe de exp
+      g.fn(function (x) { return x > 0 ? Math.log(x) : NaN; }, '--c1');            // courbe de ln (NaN hors domaine)
+      g.seg(v.x, y, y, v.x, '--c4', { dash: [3, 3] });                              // segment [MM'] ⊥ à y = x
+      g.point(v.x, y, '--c1', 'M');
+      g.point(y, v.x, '--c2', "M'");
+    };
+    P.redraw();
+    out.textContent = 'ln(' + Course.fmt(v.x) + ') = ' + Course.fmt(y, 4) + '    et    e^(' + Course.fmt(y, 4) + ') = ' + Course.fmt(v.x);
+  });
+
+  /* --- Widget 2 : addition de niveaux sonores --- */
+  var wd = document.getElementById('w-db');
+  Course.onInput(wd, function (v) {
+    var Ltot = v.L + 10 * Math.log10(v.n);       // L = 10 log(nI/I0) = L1 + 10 log n
+    wd.querySelector('.readout').textContent =
+      'Niveau total : ' + Course.fmt(Ltot, 1) + ' dB   (+' + Course.fmt(10 * Math.log10(v.n), 1) + ' dB)' +
+      '\nIntensité d\'une source : ' + Course.fmt(1e-12 * Math.pow(10, v.L / 10) * 1e6, 3) + ' µW/m²' +
+      (Ltot >= 85 ? '\n⚠ au-delà de 85 dB : risque pour l\'audition en exposition prolongée' : '');
+  });
+
+  /* --- Exercices aléatoires : règles de calcul et seuils --- */
+  Course.drill('#w-drill', function () {
+    var R = Course.rand, k = R(0, 2);
+    if (k === 0) {            // seuil q^n < s avec 0 < q < 1  →  n > ln s / ln q
+      var q = Course.pick([0.8, 0.9, 0.95, 0.5, 0.7]), s = Course.pick([0.1, 0.05, 0.01]);
+      var n = Math.floor(Math.log(s) / Math.log(q)) + 1;
+      return { html: '<p>Plus petit entier \\(n\\) tel que \\(' + String(q).replace('.', '{,}') + '^n &lt; ' + String(s).replace('.', '{,}') + '\\) ?</p>',
+        answer: n, explain: '\\(n > \\frac{\\ln ' + String(s).replace('.', '{,}') + '}{\\ln ' + String(q).replace('.', '{,}') + '}\\) (on change le sens car \\(\\ln q &lt; 0\\)).' };
+    }
+    if (k === 1) {            // ln(a) = b → a = e^b
+      var b = R(1, 3), c = R(1, 4);
+      return { q: '\\ln(x - ' + c + ') = ' + b + ' \\quad x = ?', answer: Math.exp(b) + c, tol: 0.01,
+        explain: '\\(x - ' + c + ' = e^{' + b + '}\\).' };
+    }
+    var p = R(1, 6), m = R(2, 4);   // pH ↔ concentration
+    return { html: '<p>pH d\'une solution où \\([\\text{H}_3\\text{O}^+] = ' + m + '\\times 10^{-' + p + '}\\) mol/L ? (à 0,01 près)</p>',
+      answer: -Math.log10(m * Math.pow(10, -p)), tol: 0.01, explain: '\\(\\text{pH} = ' + p + ' - \\log ' + m + '\\).' };
+  });
+});
+</script>
+</body>
+</html>

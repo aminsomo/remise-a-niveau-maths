@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fonction exponentielle · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="maths/exponentielle">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths · Analyse · Spécialité</p>
+    <h1>Fonction exponentielle</h1>
+    <p class="lead">La fonction qui est sa propre dérivée. Elle décrit la charge d'un condensateur, le refroidissement d'un objet,
+      la décroissance radioactive… Il faut maîtriser ses règles de calcul, ses limites, et les fonctions \(t \mapsto e^{-t/\tau}\).</p>
+    <p class="prereq">Prérequis : <a href="derivation.html">dérivation</a>, puissances, <a href="suites.html">suites géométriques</a>.</p>
+  </header>
+
+  <section>
+    <h2>1. Définition et propriétés algébriques</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Il existe une unique fonction \(f\) dérivable sur \(\mathbb{R}\) telle que \(f' = f\) et \(f(0) = 1\).
+        C'est la fonction <b>exponentielle</b>, notée \(\exp\) ou \(x \mapsto e^{x}\), avec \(e = \exp(1) \approx 2{,}718\).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Règles de calcul (comme les puissances)</p>
+      <p>Pour tous réels \(a\) et \(b\) et tout entier \(n\) :</p>
+      \[e^{a+b} = e^{a}e^{b} \qquad e^{-a} = \frac{1}{e^{a}} \qquad e^{a-b} = \frac{e^{a}}{e^{b}} \qquad (e^{a})^{n} = e^{na}\]
+      <p>Et surtout : \(e^{x} > 0\) pour tout \(x\) réel. L'exponentielle ne s'annule <b>jamais</b>.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — simplifier</p>
+      <p>Simplifier \(A = \dfrac{e^{2x+1} \times e^{-x}}{e^{x-3}}\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(A = e^{2x + 1 - x - (x - 3)} = e^{4}\). Le résultat ne dépend même pas de \(x\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Étude de la fonction</h2>
+    <div class="box prop"><p class="box-title">Variations et limites</p>
+      <ul>
+        <li>\(\exp' = \exp > 0\) : la fonction est <b>strictement croissante</b> sur \(\mathbb{R}\).</li>
+        <li>\(\lim\limits_{x\to-\infty} e^x = 0\) (asymptote horizontale \(y = 0\)) et \(\lim\limits_{x\to+\infty} e^x = +\infty\).</li>
+        <li>Croissances comparées : \(\lim\limits_{x\to+\infty} \dfrac{e^x}{x} = +\infty\) et \(\lim\limits_{x\to-\infty} x e^x = 0\). « L'exponentielle l'emporte sur \(x\). »</li>
+        <li>Tangente en 0 : \(y = x + 1\), et la courbe est au-dessus : \(e^x \geq 1 + x\).</li>
+      </ul>
+    </div>
+    <div class="box prop"><p class="box-title">Équations et inéquations</p>
+      <p>Comme \(\exp\) est strictement croissante : \(e^{a} = e^{b} \iff a = b\) et \(e^{a} &lt; e^{b} \iff a &lt; b\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — résoudre</p>
+      <p>Résoudre \(e^{2x-1} \geq e^{x+3}\) puis \(e^{2x} - 3e^{x} + 2 = 0\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>(1) \(2x - 1 \geq x + 3 \iff x \geq 4\). \(S = [4\,;+\infty[\).</p>
+        <p>(2) On pose \(X = e^{x} > 0\) : \(X^2 - 3X + 2 = 0\), \(\Delta = 1\), \(X = 1\) ou \(X = 2\).
+          \(e^x = 1 \iff x = 0\) ; \(e^x = 2 \iff x = \ln 2\). \(S = \{0\,;\ln 2\}\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Les fonctions \(t \mapsto e^{kt}\) et \(t \mapsto e^{-t/\tau}\)</h2>
+    <div class="box prop"><p class="box-title">Propriétés</p>
+      <ul>
+        <li>\(\big(e^{kt}\big)' = k\,e^{kt}\) : croissante si \(k > 0\), décroissante si \(k &lt; 0\).</li>
+        <li>Pour \(k > 0\) : \(e^{kt} \to +\infty\). Pour \(k &lt; 0\) : \(e^{kt} \to 0\) quand \(t \to +\infty\).</li>
+        <li>Lien avec les suites : \(u_n = e^{kn} = (e^{k})^n\) est géométrique de raison \(e^{k}\).</li>
+      </ul>
+    </div>
+    <div class="box def"><p class="box-title">Constante de temps \(\tau\)</p>
+      <p>En physique on écrit souvent \(e^{-t/\tau}\) avec \(\tau > 0\) (en secondes). Repères à connaître :</p>
+      <ul>
+        <li>à \(t = \tau\) : \(e^{-1} \approx 0{,}37\) → il reste 37 % (ou on a atteint 63 % de la valeur finale) ;</li>
+        <li>à \(t = 5\tau\) : \(e^{-5} \approx 0{,}007\) → le régime transitoire est considéré terminé (99 %) ;</li>
+        <li>la tangente à l'origine de \(1 - e^{-t/\tau}\) coupe l'asymptote \(y = 1\) en \(t = \tau\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — charge d'un condensateur</p>
+      <p>\(u_C(t) = 12\big(1 - e^{-t/\tau}\big)\) avec \(\tau = RC = 1\,\text{k}\Omega \times 470\,\mu\text{F}\). Calculer \(\tau\), \(u_C(\tau)\) et la durée de charge pratique.</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\tau = 10^3 \times 470\times 10^{-6} = 0{,}47\) s. \(u_C(\tau) = 12(1 - e^{-1}) \approx 7{,}6\) V (63 % de 12 V).</p>
+        <p>Charge « complète » à 99 % après \(5\tau \approx 2{,}35\) s.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-tau">
+      <p class="widget-title">Charge et décharge : le rôle de \(\tau\)</p>
+      <p class="hint">Change \(\tau\) : la tangente à l'origine (pointillés) coupe toujours l'asymptote en \(t = \tau\). Les repères 63 % et 99 % se déplacent avec \(\tau\).</p>
+      <div class="controls">
+        <label>Mode <select data-k="mode"><option value="c">charge \(E(1-e^{-t/\tau})\)</option><option value="d">décharge \(Ee^{-t/\tau}\)</option></select></label>
+        <label>\(E\) (V) <input type="range" data-k="E" min="1" max="12" step="0.5" value="5"> <output data-show="E"></output></label>
+        <label>\(\tau\) (s) <input type="range" data-k="tau" min="0.2" max="3" step="0.1" value="1"> <output data-show="tau"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="legend"><span><i style="background:var(--c1)"></i>u(t)</span><span><i style="background:var(--c2)"></i>tangente à l'origine</span><span><i style="background:var(--c4)"></i>t = τ et t = 5τ</span></div>
+    </div>
+
+    <div class="widget" id="w-k">
+      <p class="widget-title">Famille \(f_k(x) = e^{kx}\)</p>
+      <p class="hint">Toutes les courbes passent par \((0\,;1)\). Le paramètre \(k\) est la pente de la tangente en ce point.</p>
+      <div class="controls"><label>\(k\) <input type="range" data-k="k" min="-3" max="3" step="0.1" value="1"> <output data-show="k"></output></label></div>
+      <canvas class="plot short"></canvas>
+    </div>
+
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : résoudre</p>
+      <p class="hint">Donne la solution (valeur exacte ou décimale à 0,01 près ; tu peux écrire <code>ln(3)</code>).</p>
+      <div class="drill-q"></div>
+      <div class="drill"><input type="text" aria-label="Ta réponse"><button class="btn drill-check" type="button">Vérifier</button><button class="btn ghost drill-new" type="button">Nouvelle question</button></div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <ul>
+        <li>Croissances comparées générales : \(\dfrac{e^{x}}{x^{n}} \to +\infty\) pour tout \(n\).</li>
+        <li>Fonctions puissances réelles \(a^{x} = e^{x\ln a}\) et exponentielle complexe \(e^{i\theta}\) (voir <a href="equations-differentielles.html">équations différentielles</a>).</li>
+        <li>Développement \(e^{x} = 1 + x + \dfrac{x^2}{2} + \dfrac{x^3}{6} + \dots\) (séries entières, DL).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>\(e^{3x} \times e^{-x} =\)</p>
+        <ol class="choices"><li>\(e^{-3x^2}\)</li><li>\(e^{2x}\)</li><li>\(e^{3x-1}\)</li><li>\(e^{-3x}\)</li></ol>
+        <p class="explain">\(e^{a}e^{b} = e^{a+b}\) : \(3x + (-x) = 2x\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>L'équation \(e^{x} = -2\) :</p>
+        <ol class="choices"><li>a pour solution \(-\ln 2\)</li><li>a pour solution \(\ln(-2)\)</li><li>a deux solutions</li><li>n'a pas de solution</li></ol>
+        <p class="explain">Une exponentielle est toujours strictement positive.</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>La dérivée de \(t \mapsto 5e^{-0{,}2t}\) est :</p>
+        <ol class="choices"><li>\(-e^{-0{,}2t}\)</li><li>\(5e^{-0{,}2t}\)</li><li>\(-0{,}2e^{-0{,}2t}\)</li><li>\(-5e^{-0{,}2t}\)</li></ol>
+        <p class="explain">\(5 \times (-0{,}2) = -1\).</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>\(\lim\limits_{x\to+\infty} \big(x - e^{x}\big) =\)</p>
+        <ol class="choices"><li>\(0\)</li><li>\(+\infty\)</li><li>\(-\infty\)</li><li>forme indéterminée sans réponse</li></ol>
+        <p class="explain">On factorise : \(x - e^x = e^x\left(\dfrac{x}{e^x} - 1\right)\). \(\dfrac{x}{e^x} \to 0\) donc la parenthèse tend vers \(-1\), et le produit vers \(-\infty\).</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Pour \(u(t) = E e^{-t/\tau}\), à \(t = \tau\) il reste environ :</p>
+        <ol class="choices"><li>63 % de \(E\)</li><li>37 % de \(E\)</li><li>50 % de \(E\)</li><li>1 % de \(E\)</li></ol>
+        <p class="explain">\(e^{-1} \approx 0{,}368\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+fonction+exponentielle+proprietes">Propriétés de l'exponentielle — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+equation+inequation+exponentielle">Équations avec exponentielles<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=constante+de+temps+tau+charge+condensateur">Constante de temps d'un circuit RC<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  /* --- Widget charge / décharge d'un circuit RC --- */
+  var w = document.getElementById('w-tau');
+  var P = Course.plot(w.querySelector('canvas'), { xlabel: 't (s)', ylabel: 'u (V)' });
+  Course.onInput(w, function (v) {
+    var E = v.E, tau = v.tau, ch = v.mode === 'c';   // ch = true : charge, false : décharge
+    // u(t) = E(1 − e^(−t/τ)) en charge, E·e^(−t/τ) en décharge
+    var u = ch ? function (t) { return E * (1 - Math.exp(-t / tau)); } : function (t) { return E * Math.exp(-t / tau); };
+    P.draw = function (g) {
+      // asymptote horizontale (valeur finale), tangente à l'origine, courbe, repères τ et 5τ
+      g.seg(0, ch ? E : 0, 6 * tau, ch ? E : 0, '--muted', { dash: [4, 4], width: 1 });
+      g.fn(ch ? function (t) { return E * t / tau; } : function (t) { return E - E * t / tau; }, '--c2', { from: 0, to: tau * 1.2, dash: [6, 4] });
+      g.fn(u, '--c1', { from: 0 });
+      [1, 5].forEach(function (k) {
+        g.seg(k * tau, 0, k * tau, u(k * tau), '--c4', { dash: [3, 3] });
+        g.point(k * tau, u(k * tau), '--c4', (k === 1 ? 'τ : ' : '5τ : ') + Math.round(100 * u(k * tau) / E) + ' %');
+      });
+    };
+    P.redraw({ xmin: -0.3 * tau, xmax: 6.5 * tau, ymin: -0.1 * E, ymax: 1.2 * E });
+  });
+
+  /* --- Famille e^(kx) : courbe + tangente en 0 (y = 1 + kx), exp en référence --- */
+  var w2 = document.getElementById('w-k');
+  var P2 = Course.plot(w2.querySelector('canvas'), { xmin: -3, xmax: 3, ymin: -0.5, ymax: 5 });
+  Course.onInput(w2, function (v) {
+    P2.draw = function (g) {
+      g.fn(Math.exp, '--muted', { width: 1, dash: [4, 4] });
+      g.fn(function (x) { return Math.exp(v.k * x); }, '--c1');
+      g.fn(function (x) { return 1 + v.k * x; }, '--c2', { width: 1.4 });
+      g.point(0, 1, '--c2');
+    };
+    P2.redraw();
+  });
+
+  /* --- Exercices : e^a = e^b ⇔ a = b, puis e^(mx) = K ⇔ x = ln(K)/m --- */
+  Course.drill('#w-drill', function () {
+    var R = Course.rand, t = R(0, 2);
+    if (t === 0) {
+      var a = R(2, 5), b = R(-6, 6), c = R(-6, 6);
+      if (a === 1) a = 2;
+      return { q: 'e^{' + a + 'x ' + (b < 0 ? '- ' + (-b) : '+ ' + b) + '} = e^{x ' + (c < 0 ? '- ' + (-c) : '+ ' + c) + '} \\quad x = ?',
+        answer: (c - b) / (a - 1), explain: '\\(' + a + 'x ' + (b < 0 ? '- ' + (-b) : '+ ' + b) + ' = x ' + (c < 0 ? '- ' + (-c) : '+ ' + c) + '\\).' };
+    }
+    if (t === 1) {
+      var k = R(2, 9);
+      return { q: 'e^{x} = ' + k + ' \\quad x = ?', answer: Math.log(k), tol: 0.01, explain: '\\(x = \\ln ' + k + '\\).' };
+    }
+    var m = R(2, 5), K = R(2, 20);
+    return { q: 'e^{' + m + 'x} = ' + K + ' \\quad x = ?', answer: Math.log(K) / m, tol: 0.01,
+      explain: '\\(' + m + 'x = \\ln ' + K + '\\) donc \\(x = \\frac{\\ln ' + K + '}{' + m + '}\\).' };
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ondes et signaux · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="physique/ondes">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Physique · Ondes et information</p>
+    <h1>Ondes et signaux</h1>
+    <p class="lead">Ondes mécaniques (son, ultrasons) et électromagnétiques (lumière, radio, Wi-Fi) : célérité, période, longueur d'onde,
+      spectre, énergie des photons, atténuation et transmission de l'information.</p>
+    <p class="prereq">Prérequis : <a href="../maths/trigonometrie.html">fonctions sinusoïdales</a>, <a href="../maths/logarithme.html">décibels</a>.</p>
+  </header>
+
+  <section>
+    <h2>1. Ondes progressives</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Une <b>onde progressive</b> est la propagation d'une perturbation, <b>sans transport de matière</b> mais avec transport d'énergie.
+        Elle est <b>mécanique</b> si elle a besoin d'un milieu matériel (son), <b>électromagnétique</b> sinon (lumière, se propage dans le vide).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Onde périodique sinusoïdale</p>
+      <ul>
+        <li><b>Périodicité temporelle</b> : période \(T\) (s), fréquence \(f = 1/T\) (Hz).</li>
+        <li><b>Périodicité spatiale</b> : longueur d'onde \(\lambda\) (m), distance parcourue pendant une période.</li>
+        <li>Relation fondamentale : \[\lambda = v\,T = \frac{v}{f}\]
+          avec \(v\) la célérité : environ 340 m/s pour le son dans l'air, 1 500 m/s dans l'eau, \(c = 3{,}00 \times 10^8\) m/s pour la lumière dans le vide.</li>
+        <li>Retard : un point situé à la distance \(d\) de la source reproduit son mouvement avec un retard \(\Delta t = d/v\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — télémètre à ultrasons</p>
+      <p>Un capteur émet une salve à 40 kHz et reçoit l'écho 5,8 ms plus tard. Distance de l'obstacle et longueur d'onde (\(v = 340\) m/s) ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>Aller-retour : \(2d = v\Delta t\) donc \(d = \dfrac{340 \times 5{,}8\times10^{-3}}{2} \approx 0{,}99\) m. \(\lambda = \dfrac{340}{40\,000} = 8{,}5\) mm.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Ondes électromagnétiques et photons</h2>
+    <div class="box prop"><p class="box-title">Spectre et énergie</p>
+      <ul>
+        <li>Du plus énergétique au moins énergétique : gamma, X, UV, <b>visible (400–800 nm)</b>, infrarouge, micro-ondes, radio.</li>
+        <li>La lumière est aussi un flux de <b>photons</b> d'énergie \[E = hf = \frac{hc}{\lambda}, \qquad h = 6{,}63 \times 10^{-34}\ \text{J·s}.\]
+          On utilise souvent l'électronvolt : 1 eV = \(1{,}60 \times 10^{-19}\) J.</li>
+        <li>Une cellule photovoltaïque ne convertit que les photons dont l'énergie dépasse le <b>gap</b> du semi-conducteur (1,12 eV pour le silicium).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — seuil du silicium</p>
+      <p>Quelle longueur d'onde maximale peut absorber une cellule au silicium ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\lambda_{\max} = \dfrac{hc}{E_g} = \dfrac{6{,}63\times10^{-34} \times 3\times10^8}{1{,}12 \times 1{,}6\times10^{-19}} \approx 1{,}11\times10^{-6}\) m = 1 110 nm (proche infrarouge).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Transmission de l'information</h2>
+    <div class="box prop"><p class="box-title">Notions clés</p>
+      <ul>
+        <li><b>Atténuation</b> d'une ligne ou d'une fibre : \(A_{\text{dB}} = 10\log\dfrac{P_e}{P_s}\), souvent donnée en dB/km.</li>
+        <li><b>Débit binaire</b> \(D\) (bit/s) : nombre de bits transmis par seconde. Durée de transfert : \(\Delta t = \dfrac{\text{taille (bits)}}{D}\). Attention : 1 octet = 8 bits.</li>
+        <li><b>Modulation</b> : pour transmettre un signal par ondes radio, on fait varier l'amplitude (AM) ou la fréquence (FM) d'une porteuse haute fréquence.</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — fibre optique</p>
+      <p>Une fibre atténue de 0,2 dB/km. On injecte 1 mW. Puissance reçue après 50 km ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(A = 10\) dB donc \(P_e/P_s = 10\) et \(P_s = 0{,}1\) mW.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-onde">
+      <p class="widget-title">Onde progressive : double périodicité</p>
+      <p class="hint">Le graphique du haut est une « photo » de la corde à l'instant \(t\) (on y lit \(\lambda\)). Le point M (orange) oscille sur place : ce n'est pas la matière qui avance, c'est la perturbation.</p>
+      <div class="controls">
+        <label>\(f\) (Hz) <input type="range" data-k="f" min="0.2" max="2" step="0.05" value="0.5"> <output data-show="f"></output></label>
+        <label>\(v\) (m/s) <input type="range" data-k="v" min="0.5" max="4" step="0.1" value="2"> <output data-show="v"></output></label>
+        <button class="btn" type="button" id="onde-play">⏸ Pause</button>
+      </div>
+      <canvas class="plot short"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-spectre">
+      <p class="widget-title">Du spectre aux photons</p>
+      <p class="hint">Choisis une longueur d'onde : couleur, fréquence et énergie du photon. Compare au gap du silicium (1,12 eV).</p>
+      <div class="controls"><label>\(\lambda\) (nm) <input type="range" data-k="l" min="200" max="1500" step="5" value="550"> <output data-show="l"></output></label></div>
+      <canvas class="plot short"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement</p>
+      <p class="hint">Réponse à 1 % près.</p>
+      <div class="drill-q"></div>
+      <div class="drill"><input type="text" aria-label="Ta réponse"><button class="btn drill-check" type="button">Vérifier</button><button class="btn ghost drill-new" type="button">Nouvelle question</button></div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <ul>
+        <li>Équation d'onde \(\dfrac{\partial^2 y}{\partial t^2} = v^2\dfrac{\partial^2 y}{\partial x^2}\), solutions \(y = A\cos(\omega t - kx)\) avec \(k = 2\pi/\lambda\).</li>
+        <li>Interférences, diffraction (\(\theta \approx \lambda/a\)), ondes stationnaires (cordes, tuyaux sonores).</li>
+        <li>Analyse spectrale (Fourier), échantillonnage (Shannon) en traitement du signal.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="2">
+        <p>Un son de 680 Hz dans l'air (340 m/s) a une longueur d'onde de :</p>
+        <ol class="choices"><li>2 m</li><li>2,3 × 10⁵ m</li><li>0,5 m</li><li>1 020 m</li></ol>
+        <p class="explain">\(\lambda = v/f = 340/680\).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Quel photon est le plus énergétique ?</p>
+        <ol class="choices"><li>UV à 300 nm</li><li>rouge à 700 nm</li><li>infrarouge à 1 µm</li><li>Wi-Fi à 12 cm</li></ol>
+        <p class="explain">\(E = hc/\lambda\) : plus \(\lambda\) est petite, plus l'énergie est grande.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Le son ne se propage pas :</p>
+        <ol class="choices"><li>dans l'eau</li><li>dans l'acier</li><li>dans l'air</li><li>dans le vide</li></ol>
+        <p class="explain">C'est une onde mécanique : il lui faut un milieu matériel.</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Un fichier de 50 Mo transmis à 100 Mbit/s met environ :</p>
+        <ol class="choices"><li>0,5 s</li><li>4 s</li><li>50 s</li><li>2 s</li></ol>
+        <p class="explain">50 Mo = 400 Mbit ; 400 / 100 = 4 s.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=onde+progressive+periodique+longueur+d%27onde+cours">Ondes progressives périodiques<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=energie+d%27un+photon+E%3Dhf+exercice">Énergie d'un photon E = hf<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=attenuation+fibre+optique+dB+exercice">Atténuation et décibels en transmission<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  /* --- Onde progressive y(x, t) = A sin(2π f (t − x/v)) pour x ≥ 0 (la source est en x = 0) --- */
+  var w = document.getElementById('w-onde');
+  var P = Course.plot(w.querySelector('canvas'), { xmin: -0.3, xmax: 12, ymin: -1.6, ymax: 1.6, xlabel: 'x (m)' });
+  var out = w.querySelector('.readout');
+  var v = {}, t = 0, playing = true, last = performance.now();
+  var XM = 6;                                       // abscisse du point M suivi
+  function y(x) { var s = t - x / v.v; return s < 0 ? 0 : Math.sin(2 * Math.PI * v.f * s); }  // repos avant l'arrivée du front
+  function draw() {
+    var lam = v.v / v.f;
+    P.draw = function (g) {
+      g.fn(y, '--c1', { from: 0 });
+      g.point(XM, y(XM), '--c4', 'M', { r: 6 });
+      // repère d'une longueur d'onde à partir d'une crête proche de l'origine
+      if (v.v * t > lam * 1.5) { g.seg(1, -1.35, 1 + lam, -1.35, '--c2', { width: 2 }); g.text(1 + lam / 2, -1.5, 'λ', '--c2', { align: 'center' }); }
+    };
+    P.redraw();
+    out.textContent = 'λ = v/f = ' + Course.fmt(lam, 2) + ' m    T = 1/f = ' + Course.fmt(1 / v.f, 2) + ' s' +
+      '\nretard de M (x = ' + XM + ' m) sur la source : ' + Course.fmt(XM / v.v, 2) + ' s';
+  }
+  Course.onInput(w, function (vals) { v = vals; t = 0; draw(); });
+  (function loop(now) {
+    if (playing) { t += (now - last) / 1000; draw(); }
+    last = now;
+    requestAnimationFrame(loop);
+  })(last);
+  document.getElementById('onde-play').addEventListener('click', function () {
+    playing = !playing; this.textContent = playing ? '⏸ Pause' : '▶ Lecture';
+  });
+
+  /* --- Spectre : couleur approximative d'une longueur d'onde visible --- */
+  function rgb(l) {
+    var r = 0, g = 0, b = 0;
+    if (l >= 380 && l < 440) { r = (440 - l) / 60; b = 1; }
+    else if (l < 490) { g = (l - 440) / 50; b = 1; }
+    else if (l < 510) { g = 1; b = (510 - l) / 20; }
+    else if (l < 580) { r = (l - 510) / 70; g = 1; }
+    else if (l < 645) { r = 1; g = (645 - l) / 65; }
+    else if (l <= 780) { r = 1; }
+    if (l < 380 || l > 780) return null;
+    return 'rgb(' + Math.round(255 * r) + ',' + Math.round(255 * g) + ',' + Math.round(255 * b) + ')';
+  }
+  var ws = document.getElementById('w-spectre');
+  var PS = Course.plot(ws.querySelector('canvas'), { xmin: 200, xmax: 1500, ymin: 0, ymax: 1, grid: false, xlabel: 'λ (nm)' });
+  Course.onInput(ws, function (vals) {
+    var l = vals.l, h = 6.63e-34, c = 3e8, E = h * c / (l * 1e-9), eV = E / 1.6e-19;
+    PS.draw = function (g) {
+      for (var x = 380; x <= 780; x += 4) g.poly([[x, 0.3], [x + 4, 0.3], [x + 4, 0.8], [x, 0.8]], rgb(x), { close: true, fill: true, alpha: 1, width: 0.5 });
+      g.text(290, 0.55, 'UV', '--muted', { align: 'center' }); g.text(1100, 0.55, 'infrarouge', '--muted', { align: 'center' });
+      g.seg(1110, 0.1, 1110, 0.95, '--c4', { dash: [4, 4] }); g.text(1115, 0.9, 'seuil Si', '--c4');
+      g.seg(l, 0, l, 1, '--text', { width: 2.5 });
+    };
+    PS.redraw();
+    var col = rgb(l);
+    ws.querySelector('.readout').textContent = (col ? 'visible' : l < 380 ? 'ultraviolet' : 'infrarouge') +
+      '\nf = c/λ = ' + (c / (l * 1e-9)).toExponential(3).replace('.', ',') + ' Hz' +
+      '\nE = hc/λ = ' + E.toExponential(3).replace('.', ',') + ' J = ' + Course.fmt(eV, 3) + ' eV' +
+      '\n' + (eV >= 1.12 ? '≥ 1,12 eV : absorbable par une cellule au silicium' : '< 1,12 eV : traverse le silicium sans créer de paire électron-trou');
+  });
+
+  /* --- Exercices : λ = v/f, énergie de photon en eV, distance d'écho --- */
+  Course.drill('#w-drill', function () {
+    var R = Course.rand, k = R(0, 2);
+    if (k === 0) { var f = R(1, 40) * 50;
+      return { html: '<p>Longueur d\'onde (m) d\'un son de ' + f + ' Hz dans l\'air (v = 340 m/s) ?</p>', answer: 340 / f, tol: 0.01 * 340 / f, explain: '\\(\\lambda = v/f\\).' }; }
+    if (k === 1) { var l = R(30, 100) * 10;
+      return { html: '<p>Énergie (en eV) d\'un photon de ' + l + ' nm ? (\\(hc \\approx 1240\\) eV·nm)</p>', answer: 1240 / l, tol: 0.01 * 1240 / l, explain: '\\(E = hc/\\lambda = 1240/\\lambda\\) en eV si \\(\\lambda\\) en nm.' }; }
+    var dt = R(2, 30);
+    return { html: '<p>Un écho ultrasonore revient après ' + dt + ' ms (v = 340 m/s). Distance de l\'obstacle (m) ?</p>', answer: 340 * dt / 2000, tol: 0.01 * 340 * dt / 2000,
+      explain: 'Aller-retour : \\(d = v\\Delta t/2\\).' };
+  });
+});
+</script>
+</body>
+</html>

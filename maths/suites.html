@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suites numériques · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="maths/suites">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths · Analyse · Tronc commun</p>
+    <h1>Suites numériques</h1>
+    <p class="lead">Reconnaître une suite arithmétique ou géométrique, calculer n'importe quel terme, une somme de termes,
+      et étudier le comportement « à l'infini ». C'est la porte d'entrée de toute l'analyse en prépa.</p>
+    <p class="prereq">Prérequis : calcul avec les puissances, équations du premier degré.</p>
+  </header>
+
+  <section>
+    <h2>1. Qu'est-ce qu'une suite ?</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Une <b>suite numérique</b> \((u_n)\) associe à chaque entier naturel \(n\) un réel \(u_n\), appelé <b>terme de rang \(n\)</b>.
+        On peut la voir comme une fonction définie sur \(\mathbb{N}\) : \(n \mapsto u_n\).</p>
+    </div>
+    <p>Deux grandes façons de définir une suite :</p>
+    <ul>
+      <li><b>Forme explicite</b> : \(u_n = f(n)\). On calcule directement n'importe quel terme. Ex. : \(u_n = 3n^2 - 1\), donc \(u_{10} = 299\).</li>
+      <li><b>Par récurrence</b> : on donne le premier terme et une relation \(u_{n+1} = f(u_n)\). Pour obtenir \(u_{10}\), il faut calculer tous les termes précédents.
+        Ex. : \(u_0 = 2\) et \(u_{n+1} = 0{,}5\,u_n + 3\).</li>
+    </ul>
+    <div class="box def"><p class="box-title">Sens de variation</p>
+      <p>\((u_n)\) est <b>croissante</b> si pour tout \(n\), \(u_{n+1} \geq u_n\), c'est-à-dire \(u_{n+1} - u_n \geq 0\).
+        Elle est <b>décroissante</b> si \(u_{n+1} - u_n \leq 0\) pour tout \(n\).</p>
+    </div>
+    <div class="box method"><p class="box-title">Méthode : étudier le sens de variation</p>
+      <p>On calcule \(u_{n+1} - u_n\) et on étudie son signe. Si les termes sont strictement positifs, on peut aussi comparer \(\dfrac{u_{n+1}}{u_n}\) à \(1\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1</p>
+      <p>Étudier le sens de variation de \(u_n = n^2 - 4n\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(u_{n+1} - u_n = (n+1)^2 - 4(n+1) - n^2 + 4n = 2n + 1 - 4 = 2n - 3.\)</p>
+        <p>Pour \(n \geq 2\), \(2n - 3 > 0\) : la suite est croissante à partir du rang 2 (elle décroît de \(u_0 = 0\) à \(u_2 = -4\)).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Suites arithmétiques</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>\((u_n)\) est <b>arithmétique de raison \(r\)</b> si on passe d'un terme au suivant en <b>ajoutant</b> toujours le même nombre :
+        \[u_{n+1} = u_n + r.\]</p>
+    </div>
+    <div class="box prop"><p class="box-title">Propriétés</p>
+      <ul>
+        <li>Terme général : \(u_n = u_0 + n\,r\), et plus généralement \(u_n = u_p + (n-p)\,r\).</li>
+        <li>Sens de variation : croissante si \(r > 0\), décroissante si \(r &lt; 0\), constante si \(r = 0\).</li>
+        <li>Les points \((n\,;\,u_n)\) sont <b>alignés</b> : croissance linéaire.</li>
+        <li>Somme de termes consécutifs :
+          \[S = \text{(nombre de termes)} \times \frac{\text{premier} + \text{dernier}}{2}.\]
+          En particulier \(1 + 2 + \dots + n = \dfrac{n(n+1)}{2}\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — tarif d'abonnement</p>
+      <p>Un loyer vaut 600 € la première année et augmente de 15 € chaque année. Quel loyer la 10<sup>e</sup> année ? Combien a-t-on payé au total sur 10 ans (loyer annuel) ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>On pose \(u_1 = 600\) et \(r = 15\). Alors \(u_{10} = u_1 + 9r = 600 + 135 = 735\) €.</p>
+        <p>Somme : \(S = 10 \times \dfrac{600 + 735}{2} = 6\,675\) €.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Suites géométriques</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>\((u_n)\) est <b>géométrique de raison \(q\)</b> si on passe d'un terme au suivant en <b>multipliant</b> toujours par le même nombre :
+        \[u_{n+1} = q \times u_n.\]</p>
+    </div>
+    <div class="box prop"><p class="box-title">Propriétés</p>
+      <ul>
+        <li>Terme général : \(u_n = u_0 \times q^n\), et \(u_n = u_p \times q^{\,n-p}\).</li>
+        <li>Si \(u_0 > 0\) : croissante si \(q > 1\), décroissante si \(0 &lt; q &lt; 1\).</li>
+        <li>Somme (pour \(q \neq 1\)) :
+          \[1 + q + q^2 + \dots + q^n = \frac{1 - q^{n+1}}{1 - q}, \qquad
+          S = \text{premier terme} \times \frac{1 - q^{\text{nb de termes}}}{1 - q}.\]</li>
+      </ul>
+    </div>
+    <div class="box method"><p class="box-title">Méthode : évolution en pourcentage</p>
+      <p>Augmenter de \(t\,\%\) revient à multiplier par \(1 + \dfrac{t}{100}\) ; diminuer de \(t\,\%\) revient à multiplier par \(1 - \dfrac{t}{100}\).
+        Une évolution d'un pourcentage <b>constant</b> donne donc une suite géométrique.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — décharge et pertes</p>
+      <p>Une batterie perd 3 % de sa capacité maximale à chaque cycle d'usure de 100 charges. Neuve, elle stocke 50 Wh. Capacité après 8 de ces cycles ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(C_n = 50 \times 0{,}97^n\) donc \(C_8 = 50 \times 0{,}97^8 \approx 39{,}2\) Wh.</p>
+      </details>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 4 — somme géométrique</p>
+      <p>Calculer \(S = 2 + 6 + 18 + \dots + 2 \times 3^{9}\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>Suite géométrique de premier terme 2 et de raison 3, avec 10 termes (exposants 0 à 9) :
+          \(S = 2 \times \dfrac{1 - 3^{10}}{1 - 3} = 3^{10} - 1 = 59\,048.\)</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Limites et algorithme de seuil</h2>
+    <div class="box prop"><p class="box-title">Limite de \(q^n\)</p>
+      <ul>
+        <li>Si \(q > 1\) : \(\lim\limits_{n\to+\infty} q^n = +\infty\).</li>
+        <li>Si \(-1 &lt; q &lt; 1\) : \(\lim\limits_{n\to+\infty} q^n = 0\).</li>
+        <li>Si \(q = 1\) : \(q^n = 1\) ; si \(q \leq -1\) : pas de limite (les termes oscillent).</li>
+      </ul>
+      <p>Conséquence : pour \(|q| &lt; 1\), \(1 + q + q^2 + \dots + q^n \to \dfrac{1}{1-q}\).</p>
+    </div>
+    <p>Pour trouver le <b>premier rang</b> à partir duquel \(u_n\) dépasse un seuil, on programme une boucle <code>while</code> :</p>
+<pre><code>def seuil(u0, q, S):
+    n, u = 0, u0
+    while u &lt; S:        # tant que le seuil n'est pas atteint
+        n = n + 1
+        u = q * u
+    return n
+
+print(seuil(50, 1.04, 100))   # 18 : la valeur double en 18 ans à +4 %/an</code></pre>
+    <p>En Terminale, tu pourras aussi résoudre \(u_0 q^n \geq S\) avec le logarithme (voir le chapitre <a href="logarithme.html">Logarithmes</a>).</p>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
+    <div class="widget" id="w-suite">
+      <p class="widget-title">Explorer une suite arithmétique ou géométrique</p>
+      <p class="hint">Choisis le type, le premier terme et la raison. Observe l'alignement (arithmétique) ou l'explosion / l'écrasement (géométrique).</p>
+      <div class="controls">
+        <label>Type
+          <select data-k="type"><option value="a">arithmétique</option><option value="g" selected>géométrique</option></select></label>
+        <label>\(u_0\) <input type="range" data-k="u0" min="-5" max="10" step="0.5" value="2"> <output data-show="u0"></output></label>
+        <label class="only-a">raison \(r\) <input type="range" data-k="r" min="-3" max="3" step="0.1" value="0.8"> <output data-show="r"></output></label>
+        <label class="only-g">raison \(q\) <input type="range" data-k="q" min="-1.5" max="1.6" step="0.05" value="1.2"> <output data-show="q"></output></label>
+        <label>nb de termes <input type="range" data-k="N" min="5" max="40" step="1" value="15"> <output data-show="N"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : terme et somme</p>
+      <p class="hint">Calcule la valeur demandée (arrondie si besoin à 0,01 près — les fractions comme 3/4 sont acceptées).</p>
+      <div class="drill-q"></div>
+      <div class="drill"><input type="text" aria-label="Ta réponse"><button class="btn drill-check" type="button">Vérifier</button><button class="btn ghost drill-new" type="button">Nouvelle question</button></div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <ul>
+        <li>Les <b>suites arithmético-géométriques</b> \(u_{n+1} = a u_n + b\) : on cherche le point fixe \(\ell = a\ell + b\), puis \(v_n = u_n - \ell\) est géométrique de raison \(a\).</li>
+        <li>Les <b>démonstrations par récurrence</b> (voir <a href="../prepa/sommes-recurrence.html">Sommes et récurrence</a>).</li>
+        <li>La définition rigoureuse de la limite avec \(\varepsilon\), les suites adjacentes, les suites récurrentes \(u_{n+1} = f(u_n)\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 5 — arithmético-géométrique (niveau prépa)</p>
+      <p>\(u_0 = 10\) et \(u_{n+1} = 0{,}5\,u_n + 3\). Exprimer \(u_n\) en fonction de \(n\) et donner sa limite.</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>Point fixe : \(\ell = 0{,}5\ell + 3 \iff \ell = 6\). Posons \(v_n = u_n - 6\) :
+          \(v_{n+1} = 0{,}5u_n + 3 - 6 = 0{,}5(u_n - 6) = 0{,}5\,v_n\).</p>
+        <p>Donc \(v_n = v_0 \times 0{,}5^n = 4 \times 0{,}5^n\) et \(u_n = 6 + 4 \times 0{,}5^n \to 6\) car \(0 &lt; 0{,}5 &lt; 1\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>\((u_n)\) est arithmétique avec \(u_3 = 7\) et \(u_8 = 22\). Sa raison vaut :</p>
+        <ol class="choices"><li>\(5\)</li><li>\(3\)</li><li>\(15\)</li><li>\(22/7\)</li></ol>
+        <p class="explain">\(u_8 = u_3 + 5r\) donc \(5r = 15\) et \(r = 3\).</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Un prix augmente de 5 % par an. Le prix \(p_n\) après \(n\) années vérifie :</p>
+        <ol class="choices"><li>\(p_{n+1} = p_n + 0{,}05\)</li><li>\(p_{n+1} = 0{,}05\,p_n\)</li><li>\(p_{n+1} = 1{,}05\,p_n\)</li><li>\(p_{n+1} = p_n + 5\)</li></ol>
+        <p class="explain">Augmenter de 5 % revient à multiplier par \(1 + 0{,}05 = 1{,}05\) : suite géométrique.</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>\(\lim\limits_{n\to+\infty} 3 \times 0{,}8^n =\)</p>
+        <ol class="choices"><li>\(0\)</li><li>\(3\)</li><li>\(+\infty\)</li><li>pas de limite</li></ol>
+        <p class="explain">\(-1 &lt; 0{,}8 &lt; 1\) donc \(0{,}8^n \to 0\), et \(3 \times 0 = 0\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>\(1 + 2 + 3 + \dots + 100 =\)</p>
+        <ol class="choices"><li>\(10\,000\)</li><li>\(5\,000\)</li><li>\(10\,100\)</li><li>\(5\,050\)</li></ol>
+        <p class="explain">\(\dfrac{100 \times 101}{2} = 5\,050\) (100 termes, moyenne du premier et du dernier = 50,5).</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Combien de termes dans la somme \(u_5 + u_6 + \dots + u_{20}\) ?</p>
+        <ol class="choices"><li>15</li><li>16</li><li>20</li><li>21</li></ol>
+        <p class="explain">De 5 à 20 inclus : \(20 - 5 + 1 = 16\) termes. Erreur classique : oublier le « +1 ».</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+suites+arithmetiques">Suites arithmétiques — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+suites+geometriques">Suites géométriques — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+somme+termes+suite+geometrique">Somme des termes d'une suite géométrique<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=suite+arithmetico+geometrique+methode">Suites arithmético-géométriques (niveau prépa)<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  /* --- Widget « Explorer une suite » ---
+     v contient les valeurs des champs [data-k] : type ('a'|'g'), u0, r, q, N. */
+  var w = document.getElementById('w-suite');
+  var P = Course.plot(w.querySelector('canvas'), {});
+  var out = w.querySelector('.readout');
+  Course.onInput(w, function (v) {
+    // n'afficher que le curseur de raison utile (r pour arithmétique, q pour géométrique)
+    w.querySelector('.only-a').hidden = v.type !== 'a';
+    w.querySelector('.only-g').hidden = v.type !== 'g';
+    // calcul des N premiers termes par la formule explicite
+    var u = [];
+    for (var n = 0; n < v.N; n++) u.push(v.type === 'a' ? v.u0 + n * v.r : v.u0 * Math.pow(v.q, n));
+    // fenêtre verticale ajustée aux termes (on garde toujours l'axe y = 0 visible)
+    var lo = Math.min(0, Math.min.apply(null, u)), hi = Math.max(1, Math.max.apply(null, u));
+    var pad = (hi - lo) * 0.08 || 1;
+    // nuage de points (n ; u_n) avec un trait pointillé jusqu'à l'axe
+    P.draw = function (g) {
+      u.forEach(function (y, k) { g.seg(k, 0, k, y, '--c1', { dash: [3, 3], width: 1 }); g.point(k, y, '--c2', null, { r: 4 }); });
+    };
+    P.redraw({ xmin: -1, xmax: v.N, ymin: lo - pad, ymax: hi + pad });
+    // somme des termes affichés et comportement à l'infini (cf. limite de q^n)
+    var S = u.reduce(function (a, b) { return a + b; }, 0);
+    var lim;
+    if (v.type === 'a') lim = v.r > 0 ? '+∞' : v.r < 0 ? '−∞' : String(Course.fmt(v.u0));
+    else if (v.u0 === 0 || Math.abs(v.q) < 1) lim = '0';
+    else if (v.q === 1) lim = Course.fmt(v.u0);
+    else if (v.q > 1) lim = v.u0 > 0 ? '+∞' : '−∞';
+    else lim = 'pas de limite (oscillation)';
+    out.textContent = 'u_' + (v.N - 1) + ' = ' + Course.fmt(u[u.length - 1]) +
+      '\nu_0 + … + u_' + (v.N - 1) + ' = ' + Course.fmt(S) +
+      '\nlimite quand n → +∞ : ' + lim;
+  });
+
+  /* --- Exercices auto-générés : 4 familles tirées au hasard ---
+     0 : terme d'une suite arithmétique   1 : terme d'une suite géométrique
+     2 : somme 1 + … + N                   3 : somme géométrique de raison 2 */
+  Course.drill('#w-drill', function () {
+    var R = Course.rand, kind = R(0, 3);
+    if (kind === 0) {
+      var u0 = R(-10, 20), r = R(-5, 9) || 2, n = R(5, 40);
+      return { html: '<p>\\((u_n)\\) arithmétique, \\(u_0 = ' + u0 + '\\), \\(r = ' + r + '\\). Calcule \\(u_{' + n + '}\\).</p>', answer: u0 + n * r,
+        explain: '\\(u_n = u_0 + nr\\).' };
+    }
+    if (kind === 1) {
+      var a = R(1, 5), q = Course.pick([2, 3, 0.5, -2]), m = R(3, 8);
+      return { html: '<p>\\((u_n)\\) géométrique, \\(u_0 = ' + a + '\\), \\(q = ' + String(q).replace('.', '{,}') + '\\). Calcule \\(u_{' + m + '}\\).</p>', answer: a * Math.pow(q, m),
+        explain: '\\(u_n = u_0 q^n\\).' };
+    }
+    if (kind === 2) {
+      var N = R(10, 60);
+      return { html: '<p>Calcule \\(1 + 2 + \\dots + ' + N + '\\).</p>', answer: N * (N + 1) / 2, explain: '\\(\\frac{n(n+1)}{2}\\).' };
+    }
+    var b = R(1, 4), k = R(4, 9);
+    return { html: '<p>Calcule \\(' + b + ' + ' + b + '\\times 2 + ' + b + '\\times 2^2 + \\dots + ' + b + '\\times 2^{' + k + '}\\).</p>',
+      answer: b * (Math.pow(2, k + 1) - 1), explain: '\\(' + k + '+1\\) termes : \\(' + b + '\\times\\frac{1-2^{' + (k + 1) + '}}{1-2}\\).' };
+  });
+});
+</script>
+</body>
+</html>

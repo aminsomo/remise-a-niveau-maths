@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Équations différentielles · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="maths/equations-differentielles">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths · Analyse · Spécialité</p>
+    <h1>Équations différentielles</h1>
+    <p class="lead">Une équation dont l'inconnue est une <b>fonction</b>, reliée à ses dérivées. C'est le langage de la physique :
+      circuit RC, refroidissement, chute avec frottements, oscillateurs. En STI2D : \(y' = ay\), \(y' = ay + b\) et \(y'' + \omega^2 y = 0\).</p>
+    <p class="prereq">Prérequis : <a href="exponentielle.html">exponentielle</a>, <a href="derivation.html">dérivation</a>, fonctions cos et sin.</p>
+  </header>
+
+  <section>
+    <h2>1. L'équation \(y' = ay\)</h2>
+    <div class="box prop"><p class="box-title">Théorème</p>
+      <p>Les solutions sur \(\mathbb{R}\) de \(y' = ay\) (\(a\) réel) sont les fonctions
+        \[y(t) = C\,e^{at}, \qquad C \in \mathbb{R}.\]
+        Avec une condition initiale \(y(0) = y_0\), il y a <b>une seule</b> solution : \(y(t) = y_0\,e^{at}\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — décharge d'un condensateur</p>
+      <p>Dans un circuit RC en décharge, \(RC\,\dfrac{\mathrm{d}u}{\mathrm{d}t} + u = 0\), avec \(u(0) = 10\) V, \(R = 10\ \text{k}\Omega\), \(C = 100\ \mu\text{F}\). Trouver \(u(t)\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>On réécrit : \(u' = -\dfrac{1}{RC}u\), forme \(y' = ay\) avec \(a = -\dfrac{1}{RC} = -\dfrac{1}{1} = -1\ \text{s}^{-1}\) (\(\tau = RC = 1\) s).</p>
+        <p>\(u(t) = 10\,e^{-t}\) (en volts, \(t\) en secondes).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. L'équation \(y' = ay + b\)</h2>
+    <div class="box prop"><p class="box-title">Théorème (\(a \neq 0\))</p>
+      <p>Les solutions de \(y' = ay + b\) sont
+        \[y(t) = C\,e^{at} - \frac{b}{a}, \qquad C \in \mathbb{R}.\]
+        La fonction constante \(y_p = -\dfrac{b}{a}\) est une <b>solution particulière</b> (on la trouve en posant \(y' = 0\)) ;
+        \(C\,e^{at}\) est la solution générale de l'équation <b>homogène</b> \(y' = ay\).</p>
+    </div>
+    <div class="box method"><p class="box-title">Méthode en 3 temps</p>
+      <ol>
+        <li>Mettre l'équation sous la forme \(y' = ay + b\) (ou \(\tau y' + y = K\)).</li>
+        <li>Écrire \(y(t) = Ce^{at} + y_p\) avec \(y_p\) constante.</li>
+        <li>Déterminer \(C\) avec la condition initiale.</li>
+      </ol>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — loi de refroidissement</p>
+      <p>Un café à 80 °C refroidit dans une pièce à 20 °C : \(\theta'(t) = -0{,}1\,\big(\theta(t) - 20\big)\), \(t\) en minutes. Trouver \(\theta(t)\) et le temps pour atteindre 40 °C.</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\theta' = -0{,}1\,\theta + 2\) : \(a = -0{,}1\), \(b = 2\), \(y_p = -\dfrac{2}{-0{,}1} = 20\) (la température de la pièce !).</p>
+        <p>\(\theta(t) = Ce^{-0{,}1t} + 20\) et \(\theta(0) = 80 \Rightarrow C = 60\). Donc \(\theta(t) = 60e^{-0{,}1t} + 20\).</p>
+        <p>\(\theta(t) = 40 \iff e^{-0{,}1t} = \tfrac13 \iff t = 10\ln 3 \approx 11\) min.</p>
+      </details>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — charge d'un condensateur</p>
+      <p>\(RC\,u' + u = E\), \(u(0) = 0\). Montrer que \(u(t) = E\big(1 - e^{-t/RC}\big)\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(u' = -\dfrac{1}{RC}u + \dfrac{E}{RC}\) ; \(y_p = E\) ; \(u(t) = Ce^{-t/RC} + E\) ; \(u(0) = 0 \Rightarrow C = -E\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. L'équation \(y'' + \omega^2 y = 0\)</h2>
+    <div class="box prop"><p class="box-title">Théorème (\(\omega > 0\))</p>
+      <p>Les solutions sont les fonctions
+        \[y(t) = A\cos(\omega t) + B\sin(\omega t), \qquad A, B \in \mathbb{R},\]
+        qu'on peut aussi écrire \(y(t) = Y_m\cos(\omega t + \varphi)\). Elles sont périodiques de période \(T = \dfrac{2\pi}{\omega}\).
+        Deux conditions initiales (\(y(0)\) et \(y'(0)\)) déterminent \(A\) et \(B\) : \(A = y(0)\), \(B = \dfrac{y'(0)}{\omega}\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 4 — ressort horizontal sans frottement</p>
+      <p>\(m\,x'' = -k\,x\) avec \(m = 0{,}2\) kg, \(k = 20\) N/m, \(x(0) = 3\) cm, \(x'(0) = 0\). Trouver \(x(t)\) et la période.</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(x'' + \dfrac{k}{m}x = 0\) avec \(\omega^2 = 100\), \(\omega = 10\) rad/s.
+          \(x(t) = A\cos 10t + B\sin 10t\) ; \(A = 3\), \(B = 0\). Donc \(x(t) = 3\cos(10t)\) cm et \(T = \dfrac{2\pi}{10} \approx 0{,}63\) s.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-ordre1">
+      <p class="widget-title">\(y' = ay + b\) : toutes les solutions convergent ?</p>
+      <p class="hint">Chaque courbe correspond à une condition initiale \(y(0)\) différente. Si \(a &lt; 0\), toutes tendent vers \(-b/a\) (régime permanent). Si \(a > 0\), elles divergent.
+        Clique sur le graphique pour ajouter ta propre condition initiale.</p>
+      <div class="controls">
+        <label>\(a\) <input type="range" data-k="a" min="-2" max="1" step="0.05" value="-0.8"> <output data-show="a"></output></label>
+        <label>\(b\) <input type="range" data-k="b" min="-4" max="4" step="0.1" value="2"> <output data-show="b"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-osc">
+      <p class="widget-title">Oscillateur \(y'' + \omega^2 y = 0\)</p>
+      <p class="hint">Règle \(y(0)\), \(y'(0)\) et \(\omega\). Observe l'amplitude \(Y_m = \sqrt{A^2 + B^2}\) et la période \(2\pi/\omega\).</p>
+      <div class="controls">
+        <label>\(\omega\) <input type="range" data-k="w" min="0.5" max="6" step="0.1" value="2"> <output data-show="w"></output></label>
+        <label>\(y(0)\) <input type="range" data-k="y0" min="-3" max="3" step="0.1" value="2"> <output data-show="y0"></output></label>
+        <label>\(y'(0)\) <input type="range" data-k="v0" min="-6" max="6" step="0.1" value="0"> <output data-show="v0"></output></label>
+      </div>
+      <canvas class="plot short"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement</p>
+      <p class="hint">Donne la valeur demandée (à 0,01 près).</p>
+      <div class="drill-q"></div>
+      <div class="drill"><input type="text" aria-label="Ta réponse"><button class="btn drill-check" type="button">Vérifier</button><button class="btn ghost drill-new" type="button">Nouvelle question</button></div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <ul>
+        <li>\(y' + a(t)y = b(t)\) avec coefficients variables : \(y = Ce^{-A(t)} + y_p\) où \(A\) est une primitive de \(a\) ; variation de la constante.</li>
+        <li>\(ay'' + by' + cy = 0\) : équation caractéristique \(ar^2 + br + c = 0\), avec racines complexes → oscillations amorties (circuit RLC, ressort avec frottement).</li>
+        <li>Second membre sinusoïdal → notation complexe, résonance (lien avec <a href="complexes.html">nombres complexes</a>).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="2">
+        <p>Les solutions de \(y' = 3y\) sont :</p>
+        <ol class="choices"><li>\(y = 3e^{t}\)</li><li>\(y = Ce^{t/3}\)</li><li>\(y = Ce^{3t}\)</li><li>\(y = e^{3t} + C\)</li></ol>
+        <p class="explain">\(y' = ay \Rightarrow y = Ce^{at}\). Attention : \(e^{3t} + C\) n'est <b>pas</b> solution (sa dérivée est \(3e^{3t}\), pas \(3(e^{3t}+C)\)).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>La solution constante de \(y' = -2y + 8\) est :</p>
+        <ol class="choices"><li>\(4\)</li><li>\(-4\)</li><li>\(8\)</li><li>\(-16\)</li></ol>
+        <p class="explain">\(0 = -2y + 8 \Rightarrow y = 4\). C'est la valeur limite (régime permanent).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>\(y'' + 9y = 0\). La période des solutions est :</p>
+        <ol class="choices"><li>\(9\)</li><li>\(2\pi/9\)</li><li>\(3\)</li><li>\(2\pi/3\)</li></ol>
+        <p class="explain">\(\omega^2 = 9 \Rightarrow \omega = 3\) et \(T = 2\pi/\omega\).</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Pour \(\tau u' + u = E\), la constante de temps est :</p>
+        <ol class="choices"><li>\(E\)</li><li>\(\tau\)</li><li>\(1/\tau\)</li><li>\(E/\tau\)</li></ol>
+        <p class="explain">Solution : \(u = E + Ce^{-t/\tau}\).</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Quelle fonction est solution de \(y'' + 4y = 0\) avec \(y(0) = 0\) et \(y'(0) = 2\) ?</p>
+        <ol class="choices"><li>\(2\cos 2t\)</li><li>\(2\sin 2t\)</li><li>\(\sin 2t\)</li><li>\(\cos 2t\)</li></ol>
+        <p class="explain">\(A = y(0) = 0\), \(B = y'(0)/\omega = 2/2 = 1\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+equation+differentielle+y%27%3Day%2Bb">Résoudre y' = ay + b — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=equation+differentielle+second+ordre+y%27%27%2Bw2y%3D0">Équation y'' + ω²y = 0<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=circuit+RC+equation+differentielle+terminale">Circuit RC et équation différentielle<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  /* --- Faisceau de solutions de y' = ay + b --- */
+  var w = document.getElementById('w-ordre1');
+  var P = Course.plot(w.querySelector('canvas'), { xmin: -0.3, xmax: 8, ymin: -6, ymax: 8, xlabel: 't' });
+  var out = w.querySelector('.readout');
+  var custom = null;            // condition initiale choisie par clic
+  var state = { a: -0.8, b: 2 };
+  function draw() {
+    var a = state.a, b = state.b, yp = -b / a;
+    // solution exacte : y(t) = (y0 - yp) e^{at} + yp
+    function sol(y0) { return function (t) { return (y0 - yp) * Math.exp(a * t) + yp; }; }
+    P.draw = function (g) {
+      if (Math.abs(a) > 1e-9) g.seg(-1, yp, 9, yp, '--c2', { dash: [6, 4] });   // régime permanent
+      for (var y0 = -5; y0 <= 7; y0 += 1.5) g.fn(sol(y0), '--c1', { from: 0, width: 1.4 });
+      if (custom !== null) { g.fn(sol(custom), '--c4', { from: 0, width: 3 }); g.point(0, custom, '--c4', 'y(0)'); }
+    };
+    P.redraw();
+    out.textContent = Math.abs(a) < 1e-9
+      ? 'a = 0 : y\' = b, les solutions sont des droites y = bt + C.'
+      : 'Solution particulière constante : y_p = −b/a = ' + Course.fmt(yp) +
+        '\nSolution générale : y(t) = C·e^(' + Course.fmt(a) + 't) + ' + Course.fmt(yp) +
+        '\n' + (a < 0 ? 'a < 0 → toutes les solutions tendent vers ' + Course.fmt(yp) + ' (constante de temps τ = ' + Course.fmt(-1 / a) + ')' : 'a > 0 → les solutions s\'éloignent de ' + Course.fmt(yp));
+  }
+  Course.onInput(w, function (v) { state = v; draw(); });
+  P.onPointer(function (x, y, type) { if (type === 'down') { custom = y; draw(); } });
+
+  /* --- Oscillateur harmonique --- */
+  var w2 = document.getElementById('w-osc');
+  var P2 = Course.plot(w2.querySelector('canvas'), { xmin: -0.3, xmax: 10, ymin: -4, ymax: 4, xlabel: 't' });
+  Course.onInput(w2, function (v) {
+    var A = v.y0, B = v.v0 / v.w, Ym = Math.hypot(A, B);
+    P2.draw = function (g) {
+      g.seg(0, Ym, 10, Ym, '--muted', { dash: [3, 4], width: 1 });
+      g.seg(0, -Ym, 10, -Ym, '--muted', { dash: [3, 4], width: 1 });
+      g.fn(function (t) { return A * Math.cos(v.w * t) + B * Math.sin(v.w * t); }, '--c3', { from: 0 });
+    };
+    P2.redraw({ ymin: -Math.max(1, Ym * 1.2), ymax: Math.max(1, Ym * 1.2) });
+    w2.querySelector('.readout').textContent = 'y(t) = ' + Course.fmt(A) + '·cos(' + Course.fmt(v.w) + 't) + ' + Course.fmt(B) + '·sin(' + Course.fmt(v.w) + 't)' +
+      '\namplitude Ym = ' + Course.fmt(Ym) + '   période T = 2π/ω = ' + Course.fmt(2 * Math.PI / v.w);
+  });
+
+  /* --- Exercices --- */
+  Course.drill('#w-drill', function () {
+    var R = Course.rand, k = R(0, 2);
+    if (k === 0) {        // limite / solution particulière de y' = ay + b
+      var a = -R(1, 5), b = R(-10, 10);
+      return { q: "y' = " + a + "y " + (b < 0 ? '- ' + (-b) : '+ ' + b) + " . \\text{ Valeur de la solution constante ?}", answer: -b / a,
+        explain: '\\(y_p = -b/a\\).' };
+    }
+    if (k === 1) {        // y(t) à un instant donné
+      var y0 = R(2, 10), aa = -R(1, 3) / 2, t = R(1, 4);
+      return { q: "y' = " + String(aa).replace('.', '{,}') + "\\,y,\\ y(0) = " + y0 + ". \\quad y(" + t + ") = ?", answer: y0 * Math.exp(aa * t), tol: 0.01,
+        explain: '\\(y(t) = ' + y0 + 'e^{' + String(aa).replace('.', '{,}') + 't}\\).' };
+    }
+    var om = R(2, 8);     // période
+    return { q: "y'' + " + om * om + "y = 0. \\quad \\text{Période } T = ?", answer: 2 * Math.PI / om, tol: 0.01,
+      explain: '\\(\\omega = ' + om + '\\), \\(T = 2\\pi/' + om + '\\).' };
+  });
+});
+</script>
+</body>
+</html>
