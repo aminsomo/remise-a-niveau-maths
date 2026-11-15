@@ -24,7 +24,7 @@ def load_manifest():
 
 def html_files():
     return sorted(p for p in ROOT.rglob("*.html")
-                  if ".git" not in p.parts and "templates" not in p.parts)
+                  if not {".git", ".claude", "templates"} & set(p.parts))
 
 
 def chapter_entries():
