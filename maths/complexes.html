@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nombres complexes · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="maths/complexes">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths · Algèbre · Spécialité STI2D</p>
+    <h1>Nombres complexes</h1>
+    <p class="lead">Un nombre complexe, c'est un point (ou un vecteur) du plan sur lequel on sait calculer. Les trois écritures —
+      algébrique, trigonométrique, exponentielle — servent à additionner, multiplier, et décrire les grandeurs sinusoïdales en électricité.</p>
+    <p class="prereq">Prérequis : <a href="trigonometrie.html">trigonométrie</a> (cercle trigonométrique, valeurs remarquables).</p>
+  </header>
+
+  <section>
+    <h2>1. Forme algébrique</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>On admet l'existence d'un nombre \(i\) tel que \(i^2 = -1\). Un <b>nombre complexe</b> s'écrit de façon unique
+        \[z = a + ib, \qquad a, b \in \mathbb{R}.\]
+        \(a = \text{Re}(z)\) est la <b>partie réelle</b>, \(b = \text{Im}(z)\) la <b>partie imaginaire</b>. L'ensemble des complexes est noté \(\mathbb{C}\).
+        On note \(j\) au lieu de \(i\) en électricité (pour ne pas confondre avec l'intensité).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Calculs</p>
+      <ul>
+        <li>On calcule comme avec des polynômes en \(i\), en remplaçant \(i^2\) par \(-1\).</li>
+        <li><b>Conjugué</b> : \(\bar z = a - ib\). On a \(z\bar z = a^2 + b^2\) (réel positif).</li>
+        <li>Pour diviser, on multiplie numérateur et dénominateur par le conjugué du dénominateur.</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1</p>
+      <p>Avec \(z_1 = 2 + 3i\) et \(z_2 = 1 - i\), calculer \(z_1 z_2\) et \(\dfrac{z_1}{z_2}\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(z_1z_2 = 2 - 2i + 3i - 3i^2 = 2 + i + 3 = 5 + i\).</p>
+        <p>\(\dfrac{z_1}{z_2} = \dfrac{(2+3i)(1+i)}{(1-i)(1+i)} = \dfrac{2 + 2i + 3i - 3}{1 + 1} = -\dfrac12 + \dfrac52 i\).</p>
+      </details>
+    </div>
+    <div class="box prop"><p class="box-title">Équation du second degré à coefficients réels</p>
+      <p>\(az^2 + bz + c = 0\) avec \(\Delta = b^2 - 4ac &lt; 0\) a deux solutions complexes conjuguées :
+        \[z = \frac{-b \pm i\sqrt{-\Delta}}{2a}.\]</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Module, argument, forme trigonométrique</h2>
+    <div class="box def"><p class="box-title">Définitions</p>
+      <p>Le point \(M(a\,;b)\) est l'<b>image</b> de \(z = a + ib\) dans le plan complexe.</p>
+      <ul>
+        <li><b>Module</b> : \(|z| = \sqrt{a^2 + b^2} = OM\) (une longueur).</li>
+        <li><b>Argument</b> : \(\arg z = \theta\) (à \(2\pi\) près), angle orienté entre l'axe des réels et \(\overrightarrow{OM}\), avec
+          \(\cos\theta = \dfrac{a}{|z|}\) et \(\sin\theta = \dfrac{b}{|z|}\).</li>
+        <li><b>Forme trigonométrique</b> : \(z = r(\cos\theta + i\sin\theta)\) avec \(r = |z|\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2</p>
+      <p>Écrire \(z = 1 + i\sqrt3\) sous forme trigonométrique.</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(|z| = \sqrt{1 + 3} = 2\). \(\cos\theta = \tfrac12\), \(\sin\theta = \tfrac{\sqrt3}{2}\) donc \(\theta = \dfrac{\pi}{3}\).
+          \(z = 2\left(\cos\dfrac{\pi}{3} + i\sin\dfrac{\pi}{3}\right)\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Forme exponentielle</h2>
+    <div class="box def"><p class="box-title">Notation d'Euler</p>
+      <p>On pose \(e^{i\theta} = \cos\theta + i\sin\theta\). Tout complexe non nul s'écrit \(z = r\,e^{i\theta}\).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Règles (comme les puissances)</p>
+      \[r e^{i\theta} \times r' e^{i\theta'} = rr'\,e^{i(\theta + \theta')} \qquad \frac{re^{i\theta}}{r'e^{i\theta'}} = \frac{r}{r'}e^{i(\theta-\theta')} \qquad \left(re^{i\theta}\right)^n = r^n e^{in\theta}\]
+      <p>Multiplier : on <b>multiplie les modules</b> et on <b>ajoute les arguments</b>. Multiplier par \(e^{i\alpha}\) = tourner de \(\alpha\) autour de \(O\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — puissance</p>
+      <p>Calculer \((1 + i)^{8}\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(1 + i = \sqrt2\,e^{i\pi/4}\) donc \((1+i)^8 = (\sqrt2)^8 e^{i\,8\pi/4} = 16\,e^{2i\pi} = 16\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Application : impédances complexes</h2>
+    <p>En régime sinusoïdal, une tension \(u(t) = U\sqrt2\cos(\omega t + \varphi)\) est représentée par le complexe \(\underline{U} = U e^{j\varphi}\).
+      Chaque dipôle a une <b>impédance complexe</b> \(\underline{Z}\) avec \(\underline{U} = \underline{Z}\,\underline{I}\) :</p>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Dipôle</th><th>\(\underline{Z}\)</th><th>module</th><th>déphasage \(u\) / \(i\)</th></tr></thead>
+      <tbody>
+        <tr><td>Résistance \(R\)</td><td>\(R\)</td><td>\(R\)</td><td>\(0\)</td></tr>
+        <tr><td>Bobine \(L\)</td><td>\(jL\omega\)</td><td>\(L\omega\)</td><td>\(+\pi/2\) (u en avance)</td></tr>
+        <tr><td>Condensateur \(C\)</td><td>\(\dfrac{1}{jC\omega} = -\dfrac{j}{C\omega}\)</td><td>\(\dfrac{1}{C\omega}\)</td><td>\(-\pi/2\) (u en retard)</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>En série, les impédances s'additionnent : \(\underline{Z} = R + jL\omega\). Le module \(|\underline{Z}|\) donne le rapport des valeurs efficaces \(U/I\),
+      l'argument donne le déphasage \(\varphi\), et \(\cos\varphi\) est le <b>facteur de puissance</b>.</p>
+    <div class="box example"><p class="box-title">Exemple 4 — moteur modélisé par R-L série</p>
+      <p>\(R = 30\ \Omega\), \(L = 0{,}127\) H, sous 230 V / 50 Hz. Calculer \(\underline{Z}\), \(I\) et \(\cos\varphi\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(L\omega = 0{,}127 \times 2\pi \times 50 \approx 40\ \Omega\). \(\underline{Z} = 30 + 40j\), \(|\underline{Z}| = 50\ \Omega\).</p>
+        <p>\(I = 230 / 50 = 4{,}6\) A ; \(\cos\varphi = 30 / 50 = 0{,}6\) ; \(\varphi = \arctan(40/30) \approx 53°\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
+    <div class="widget" id="w-plan">
+      <p class="widget-title">Le plan complexe : produit = rotation + homothétie</p>
+      <p class="hint">Fais glisser \(z_1\) (rose) avec la souris ou le doigt. Le produit \(z_1 z_2\) a pour module \(|z_1||z_2|\) et pour argument \(\arg z_1 + \arg z_2\).</p>
+      <div class="controls">
+        <label>\(|z_2|\) <input type="range" data-k="r2" min="0.2" max="2" step="0.05" value="1.2"> <output data-show="r2"></output></label>
+        <label>\(\arg z_2\) (°) <input type="range" data-k="t2" min="-180" max="180" step="5" value="45"> <output data-show="t2"></output></label>
+        <label><input type="checkbox" data-k="conj"> afficher \(\bar z_1\)</label>
+      </div>
+      <canvas class="plot tall"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-rlc">
+      <p class="widget-title">Impédance d'un circuit R, L, C série</p>
+      <p class="hint">Fais varier la fréquence : le vecteur \(\underline{Z}\) tourne. À la résonance \(L\omega = \dfrac{1}{C\omega}\), \(\underline{Z} = R\) est réel.</p>
+      <div class="controls">
+        <label>\(R\) (Ω) <input type="range" data-k="R" min="5" max="100" step="1" value="20"> <output data-show="R"></output></label>
+        <label>\(L\) (mH) <input type="range" data-k="L" min="10" max="500" step="5" value="100"> <output data-show="L"></output></label>
+        <label>\(C\) (µF) <input type="range" data-k="C" min="1" max="200" step="1" value="47"> <output data-show="C"></output></label>
+        <label>\(f\) (Hz) <input type="range" data-k="f" min="5" max="300" step="1" value="50"> <output data-show="f"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : module et argument</p>
+      <p class="hint">Argument en degrés, dans \(]-180\,;180]\) ; module à 0,01 près.</p>
+      <div class="drill-q"></div>
+      <div class="drill"><input type="text" aria-label="Ta réponse"><button class="btn drill-check" type="button">Vérifier</button><button class="btn ghost drill-new" type="button">Nouvelle question</button></div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <ul>
+        <li>Formules d'Euler \(\cos\theta = \dfrac{e^{i\theta} + e^{-i\theta}}{2}\) et de Moivre, pour <b>linéariser</b> \(\cos^3 x\) ou exprimer \(\cos 3x\).</li>
+        <li>Racines \(n\)-ièmes de l'unité, résolution de \(z^n = a\), équations de degré 2 à coefficients complexes.</li>
+        <li>Notation complexe systématique en électrocinétique et en ondes (TSI) : filtres, diagrammes de Bode.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>\((3 - 2i)(3 + 2i) =\)</p>
+        <ol class="choices"><li>\(9 - 4i\)</li><li>\(13\)</li><li>\(5\)</li><li>\(9 + 4i\)</li></ol>
+        <p class="explain">\(z\bar z = a^2 + b^2 = 9 + 4\).</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Le module de \(-4 + 3i\) est :</p>
+        <ol class="choices"><li>\(7\)</li><li>\(-1\)</li><li>\(5\)</li><li>\(25\)</li></ol>
+        <p class="explain">\(\sqrt{16 + 9} = 5\).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Un argument de \(-2i\) est :</p>
+        <ol class="choices"><li>\(-\pi/2\)</li><li>\(\pi/2\)</li><li>\(\pi\)</li><li>\(-2\)</li></ol>
+        <p class="explain">Le point \((0\,;-2)\) est sur l'axe imaginaire, vers le bas.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>\(2e^{i\pi/6} \times 3e^{i\pi/3} =\)</p>
+        <ol class="choices"><li>\(5e^{i\pi/2}\)</li><li>\(6e^{i\pi/18}\)</li><li>\(6\)</li><li>\(6i\)</li></ol>
+        <p class="explain">\(6e^{i(\pi/6 + \pi/3)} = 6e^{i\pi/2} = 6i\).</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>L'impédance d'un condensateur quand la fréquence augmente :</p>
+        <ol class="choices"><li>augmente</li><li>diminue</li><li>reste constante</li><li>devient réelle</li></ol>
+        <p class="explain">\(|\underline{Z}_C| = \dfrac{1}{C\omega}\) : en haute fréquence, le condensateur se comporte comme un fil.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+nombres+complexes+forme+algebrique">Forme algébrique — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+forme+exponentielle+complexe">Forme exponentielle — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=impedance+complexe+RLC+STI2D">Impédances complexes en électricité<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var deg = Math.PI / 180;
+
+  /* --- Plan complexe : z1 déplaçable, z2 réglé par module/argument --- */
+  var w = document.getElementById('w-plan');
+  var P = Course.plot(w.querySelector('canvas'), { xmin: -4, xmax: 4, ymin: -4, ymax: 4, equal: true, xlabel: 'Re', ylabel: 'Im' });
+  var out = w.querySelector('.readout');
+  var z1 = { a: 1.5, b: 1 }, v = {};
+  function draw() {
+    var r1 = Math.hypot(z1.a, z1.b), t1 = Math.atan2(z1.b, z1.a);
+    var r2 = v.r2, t2 = v.t2 * deg;
+    var z2 = { a: r2 * Math.cos(t2), b: r2 * Math.sin(t2) };
+    // produit en forme algébrique : (a+ib)(c+id) = (ac − bd) + i(ad + bc)
+    var p = { a: z1.a * z2.a - z1.b * z2.b, b: z1.a * z2.b + z1.b * z2.a };
+    P.draw = function (g) {
+      g.circle(0, 0, 1, '--muted', { dash: [3, 4], width: 1 });               // cercle unité
+      g.arrow(0, 0, z1.a, z1.b, '--c2', 'z₁');
+      g.arrow(0, 0, z2.a, z2.b, '--c1', 'z₂');
+      g.arrow(0, 0, p.a, p.b, '--c3', 'z₁z₂', { width: 3 });
+      if (v.conj) g.arrow(0, 0, z1.a, -z1.b, '--c4', 'z̄₁', { width: 1.5 });
+      g.point(z1.a, z1.b, '--c2', null, { r: 7 });                             // poignée
+    };
+    P.redraw();
+    out.textContent =
+      'z₁ = ' + Course.fmt(z1.a, 2) + ' + ' + Course.fmt(z1.b, 2) + 'i   |z₁| = ' + Course.fmt(r1, 2) + '   arg = ' + Course.fmt(t1 / deg, 1) + '°' +
+      '\nz₂ = ' + Course.fmt(z2.a, 2) + ' + ' + Course.fmt(z2.b, 2) + 'i   |z₂| = ' + Course.fmt(r2, 2) + '   arg = ' + Course.fmt(v.t2, 1) + '°' +
+      '\nz₁z₂ : |z₁z₂| = ' + Course.fmt(r1 * r2, 2) + ' = |z₁|×|z₂|    arg = ' + Course.fmt(Math.atan2(p.b, p.a) / deg, 1) + '° (≡ somme des arguments)';
+  }
+  Course.onInput(w, function (vals) { v = vals; draw(); });
+  // glisser-déposer de z1 : on suit le pointeur tant que le bouton est enfoncé
+  P.onPointer(function (x, y, type, dragging) {
+    if (type === 'down' || (type === 'move' && dragging)) { z1 = { a: x, b: y }; draw(); }
+  });
+
+  /* --- Impédance d'un RLC série : Z = R + j(Lω − 1/(Cω)) --- */
+  var w2 = document.getElementById('w-rlc');
+  var P2 = Course.plot(w2.querySelector('canvas'), { xlabel: 'Re(Z) (Ω)', ylabel: 'Im(Z) (Ω)' });
+  Course.onInput(w2, function (v2) {
+    var om = 2 * Math.PI * v2.f, L = v2.L / 1000, C = v2.C * 1e-6;
+    var X = L * om - 1 / (C * om), Z = Math.hypot(v2.R, X), phi = Math.atan2(X, v2.R);
+    var f0 = 1 / (2 * Math.PI * Math.sqrt(L * C));
+    var M = Math.max(150, Math.abs(X) * 1.15, v2.R * 1.3);
+    P2.draw = function (g) {
+      g.arrow(0, 0, v2.R, 0, '--c1', 'R');                    // partie réelle
+      g.arrow(v2.R, 0, v2.R, X, X >= 0 ? '--c2' : '--c4');    // partie imaginaire (L si >0, C si <0)
+      g.arrow(0, 0, v2.R, X, '--c3', 'Z', { width: 3 });
+    };
+    P2.redraw({ xmin: -M * 0.2, xmax: M * 1.2, ymin: -M, ymax: M });
+    w2.querySelector('.readout').textContent =
+      'Lω = ' + Course.fmt(L * om, 1) + ' Ω    1/(Cω) = ' + Course.fmt(1 / (C * om), 1) + ' Ω' +
+      '\nZ = ' + Course.fmt(v2.R, 1) + (X >= 0 ? ' + ' : ' − ') + Course.fmt(Math.abs(X), 1) + 'j Ω   |Z| = ' + Course.fmt(Z, 1) + ' Ω   φ = ' + Course.fmt(phi / deg, 1) + '°' +
+      '\ncircuit ' + (Math.abs(X) < 1 ? 'résistif (résonance)' : X > 0 ? 'inductif (u en avance sur i)' : 'capacitif (u en retard sur i)') +
+      '   — fréquence de résonance f₀ = ' + Course.fmt(f0, 1) + ' Hz';
+  });
+
+  /* --- Exercices : module ou argument d'un complexe à coordonnées entières --- */
+  Course.drill('#w-drill', function () {
+    var R = Course.rand, a = R(-5, 5), b = R(-5, 5);
+    if (a === 0 && b === 0) a = 1;
+    var z = a + (b < 0 ? ' - ' + (-b) : ' + ' + b) + 'i';
+    if (R(0, 1)) return { q: '|' + z + '| = ?', answer: Math.hypot(a, b), tol: 0.01, explain: '\\(\\sqrt{' + a * a + ' + ' + b * b + '}\\).' };
+    return { q: '\\arg(' + z + ') \\text{ en degrés} = ?', answer: Math.atan2(b, a) / deg, tol: 0.6,
+      explain: 'Place le point \\((' + a + '\\,;' + b + ')\\) pour trouver le bon quadrant.' };
+  });
+});
+</script>
+</body>
+</html>

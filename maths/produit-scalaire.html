@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vecteurs, produit scalaire et espace · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="maths/produit-scalaire">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths · Géométrie · Spécialité</p>
+    <h1>Vecteurs, produit scalaire et espace</h1>
+    <p class="lead">Le produit scalaire transforme une question géométrique (angle, orthogonalité, projection) en calcul.
+      En physique, c'est le <b>travail d'une force</b> \(W = \vec F \cdot \overrightarrow{AB}\). On étend ensuite tout cela à l'espace.</p>
+    <p class="prereq">Prérequis : coordonnées de vecteurs, colinéarité, <a href="trigonometrie.html">cosinus</a>.</p>
+  </header>
+
+  <section>
+    <h2>1. Rappels sur les vecteurs</h2>
+    <div class="box prop"><p class="box-title">Dans un repère orthonormé</p>
+      <ul>
+        <li>\(\overrightarrow{AB}\begin{pmatrix} x_B - x_A \\ y_B - y_A \end{pmatrix}\) et la norme \(\|\overrightarrow{AB}\| = AB = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2}\).</li>
+        <li>Milieu de \([AB]\) : \(\left(\dfrac{x_A + x_B}{2}\,;\dfrac{y_A + y_B}{2}\right)\).</li>
+        <li>\(\vec u\begin{pmatrix}x\\y\end{pmatrix}\) et \(\vec v\begin{pmatrix}x'\\y'\end{pmatrix}\) sont <b>colinéaires</b> \(\iff xy' - x'y = 0\) (déterminant nul).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Produit scalaire</h2>
+    <div class="box def"><p class="box-title">Trois expressions équivalentes</p>
+      <ul>
+        <li><b>Avec l'angle</b> : \(\vec u \cdot \vec v = \|\vec u\|\,\|\vec v\|\cos(\vec u, \vec v)\).</li>
+        <li><b>Avec les coordonnées</b> (repère orthonormé) : \(\vec u \cdot \vec v = xx' + yy'\) (et \(+\,zz'\) dans l'espace).</li>
+        <li><b>Avec le projeté</b> : si \(H\) est le projeté orthogonal de \(C\) sur \((AB)\), \(\overrightarrow{AB} \cdot \overrightarrow{AC} = \overrightarrow{AB} \cdot \overrightarrow{AH}\).</li>
+      </ul>
+    </div>
+    <div class="box prop"><p class="box-title">Propriétés</p>
+      <ul>
+        <li>\(\vec u \perp \vec v \iff \vec u \cdot \vec v = 0\).</li>
+        <li>\(\vec u \cdot \vec u = \|\vec u\|^2\) ; le produit scalaire est symétrique et bilinéaire (se développe comme un produit).</li>
+        <li>Signe : positif si l'angle est aigu, négatif s'il est obtus.</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — angle entre deux vecteurs</p>
+      <p>\(\vec u(3\,;1)\), \(\vec v(1\,;2)\). Calculer l'angle \((\vec u, \vec v)\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\vec u \cdot \vec v = 3 + 2 = 5\), \(\|\vec u\| = \sqrt{10}\), \(\|\vec v\| = \sqrt5\).
+          \(\cos\theta = \dfrac{5}{\sqrt{50}} = \dfrac{\sqrt2}{2}\) donc \(\theta = 45°\).</p>
+      </details>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — travail d'une force</p>
+      <p>Un chariot est tiré sur 20 m par une force de 150 N inclinée de 30° par rapport au sol. Travail de la force ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(W = F \times AB \times \cos 30° = 150 \times 20 \times \dfrac{\sqrt3}{2} \approx 2\,600\) J.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Géométrie dans l'espace</h2>
+    <div class="box prop"><p class="box-title">Repère \((O\,;\vec i, \vec j, \vec k)\) orthonormé</p>
+      <ul>
+        <li>Un point a trois coordonnées \((x\,;y\,;z)\) ; distance \(AB = \sqrt{\Delta x^2 + \Delta y^2 + \Delta z^2}\).</li>
+        <li>Une <b>droite</b> passant par \(A\) de vecteur directeur \(\vec u\) : représentation paramétrique
+          \(\begin{cases} x = x_A + ta \\ y = y_A + tb \\ z = z_A + tc \end{cases},\ t \in \mathbb{R}\).</li>
+        <li>Un <b>plan</b> de vecteur normal \(\vec n(a\,;b\,;c)\) a une équation cartésienne \(ax + by + cz + d = 0\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — intersection droite / plan</p>
+      <p>Plan \(\mathcal P : x + 2y - z - 4 = 0\), droite \(\mathcal D\) : \(x = 1 + t,\ y = t,\ z = 2 - t\). Trouver leur point d'intersection.</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>On injecte : \((1+t) + 2t - (2 - t) - 4 = 0 \iff 4t - 5 = 0 \iff t = \dfrac54\).</p>
+        <p>Point : \(\left(\dfrac94\,;\dfrac54\,;\dfrac34\right)\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-ps">
+      <p class="widget-title">Produit scalaire et projection</p>
+      <p class="hint">Fais glisser l'extrémité de \(\vec v\) (rose). Le produit scalaire vaut \(\|\vec u\| \times\) (mesure algébrique du projeté de \(\vec v\) sur \(\vec u\)). Il s'annule quand les vecteurs sont orthogonaux.</p>
+      <div class="controls">
+        <label>\(\|\vec u\|\) <input type="range" data-k="nu" min="1" max="4" step="0.1" value="3"> <output data-show="nu"></output></label>
+        <label>direction de \(\vec u\) (°) <input type="range" data-k="au" min="-90" max="90" step="5" value="10"> <output data-show="au"></output></label>
+      </div>
+      <canvas class="plot tall"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement</p>
+      <p class="hint">Produit scalaire, norme ou angle (en degrés, à 0,5 près).</p>
+      <div class="drill-q"></div>
+      <div class="drill"><input type="text" aria-label="Ta réponse"><button class="btn drill-check" type="button">Vérifier</button><button class="btn ghost drill-new" type="button">Nouvelle question</button></div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <ul>
+        <li>Le <b>produit vectoriel</b> \(\vec u \wedge \vec v\) (moment d'une force, force de Laplace) et le <b>produit mixte</b>.</li>
+        <li>Distance d'un point à un plan : \(d = \dfrac{|ax_0 + by_0 + cz_0 + d|}{\sqrt{a^2 + b^2 + c^2}}\).</li>
+        <li>Espaces vectoriels, bases, matrices : le cadre abstrait de l'algèbre linéaire.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>\(\vec u(2\,;-1)\) et \(\vec v(3\,;6)\) sont :</p>
+        <ol class="choices"><li>colinéaires</li><li>orthogonaux</li><li>de même norme</li><li>ni l'un ni l'autre</li></ol>
+        <p class="explain">\(2 \times 3 + (-1) \times 6 = 0\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Si \(\|\vec u\| = 2\), \(\|\vec v\| = 5\) et l'angle vaut \(120°\), \(\vec u \cdot \vec v =\)</p>
+        <ol class="choices"><li>\(10\)</li><li>\(5\)</li><li>\(-10\)</li><li>\(-5\)</li></ol>
+        <p class="explain">\(2 \times 5 \times \cos 120° = 10 \times (-\tfrac12)\).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Un vecteur normal au plan \(2x - y + 3z = 7\) est :</p>
+        <ol class="choices"><li>\((2\,;-1\,;3)\)</li><li>\((2\,;1\,;3)\)</li><li>\((7\,;0\,;0)\)</li><li>\((-1\,;2\,;0)\)</li></ol>
+        <p class="explain">Les coefficients de \(x, y, z\) dans l'équation cartésienne.</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Le travail du poids lors d'un déplacement <b>horizontal</b> est :</p>
+        <ol class="choices"><li>\(mgd\)</li><li>négatif</li><li>nul</li><li>\(-mgd\)</li></ol>
+        <p class="explain">Le poids est vertical, le déplacement horizontal : produit scalaire de vecteurs orthogonaux.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+produit+scalaire">Produit scalaire — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+representation+parametrique+droite+espace">Droites et plans de l'espace<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=travail+d%27une+force+produit+scalaire+physique">Travail d'une force<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  /* --- Produit scalaire : u réglé par curseurs, v déplaçable --- */
+  var w = document.getElementById('w-ps');
+  var P = Course.plot(w.querySelector('canvas'), { xmin: -5, xmax: 5, ymin: -4, ymax: 4, equal: true });
+  var out = w.querySelector('.readout');
+  var V = { x: 1.5, y: 2.5 }, s = {};
+  function draw() {
+    var a = s.au * Math.PI / 180, ux = s.nu * Math.cos(a), uy = s.nu * Math.sin(a);
+    var dot = ux * V.x + uy * V.y;                         // xx' + yy'
+    var k = dot / (s.nu * s.nu);                           // projeté H = k·u
+    var hx = k * ux, hy = k * uy;
+    var nv = Math.hypot(V.x, V.y);
+    var ang = Math.acos(Math.max(-1, Math.min(1, dot / (s.nu * nv)))) * 180 / Math.PI;
+    P.draw = function (g) {
+      g.fn(function (x) { return Math.tan(a) * x; }, '--muted', { width: 1, dash: [3, 4] });  // droite portant u
+      g.seg(V.x, V.y, hx, hy, '--c4', { dash: [4, 3] });                                     // perpendiculaire
+      g.arrow(0, 0, hx, hy, dot >= 0 ? '--c4' : '--ko', 'projeté', { width: 5 });
+      g.arrow(0, 0, ux, uy, '--c1', 'u');
+      g.arrow(0, 0, V.x, V.y, '--c2', 'v');
+      g.point(V.x, V.y, '--c2', null, { r: 7 });
+    };
+    P.redraw();
+    out.textContent = 'u·v = ' + Course.fmt(ux, 2) + '×' + Course.fmt(V.x, 2) + ' + ' + Course.fmt(uy, 2) + '×' + Course.fmt(V.y, 2) + ' = ' + Course.fmt(dot, 2) +
+      '\n‖u‖‖v‖cos θ = ' + Course.fmt(s.nu, 2) + ' × ' + Course.fmt(nv, 2) + ' × cos(' + Course.fmt(ang, 1) + '°) = ' + Course.fmt(s.nu * nv * Math.cos(ang * Math.PI / 180), 2) +
+      '\n' + (Math.abs(dot) < 0.15 ? '≈ 0 : vecteurs orthogonaux' : dot > 0 ? 'angle aigu → produit scalaire positif' : 'angle obtus → produit scalaire négatif');
+  }
+  Course.onInput(w, function (vals) { s = vals; draw(); });
+  P.onPointer(function (x, y, type, dragging) {
+    if (type === 'down' || (type === 'move' && dragging)) { V = { x: x, y: y }; draw(); }
+  });
+
+  /* --- Exercices : produit scalaire en coordonnées, norme 3D, angle --- */
+  Course.drill('#w-drill', function () {
+    var R = Course.rand, k = R(0, 2);
+    var a = R(-5, 5), b = R(-5, 5), c = R(-5, 5), d = R(-5, 5);
+    if (k === 0) return { q: '\\vec u(' + a + '\\,;' + b + ')\\cdot\\vec v(' + c + '\\,;' + d + ') = ?', answer: a * c + b * d, explain: '\\(xx\' + yy\'\\).' };
+    if (k === 1) {
+      var e = R(-4, 4);
+      return { q: '\\|\\vec w\\| \\text{ pour } \\vec w(' + a + '\\,;' + b + '\\,;' + e + ') = ?', answer: Math.sqrt(a * a + b * b + e * e), tol: 0.01,
+        explain: '\\(\\sqrt{' + a * a + ' + ' + b * b + ' + ' + e * e + '}\\).' };
+    }
+    if (!a && !b) a = 1; if (!c && !d) c = 1;
+    var cos = (a * c + b * d) / (Math.hypot(a, b) * Math.hypot(c, d));
+    return { q: '\\text{Angle entre } \\vec u(' + a + '\\,;' + b + ') \\text{ et } \\vec v(' + c + '\\,;' + d + ') \\text{ en degrés ?}',
+      answer: Math.acos(cos) * 180 / Math.PI, tol: 0.5, explain: '\\(\\cos\\theta = \\frac{\\vec u\\cdot\\vec v}{\\|\\vec u\\|\\|\\vec v\\|}\\).' };
+  });
+});
+</script>
+</body>
+</html>

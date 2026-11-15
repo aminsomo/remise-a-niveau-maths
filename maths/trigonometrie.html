@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trigonométrie et signaux sinusoïdaux · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="maths/trigonometrie">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths · Géométrie & fonctions · Spécialité</p>
+    <h1>Trigonométrie et signaux sinusoïdaux</h1>
+    <p class="lead">Radians, cercle trigonométrique, valeurs remarquables, fonctions cos et sin, et le modèle \(A\cos(\omega t + \varphi)\)
+      qui décrit le courant alternatif, les ondes et les oscillations.</p>
+    <p class="prereq">Prérequis : théorème de Pythagore, trigonométrie du triangle rectangle (SOH-CAH-TOA).</p>
+  </header>
+
+  <section>
+    <h2>1. Radians et cercle trigonométrique</h2>
+    <div class="box def"><p class="box-title">Radian</p>
+      <p>Sur le cercle de rayon 1, un angle de \(\theta\) radians intercepte un arc de longueur \(\theta\). Un tour complet vaut \(2\pi\) rad.
+        Conversion : \(\theta_{\text{rad}} = \theta_{\text{deg}} \times \dfrac{\pi}{180}\).</p>
+    </div>
+    <div class="box def"><p class="box-title">Cosinus et sinus d'un réel</p>
+      <p>Le point \(M\) du cercle trigonométrique associé à \(\theta\) a pour coordonnées \((\cos\theta\,;\sin\theta)\). Donc :</p>
+      \[\cos^2\theta + \sin^2\theta = 1, \qquad -1 \leq \cos\theta \leq 1, \qquad -1 \leq \sin\theta \leq 1.\]
+    </div>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>\(\theta\)</th><th>\(0\)</th><th>\(\pi/6\)</th><th>\(\pi/4\)</th><th>\(\pi/3\)</th><th>\(\pi/2\)</th><th>\(\pi\)</th></tr></thead>
+      <tbody>
+        <tr><td>\(\cos\theta\)</td><td>\(1\)</td><td>\(\frac{\sqrt3}{2}\)</td><td>\(\frac{\sqrt2}{2}\)</td><td>\(\frac12\)</td><td>\(0\)</td><td>\(-1\)</td></tr>
+        <tr><td>\(\sin\theta\)</td><td>\(0\)</td><td>\(\frac12\)</td><td>\(\frac{\sqrt2}{2}\)</td><td>\(\frac{\sqrt3}{2}\)</td><td>\(1\)</td><td>\(0\)</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="box prop"><p class="box-title">Angles associés (à retrouver sur le cercle, pas à apprendre par cœur)</p>
+      <p>\(\cos(-\theta) = \cos\theta\), \(\sin(-\theta) = -\sin\theta\), \(\cos(\pi - \theta) = -\cos\theta\), \(\sin(\pi - \theta) = \sin\theta\),
+        \(\cos(\theta + \pi) = -\cos\theta\), \(\cos\left(\tfrac{\pi}{2} - \theta\right) = \sin\theta\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1</p>
+      <p>Calculer \(\cos\dfrac{5\pi}{6}\) et \(\sin\left(-\dfrac{3\pi}{4}\right)\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\dfrac{5\pi}{6} = \pi - \dfrac{\pi}{6}\) donc \(\cos\dfrac{5\pi}{6} = -\cos\dfrac{\pi}{6} = -\dfrac{\sqrt3}{2}\).</p>
+        <p>\(-\dfrac{3\pi}{4}\) est dans le 3<sup>e</sup> quadrant : \(\sin\left(-\dfrac{3\pi}{4}\right) = -\dfrac{\sqrt2}{2}\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Formules d'addition et équations</h2>
+    <div class="box prop"><p class="box-title">Formules d'addition et de duplication</p>
+      \[\cos(a+b) = \cos a\cos b - \sin a\sin b \qquad \sin(a+b) = \sin a\cos b + \cos a\sin b\]
+      \[\cos 2a = \cos^2 a - \sin^2 a = 2\cos^2 a - 1 = 1 - 2\sin^2 a \qquad \sin 2a = 2\sin a\cos a\]
+      <p>Astuce : elles se retrouvent instantanément avec \(e^{i(a+b)} = e^{ia}e^{ib}\) (voir <a href="complexes.html">complexes</a>).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Équations</p>
+      <ul>
+        <li>\(\cos x = \cos a \iff x = a + 2k\pi\) ou \(x = -a + 2k\pi\) (\(k \in \mathbb{Z}\)).</li>
+        <li>\(\sin x = \sin a \iff x = a + 2k\pi\) ou \(x = \pi - a + 2k\pi\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2</p>
+      <p>Résoudre \(2\cos x = 1\) sur \(]-\pi\,;\pi]\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\cos x = \tfrac12 = \cos\tfrac{\pi}{3}\). Sur \(]-\pi\,;\pi]\) : \(S = \left\{-\tfrac{\pi}{3}\,;\tfrac{\pi}{3}\right\}\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Fonctions sinusoïdales</h2>
+    <div class="box prop"><p class="box-title">Fonctions cos et sin</p>
+      <ul>
+        <li>Définies sur \(\mathbb{R}\), <b>périodiques</b> de période \(2\pi\).</li>
+        <li>\(\cos\) est <b>paire</b> (courbe symétrique par rapport à l'axe des ordonnées), \(\sin\) est <b>impaire</b> (symétrique par rapport à l'origine).</li>
+        <li>\(\cos' = -\sin\) et \(\sin' = \cos\).</li>
+      </ul>
+    </div>
+    <div class="box def"><p class="box-title">Signal sinusoïdal</p>
+      \[s(t) = A\cos(\omega t + \varphi)\]
+      <ul>
+        <li>\(A > 0\) : <b>amplitude</b> (valeur maximale) ; valeur efficace \(A/\sqrt2\).</li>
+        <li>\(\omega\) : <b>pulsation</b> (rad/s), avec \(\omega = 2\pi f = \dfrac{2\pi}{T}\) ; \(f\) fréquence (Hz), \(T\) période (s).</li>
+        <li>\(\varphi\) : <b>phase à l'origine</b> (rad). Le décalage temporel entre deux signaux de même fréquence vaut \(\Delta t = \dfrac{\Delta\varphi}{\omega}\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — secteur EDF</p>
+      <p>Le secteur délivre 230 V efficaces à 50 Hz. Écrire \(u(t)\) sachant que \(u(0) = 0\) et \(u\) croissante en 0.</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(A = 230\sqrt2 \approx 325\) V, \(\omega = 2\pi \times 50 = 100\pi \approx 314\) rad/s, \(T = 20\) ms.</p>
+        <p>\(u(t) = 325\sin(100\pi t) = 325\cos\left(100\pi t - \tfrac{\pi}{2}\right)\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-cercle">
+      <p class="widget-title">Du cercle à la sinusoïde</p>
+      <p class="hint">Fais tourner \(\theta\) : l'abscisse de \(M\) donne \(\cos\theta\) (bleu), l'ordonnée donne \(\sin\theta\) (rose). À droite, on « déroule » le sinus.</p>
+      <div class="controls">
+        <label>\(\theta\) (rad) <input type="range" data-k="t" min="-6.3" max="6.3" step="0.01" value="0.8"> <output data-show="t" data-digits="2"></output></label>
+        <button class="btn ghost" type="button" id="play">▶ Animer</button>
+      </div>
+      <canvas class="plot tall"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-signal">
+      <p class="widget-title">Signal \(A\cos(\omega t + \varphi)\)</p>
+      <p class="hint">Compare au signal de référence (gris) \(\cos t\). Observe l'effet de chaque paramètre séparément.</p>
+      <div class="controls">
+        <label>\(A\) <input type="range" data-k="A" min="0.2" max="3" step="0.1" value="1.5"> <output data-show="A"></output></label>
+        <label>\(\omega\) <input type="range" data-k="w" min="0.25" max="4" step="0.05" value="2"> <output data-show="w"></output></label>
+        <label>\(\varphi\) <input type="range" data-k="p" min="-3.14" max="3.14" step="0.01" value="0.79"> <output data-show="p" data-digits="2"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : valeurs remarquables</p>
+      <p class="hint">Réponds en valeur exacte (<code>sqrt(3)/2</code>, <code>-1/2</code>…) ou décimale à 0,01 près.</p>
+      <div class="drill-q"></div>
+      <div class="drill"><input type="text" aria-label="Ta réponse"><button class="btn drill-check" type="button">Vérifier</button><button class="btn ghost drill-new" type="button">Nouvelle question</button></div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <ul>
+        <li>La fonction \(\tan\), et les fonctions réciproques \(\arccos\), \(\arcsin\), \(\arctan\).</li>
+        <li>Transformer \(a\cos\omega t + b\sin\omega t\) en \(R\cos(\omega t - \varphi)\) avec \(R = \sqrt{a^2 + b^2}\) : indispensable en physique.</li>
+        <li>Formules \(\cos p + \cos q = 2\cos\frac{p+q}{2}\cos\frac{p-q}{2}\) (battements) et linéarisation.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="2">
+        <p>\(120°\) en radians vaut :</p>
+        <ol class="choices"><li>\(\pi/3\)</li><li>\(3\pi/2\)</li><li>\(2\pi/3\)</li><li>\(120\pi\)</li></ol>
+        <p class="explain">\(120 \times \dfrac{\pi}{180} = \dfrac{2\pi}{3}\).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Si \(\cos\theta = 0{,}6\) et \(\theta \in [0\,;\pi]\), alors \(\sin\theta =\)</p>
+        <ol class="choices"><li>\(0{,}8\)</li><li>\(-0{,}8\)</li><li>\(0{,}4\)</li><li>\(0{,}64\)</li></ol>
+        <p class="explain">\(\sin^2\theta = 1 - 0{,}36 = 0{,}64\), et \(\sin\theta \geq 0\) sur \([0\,;\pi]\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Un signal \(s(t) = 5\cos(200\pi t)\) a une fréquence de :</p>
+        <ol class="choices"><li>200 Hz</li><li>\(200\pi\) Hz</li><li>5 Hz</li><li>100 Hz</li></ol>
+        <p class="explain">\(\omega = 2\pi f = 200\pi \Rightarrow f = 100\) Hz.</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>\(\sin\left(x + \dfrac{\pi}{2}\right) =\)</p>
+        <ol class="choices"><li>\(\sin x\)</li><li>\(\cos x\)</li><li>\(-\cos x\)</li><li>\(-\sin x\)</li></ol>
+        <p class="explain">Formule d'addition : \(\sin x\cos\frac{\pi}{2} + \cos x\sin\frac{\pi}{2} = \cos x\).</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Deux signaux à 50 Hz sont déphasés de \(\pi/2\). Leur décalage temporel est :</p>
+        <ol class="choices"><li>2 ms</li><li>10 ms</li><li>5 ms</li><li>0,25 s</li></ol>
+        <p class="explain">\(\pi/2\) = un quart de période ; \(T = 20\) ms, donc 5 ms.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+cercle+trigonometrique">Le cercle trigonométrique — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+equation+trigonometrique">Équations trigonométriques — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=signal+sinusoidal+amplitude+pulsation+phase">Signal sinusoïdal : amplitude, pulsation, phase<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  /* --- Cercle trigonométrique (centré en x = −2,5) et sinusoïde déroulée à droite --- */
+  var w = document.getElementById('w-cercle');
+  var slider = w.querySelector('[data-k="t"]');
+  var P = Course.plot(w.querySelector('canvas'), { xmin: -4, xmax: 7, ymin: -1.6, ymax: 1.6, equal: true, axes: false, grid: false });
+  var out = w.querySelector('.readout');
+  var CX = -2.5;                 // abscisse du centre du cercle
+  var X0 = 0;                    // origine de la sinusoïde déroulée
+  Course.onInput(w, function (v) {
+    var t = v.t, c = Math.cos(t), s = Math.sin(t);
+    P.draw = function (g) {
+      // axes du cercle et de la sinusoïde
+      g.seg(CX - 1.3, 0, CX + 1.3, 0, '--muted', { width: 1 }); g.seg(CX, -1.3, CX, 1.3, '--muted', { width: 1 });
+      g.seg(X0, 0, 7, 0, '--muted', { width: 1 }); g.seg(X0, -1.3, X0, 1.3, '--muted', { width: 1 });
+      g.circle(CX, 0, 1, '--muted');
+      g.seg(CX, 0, CX + c, s, '--text', { width: 1.5 });                           // rayon OM
+      g.seg(CX, 0, CX + c, 0, '--c1', { width: 4 });                               // cos θ (projection horizontale)
+      g.seg(CX + c, 0, CX + c, s, '--c2', { width: 4 });                           // sin θ (projection verticale)
+      g.point(CX + c, s, '--text', 'M');
+      // sinusoïde : on n'affiche que les θ ≥ 0 (x = θ), jusqu'à 2π
+      g.fn(Math.sin, '--c2', { from: X0, to: X0 + 2 * Math.PI, width: 1.2, dash: [4, 4] });
+      if (t >= 0) {
+        g.fn(Math.sin, '--c2', { from: X0, to: X0 + t });
+        g.seg(CX + c, s, X0 + t, s, '--c2', { dash: [2, 4], width: 1 });           // lien horizontal M → sinusoïde
+        g.point(X0 + t, s, '--c2');
+      }
+      g.text(X0 + Math.PI, -1.45, 'π', '--muted', { align: 'center' });
+      g.text(X0 + 2 * Math.PI, -1.45, '2π', '--muted', { align: 'center' });
+    };
+    P.redraw();
+    out.textContent = 'θ = ' + Course.fmt(t, 2) + ' rad = ' + Course.fmt(t * 180 / Math.PI, 1) + '°' +
+      '\ncos θ = ' + Course.fmt(c, 3) + '    sin θ = ' + Course.fmt(s, 3) + '    cos²θ + sin²θ = ' + Course.fmt(c * c + s * s, 3);
+  });
+  // animation : on fait avancer le curseur et on déclenche l'événement input
+  var timer = null, btn = document.getElementById('play');
+  btn.addEventListener('click', function () {
+    if (timer) { clearInterval(timer); timer = null; btn.textContent = '▶ Animer'; return; }
+    btn.textContent = '⏸ Pause';
+    timer = setInterval(function () {
+      var t = parseFloat(slider.value) + 0.03;
+      if (t > 6.28) t = 0;
+      slider.value = t;
+      slider.dispatchEvent(new Event('input', { bubbles: true }));
+    }, 30);
+  });
+
+  /* --- Signal A cos(ωt + φ) comparé à cos t --- */
+  var w2 = document.getElementById('w-signal');
+  var P2 = Course.plot(w2.querySelector('canvas'), { xmin: -0.5, xmax: 13, ymin: -3.3, ymax: 3.3, xlabel: 't (s)' });
+  Course.onInput(w2, function (v) {
+    P2.draw = function (g) {
+      g.fn(Math.cos, '--muted', { width: 1.2, dash: [4, 4] });
+      g.fn(function (t) { return v.A * Math.cos(v.w * t + v.p); }, '--c1');
+    };
+    P2.redraw();
+    w2.querySelector('.readout').textContent =
+      'période T = 2π/ω = ' + Course.fmt(2 * Math.PI / v.w, 2) + ' s    fréquence f = ' + Course.fmt(v.w / (2 * Math.PI), 3) + ' Hz' +
+      '\nvaleur efficace = A/√2 = ' + Course.fmt(v.A / Math.SQRT2, 2) +
+      '\navance temporelle sur cos(ωt) : φ/ω = ' + Course.fmt(v.p / v.w, 2) + ' s';
+  });
+
+  /* --- Exercices : cos ou sin d'un angle remarquable --- */
+  Course.drill('#w-drill', function () {
+    // angles remarquables k·π/6 ou k·π/4, écrits en LaTeX
+    var angles = [[1, 6], [1, 4], [1, 3], [1, 2], [2, 3], [3, 4], [5, 6], [1, 1], [-1, 6], [-1, 3], [-3, 4], [7, 6], [5, 4], [5, 3]];
+    var a = Course.pick(angles), f = Course.pick(['cos', 'sin']);
+    var val = a[0] * Math.PI / a[1];
+    var latex = (a[0] < 0 ? '-' : '') + (a[1] === 1 ? (Math.abs(a[0]) === 1 ? '\\pi' : Math.abs(a[0]) + '\\pi') : '\\frac{' + (Math.abs(a[0]) === 1 ? '' : Math.abs(a[0])) + '\\pi}{' + a[1] + '}');
+    return { q: '\\' + f + '\\left(' + latex + '\\right) = ?', answer: f === 'cos' ? Math.cos(val) : Math.sin(val), tol: 0.01,
+      explain: 'Place l\'angle sur le cercle trigonométrique et repère le quadrant pour le signe.' };
+  });
+});
+</script>
+</body>
+</html>
