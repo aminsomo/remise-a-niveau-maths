@@ -8,7 +8,62 @@ window.COURSE = /* BEGIN-JSON */ {
       "short": "Maths",
       "color": "maths",
       "desc": "Tronc commun + spécialité STI2D : analyse, nombres complexes, géométrie, probabilités.",
-      "chapters": []
+      "chapters": [
+        {
+          "slug": "suites",
+          "title": "Suites numériques",
+          "summary": "Arithmétiques, géométriques, sommes, limites, algorithme de seuil.",
+          "tags": [
+            "tronc commun",
+            "essentiel"
+          ]
+        },
+        {
+          "slug": "derivation",
+          "title": "Dérivation et variations",
+          "summary": "Nombre dérivé, tangente, formules, variations, optimisation.",
+          "tags": [
+            "tronc commun",
+            "spé",
+            "essentiel"
+          ]
+        },
+        {
+          "slug": "exponentielle",
+          "title": "Fonction exponentielle",
+          "summary": "Règles de calcul, limites, e^(kt), constante de temps τ.",
+          "tags": [
+            "spé",
+            "essentiel"
+          ]
+        },
+        {
+          "slug": "logarithme",
+          "title": "Logarithmes (ln et log)",
+          "summary": "ln réciproque de exp, règles de calcul, seuils, décibels et pH.",
+          "tags": [
+            "tronc commun",
+            "spé"
+          ]
+        },
+        {
+          "slug": "integrales",
+          "title": "Primitives et intégrales",
+          "summary": "Primitives usuelles, intégrale et aire, valeur moyenne et efficace.",
+          "tags": [
+            "spé",
+            "essentiel"
+          ]
+        },
+        {
+          "slug": "equations-differentielles",
+          "title": "Équations différentielles",
+          "summary": "y' = ay, y' = ay + b, y'' + ω²y = 0, applications physiques.",
+          "tags": [
+            "spé"
+          ]
+        }
+      ]
     },
     {
       "id": "physique",

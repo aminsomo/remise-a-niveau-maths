@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Primitives et intégrales · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="maths/integrales">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths · Analyse · Spécialité</p>
+    <h1>Primitives et intégrales</h1>
+    <p class="lead">Intégrer, c'est additionner une infinité de petites contributions : une aire, une énergie à partir d'une puissance,
+      une distance à partir d'une vitesse, une valeur moyenne ou efficace. On calcule une intégrale grâce aux primitives.</p>
+    <p class="prereq">Prérequis : <a href="derivation.html">formulaire de dérivation</a>.</p>
+  </header>
+
+  <section>
+    <h2>1. Primitives</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>\(F\) est une <b>primitive</b> de \(f\) sur un intervalle \(I\) si \(F' = f\) sur \(I\).
+        Si \(F\) est une primitive, toutes les autres sont \(F + C\) avec \(C\) constante réelle.</p>
+    </div>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>\(f(x)\)</th><th>une primitive \(F(x)\)</th><th>remarque</th></tr></thead>
+      <tbody>
+        <tr><td>\(k\)</td><td>\(kx\)</td><td></td></tr>
+        <tr><td>\(x^{n}\) (\(n \neq -1\))</td><td>\(\dfrac{x^{n+1}}{n+1}\)</td><td>on augmente l'exposant puis on divise</td></tr>
+        <tr><td>\(\dfrac{1}{x}\)</td><td>\(\ln x\)</td><td>sur \(]0\,;+\infty[\)</td></tr>
+        <tr><td>\(\dfrac{1}{x^2}\)</td><td>\(-\dfrac{1}{x}\)</td><td></td></tr>
+        <tr><td>\(e^{ax+b}\)</td><td>\(\dfrac{1}{a}e^{ax+b}\)</td><td>\(a \neq 0\)</td></tr>
+        <tr><td>\(\cos(\omega t + \varphi)\)</td><td>\(\dfrac{1}{\omega}\sin(\omega t + \varphi)\)</td><td></td></tr>
+        <tr><td>\(\sin(\omega t + \varphi)\)</td><td>\(-\dfrac{1}{\omega}\cos(\omega t + \varphi)\)</td><td>attention au signe</td></tr>
+        <tr><td>\(u'e^{u}\)</td><td>\(e^{u}\)</td><td>forme composée</td></tr>
+        <tr><td>\(\dfrac{u'}{u}\)</td><td>\(\ln u\)</td><td>si \(u > 0\)</td></tr>
+        <tr><td>\(u'u^{n}\)</td><td>\(\dfrac{u^{n+1}}{n+1}\)</td><td></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="box method"><p class="box-title">Méthode : vérifier une primitive</p>
+      <p>On <b>dérive</b> le résultat : on doit retrouver \(f\). C'est le réflexe qui évite les erreurs de signe ou de coefficient.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1</p>
+      <p>Trouver la primitive de \(f(x) = 6x^2 - \dfrac{4}{x} + e^{-2x}\) sur \(]0\,;+\infty[\) qui s'annule en \(1\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(F(x) = 2x^3 - 4\ln x - \dfrac12 e^{-2x} + C\). \(F(1) = 2 - 0 - \dfrac12 e^{-2} + C = 0\) donc \(C = \dfrac12 e^{-2} - 2\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Intégrale et aire</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Si \(f\) est continue sur \([a\,;b]\) et \(F\) une primitive de \(f\) :
+        \[\int_a^b f(x)\,\mathrm{d}x = \big[F(x)\big]_a^b = F(b) - F(a).\]
+        Si \(f \geq 0\) sur \([a\,;b]\), c'est l'<b>aire</b> (en unités d'aire) sous la courbe, entre \(x = a\) et \(x = b\).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Propriétés</p>
+      <ul>
+        <li>Linéarité : \(\int_a^b (\alpha f + \beta g) = \alpha\int_a^b f + \beta\int_a^b g\).</li>
+        <li>Chasles : \(\int_a^b f + \int_b^c f = \int_a^c f\).</li>
+        <li>Positivité : si \(f \geq 0\) et \(a \leq b\), \(\int_a^b f \geq 0\). Là où \(f &lt; 0\), l'aire compte <b>négativement</b>.</li>
+        <li>Aire entre deux courbes (\(f \geq g\)) : \(\int_a^b \big(f(x) - g(x)\big)\,\mathrm{d}x\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2</p>
+      <p>Calculer \(I = \int_0^2 (3x^2 - 2x + 1)\,\mathrm{d}x\) et \(J = \int_0^{\pi} \sin t\,\mathrm{d}t\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(I = \big[x^3 - x^2 + x\big]_0^2 = (8 - 4 + 2) - 0 = 6\).</p>
+        <p>\(J = \big[-\cos t\big]_0^{\pi} = -\cos\pi + \cos 0 = 1 + 1 = 2\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Valeur moyenne et applications physiques</h2>
+    <div class="box def"><p class="box-title">Valeur moyenne et valeur efficace</p>
+      \[\mu = \frac{1}{b-a}\int_a^b f(t)\,\mathrm{d}t \qquad\qquad U_{\text{eff}} = \sqrt{\frac{1}{T}\int_0^T u(t)^2\,\mathrm{d}t}\]
+      <p>Pour \(u(t) = U_{\max}\sin(\omega t)\) : moyenne nulle sur une période, \(U_{\text{eff}} = \dfrac{U_{\max}}{\sqrt2}\) (230 V efficaces ⇔ 325 V crête).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Intégrales en physique</p>
+      <ul>
+        <li>Énergie à partir de la puissance : \(E = \int_{t_1}^{t_2} P(t)\,\mathrm{d}t\).</li>
+        <li>Distance à partir de la vitesse : \(x(t_2) - x(t_1) = \int_{t_1}^{t_2} v(t)\,\mathrm{d}t\).</li>
+        <li>Charge à partir de l'intensité : \(Q = \int i(t)\,\mathrm{d}t\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — énergie d'un moteur au démarrage</p>
+      <p>La puissance d'un moteur au démarrage vaut \(P(t) = 2\,000\big(1 - e^{-t}\big)\) W. Énergie consommée pendant les 3 premières secondes ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(E = \int_0^3 2000(1 - e^{-t})\,\mathrm{d}t = 2000\big[t + e^{-t}\big]_0^3 = 2000\big(3 + e^{-3} - 1\big) \approx 4\,100\) J.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-riemann">
+      <p class="widget-title">Aire et sommes de rectangles</p>
+      <p class="hint">L'intégrale est la limite des sommes de rectangles quand leur nombre \(n\) augmente. Compare l'approximation à la valeur exacte.</p>
+      <div class="controls">
+        <label>Fonction <select data-k="f">
+          <option value="0">x² − 2x + 2</option><option value="1">eˣ</option><option value="2">sin x</option><option value="3">1/x</option></select></label>
+        <label>\(a\) <input type="range" data-k="a" min="0.5" max="3" step="0.1" value="0.5"> <output data-show="a"></output></label>
+        <label>\(b\) <input type="range" data-k="b" min="1" max="4" step="0.1" value="3"> <output data-show="b"></output></label>
+        <label>\(n\) rectangles <input type="range" data-k="n" min="1" max="100" step="1" value="6"> <output data-show="n"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : calculer une intégrale</p>
+      <p class="hint">Valeur exacte ou à 0,01 près.</p>
+      <div class="drill-q"></div>
+      <div class="drill"><input type="text" aria-label="Ta réponse"><button class="btn drill-check" type="button">Vérifier</button><button class="btn ghost drill-new" type="button">Nouvelle question</button></div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <ul>
+        <li><b>Intégration par parties</b> : \(\int_a^b u v' = [uv]_a^b - \int_a^b u'v\). Ex. : \(\int_0^1 x e^{x}\,\mathrm{d}x = 1\).</li>
+        <li><b>Changement de variable</b>, primitives de fractions rationnelles.</li>
+        <li>Théorème fondamental : \(x \mapsto \int_a^x f(t)\,\mathrm{d}t\) est <b>la</b> primitive de \(f\) qui s'annule en \(a\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>Une primitive de \(f(x) = 4x^3\) est :</p>
+        <ol class="choices"><li>\(12x^2\)</li><li>\(x^4 + 7\)</li><li>\(4x^4\)</li><li>\(\dfrac{4x^4}{3}\)</li></ol>
+        <p class="explain">\((x^4 + 7)' = 4x^3\). La constante peut être quelconque.</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>\(\int_1^e \dfrac{1}{x}\,\mathrm{d}x =\)</p>
+        <ol class="choices"><li>\(e - 1\)</li><li>\(0\)</li><li>\(1\)</li><li>\(-\dfrac{1}{e^2} + 1\)</li></ol>
+        <p class="explain">\(\big[\ln x\big]_1^e = 1 - 0\).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Une primitive de \(\sin(2t)\) est :</p>
+        <ol class="choices"><li>\(-\dfrac12\cos(2t)\)</li><li>\(\cos(2t)\)</li><li>\(-2\cos(2t)\)</li><li>\(\dfrac12\cos(2t)\)</li></ol>
+        <p class="explain">On vérifie en dérivant : \(\left(-\tfrac12\cos 2t\right)' = -\tfrac12 \times (-2\sin 2t) = \sin 2t\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>La valeur moyenne de \(f(x) = 2x\) sur \([0\,;4]\) est :</p>
+        <ol class="choices"><li>\(16\)</li><li>\(8\)</li><li>\(2\)</li><li>\(4\)</li></ol>
+        <p class="explain">\(\dfrac{1}{4}\int_0^4 2x\,\mathrm{d}x = \dfrac{1}{4}\big[x^2\big]_0^4 = 4\).</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>\(\int_{-1}^{1} x^3\,\mathrm{d}x =\)</p>
+        <ol class="choices"><li>\(\dfrac12\)</li><li>\(0\)</li><li>\(2\)</li><li>l'aire sous la courbe, donc positive</li></ol>
+        <p class="explain">Fonction impaire : les parties négative et positive se compensent. Une intégrale n'est une aire que si \(f \geq 0\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+primitives+terminale">Calculer des primitives — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+calcul+integrale+aire">Intégrale et aire<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=valeur+moyenne+valeur+efficace+integrale">Valeur moyenne et valeur efficace<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=integration+par+parties+exercice">Intégration par parties (prépa)<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  /* Chaque fonction est fournie avec une primitive F pour afficher la valeur exacte. */
+  var F = [
+    { f: function (x) { return x * x - 2 * x + 2; }, F: function (x) { return x * x * x / 3 - x * x + 2 * x; } },
+    { f: Math.exp, F: Math.exp },
+    { f: Math.sin, F: function (x) { return -Math.cos(x); } },
+    { f: function (x) { return 1 / x; }, F: Math.log }
+  ];
+  var w = document.getElementById('w-riemann');
+  var P = Course.plot(w.querySelector('canvas'), {});
+  var out = w.querySelector('.readout');
+  Course.onInput(w, function (v) {
+    var fo = F[+v.f], a = Math.min(v.a, v.b), b = Math.max(v.a, v.b), n = v.n;
+    var dx = (b - a) / n, S = 0, rects = [];
+    // Rectangles « point milieu » : hauteur = f(milieu de chaque sous-intervalle)
+    for (var i = 0; i < n; i++) {
+      var x0 = a + i * dx, h = fo.f(x0 + dx / 2);
+      S += h * dx; rects.push([x0, h]);
+    }
+    var exact = fo.F(b) - fo.F(a);
+    // Fenêtre adaptée aux valeurs prises par f sur [0 ; 4.5]
+    var ys = []; for (var x = 0.2; x <= 4.5; x += 0.05) ys.push(fo.f(x));
+    var ymax = Math.min(Math.max.apply(null, ys), 60), ymin = Math.min(0, Math.min.apply(null, ys));
+    P.draw = function (g) {
+      rects.forEach(function (r) {
+        g.poly([[r[0], 0], [r[0], r[1]], [r[0] + dx, r[1]], [r[0] + dx, 0]], '--c4', { close: true, fill: true, alpha: 0.25, width: 1 });
+      });
+      g.fn(fo.f, '--c1', { from: +v.f === 3 ? 0.05 : undefined });
+    };
+    P.redraw({ xmin: -0.3, xmax: 4.5, ymin: ymin - 0.5, ymax: ymax * 1.1 + 0.5 });
+    out.textContent = 'Somme des ' + n + ' rectangles : ' + Course.fmt(S, 5) +
+      '\nValeur exacte F(b) − F(a)  : ' + Course.fmt(exact, 5) +
+      '\nErreur : ' + Course.fmt(Math.abs(S - exact), 6);
+  });
+
+  /* Exercices : polynômes, exponentielle, 1/x */
+  Course.drill('#w-drill', function () {
+    var R = Course.rand, k = R(0, 2);
+    if (k === 0) {
+      var a = R(1, 4), b = R(-3, 3), u = R(0, 1), v = R(u + 1, 3);
+      var Fp = function (x) { return a * x * x * x + b * x * x; };   // primitive de 3a x² + 2b x
+      return { q: '\\int_{' + u + '}^{' + v + '} (' + 3 * a + 'x^2 ' + (2 * b < 0 ? '- ' + (-2 * b) : '+ ' + 2 * b) + 'x)\\,\\mathrm{d}x = ?',
+        answer: Fp(v) - Fp(u), explain: 'Primitive : \\(' + a + 'x^3 ' + (b < 0 ? '- ' + (-b) : '+ ' + b) + 'x^2\\).' };
+    }
+    if (k === 1) {
+      var m = R(1, 3);
+      return { q: '\\int_0^1 ' + m + 'e^{' + m + 'x}\\,\\mathrm{d}x = ?', answer: Math.exp(m) - 1, tol: 0.01,
+        explain: '\\(\\big[e^{' + m + 'x}\\big]_0^1 = e^{' + m + '} - 1\\).' };
+    }
+    var c = R(2, 6);
+    return { q: '\\int_1^{' + c + '} \\frac{2}{x}\\,\\mathrm{d}x = ?', answer: 2 * Math.log(c), tol: 0.01,
+      explain: '\\(2\\ln ' + c + '\\).' };
+  });
+});
+</script>
+</body>
+</html>
