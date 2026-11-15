@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logique et raisonnement · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="prepa/logique-raisonnement">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Pont vers la prépa · Rédaction</p>
+    <h1>Logique et raisonnement</h1>
+    <p class="lead">Le grand changement en prépa : on ne te demande plus seulement de calculer mais de <b>démontrer</b>.
+      Quantificateurs, implication, équivalence, contraposée, absurde, contre-exemple : les outils de base de toute démonstration.</p>
+  </header>
+
+  <section>
+    <h2>1. Assertions et connecteurs</h2>
+    <div class="box def"><p class="box-title">Définitions</p>
+      <ul>
+        <li>Une <b>assertion</b> est une phrase vraie ou fausse.</li>
+        <li>\(\text{non}(P)\) ; \(P \text{ et } Q\) (vraie si les deux le sont) ; \(P \text{ ou } Q\) (vraie si au moins une l'est — « ou » inclusif).</li>
+        <li><b>Implication</b> \(P \Rightarrow Q\) : « si \(P\) alors \(Q\) ». Elle n'est fausse que si \(P\) est vraie et \(Q\) fausse.</li>
+        <li><b>Équivalence</b> \(P \iff Q\) : \((P \Rightarrow Q)\) et \((Q \Rightarrow P)\).</li>
+      </ul>
+    </div>
+    <div class="box prop"><p class="box-title">Négations (lois de De Morgan)</p>
+      \[\text{non}(P \text{ et } Q) = \text{non}P \text{ ou } \text{non}Q \qquad \text{non}(P \text{ ou } Q) = \text{non}P \text{ et } \text{non}Q \qquad \text{non}(P \Rightarrow Q) = P \text{ et } \text{non}Q\]
+    </div>
+    <div class="box warning"><p class="box-title">Implication ≠ réciproque</p>
+      <p>« Si \(x = 2\) alors \(x^2 = 4\) » est vraie ; sa réciproque « si \(x^2 = 4\) alors \(x = 2\) » est fausse (\(x = -2\)).
+        N'écris \(\iff\) que si tu as vérifié les <b>deux</b> sens. En cas de doute, écris \(\Rightarrow\).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Quantificateurs</h2>
+    <div class="box def"><p class="box-title">Notations</p>
+      <p>\(\forall\) : « pour tout » ; \(\exists\) : « il existe ». Négation : on échange \(\forall\) et \(\exists\) et on nie la propriété :
+        \[\text{non}\big(\forall x,\ P(x)\big) = \exists x,\ \text{non}P(x) \qquad \text{non}\big(\exists x,\ P(x)\big) = \forall x,\ \text{non}P(x)\]
+        L'<b>ordre</b> des quantificateurs compte : \(\forall x\ \exists y,\ y > x\) est vraie dans \(\mathbb{R}\), \(\exists y\ \forall x,\ y > x\) est fausse.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — nier une définition</p>
+      <p>« \(f\) est majorée » s'écrit \(\exists M \in \mathbb{R},\ \forall x \in \mathbb{R},\ f(x) \leq M\). Écrire « \(f\) n'est pas majorée ».</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\forall M \in \mathbb{R},\ \exists x \in \mathbb{R},\ f(x) > M\) : quel que soit le seuil, la fonction le dépasse quelque part.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Types de raisonnement</h2>
+    <div class="box method"><p class="box-title">Boîte à outils</p>
+      <ul>
+        <li><b>Direct</b> : on suppose \(P\), on enchaîne des implications jusqu'à \(Q\).</li>
+        <li><b>Contraposée</b> : \(P \Rightarrow Q\) équivaut à \(\text{non}Q \Rightarrow \text{non}P\).</li>
+        <li><b>Absurde</b> : on suppose le contraire de ce qu'on veut montrer et on aboutit à une contradiction.</li>
+        <li><b>Contre-exemple</b> : pour montrer qu'un « \(\forall\) » est faux, <b>un seul</b> exemple suffit.</li>
+        <li><b>Disjonction de cas</b> : \(n\) pair / \(n\) impair, \(x \geq 0\) / \(x &lt; 0\)…</li>
+        <li><b>Analyse-synthèse</b> : on suppose une solution, on en déduit sa forme (analyse), puis on vérifie qu'elle convient (synthèse).</li>
+        <li><b>Récurrence</b> : voir le <a href="sommes-recurrence.html">chapitre suivant</a>.</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — contraposée</p>
+      <p>Montrer que si \(n^2\) est pair, alors \(n\) est pair.</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>Contraposée : si \(n\) est impair, alors \(n^2\) est impair. Soit \(n = 2k + 1\) : \(n^2 = 4k^2 + 4k + 1 = 2(2k^2 + 2k) + 1\), impair. ∎</p>
+      </details>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — absurde (classique incontournable)</p>
+      <p>Montrer que \(\sqrt2\) est irrationnel.</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>Supposons \(\sqrt2 = \dfrac pq\) avec \(p, q\) entiers sans facteur commun. Alors \(p^2 = 2q^2\) : \(p^2\) est pair, donc \(p\) aussi (exemple 2). Écrivons \(p = 2k\) :
+          \(4k^2 = 2q^2\), donc \(q^2 = 2k^2\) est pair, et \(q\) aussi. \(p\) et \(q\) sont tous deux pairs : contradiction. ∎</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-verite">
+      <p class="widget-title">Table de vérité interactive</p>
+      <p class="hint">Choisis une formule : la table se remplit. Compare \(P \Rightarrow Q\) et sa contraposée \(\text{non}Q \Rightarrow \text{non}P\) : mêmes colonnes. Et la réciproque ?</p>
+      <div class="controls">
+        <label>Formule <select data-k="f">
+          <option value="imp">P ⇒ Q</option>
+          <option value="contra">non Q ⇒ non P (contraposée)</option>
+          <option value="rec">Q ⇒ P (réciproque)</option>
+          <option value="morgan">non(P et Q)</option>
+          <option value="morgan2">non P ou non Q</option>
+          <option value="eq">P ⇔ Q</option>
+        </select></label>
+      </div>
+      <div class="table-scroll" id="table-verite"></div>
+    </div>
+
+    <div class="widget" id="w-negation">
+      <p class="widget-title">Nier une phrase quantifiée</p>
+      <p class="hint">Lis la phrase, écris sa négation sur ton brouillon, puis vérifie.</p>
+      <div class="readout" id="neg-q"></div>
+      <div class="controls">
+        <button class="btn" type="button" id="neg-show">Voir la négation</button>
+        <button class="btn ghost" type="button" id="neg-next">Autre phrase</button>
+      </div>
+      <div class="readout" id="neg-a" hidden></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Bien rédiger</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qu'attend un correcteur de prépa</p>
+      <ul>
+        <li>Introduire chaque objet : « Soit \(x \in \mathbb{R}\). », « Posons \(g(x) = \dots\) ».</li>
+        <li>Annoncer la méthode : « Raisonnons par l'absurde. », « Montrons par récurrence que… ».</li>
+        <li>Utiliser des connecteurs (donc, or, ainsi, par conséquent) plutôt que des flèches partout.</li>
+        <li>Conclure clairement et encadrer le résultat.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="2">
+        <p>La négation de « tous les élèves ont la moyenne » est :</p>
+        <ol class="choices"><li>aucun élève n'a la moyenne</li><li>tous les élèves ont moins que la moyenne</li><li>au moins un élève n'a pas la moyenne</li><li>certains élèves ont la moyenne</li></ol>
+        <p class="explain">\(\text{non}(\forall) = \exists\,\text{non}\).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>La contraposée de « s'il pleut, le sol est mouillé » est :</p>
+        <ol class="choices"><li>si le sol n'est pas mouillé, il ne pleut pas</li><li>si le sol est mouillé, il pleut</li><li>s'il ne pleut pas, le sol n'est pas mouillé</li><li>il pleut et le sol est sec</li></ol>
+        <p class="explain">\(\text{non}Q \Rightarrow \text{non}P\). La 2 est la réciproque, la 3 la « contraire », toutes deux non équivalentes.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Pour montrer que « \(\forall n \in \mathbb{N},\ n^2 + n + 41\) est premier » est faux, il suffit :</p>
+        <ol class="choices"><li>de le vérifier pour \(n = 0\) à \(39\)</li><li>d'un raisonnement par récurrence</li><li>de trouver une infinité de contre-exemples</li><li>de trouver un seul \(n\) qui ne marche pas</li></ol>
+        <p class="explain">Un contre-exemple suffit : \(n = 40\) donne \(41^2\).</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>\(x^2 = 9 \iff\)</p>
+        <ol class="choices"><li>\(x = 3\)</li><li>\(x = 3\) ou \(x = -3\)</li><li>\(x = 3\) et \(x = -3\)</li><li>\(x = \pm 9\)</li></ol>
+        <p class="explain">\(x^2 - 9 = (x - 3)(x + 3) = 0\). « et » serait impossible.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=quantificateurs+negation+cours+prepa">Quantificateurs et négation<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=raisonnement+par+l%27absurde+contraposee+exemples">Absurde et contraposée<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=racine+de+2+irrationnel+demonstration">√2 est irrationnel : la démonstration<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  /* --- Table de vérité : chaque formule est une fonction booléenne de (P, Q) --- */
+  var F = {
+    imp: function (p, q) { return !p || q; },
+    contra: function (p, q) { return q || !p; },          // non Q ⇒ non P  ≡  Q ou non P
+    rec: function (p, q) { return !q || p; },
+    morgan: function (p, q) { return !(p && q); },
+    morgan2: function (p, q) { return !p || !q; },
+    eq: function (p, q) { return p === q; }
+  };
+  var host = document.getElementById('table-verite');
+  Course.onInput('#w-verite', function (v) {
+    var sel = document.querySelector('#w-verite select');
+    var label = sel.options[sel.selectedIndex].text;
+    var rows = [[true, true], [true, false], [false, true], [false, false]];
+    var V = function (b) { return '<td style="color:var(' + (b ? '--ok' : '--ko') + ');font-weight:700">' + (b ? 'V' : 'F') + '</td>'; };
+    host.innerHTML = '<table><thead><tr><th>P</th><th>Q</th><th>' + label + '</th></tr></thead><tbody>' +
+      rows.map(function (r) { return '<tr>' + V(r[0]) + V(r[1]) + V(F[v.f](r[0], r[1])) + '</tr>'; }).join('') + '</tbody></table>';
+  });
+
+  /* --- Phrases à nier : [phrase, négation] --- */
+  var S = [
+    ['∀x ∈ ℝ, f(x) ≥ 0', '∃x ∈ ℝ, f(x) < 0'],
+    ['∃n ∈ ℕ, n² = 2', '∀n ∈ ℕ, n² ≠ 2'],
+    ['∀ε > 0, ∃N ∈ ℕ, ∀n ≥ N, |uₙ − ℓ| ≤ ε   (uₙ → ℓ)', '∃ε > 0, ∀N ∈ ℕ, ∃n ≥ N, |uₙ − ℓ| > ε'],
+    ['∀x, y ∈ ℝ, x ≤ y ⇒ f(x) ≤ f(y)   (f croissante)', '∃x, y ∈ ℝ, x ≤ y et f(x) > f(y)'],
+    ['∃M ∈ ℝ, ∀n ∈ ℕ, uₙ ≤ M   (u majorée)', '∀M ∈ ℝ, ∃n ∈ ℕ, uₙ > M'],
+    ['∀x ∈ ℝ, (x > 0 et x < 1)', '∃x ∈ ℝ, x ≤ 0 ou x ≥ 1']
+  ];
+  var i = 0, qEl = document.getElementById('neg-q'), aEl = document.getElementById('neg-a');
+  function show() { qEl.textContent = 'P : ' + S[i][0]; aEl.hidden = true; aEl.textContent = 'non P : ' + S[i][1]; }
+  document.getElementById('neg-show').addEventListener('click', function () { aEl.hidden = false; });
+  document.getElementById('neg-next').addEventListener('click', function () { i = (i + 1) % S.length; show(); });
+  show();
+});
+</script>
+</body>
+</html>

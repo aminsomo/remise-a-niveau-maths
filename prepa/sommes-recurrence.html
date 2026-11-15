@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sommes et récurrence · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="prepa/sommes-recurrence">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Pont vers la prépa · Outils</p>
+    <h1>Sommes et récurrence</h1>
+    <p class="lead">Le symbole \(\Sigma\) est partout en prépa. Savoir le manipuler (changement d'indice, télescopage, sommes usuelles)
+      et démontrer une propriété par récurrence sont deux compétences attendues dès les premières semaines.</p>
+    <p class="prereq">Prérequis : <a href="../maths/suites.html">suites arithmétiques et géométriques</a>, <a href="logique-raisonnement.html">logique</a>.</p>
+  </header>
+
+  <section>
+    <h2>1. Le symbole Σ</h2>
+    <div class="box def"><p class="box-title">Notation</p>
+      <p>\(\displaystyle\sum_{k=1}^{n} a_k = a_1 + a_2 + \dots + a_n\). L'indice \(k\) est <b>muet</b> : \(\sum_{k=1}^n k^2 = \sum_{i=1}^n i^2\).
+        Nombre de termes de \(\sum_{k=p}^{n}\) : \(n - p + 1\).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Règles de calcul</p>
+      <ul>
+        <li>Linéarité : \(\sum (\lambda a_k + \mu b_k) = \lambda\sum a_k + \mu\sum b_k\). Une constante : \(\sum_{k=1}^n c = nc\).</li>
+        <li>Changement d'indice : \(\sum_{k=1}^{n} a_{k-1} = \sum_{j=0}^{n-1} a_j\) (on pose \(j = k - 1\) et on décale les bornes).</li>
+        <li><b>Télescopage</b> : \(\sum_{k=1}^{n} (a_{k+1} - a_k) = a_{n+1} - a_1\).</li>
+        <li>Attention : \(\sum a_kb_k \neq \left(\sum a_k\right)\left(\sum b_k\right)\) en général.</li>
+      </ul>
+    </div>
+    <div class="box prop"><p class="box-title">Sommes usuelles (à connaître par cœur)</p>
+      \[\sum_{k=1}^{n} k = \frac{n(n+1)}{2} \qquad \sum_{k=1}^{n} k^2 = \frac{n(n+1)(2n+1)}{6} \qquad \sum_{k=0}^{n} q^k = \frac{1 - q^{n+1}}{1 - q}\ (q \neq 1)\]
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — télescopage</p>
+      <p>Calculer \(S_n = \displaystyle\sum_{k=1}^{n} \frac{1}{k(k+1)}\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\dfrac{1}{k(k+1)} = \dfrac1k - \dfrac{1}{k+1}\) (réduire au même dénominateur pour vérifier).
+          \(S_n = \left(1 - \tfrac12\right) + \left(\tfrac12 - \tfrac13\right) + \dots + \left(\tfrac1n - \tfrac1{n+1}\right) = 1 - \dfrac{1}{n+1}\). Donc \(S_n \to 1\).</p>
+      </details>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — linéarité</p>
+      <p>Calculer \(\displaystyle\sum_{k=1}^{n} (2k + 3)\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(2\sum k + \sum 3 = n(n+1) + 3n = n^2 + 4n\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Le raisonnement par récurrence</h2>
+    <div class="box prop"><p class="box-title">Principe</p>
+      <p>Soit \(\mathcal P(n)\) une propriété dépendant de \(n \in \mathbb{N}\). Si :</p>
+      <ol>
+        <li><b>Initialisation</b> : \(\mathcal P(n_0)\) est vraie ;</li>
+        <li><b>Hérédité</b> : pour tout \(n \geq n_0\), \(\mathcal P(n) \Rightarrow \mathcal P(n+1)\) ;</li>
+      </ol>
+      <p>alors \(\mathcal P(n)\) est vraie pour tout \(n \geq n_0\). (Image : une rangée infinie de dominos.)</p>
+    </div>
+    <div class="box method"><p class="box-title">Rédaction type</p>
+      <p>« Pour \(n \in \mathbb{N}^*\), notons \(\mathcal P(n)\) : … »<br>
+        « <i>Initialisation</i> : pour \(n = 1\), … donc \(\mathcal P(1)\) est vraie. »<br>
+        « <i>Hérédité</i> : soit \(n \geq 1\) tel que \(\mathcal P(n)\) soit vraie. Montrons \(\mathcal P(n+1)\). … »<br>
+        « <i>Conclusion</i> : par récurrence, \(\mathcal P(n)\) est vraie pour tout \(n \geq 1\). »</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — somme des carrés</p>
+      <p>Démontrer que pour tout \(n \geq 1\), \(\displaystyle\sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6}\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p><i>Initialisation</i> : \(n = 1\) : \(1 = \dfrac{1 \times 2 \times 3}{6}\). ✓</p>
+        <p><i>Hérédité</i> : supposons la formule vraie au rang \(n\). Alors
+          \(\sum_{k=1}^{n+1} k^2 = \dfrac{n(n+1)(2n+1)}{6} + (n+1)^2 = \dfrac{(n+1)\big[n(2n+1) + 6(n+1)\big]}{6} = \dfrac{(n+1)(2n^2 + 7n + 6)}{6}\).
+          Or \(2n^2 + 7n + 6 = (n+2)(2n+3)\), d'où \(\dfrac{(n+1)(n+2)(2(n+1)+1)}{6}\) : c'est \(\mathcal P(n+1)\). ✓</p>
+        <p><i>Conclusion</i> : la formule est vraie pour tout \(n \geq 1\). ∎</p>
+      </details>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 4 — inégalité de Bernoulli</p>
+      <p>Montrer que pour \(x > -1\) et tout \(n \in \mathbb{N}\) : \((1 + x)^n \geq 1 + nx\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(n = 0\) : \(1 \geq 1\). Hérédité : \((1+x)^{n+1} = (1+x)^n(1+x) \geq (1 + nx)(1 + x)\) car \(1 + x > 0\) (on peut multiplier sans changer le sens !).
+          Or \((1 + nx)(1+x) = 1 + (n+1)x + nx^2 \geq 1 + (n+1)x\). ∎</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Manipuler</h2>
+    <div class="widget" id="w-sommes">
+      <p class="widget-title">Visualiser \(\sum k\) et \(\sum k^2\)</p>
+      <p class="hint">Chaque barre est un terme. La courbe en pointillés est la formule fermée : elle coïncide toujours avec la somme cumulée (points).</p>
+      <div class="controls">
+        <label>Somme <select data-k="s"><option value="1">Σ k</option><option value="2">Σ k²</option><option value="3">Σ 1/(k(k+1))</option><option value="4">Σ (1/2)^k</option></select></label>
+        <label>\(n\) <input type="range" data-k="n" min="1" max="30" step="1" value="10"> <output data-show="n"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-domino">
+      <p class="widget-title">Les dominos de la récurrence</p>
+      <p class="hint">Initialisation = pousser le premier domino. Hérédité = chaque domino fait tomber le suivant. Si l'une des deux manque, rien ne garantit la chute de tous.</p>
+      <div class="controls">
+        <label><input type="checkbox" data-k="init" checked> initialisation</label>
+        <label><input type="checkbox" data-k="hered" checked> hérédité</label>
+        <button class="btn" type="button" id="domino-go">Lancer</button>
+      </div>
+      <canvas class="plot short"></canvas>
+    </div>
+
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : calculer une somme</p>
+      <p class="hint">Valeur exacte (entier ou fraction).</p>
+      <div class="drill-q"></div>
+      <div class="drill"><input type="text" aria-label="Ta réponse"><button class="btn drill-check" type="button">Vérifier</button><button class="btn ghost drill-new" type="button">Nouvelle question</button></div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <ul>
+        <li>Récurrence double et forte, sommes doubles \(\sum_{i}\sum_j\), produits \(\prod\), factorielle.</li>
+        <li>Formule du binôme de Newton \((a + b)^n = \sum_{k=0}^{n}\binom nk a^kb^{n-k}\) (démontrée par récurrence).</li>
+        <li>Séries numériques (sommes infinies) en 2<sup>e</sup> année.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>\(\displaystyle\sum_{k=3}^{10} 5 =\)</p>
+        <ol class="choices"><li>\(35\)</li><li>\(40\)</li><li>\(50\)</li><li>\(5\)</li></ol>
+        <p class="explain">8 termes (de 3 à 10) égaux à 5.</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Dans une récurrence, l'hérédité consiste à montrer :</p>
+        <ol class="choices"><li>\(\mathcal P(n)\) pour tout \(n\)</li><li>\(\mathcal P(n+1) \Rightarrow \mathcal P(n)\)</li><li>\(\mathcal P(n) \Rightarrow \mathcal P(n+1)\) pour tout \(n \geq n_0\)</li><li>\(\mathcal P(0)\)</li></ol>
+        <p class="explain">On <b>suppose</b> \(\mathcal P(n)\) pour un \(n\) fixé et on en déduit \(\mathcal P(n+1)\). Écrire « supposons \(\mathcal P(n)\) vraie pour tout \(n\) » est une faute grave : c'est ce qu'on veut démontrer !</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>\(\displaystyle\sum_{k=1}^{n}\big((k+1)^2 - k^2\big) =\)</p>
+        <ol class="choices"><li>\((n+1)^2 - 1\)</li><li>\(n^2\)</li><li>\(1\)</li><li>\(2n\)</li></ol>
+        <p class="explain">Télescopage : il reste le dernier moins le premier.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>\(\displaystyle\sum_{k=0}^{n} 2^k =\)</p>
+        <ol class="choices"><li>\(2^n\)</li><li>\(2^{n+1}\)</li><li>\(2^n - 1\)</li><li>\(2^{n+1} - 1\)</li></ol>
+        <p class="explain">\(\dfrac{1 - 2^{n+1}}{1 - 2}\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+raisonnement+par+recurrence">Raisonnement par récurrence — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=symbole+somme+sigma+changement+d%27indice+telescopage">Symbole Σ, changement d'indice, télescopage<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  /* --- Sommes : terme général a(k), formule fermée S(n), premier indice k0 --- */
+  var SUMS = {
+    1: { a: function (k) { return k; }, S: function (n) { return n * (n + 1) / 2; }, k0: 1, f: 'n(n+1)/2' },
+    2: { a: function (k) { return k * k; }, S: function (n) { return n * (n + 1) * (2 * n + 1) / 6; }, k0: 1, f: 'n(n+1)(2n+1)/6' },
+    3: { a: function (k) { return 1 / (k * (k + 1)); }, S: function (n) { return 1 - 1 / (n + 1); }, k0: 1, f: '1 − 1/(n+1)' },
+    4: { a: function (k) { return Math.pow(0.5, k); }, S: function (n) { return 2 - Math.pow(0.5, n); }, k0: 0, f: '2 − (1/2)^n' }
+  };
+  var w = document.getElementById('w-sommes');
+  var P = Course.plot(w.querySelector('canvas'), { xlabel: 'n' });
+  Course.onInput(w, function (v) {
+    var s = SUMS[v.s], n = v.n, cum = 0, pts = [];
+    for (var k = s.k0; k <= n; k++) { cum += s.a(k); pts.push([k, cum, s.a(k)]); }
+    var top = Math.max(s.S(n), 1);
+    P.draw = function (g) {
+      pts.forEach(function (p) { g.poly([[p[0] - 0.35, 0], [p[0] - 0.35, p[2]], [p[0] + 0.35, p[2]], [p[0] + 0.35, 0]], '--c1', { close: true, fill: true, alpha: 0.4, width: 1 }); });
+      g.fn(s.S, '--c2', { from: s.k0, to: n, dash: [5, 4] });
+      pts.forEach(function (p) { g.point(p[0], p[1], '--c2', null, { r: 3.5 }); });
+    };
+    P.redraw({ xmin: s.k0 - 1, xmax: n + 1, ymin: -top * 0.05, ymax: top * 1.1 });
+    w.querySelector('.readout').textContent = 'somme calculée terme à terme : ' + Course.fmt(cum, 6) + '\nformule ' + s.f + ' : ' + Course.fmt(s.S(n), 6);
+  });
+
+  /* --- Dominos : chute en cascade si initialisation ET hérédité --- */
+  var wd = document.getElementById('w-domino');
+  var PD = Course.plot(wd.querySelector('canvas'), { xmin: -0.5, xmax: 15.5, ymin: -0.5, ymax: 3, grid: false, axes: false });
+  var dv = {}, angles = [], anim = null, N = 15;
+  function drawDominos() {
+    PD.draw = function (g) {
+      g.seg(-0.5, 0, 15.5, 0, '--muted', { width: 2 });
+      angles.forEach(function (a, i) {
+        // domino de hauteur 2 pivotant autour de son pied (i, 0)
+        var x2 = i + 2 * Math.sin(a), y2 = 2 * Math.cos(a);
+        g.seg(i, 0, x2, y2, a > 0 ? '--c2' : '--c1', { width: 8 });
+      });
+    };
+    PD.redraw();
+  }
+  function reset() { cancelAnimationFrame(anim); angles = []; for (var i = 0; i < N; i++) angles.push(0); drawDominos(); }
+  Course.onInput(wd, function (v) { dv = v; reset(); });
+  document.getElementById('domino-go').addEventListener('click', function () {
+    reset();
+    if (!dv.init) return;                 // personne ne pousse le premier domino
+    var falling = [0];
+    (function step() {
+      var next = [];
+      falling.forEach(function (i) {
+        angles[i] = Math.min(Math.PI / 2.6, angles[i] + 0.08);
+        // l'hérédité transmet la chute au suivant quand le domino est assez penché
+        if (dv.hered && angles[i] > 0.45 && i + 1 < N && angles[i + 1] === 0 && next.indexOf(i + 1) < 0) next.push(i + 1);
+      });
+      falling = falling.concat(next);
+      drawDominos();
+      if (falling.some(function (i) { return angles[i] < Math.PI / 2.6; })) anim = requestAnimationFrame(step);
+    })();
+  });
+
+  /* --- Exercices : sommes usuelles et télescopage --- */
+  Course.drill('#w-drill', function () {
+    var R = Course.rand, k = R(0, 3), n = R(5, 20);
+    if (k === 0) { var a = R(1, 5), b = R(-5, 5);
+      return { q: '\\sum_{k=1}^{' + n + '} (' + a + 'k ' + (b < 0 ? '- ' + (-b) : '+ ' + b) + ')', answer: a * n * (n + 1) / 2 + b * n, explain: '\\(' + a + '\\cdot\\frac{n(n+1)}{2} + ' + b + 'n\\).' }; }
+    if (k === 1) return { q: '\\sum_{k=1}^{' + n + '} k^2', answer: n * (n + 1) * (2 * n + 1) / 6, explain: '\\(\\frac{n(n+1)(2n+1)}{6}\\).' };
+    if (k === 2) return { q: '\\sum_{k=1}^{' + n + '} \\frac{1}{k(k+1)}', answer: 1 - 1 / (n + 1), explain: 'Télescopage : \\(1 - \\frac{1}{' + (n + 1) + '}\\).' };
+    var p = R(2, 8);
+    return { q: '\\sum_{k=' + p + '}^{' + (p + n) + '} 1', answer: n + 1, explain: 'Nombre de termes : \\(' + (p + n) + ' - ' + p + ' + 1\\).' };
+  });
+});
+</script>
+</body>
+</html>

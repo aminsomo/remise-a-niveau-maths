@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calcul algébrique sans faute · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="prepa/calcul-algebrique">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Pont vers la prépa · Fondamentaux</p>
+    <h1>Calcul algébrique sans faute</h1>
+    <p class="lead">En prépa, personne ne te réexpliquera comment manipuler une fraction ou une puissance : on suppose que c'est automatique.
+      C'est la première cause de points perdus chez les élèves de STI2D. Ce chapitre se travaille <b>à la main, vite et sans calculatrice</b>.</p>
+  </header>
+
+  <section>
+    <h2>1. Fractions et puissances</h2>
+    <div class="box prop"><p class="box-title">Règles</p>
+      \[\frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd} \qquad \frac{a}{b} \times \frac{c}{d} = \frac{ac}{bd} \qquad \frac{a/b}{c/d} = \frac{a}{b} \times \frac{d}{c}\]
+      \[a^m a^n = a^{m+n} \qquad \frac{a^m}{a^n} = a^{m-n} \qquad (a^m)^n = a^{mn} \qquad (ab)^n = a^nb^n \qquad a^{-n} = \frac{1}{a^n} \qquad a^{1/2} = \sqrt a\]
+    </div>
+    <div class="box warning"><p class="box-title">Erreurs fatales (vues chaque année en colle)</p>
+      <ul>
+        <li>\(\dfrac{a + b}{a} \neq b\) : on ne simplifie que des <b>facteurs</b>, jamais des termes. \(\dfrac{a + b}{a} = 1 + \dfrac{b}{a}\).</li>
+        <li>\(\sqrt{a + b} \neq \sqrt a + \sqrt b\) et \((a + b)^2 \neq a^2 + b^2\).</li>
+        <li>\(\sqrt{a^2} = |a|\), pas \(a\).</li>
+        <li>\(-x^2\) vaut \(-(x^2)\) : pour \(x = -3\), \(-x^2 = -9\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1</p>
+      <p>Simplifier \(A = \dfrac{2^{5} \times 6^{-2}}{3^{-3} \times 4^{2}}\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>On décompose en facteurs premiers : \(6^{-2} = 2^{-2}3^{-2}\), \(4^2 = 2^4\).
+          \(A = \dfrac{2^{5}2^{-2}3^{-2}}{3^{-3}2^{4}} = 2^{5 - 2 - 4}\,3^{-2 + 3} = 2^{-1}\times 3 = \dfrac32\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Identités, factorisation, second degré</h2>
+    <div class="box prop"><p class="box-title">Identités remarquables (dans les deux sens !)</p>
+      \[(a+b)^2 = a^2 + 2ab + b^2 \qquad (a-b)^2 = a^2 - 2ab + b^2 \qquad a^2 - b^2 = (a-b)(a+b)\]
+      \[(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3 \qquad a^3 - b^3 = (a - b)(a^2 + ab + b^2)\]
+    </div>
+    <div class="box method"><p class="box-title">Forme canonique</p>
+      <p>\(ax^2 + bx + c = a\left[\left(x + \dfrac{b}{2a}\right)^2 - \dfrac{\Delta}{4a^2}\right]\) avec \(\Delta = b^2 - 4ac\). Si \(\Delta \geq 0\), racines \(x_{1,2} = \dfrac{-b \pm\sqrt\Delta}{2a}\) et
+        \(ax^2 + bx + c = a(x - x_1)(x - x_2)\). Somme et produit : \(x_1 + x_2 = -\dfrac ba\), \(x_1x_2 = \dfrac ca\) (racine évidente → l'autre se déduit).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — factoriser sans discriminant</p>
+      <p>Factoriser \(x^2 - 5x + 6\), \(4x^2 - 9\) et \(x^3 - x\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>Racines évidentes 2 et 3 (somme 5, produit 6) : \((x - 2)(x - 3)\). Puis \((2x - 3)(2x + 3)\). Puis \(x(x^2 - 1) = x(x - 1)(x + 1)\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Inéquations et valeur absolue</h2>
+    <div class="box prop"><p class="box-title">Règles</p>
+      <ul>
+        <li>Multiplier ou diviser par un nombre <b>négatif</b> change le sens de l'inégalité.</li>
+        <li>On ne multiplie <b>jamais</b> par une expression dont on ne connaît pas le signe : pour \(\dfrac{A}{B} \geq 0\), on fait un <b>tableau de signes</b>.</li>
+        <li>\(|x - a|\) est la distance entre \(x\) et \(a\) : \(|x - a| \leq r \iff a - r \leq x \leq a + r\).</li>
+        <li>Inégalité triangulaire : \(|a + b| \leq |a| + |b|\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3</p>
+      <p>Résoudre \(\dfrac{x + 1}{x - 2} \leq 1\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>On se ramène à 0 : \(\dfrac{x + 1}{x - 2} - 1 = \dfrac{x + 1 - x + 2}{x - 2} = \dfrac{3}{x - 2} \leq 0 \iff x - 2 &lt; 0\). \(S = ]-\infty\,;2[\).</p>
+        <p>Erreur classique : « multiplier par \(x - 2\) » sans connaître son signe.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Entraînement intensif</h2>
+    <div class="widget" id="w-fractions">
+      <p class="widget-title">Fractions et puissances — chrono</p>
+      <p class="hint">Objectif prépa : 10 bonnes réponses d'affilée, sans calculatrice. Réponds en fraction irréductible ou en entier (ex. 7/12).</p>
+      <div class="drill-q"></div>
+      <div class="drill"><input type="text" aria-label="Ta réponse"><button class="btn drill-check" type="button">Vérifier</button><button class="btn ghost drill-new" type="button">Nouvelle question</button></div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="widget" id="w-second">
+      <p class="widget-title">Second degré : racines et signe</p>
+      <p class="hint">Règle \(a, b, c\). Le graphe, \(\Delta\), les racines et la factorisation se mettent à jour.</p>
+      <div class="controls">
+        <label>\(a\) <input type="range" data-k="a" min="-3" max="3" step="0.5" value="1"> <output data-show="a"></output></label>
+        <label>\(b\) <input type="range" data-k="b" min="-6" max="6" step="0.5" value="-1"> <output data-show="b"></output></label>
+        <label>\(c\) <input type="range" data-k="c" min="-6" max="6" step="0.5" value="-2"> <output data-show="c"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Conseils pour l'été</h2>
+    <div class="box prepa-note"><p class="box-title">Routine recommandée</p>
+      <ul>
+        <li>15 minutes de calcul par jour, à la main, sans calculatrice, en <b>rédigeant</b> chaque étape.</li>
+        <li>Vérifie systématiquement : homogénéité, cas particuliers (\(x = 0\), \(x = 1\)), ordre de grandeur.</li>
+        <li>Refais les exemples de ce chapitre jusqu'à ne plus hésiter.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="3">
+        <p>\(\dfrac{1}{3} - \dfrac{1}{4} =\)</p>
+        <ol class="choices"><li>\(-1\)</li><li>\(\dfrac{1}{7}\)</li><li>\(0\)</li><li>\(\dfrac{1}{12}\)</li></ol>
+        <p class="explain">\(\dfrac{4 - 3}{12}\).</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>\(\dfrac{2^{n+1} + 2^{n}}{2^{n}} =\)</p>
+        <ol class="choices"><li>\(2^{n+1}\)</li><li>\(3\)</li><li>\(2\)</li><li>\(2^{n} + 1\)</li></ol>
+        <p class="explain">On factorise \(2^n\) : \(\dfrac{2^n(2 + 1)}{2^n}\).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>\(|x - 3| &lt; 2 \iff\)</p>
+        <ol class="choices"><li>\(1 &lt; x &lt; 5\)</li><li>\(x &lt; 5\)</li><li>\(-5 &lt; x &lt; 5\)</li><li>\(x &lt; 1\) ou \(x > 5\)</li></ol>
+        <p class="explain">\(x\) est à distance strictement inférieure à 2 de 3.</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>\(\sqrt{(1 - \sqrt2)^2} =\)</p>
+        <ol class="choices"><li>\(1 - \sqrt2\)</li><li>\(3 - 2\sqrt2\)</li><li>\(\sqrt2 - 1\)</li><li>\(1 + \sqrt 2\)</li></ol>
+        <p class="explain">\(\sqrt{a^2} = |a|\) et \(1 - \sqrt2 &lt; 0\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+calcul+fractions+puissances">Fractions et puissances — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=reussir+son+entree+en+prepa+calcul">Préparer l'entrée en prépa : le calcul<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var t = b; b = a % b; a = t; } return a; }
+  function frac(n, d) { var g = gcd(n, d) || 1; if (d < 0) { n = -n; d = -d; } n /= g; d /= g; return d === 1 ? String(n) : n + '/' + d; }
+
+  /* --- Générateur de calculs : sommes/produits/quotients de fractions, puissances --- */
+  Course.drill('#w-fractions', function () {
+    var R = Course.rand, k = R(0, 3);
+    var a = R(1, 9), b = R(2, 9), c = R(1, 9), d = R(2, 9);
+    if (k === 0) return { q: '\\frac{' + a + '}{' + b + '} + \\frac{' + c + '}{' + d + '}', answer: a / b + c / d, explain: '= ' + frac(a * d + c * b, b * d) + '.' };
+    if (k === 1) return { q: '\\frac{' + a + '}{' + b + '} - \\frac{' + c + '}{' + d + '}', answer: a / b - c / d, explain: '= ' + frac(a * d - c * b, b * d) + '.' };
+    if (k === 2) return { q: '\\dfrac{\\;\\frac{' + a + '}{' + b + '}\\;}{\\frac{' + c + '}{' + d + '}}', answer: (a * d) / (b * c), explain: 'On multiplie par l\'inverse : = ' + frac(a * d, b * c) + '.' };
+    var p = Course.pick([2, 3, 5]), m = R(-3, 5), n = R(-3, 5), q = R(-3, 3);
+    // p^m × p^n / p^q = p^(m+n−q)
+    return { q: '\\frac{' + p + '^{' + m + '} \\times ' + p + '^{' + n + '}}{' + p + '^{' + q + '}}', answer: Math.pow(p, m + n - q),
+      explain: '\\(' + p + '^{' + m + '+' + n + '-(' + q + ')} = ' + p + '^{' + (m + n - q) + '}\\).' };
+  });
+
+  /* --- Second degré interactif --- */
+  var w = document.getElementById('w-second');
+  var P = Course.plot(w.querySelector('canvas'), { xmin: -6, xmax: 6, ymin: -8, ymax: 8 });
+  Course.onInput(w, function (v) {
+    var a = v.a, b = v.b, c = v.c, txt;
+    if (a === 0) {
+      txt = 'a = 0 : ce n\'est plus un polynôme du second degré (fonction affine).';
+    } else {
+      var D = b * b - 4 * a * c, al = -b / (2 * a), be = -D / (4 * a);
+      txt = 'Δ = b² − 4ac = ' + Course.fmt(D) + '\nsommet S(' + Course.fmt(al) + ' ; ' + Course.fmt(be) + ')';
+      if (D > 0) {
+        var x1 = (-b - Math.sqrt(D)) / (2 * a), x2 = (-b + Math.sqrt(D)) / (2 * a);
+        txt += '\nracines x₁ = ' + Course.fmt(x1) + ', x₂ = ' + Course.fmt(x2) + '\nfactorisation : ' + Course.fmt(a) + '(x − ' + Course.fmt(x1) + ')(x − ' + Course.fmt(x2) + ')' +
+          '\nsigne de a à l\'extérieur des racines, signe opposé entre elles';
+      } else if (D === 0) txt += '\nracine double x₀ = ' + Course.fmt(al) + ' ; ' + Course.fmt(a) + '(x − ' + Course.fmt(al) + ')²';
+      else txt += '\npas de racine réelle : le trinôme a le signe de a partout (racines complexes ' + Course.fmt(al) + ' ± ' + Course.fmt(Math.sqrt(-D) / (2 * Math.abs(a))) + 'i)';
+    }
+    P.draw = function (g) {
+      g.fn(function (x) { return a * x * x + b * x + c; }, '--c1');
+      if (a !== 0) {
+        var D2 = b * b - 4 * a * c;
+        if (D2 >= 0) [(-b - Math.sqrt(D2)) / (2 * a), (-b + Math.sqrt(D2)) / (2 * a)].forEach(function (r) { g.point(r, 0, '--c2'); });
+        g.point(-b / (2 * a), -D2 / (4 * a), '--c4', 'S');
+      }
+    };
+    P.redraw();
+    w.querySelector('.readout').textContent = txt;
+  });
+});
+</script>
+</body>
+</html>
