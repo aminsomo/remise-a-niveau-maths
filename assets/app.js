@@ -61,7 +61,11 @@
     trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
     check: '<path d="M5 12.5l4.5 4.5L19 7"/>',
     back: '<path d="M9 6h11v12H9l-6-6z"/><path d="M12 10l4 4M16 10l-4 4"/>',
-    insert: '<path d="M4 12h13M12 6l6 6-6 6"/>'
+    insert: '<path d="M4 12h13M12 6l6 6-6 6"/>',
+    zoomIn: '<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.4-4.4M8 11h6M11 8v6"/>',
+    zoomOut: '<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.4-4.4M8 11h6"/>',
+    target: '<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>',
+    hand: '<path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12M11 11.5V4a1.5 1.5 0 0 1 3 0v7.5M14 11.5V5.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7h-.5a6 6 0 0 1-4.6-2.2L3.5 16a1.5 1.5 0 0 1 2.3-1.9L8 16"/>'
   };
   function icon(name) {
     return '<svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" ' +
@@ -287,56 +291,187 @@
       canvas: canvas,
       view: Object.assign({ xmin: -5, xmax: 5, ymin: -5, ymax: 5, grid: true, axes: true }, view || {}),
       draw: draw,
-      pointerCb: null
+      pointerCb: null,
+      // caméra de l'élève (déplacement / zoom), indépendante de la fenêtre fixée par la page :
+      // fx, fy en demi-largeurs de la fenêtre de base, z = facteur de zoom
+      cam: { fx: 0, fy: 0, z: 1 },
+      ev: null
     };
     P.redraw = function (v) { if (v) Object.assign(P.view, v); renderPlot(P); };
-    P.onPointer = function (cb) { P.pointerCb = cb; };
+    P.onPointer = function (cb) { P.pointerCb = cb; if (P.tools) P.tools.setHand(true); };
+    var raf = 0;
+    function schedule() { cancelAnimationFrame(raf); raf = requestAnimationFrame(function () { renderPlot(P); }); }
+    P.navigable = P.view.axes !== false && P.view.pan !== false;
+    if (P.navigable) setupNavigation(P, schedule);
+
     var dragging = false;
     function handle(type) {
       return function (ev) {
-        if (!P.pointerCb) return;
+        if (!P.pointerCb || (P.nav && P.nav.capturing(ev))) return;
         if (type === 'down') { dragging = true; canvas.setPointerCapture && canvas.setPointerCapture(ev.pointerId); }
         if (type === 'up') dragging = false;
-        var r = canvas.getBoundingClientRect();
-        var v = P.view, w = r.width, h = r.height;
-        var x = v.xmin + (ev.clientX - r.left) / w * (v.xmax - v.xmin);
-        var y = v.ymax - (ev.clientY - r.top) / h * (v.ymax - v.ymin);
-        P.pointerCb(x, y, type, dragging);
+        var d = P.toData(ev.clientX, ev.clientY);
+        P.pointerCb(d[0], d[1], type, dragging);
       };
     }
+    P.toData = function (clientX, clientY) {
+      var r = canvas.getBoundingClientRect(), v = P.ev || P.view;
+      return [v.xmin + (clientX - r.left) / r.width * (v.xmax - v.xmin), v.ymax - (clientY - r.top) / r.height * (v.ymax - v.ymin)];
+    };
     canvas.addEventListener('pointerdown', handle('down'));
     canvas.addEventListener('pointermove', handle('move'));
     canvas.addEventListener('pointerup', handle('up'));
     canvas.addEventListener('pointercancel', handle('up'));
+    canvas.coursePlot = P; // lecture seule, pour les tests de bout en bout
     plots.push(P);
     renderPlot(P);
     // Redessin dès que la taille réelle du canevas change (plein écran, rotation, sommaire…).
     if ('ResizeObserver' in window) {
-      var raf = 0, last = canvas.clientWidth + 'x' + canvas.clientHeight;
+      var last = canvas.clientWidth + 'x' + canvas.clientHeight;
       new ResizeObserver(function () {
         var now = canvas.clientWidth + 'x' + canvas.clientHeight;
         if (now === last) return;
         last = now;
-        cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(function () { renderPlot(P); });
+        schedule();
       }).observe(canvas);
     }
     return P;
   }
 
+  /**
+   * Se déplacer dans le repère : glisser (souris, un doigt), pincer (deux doigts),
+   * Ctrl + molette (ou molette seule en plein écran), boutons + − ⟲, flèches du clavier.
+   * Si la page utilise déjà le glisser (déplacer un point), le déplacement passe par le bouton « main ».
+   */
+  function setupNavigation(P, schedule) {
+    var canvas = P.canvas, cam = P.cam;
+    var wrap = el('div', { class: 'plot-wrap' });
+    canvas.parentNode.insertBefore(wrap, canvas);
+    wrap.appendChild(canvas);
+    canvas.setAttribute('tabindex', '0');
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label', 'Graphique. Glisse pour te déplacer, pince ou Ctrl + molette pour zoomer ; au clavier : flèches, + et −, 0 pour recentrer.');
+
+    var hand = false, handMode = false;
+    function btn(name, label) {
+      var b = el('button', { type: 'button', class: 'plot-tool', title: label, 'aria-label': label });
+      b.innerHTML = icon(name);
+      return b;
+    }
+    var bIn = btn('zoomIn', 'Zoomer'), bOut = btn('zoomOut', 'Dézoomer'), bHome = btn('target', 'Recentrer le graphique'), bHand = btn('hand', 'Se déplacer dans le repère');
+    bHand.setAttribute('aria-pressed', 'false');
+    bHand.hidden = true;
+    var tools = el('div', { class: 'plot-tools' }, [bHand, bIn, bOut, bHome]);
+    wrap.appendChild(tools);
+    var hint = el('div', { class: 'plot-hint', 'aria-live': 'polite' });
+    hint.hidden = true;
+    wrap.appendChild(hint);
+    var hintTimer = 0;
+    function showHint(txt) { hint.textContent = txt; hint.hidden = false; clearTimeout(hintTimer); hintTimer = setTimeout(function () { hint.hidden = true; }, 1600); }
+
+    function moved() { return Math.abs(cam.fx) > 1e-9 || Math.abs(cam.fy) > 1e-9 || Math.abs(cam.z - 1) > 1e-9; }
+    function refresh() { bHome.hidden = !moved(); wrap.classList.toggle('is-moved', moved()); schedule(); }
+    function base() { var v = P.view; return { cx: (v.xmin + v.xmax) / 2, cy: (v.ymin + v.ymax) / 2, hx: (v.xmax - v.xmin) / 2, hy: (v.ymax - v.ymin) / 2 }; }
+    function pan(dxPix, dyPix) {
+      var r = canvas.getBoundingClientRect(), ev = P.ev || P.view, b = base();
+      cam.fx -= dxPix / r.width * (ev.xmax - ev.xmin) / b.hx;
+      cam.fy += dyPix / r.height * (ev.ymax - ev.ymin) / b.hy;
+      refresh();
+    }
+    function zoomAt(clientX, clientY, f) {
+      var before = P.toData(clientX, clientY);
+      cam.z = Math.min(200, Math.max(0.02, cam.z * f));
+      P.ev = effectiveView(P, canvas.clientWidth, canvas.clientHeight);
+      var after = P.toData(clientX, clientY), b = base();
+      cam.fx += (before[0] - after[0]) / b.hx;
+      cam.fy += (before[1] - after[1]) / b.hy;
+      refresh();
+    }
+    function zoomCenter(f) { var r = canvas.getBoundingClientRect(); zoomAt(r.left + r.width / 2, r.top + r.height / 2, f); }
+    bIn.addEventListener('click', function () { zoomCenter(1.5); });
+    bOut.addEventListener('click', function () { zoomCenter(1 / 1.5); });
+    bHome.addEventListener('click', function () { cam.fx = cam.fy = 0; cam.z = 1; refresh(); canvas.focus(); });
+    bHand.addEventListener('click', function () { handMode = !handMode; bHand.setAttribute('aria-pressed', String(handMode)); wrap.classList.toggle('hand-mode', handMode); });
+    bHome.hidden = true;
+
+    // gestes : un pointeur = déplacement, deux = pincer / déplacer
+    var pts = {}, last = null;
+    function count() { return Object.keys(pts).length; }
+    function geom() {
+      var k = Object.keys(pts), a = pts[k[0]], b2 = pts[k[1]];
+      if (!b2) return { x: a.x, y: a.y, d: 0 };
+      return { x: (a.x + b2.x) / 2, y: (a.y + b2.y) / 2, d: Math.hypot(a.x - b2.x, a.y - b2.y) };
+    }
+    function panAllowed() { return !hand || handMode || count() >= 2; }
+    P.nav = { capturing: function (ev) { return panAllowed() && pts[ev.pointerId] !== undefined; } };
+    canvas.addEventListener('pointerdown', function (ev) {
+      if (ev.button !== undefined && ev.button > 0) return;
+      pts[ev.pointerId] = { x: ev.clientX, y: ev.clientY };
+      if (!panAllowed()) { delete pts[ev.pointerId]; return; }
+      canvas.setPointerCapture && canvas.setPointerCapture(ev.pointerId);
+      last = geom();
+      wrap.classList.add('is-dragging');
+    });
+    canvas.addEventListener('pointermove', function (ev) {
+      if (!pts[ev.pointerId]) return;
+      pts[ev.pointerId] = { x: ev.clientX, y: ev.clientY };
+      var g = geom();
+      if (last) {
+        pan(g.x - last.x, g.y - last.y);
+        if (g.d && last.d) zoomAt(g.x, g.y, g.d / last.d);
+      }
+      last = g;
+    });
+    function up(ev) {
+      if (!pts[ev.pointerId]) return;
+      delete pts[ev.pointerId];
+      last = count() ? geom() : null;
+      if (!count()) wrap.classList.remove('is-dragging');
+    }
+    canvas.addEventListener('pointerup', up);
+    canvas.addEventListener('pointercancel', up);
+    canvas.addEventListener('wheel', function (ev) {
+      var inFs = !!canvas.closest('.is-fs');
+      if (!(ev.ctrlKey || ev.metaKey || inFs)) { showHint('Ctrl + molette pour zoomer (ou les boutons + −)'); return; }
+      ev.preventDefault();
+      zoomAt(ev.clientX, ev.clientY, Math.exp(-ev.deltaY * (ev.deltaMode ? 0.05 : 0.0025)));
+    }, { passive: false });
+    canvas.addEventListener('keydown', function (ev) {
+      var r = canvas.getBoundingClientRect(), step = 0.1;
+      var map = { ArrowLeft: [-r.width * step, 0], ArrowRight: [r.width * step, 0], ArrowUp: [0, -r.height * step], ArrowDown: [0, r.height * step] };
+      if (map[ev.key]) { ev.preventDefault(); pan(-map[ev.key][0], -map[ev.key][1]); }
+      else if (ev.key === '+' || ev.key === '=') { ev.preventDefault(); zoomCenter(1.25); }
+      else if (ev.key === '-' || ev.key === '_') { ev.preventDefault(); zoomCenter(0.8); }
+      else if (ev.key === '0') { ev.preventDefault(); bHome.click(); }
+    });
+    P.tools = { setHand: function (on) { hand = on; bHand.hidden = !on; wrap.classList.toggle('has-hand', on); } };
+  }
+
+  /** Fenêtre réellement affichée = fenêtre de la page (orthonormée si besoin) + caméra de l'élève. */
+  function effectiveView(P, w, h) {
+    var v = P.view, cam = P.cam;
+    if (v.equal && w && h) { // repère orthonormé : on ajuste y autour du centre
+      var cy0 = (v.ymin + v.ymax) / 2, half = (v.xmax - v.xmin) * h / w / 2;
+      v.ymin = cy0 - half; v.ymax = cy0 + half;
+    }
+    var hx = (v.xmax - v.xmin) / 2, hy = (v.ymax - v.ymin) / 2;
+    var cx = (v.xmin + v.xmax) / 2 + cam.fx * hx, cy = (v.ymin + v.ymax) / 2 + cam.fy * hy;
+    var e = Object.assign({}, v);
+    e.xmin = cx - hx / cam.z; e.xmax = cx + hx / cam.z;
+    e.ymin = cy - hy / cam.z; e.ymax = cy + hy / cam.z;
+    return e;
+  }
+
   function renderPlot(P) {
-    var c = P.canvas, v = P.view;
+    var c = P.canvas;
     var dpr = window.devicePixelRatio || 1;
     var w = c.clientWidth, h = c.clientHeight;
     if (!w || !h) return;
+    var v = P.ev = effectiveView(P, w, h);
     c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
     var ctx = c.getContext('2d');
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, w, h);
-    if (v.equal) { // repère orthonormé : on ajuste y autour du centre
-      var cy = (v.ymin + v.ymax) / 2, half = (v.xmax - v.xmin) * h / w / 2;
-      v.ymin = cy - half; v.ymax = cy + half;
-    }
     function X(x) { return (x - v.xmin) / (v.xmax - v.xmin) * w; }
     function Y(y) { return h - (y - v.ymin) / (v.ymax - v.ymin) * h; }
     // Taille de police : lisible sur téléphone, un peu plus grande en plein écran.
@@ -349,7 +484,8 @@
     // Pas des graduations calculé en pixels : les étiquettes ne se chevauchent jamais.
     var spanX = v.xmax - v.xmin, spanY = v.ymax - v.ymin;
     var sx, sy;
-    if (v.xstep) sx = v.xstep;
+    // pas imposé par la page, sauf s'il devient illisible après un dézoom (≥ étendue = « pas d'étiquettes »)
+    if (v.xstep && (w * v.xstep / spanX >= 30 || v.xstep >= spanX)) sx = v.xstep;
     else if (v.piTicks) { sx = Math.PI / 2; while (w * sx / spanX < 46) sx *= 2; }
     else {
       sx = CORE.tickStep(spanX, w, 52);
@@ -359,7 +495,7 @@
         sx = CORE.niceStep(sx * 2.5);
       }
     }
-    sy = v.ystep || CORE.tickStep(spanY, h, fsize * 2.6);
+    sy = v.ystep && (h * v.ystep / spanY >= 22 || v.ystep >= spanY) ? v.ystep : CORE.tickStep(spanY, h, fsize * 2.6);
     var decX = CORE.decimalsFor(sx), decY = CORE.decimalsFor(sy);
 
     function label(str, x, y, align, base) {

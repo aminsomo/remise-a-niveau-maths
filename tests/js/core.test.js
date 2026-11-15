@@ -195,3 +195,86 @@ test('approxTol : arrondi au centième ou à 3 chiffres significatifs accepté',
   assert.ok(!ok(123.456, '124'));
   assert.ok(!ok(3.2e-19, '3,4e-19'));
 });
+
+/* ---------- calculatrice « comme au stylo » : LaTeX produit par MathLive ---------- */
+const L = (s, o) => C.evaluateLatex(s, o);
+
+test('LaTeX : fractions, racines, puissances', () => {
+  assert.equal(L('\\frac{1}{2}+\\frac{3}{4}'), 1.25);
+  assert.equal(L('\\dfrac{6}{\\frac{1}{2}}'), 12, 'fraction de fraction');
+  assert.equal(L('\\frac12'), 0.5, 'MathLive écrit ½ sans accolades');
+  assert.equal(L('\\frac34+1'), 1.75);
+  assert.equal(L('2^34'), 32, 'x^34 = x³ × 4 (un seul caractère en exposant)');
+  assert.equal(L('\\sqrt4'), 2);
+  assert.equal(L('\\frac12'), 0.5, 'MathLive écrit ½ sans accolades');
+  assert.equal(L('\\frac34+1'), 1.75);
+  assert.equal(L('\\sqrt{16}'), 4);
+  close(L('\\sqrt[3]{27}'), 3);
+  close(L('\\sqrt[3]{-8}'), -2, 'racine cubique d’un négatif');
+  assert.equal(L('2^{10}'), 1024);
+  assert.equal(L('2^3'), 8);
+  assert.equal(L('10^{-2}'), 0.01);
+  assert.equal(L('\\left(1+2\\right)^{2}'), 9);
+  assert.equal(L('-2^{2}'), -4);
+});
+
+test('LaTeX : écriture française, opérateurs, implicite', () => {
+  assert.equal(L('3{,}5\\times2'), 7, 'virgule décimale MathLive');
+  assert.equal(L('2,5\\cdot4'), 10);
+  assert.equal(L('9\\div3'), 3);
+  close(L('2\\pi'), 2 * Math.PI);
+  assert.equal(L('3\\left(4+1\\right)'), 15);
+  assert.equal(L('50\\%'), 0.5);
+  assert.equal(L('5!'), 120);
+  assert.equal(L('\\left|-3\\right|'), 3);
+  assert.equal(L('\\lvert 2-7\\rvert'), 5);
+  assert.equal(L('\\operatorname{Ans}\\times2', { ans: 21 }), 42);
+});
+
+test('LaTeX : fonctions', () => {
+  close(L('\\ln\\left(e^{2}\\right)'), 2);
+  close(L('\\ln e'), 1);
+  close(L('\\log\\left(1000\\right)'), 3);
+  close(L('\\log_{2}\\left(8\\right)'), 3, 'logarithme de base 2');
+  close(L('\\exp\\left(0\\right)'), 1);
+  close(L('\\sin\\left(\\frac{\\pi}{2}\\right)'), 1);
+  close(L('\\cos\\left(60\\right)', { angle: 'deg' }), 0.5);
+  close(L('30^{\\circ}'), Math.PI / 6, 'le symbole degré convertit en radians');
+  close(L('\\sin\\left(30^{\\circ}\\right)'), 0.5);
+  close(L('\\sin^{-1}\\left(1\\right)', { angle: 'deg' }), 90, 'sin⁻¹ = arcsin');
+  close(L('\\cos^{2}\\left(1\\right)+\\sin^{2}\\left(1\\right)'), 1, 'cos² + sin² = 1');
+});
+
+test('LaTeX : intégrales (méthode de Simpson)', () => {
+  close(L('\\int_{0}^{1}x^{2}\\,\\mathrm{d}x'), 1 / 3);
+  close(L('\\int_{0}^{\\pi}\\sin\\left(x\\right)\\mathrm{d}x'), 2);
+  close(L('\\int_{1}^{e}\\frac{1}{t}\\,dt'), 1, 'variable t et « dt » simple');
+  close(L('\\int_{0}^{2}3\\,\\mathrm{d}x'), 6, 'constante');
+  close(L('\\int_{2}^{0}x\\,\\mathrm{d}x'), -2, 'bornes inversées');
+  close(L('2\\int_{0}^{1}x\\,\\mathrm{d}x+1'), 2);
+  close(L('\\int_{0}^{1}e^{x}\\,\\mathrm{d}x'), Math.E - 1);
+});
+
+test('LaTeX : sommes', () => {
+  assert.equal(L('\\sum_{k=1}^{10}k'), 55);
+  assert.equal(L('\\sum_{k=1}^{4}k^{2}'), 30);
+  close(L('\\sum_{n=0}^{9}2\\times0{,}5^{n}'), 2 * (1 - Math.pow(0.5, 10)) / 0.5);
+  assert.equal(L('\\sum_{k=1}^{3}k+1'), 7, 'le terme sommé s’arrête au +');
+});
+
+test('LaTeX : messages d’erreur compréhensibles', () => {
+  const bad = {
+    '': /vide/, '\\frac{1}{0}': /zéro/, '\\ln\\left(0\\right)': /positif/, '\\sqrt{-4}': /négatif/,
+    '\\frac{\\placeholder{}}{2}': /case est vide/i, 'x+1': /Variable « x »/, '\\int_{0}^{1}x': /dx/,
+    '\\int^{1}x\\,dx': /deux bornes/, '1+1=2': /signe =/, '\\infty': /pas un nombre/, '\\lim_{x\\to0}x': /limite/,
+    '\\foo': /Commande non reconnue/, '\\sum_{k=1}^{2.5}k': /entiers/, '\\operatorname{Ans}': /Ans/
+  };
+  for (const [src, re] of Object.entries(bad)) {
+    assert.throws(() => L(src), (e) => e instanceof C.CalcError && re.test(e.message), src);
+  }
+});
+
+test('simpson : précision', () => {
+  close(C.simpson((x) => x * x * x, 0, 2), 4);
+  assert.equal(C.simpson((x) => x, 3, 3), 0);
+});

@@ -146,67 +146,99 @@ test('chaque exercice a un bouton calculatrice juste après « Vérifier »', as
   expect(drills).toBeGreaterThan(10);
 });
 
-test('brouillon : feuille noire plein écran, symboles, calculatrice, réponse', async ({ page }) => {
+/* ---------- Brouillon : feuille et calculatrice « comme au stylo » ---------- */
+async function openSheet(page) {
+  await page.locator('#w-drill .drill-calc').click();
+  await expect(page.locator('.sheet')).toBeVisible();
+  await page.waitForSelector('.sheet[data-ready="1"]', { timeout: 30000 });
+}
+const kkey = (page, k) => page.locator(`.kb-pane.is-active .key[data-k="${k.replace(/\\/g, '\\\\')}"]`).first();
+const tab = (page, name) => page.locator('.kb-tab', { hasText: name }).click();
+const nextBox = (page) => page.locator('.key-nav[aria-label="Case suivante"]').click();
+
+test('brouillon : feuille noire plein écran, maths écrites comme au stylo', async ({ page }) => {
   await open(page, 'maths/suites.html');
-  const drill = page.locator('#w-drill');
-  await drill.locator('.drill-calc').click();
+  await openSheet(page);
   const sheet = page.locator('.sheet');
-  await expect(sheet).toBeVisible();
-  const vp = page.viewportSize();
-  const box = await sheet.boundingBox();
+  const vp = page.viewportSize(), box = await sheet.boundingBox();
   expect(box.width).toBeGreaterThanOrEqual(vp.width - 1);
   expect(box.height).toBeGreaterThanOrEqual(vp.height - 2);
-  const bg = await sheet.evaluate((n) => getComputedStyle(n).backgroundColor);
-  expect(bg).toBe('rgb(11, 12, 14)');
-  // la question en cours est rappelée en haut
-  await expect(page.locator('.sheet-q')).toContainText(/Calcule|Calculer|calcule/);
+  expect(await sheet.evaluate((n) => getComputedStyle(n).backgroundColor)).toBe('rgb(11, 12, 14)');
+  await expect(page.locator('.sheet-q')).toContainText(/Calcule|calcule/);
+  await page.locator('.mode-opt[data-mode="sheet"]').click();
+  await expect(page.locator('.mode-opt[data-mode="sheet"]')).toHaveAttribute('aria-checked', 'true');
 
-  // symboles → feuille
-  const text = page.locator('.sheet-text');
-  const tabSym = page.locator('.sheet-tabs .tab').first();
-  if (await tabSym.isVisible()) await tabSym.click();
-  await page.locator('.sym[data-ins="π"]').click();
-  await page.locator('.sym', { hasText: 'a/b' }).click();
-  await expect(text).toHaveValue(/π\(\)\/\(\)/);
+  // fraction : une barre et deux cases ; intégrale : deux bornes
+  await tab(page, 'Symboles');
+  await kkey(page, '\\frac{a}{b}').click();
+  await tab(page, '123');
+  await kkey(page, '1').click(); await nextBox(page); await kkey(page, '2').click();
+  const line = page.locator('.sheet-lines math-field').first();
+  expect(await line.evaluate((f) => f.getValue('latex'))).toMatch(/\\frac\{?1\}?\{?2\}?/);
+  await page.locator('.key-eq').click(); // ↵ : nouvelle ligne
+  await expect(page.locator('.sheet-lines math-field')).toHaveCount(2);
+  await tab(page, 'Symboles');
+  await kkey(page, '\\int_a^b').click();
+  const l2 = await page.locator('.sheet-lines math-field').nth(1).evaluate((f) => f.getValue('latex'));
+  expect(l2).toContain('\\int_');
+  expect(l2).toContain('placeholder');
 
-  // calculatrice : 12 × 3 + 2² = 40
-  const tabCalc = page.locator('.sheet-tabs .tab').nth(1);
-  if (await tabCalc.isVisible()) await tabCalc.click();
-  const key = (label) => page.locator('.calc-keys .key').filter({ hasText: new RegExp('^' + label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '$') }).first();
-  for (const k of ['1', '2', '×', '3', '+', '2', 'x²']) await key(k).click();
-  await expect(page.locator('.calc-result')).toHaveText('= 40');
-  await key('=').click();
-  await expect(page.locator('.calc-result')).toHaveClass(/is-done/);
-  // erreur lisible
-  await key('AC').click();
-  for (const k of ['1', '÷', '0', '=']) await key(k).click();
-  await expect(page.locator('.calc-result')).toHaveText(/zéro/);
-  // degrés
-  await key('AC').click();
-  await page.locator('.calc-flag', { hasText: /RAD|DEG/ }).click();
-  await expect(page.locator('.calc-flag').first()).toHaveText('DEG');
-  for (const k of ['cos', '6', '0', ')', '=']) await key(k).click();
-  await expect(page.locator('.calc-result')).toHaveText('= 0,5');
-
-  // utiliser comme réponse → remplit le champ et ferme
-  await page.locator('.calc-use').click();
-  await expect(sheet).toBeHidden();
-  await expect(drill.locator('input')).toHaveValue('0,5');
-  expect(await page.evaluate(() => document.documentElement.classList.contains('fs-lock'))).toBe(false);
-
-  // la feuille est conservée après rechargement
+  // conservé après rechargement
+  await page.keyboard.press('Escape');
   await page.reload();
   await page.waitForFunction(() => window.Course);
-  await page.locator('#w-drill .drill-calc').click();
-  await expect(page.locator('.sheet-text')).toHaveValue(/π\(\)\/\(\)/);
-  await page.keyboard.press('Escape');
+  await openSheet(page);
+  await page.locator('.mode-opt[data-mode="sheet"]').click();
+  expect(await page.locator('.sheet-lines math-field').first().evaluate((f) => f.getValue('latex'))).toMatch(/frac/);
+});
+
+test('brouillon : calculatrice avec intégrale, fraction, réponse', async ({ page }) => {
+  await open(page, 'maths/suites.html');
+  await openSheet(page);
+  await page.locator('.mode-opt[data-mode="calc"]').click();
+  await expect(page.locator('.mode-opt[data-mode="calc"]')).toHaveAttribute('aria-checked', 'true');
+  await expect(page.locator('.kb-tab', { hasText: '123' })).toHaveAttribute('aria-selected', 'true');
+  // ∫₀¹ x² dx
+  await tab(page, 'Symboles');
+  await kkey(page, '\\int_a^b').click();
+  await tab(page, '123');
+  await kkey(page, '0').click(); await nextBox(page);
+  await kkey(page, '1').click(); await nextBox(page);
+  await kkey(page, 'x').click(); await kkey(page, 'x^{2}').click();
+  await expect(page.locator('.calc-result')).toHaveText('= 0,3333333333');
+  await page.locator('.key-eq').click();
+  await expect(page.locator('.calc-result')).toHaveClass(/is-done/);
+  // erreur compréhensible : case vide
+  await page.locator('.key-ctl', { hasText: 'AC' }).click();
+  await kkey(page, '\\frac{a}{b}').click();
+  await page.locator('.key-eq').click();
+  await expect(page.locator('.calc-result')).toHaveText(/case est vide/i);
+  // 3/4 + 1 → 1,75, utilisé comme réponse
+  await page.locator('.key-ctl', { hasText: 'AC' }).click();
+  await kkey(page, '3').click(); await kkey(page, '\\frac{a}{b}').click(); await kkey(page, '4').click();
+  await page.locator('.key-nav[aria-label="Avancer"]').click();
+  await kkey(page, '+').click(); await kkey(page, '1').click();
+  await expect(page.locator('.calc-result')).toHaveText('= 1,75');
+  // vers la feuille, puis réponse
+  await page.locator('.calc-act', { hasText: 'Vers la feuille' }).click();
+  await page.locator('.calc-use').click();
   await expect(page.locator('.sheet')).toBeHidden();
+  await expect(page.locator('#w-drill input')).toHaveValue('1,75');
+  expect(await page.evaluate(() => document.documentElement.classList.contains('fs-lock'))).toBe(false);
+  // degrés
+  await page.locator('#w-drill .drill-calc').click();
+  await page.locator('.calc-flag').click();
+  await expect(page.locator('.calc-flag')).toHaveText('DEG');
+  await page.locator('.key-ctl', { hasText: 'AC' }).click();
+  await kkey(page, '\\cos').click(); await kkey(page, '6').click(); await kkey(page, '0').click();
+  await expect(page.locator('.calc-result')).toHaveText('= 0,5');
 });
 
 test('brouillon : écriture au stylo et effacement annulable', async ({ page }) => {
   await open(page, 'maths/suites.html');
-  await page.locator('#w-drill .drill-calc').click();
-  await page.locator('.seg-btn[data-mode="pen"]').click();
+  await openSheet(page);
+  await page.locator('.mode-opt[data-mode="sheet"]').click();
+  await page.locator('.seg-btn[data-tool="pen"]').click();
   const ink = await page.locator('.sheet-ink').boundingBox();
   await page.mouse.move(ink.x + 30, ink.y + 40);
   await page.mouse.down();
@@ -220,6 +252,17 @@ test('brouillon : écriture au stylo et effacement annulable', async ({ page }) 
   await expect(page.locator('.sheet-tool')).toContainText('Annuler');
   await page.locator('.sheet-tool').click();
   expect(await saved()).toBe(1);
+});
+
+test('brouillon sans réseau : repli sur une saisie simple', async ({ page }) => {
+  await page.route('**/mathlive@*/**', (r) => r.abort());
+  await open(page, 'maths/suites.html');
+  await openSheet(page);
+  await expect(page.locator('.load-note')).toContainText('saisie simple');
+  await page.locator('.mode-opt[data-mode="calc"]').click();
+  await page.locator('.calc-field').fill('3/4+1');
+  await page.locator('.calc-field').press('Enter');
+  await expect(page.locator('.calc-result')).toHaveText('= 1,75');
 });
 
 test('graphique lisible : texte des graduations d’au moins 12 px', async ({ page }) => {
@@ -279,4 +322,88 @@ test('accueil : les chapitres sont regroupés par niveau', async ({ page }) => {
   const total = manifest.subjects.reduce((n, s) => n + s.chapters.length, 0);
   await expect(page.locator('#subjects .card')).toHaveCount(total);
   await expect(page.locator('#stat-chapters')).toHaveText(String(total));
+});
+
+/* ---------- Se déplacer dans un graphique ---------- */
+const view = (loc) => loc.evaluate((c) => { const v = c.coursePlot.ev; return { xmin: v.xmin, xmax: v.xmax, ymin: v.ymin, ymax: v.ymax }; });
+
+test('graphique : zoom, déplacement, recentrage', async ({ page, isMobile }) => {
+  await open(page, 'maths/suites.html');
+  const w = page.locator('#w-suite'), canvas = w.locator('canvas');
+  await canvas.scrollIntoViewIfNeeded();
+  const v0 = await view(canvas);
+  const home = w.locator('.plot-tool[aria-label="Recentrer le graphique"]');
+  await expect(home).toBeHidden();
+
+  await w.locator('.plot-tool[aria-label="Zoomer"]').click();
+  const v1 = await view(canvas);
+  expect((v1.xmax - v1.xmin) / (v0.xmax - v0.xmin)).toBeCloseTo(1 / 1.5, 3);
+  await expect(home).toBeVisible();
+
+  // glisser vers la gauche : on voit plus loin à droite
+  const box = await canvas.boundingBox();
+  await page.mouse.move(box.x + box.width * 0.7, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width * 0.3, box.y + box.height / 2, { steps: 5 });
+  await page.mouse.up();
+  const v2 = await view(canvas);
+  expect(v2.xmin).toBeGreaterThan(v1.xmin + (v1.xmax - v1.xmin) * 0.3);
+
+  // les curseurs de la page ne réinitialisent pas la vue de l'élève
+  await w.locator('input[data-k="N"]').fill('30');
+  const v3 = await view(canvas);
+  expect(v3.xmin).toBeGreaterThan(v0.xmin);
+
+  await home.click();
+  const v4 = await view(canvas);
+  expect(v4.xmax - v4.xmin).toBeCloseTo((await canvas.evaluate((c) => c.coursePlot.view.xmax - c.coursePlot.view.xmin)), 5);
+  await expect(home).toBeHidden();
+
+  if (!isMobile) {
+    // Ctrl + molette zoome ; la molette seule laisse défiler la page
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await page.keyboard.down('Control');
+    await page.mouse.wheel(0, -300);
+    await page.keyboard.up('Control');
+    const v5 = await view(canvas);
+    expect(v5.xmax - v5.xmin).toBeLessThan(v4.xmax - v4.xmin);
+    // clavier
+    await canvas.focus();
+    await page.keyboard.press('0');
+    await page.keyboard.press('ArrowRight');
+    const v6 = await view(canvas);
+    expect(v6.xmin).toBeGreaterThan(v4.xmin);
+  }
+});
+
+test('graphique où l’on déplace un point : le glisser reste au point, la main active le déplacement', async ({ page }) => {
+  await open(page, 'maths/complexes.html');
+  const canvas = page.locator('canvas').first();
+  await canvas.scrollIntoViewIfNeeded();
+  const wrap = canvas.locator('xpath=..');
+  const hand = wrap.locator('.plot-tool[aria-label="Se déplacer dans le repère"]');
+  await expect(hand).toBeVisible();
+  const v0 = await view(canvas);
+  const box = await canvas.boundingBox();
+  await page.mouse.move(box.x + box.width * 0.6, box.y + box.height * 0.4);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width * 0.4, box.y + box.height * 0.5, { steps: 4 });
+  await page.mouse.up();
+  expect(await view(canvas)).toEqual(v0);
+  await hand.click();
+  await page.mouse.move(box.x + box.width * 0.6, box.y + box.height * 0.4);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width * 0.4, box.y + box.height * 0.4, { steps: 4 });
+  await page.mouse.up();
+  expect((await view(canvas)).xmin).toBeGreaterThan(v0.xmin);
+});
+
+test('chaque graphique avec axes propose les outils de navigation', async ({ page }) => {
+  test.skip(test.info().project.name !== 'desktop', 'vérification structurelle : une seule fois');
+  for (const url of PAGES.slice(1)) {
+    await open(page, url);
+    const r = await page.evaluate(() => Array.from(document.querySelectorAll('canvas.plot')).filter((c) => c.coursePlot && c.coursePlot.navigable)
+      .map((c) => !!(c.parentElement.classList.contains('plot-wrap') && c.parentElement.querySelector('.plot-tools'))));
+    expect(r.every(Boolean), url).toBe(true);
+  }
 });

@@ -278,10 +278,11 @@ class EngineWiringTests(unittest.TestCase):
     def test_core_has_no_dynamic_code_execution(self):
         src = (ROOT / "assets" / "core.js").read_text(encoding="utf-8")
         code = re.sub(r"/\*.*?\*/|//[^\n]*", "", src, flags=re.S)
-        for bad in ("eval(", "Function(", "new Function"):
-            self.assertNotIn(bad, code, "l'évaluateur doit rester sûr (pas d'eval)")
-        app = (ROOT / "assets" / "app.js").read_text(encoding="utf-8")
-        self.assertNotIn("Function(", app)
+        for bad in (r"\beval\s*\(", r"\bFunction\s*\(", r"new\s+Function"):
+            self.assertIsNone(re.search(bad, code), "l'évaluateur doit rester sûr (pas d'eval)")
+        for f in ("app.js", "brouillon.js"):
+            src2 = (ROOT / "assets" / f).read_text(encoding="utf-8")
+            self.assertIsNone(re.search(r"\bFunction\s*\(|\beval\s*\(", src2), f)
 
     def test_hidden_attribute_always_wins(self):
         css = (ROOT / "assets" / "style.css").read_text(encoding="utf-8")
