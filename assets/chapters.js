@@ -114,7 +114,68 @@ window.COURSE = /* BEGIN-JSON */ {
       "short": "Physique",
       "color": "physique",
       "desc": "Spécialité physique-chimie et mathématiques STI2D : mécanique, énergie, électricité, ondes, thermique, fluides, chimie.",
-      "chapters": []
+      "chapters": [
+        {
+          "slug": "mecanique",
+          "title": "Mouvement et lois de Newton",
+          "summary": "Cinématique, PFD, plan incliné, tir de projectile.",
+          "tags": [
+            "mouvement",
+            "essentiel"
+          ]
+        },
+        {
+          "slug": "energie",
+          "title": "Énergie, puissance et rendement",
+          "summary": "Ec, Ep, théorème de l'énergie cinétique, chaînes de conversion.",
+          "tags": [
+            "énergie",
+            "essentiel"
+          ]
+        },
+        {
+          "slug": "electricite",
+          "title": "Électricité : circuits, condensateur, alternatif",
+          "summary": "Kirchhoff, Joule, circuit RC, valeurs efficaces, P, Q, S.",
+          "tags": [
+            "énergie électrique",
+            "essentiel"
+          ]
+        },
+        {
+          "slug": "ondes",
+          "title": "Ondes et signaux",
+          "summary": "λ = v/f, spectre, photons, atténuation, débit binaire.",
+          "tags": [
+            "ondes"
+          ]
+        },
+        {
+          "slug": "thermique",
+          "title": "Énergie thermique et transferts",
+          "summary": "mcΔθ, chaleur latente, résistance thermique, isolation.",
+          "tags": [
+            "énergie thermique"
+          ]
+        },
+        {
+          "slug": "fluides",
+          "title": "Mécanique des fluides",
+          "summary": "Pression, Pascal, Archimède, débit, Bernoulli.",
+          "tags": [
+            "fluides"
+          ]
+        },
+        {
+          "slug": "chimie",
+          "title": "Chimie : oxydoréduction, piles, combustions",
+          "summary": "Avancement, redox, piles, électrolyse, combustions, pH.",
+          "tags": [
+            "chimie",
+            "énergie chimique"
+          ]
+        }
+      ]
     },
     {
       "id": "prepa",
