@@ -62,6 +62,49 @@ window.COURSE = /* BEGIN-JSON */ {
           "tags": [
             "spé"
           ]
+        },
+        {
+          "slug": "trigonometrie",
+          "title": "Trigonométrie et signaux sinusoïdaux",
+          "summary": "Radians, cercle trigo, formules, A cos(ωt + φ).",
+          "tags": [
+            "spé",
+            "essentiel"
+          ]
+        },
+        {
+          "slug": "complexes",
+          "title": "Nombres complexes",
+          "summary": "Formes algébrique, trigonométrique, exponentielle ; impédances.",
+          "tags": [
+            "spé STI2D",
+            "essentiel"
+          ]
+        },
+        {
+          "slug": "produit-scalaire",
+          "title": "Vecteurs, produit scalaire et espace",
+          "summary": "Produit scalaire, orthogonalité, travail d'une force, droites et plans.",
+          "tags": [
+            "spé"
+          ]
+        },
+        {
+          "slug": "probabilites",
+          "title": "Probabilités et loi binomiale",
+          "summary": "Conditionnelles, arbres, espérance, loi binomiale, simulation.",
+          "tags": [
+            "tronc commun",
+            "spé"
+          ]
+        },
+        {
+          "slug": "statistiques",
+          "title": "Statistiques à deux variables",
+          "summary": "Nuage de points, moindres carrés, corrélation, changement de variable.",
+          "tags": [
+            "tronc commun"
+          ]
         }
       ]
     },

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Probabilités et loi binomiale · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="maths/probabilites">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths · Probabilités · Tronc commun + spécialité</p>
+    <h1>Probabilités et loi binomiale</h1>
+    <p class="lead">Probabilités conditionnelles et arbres, variables aléatoires, espérance, et la loi binomiale qui modélise
+      le nombre de succès dans une série d'épreuves indépendantes : pièces défectueuses, tests qualité, fiabilité.</p>
+    <p class="prereq">Prérequis : fractions, pourcentages.</p>
+  </header>
+
+  <section>
+    <h2>1. Probabilités conditionnelles</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Si \(P(A) \neq 0\), la probabilité de \(B\) <b>sachant</b> \(A\) est
+        \[P_A(B) = \frac{P(A \cap B)}{P(A)}, \qquad \text{donc } P(A \cap B) = P(A) \times P_A(B).\]</p>
+    </div>
+    <div class="box prop"><p class="box-title">Arbre pondéré et probabilités totales</p>
+      <ul>
+        <li>La somme des probabilités issues d'un même nœud vaut 1.</li>
+        <li>La probabilité d'un chemin est le <b>produit</b> des probabilités sur ses branches.</li>
+        <li><b>Formule des probabilités totales</b> : \(P(B) = P(A \cap B) + P(\bar A \cap B)\).</li>
+        <li>\(A\) et \(B\) sont <b>indépendants</b> si \(P(A \cap B) = P(A)P(B)\), c'est-à-dire \(P_A(B) = P(B)\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — contrôle qualité</p>
+      <p>Une usine a deux machines : M1 produit 60 % des pièces avec 2 % de défauts, M2 produit 40 % avec 5 % de défauts.
+        (a) Probabilité qu'une pièce soit défectueuse ? (b) Sachant qu'une pièce est défectueuse, probabilité qu'elle vienne de M2 ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>(a) \(P(D) = 0{,}6 \times 0{,}02 + 0{,}4 \times 0{,}05 = 0{,}012 + 0{,}02 = 0{,}032\).</p>
+        <p>(b) \(P_D(M_2) = \dfrac{P(M_2 \cap D)}{P(D)} = \dfrac{0{,}02}{0{,}032} = 0{,}625\). Plus de 6 pièces défectueuses sur 10 viennent de M2.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Variables aléatoires</h2>
+    <div class="box def"><p class="box-title">Définitions</p>
+      <p>Une variable aléatoire \(X\) associe un nombre à chaque issue. Sa <b>loi</b> donne les \(P(X = x_i)\).</p>
+      \[E(X) = \sum_i x_i\,P(X = x_i) \qquad V(X) = \sum_i (x_i - E(X))^2 P(X = x_i) \qquad \sigma(X) = \sqrt{V(X)}\]
+      <p>\(E(X)\) est la moyenne à long terme ; \(\sigma(X)\) mesure la dispersion. Linéarité : \(E(aX + b) = aE(X) + b\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — jeu</p>
+      <p>On mise 2 €, on lance un dé : on gagne 10 € (mise comprise) si on fait 6, rien sinon. Le jeu est-il équitable ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>Gain algébrique \(G\) : \(+8\) avec probabilité \(\tfrac16\), \(-2\) avec probabilité \(\tfrac56\).
+          \(E(G) = \tfrac86 - \tfrac{10}{6} = -\tfrac13 \approx -0{,}33\) €. Défavorable au joueur.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Loi binomiale</h2>
+    <div class="box def"><p class="box-title">Schéma de Bernoulli</p>
+      <p>On répète \(n\) fois, de façon <b>identique et indépendante</b>, une épreuve à deux issues : succès (probabilité \(p\)) ou échec.
+        Le nombre \(X\) de succès suit la <b>loi binomiale</b> \(\mathcal B(n, p)\) :
+        \[P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \qquad k = 0, 1, \dots, n.\]
+        \(\binom{n}{k}\) est le nombre de chemins de l'arbre à \(k\) succès (touche <code>nCr</code> ou <code>Combinaison</code> de la calculatrice).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Espérance et écart-type</p>
+      \[E(X) = np \qquad V(X) = np(1-p) \qquad \sigma(X) = \sqrt{np(1-p)}\]
+    </div>
+    <div class="box method"><p class="box-title">Méthode : « au moins un »</p>
+      <p>\(P(X \geq 1) = 1 - P(X = 0) = 1 - (1-p)^n\). C'est l'événement contraire qui se calcule facilement.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — lot de composants</p>
+      <p>Un composant est défectueux avec probabilité 0,03. On en prélève 50 (tirage assimilé à des tirages avec remise).
+        Probabilité d'avoir exactement 2 défectueux ? Au moins un ? Nombre moyen ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(X \sim \mathcal B(50\,;0{,}03)\). \(P(X = 2) = \binom{50}{2} 0{,}03^2 \times 0{,}97^{48} = 1225 \times 0{,}0009 \times 0{,}2321 \approx 0{,}256\).</p>
+        <p>\(P(X \geq 1) = 1 - 0{,}97^{50} \approx 0{,}782\). \(E(X) = 50 \times 0{,}03 = 1{,}5\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-binom">
+      <p class="widget-title">Diagramme de la loi binomiale</p>
+      <p class="hint">Règle \(n\) et \(p\). Les barres colorées sont celles qui comptent pour \(P(a \leq X \leq b)\). Le pic est proche de \(E(X) = np\).</p>
+      <div class="controls">
+        <label>\(n\) <input type="range" data-k="n" min="1" max="100" step="1" value="20"> <output data-show="n"></output></label>
+        <label>\(p\) <input type="range" data-k="p" min="0.01" max="0.99" step="0.01" value="0.3"> <output data-show="p"></output></label>
+        <label>\(a\) <input type="number" data-k="a" min="0" max="100" step="1" value="4"></label>
+        <label>\(b\) <input type="number" data-k="b" min="0" max="100" step="1" value="8"></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-simu">
+      <p class="widget-title">Simulation : la fréquence se stabilise</p>
+      <p class="hint">On répète l'expérience « compter les succès sur \(n\) essais » de nombreuses fois. La moyenne observée se rapproche de \(np\) (loi des grands nombres).</p>
+      <div class="controls">
+        <button class="btn" type="button" id="simu-10">+10 expériences</button>
+        <button class="btn" type="button" id="simu-1000">+1000 expériences</button>
+        <button class="btn ghost" type="button" id="simu-reset">Réinitialiser</button>
+      </div>
+      <canvas class="plot short"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement</p>
+      <p class="hint">Probabilités à 0,001 près.</p>
+      <div class="drill-q"></div>
+      <div class="drill"><input type="text" aria-label="Ta réponse"><button class="btn drill-check" type="button">Vérifier</button><button class="btn ghost drill-new" type="button">Nouvelle question</button></div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <ul>
+        <li><b>Dénombrement</b> : listes, arrangements, combinaisons, formule du binôme \((a+b)^n = \sum \binom{n}{k}a^kb^{n-k}\).</li>
+        <li>Formule de <b>Bayes</b> (exemple 1 b), lois géométrique et de Poisson.</li>
+        <li>Inégalité de Bienaymé-Tchebychev (déjà en spé maths générale) et loi faible des grands nombres.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="2">
+        <p>\(P(A) = 0{,}5\), \(P_A(B) = 0{,}4\). Alors \(P(A \cap B) =\)</p>
+        <ol class="choices"><li>\(0{,}9\)</li><li>\(0{,}8\)</li><li>\(0{,}2\)</li><li>\(1{,}25\)</li></ol>
+        <p class="explain">\(P(A \cap B) = P(A) \times P_A(B)\).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>\(X \sim \mathcal B(10\,;0{,}5)\). \(P(X = 0) =\)</p>
+        <ol class="choices"><li>\(0{,}5^{10}\)</li><li>\(0\)</li><li>\(0{,}5\)</li><li>\(10 \times 0{,}5\)</li></ol>
+        <p class="explain">Dix échecs de suite : \((1 - p)^{10}\), soit \(\approx 0{,}001\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>L'espérance de \(\mathcal B(200\,;0{,}15)\) est :</p>
+        <ol class="choices"><li>\(0{,}15\)</li><li>\(170\)</li><li>\(25{,}5\)</li><li>\(30\)</li></ol>
+        <p class="explain">\(np = 200 \times 0{,}15\). (25,5 est la variance \(np(1-p)\).)</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Peut-on utiliser une loi binomiale pour le nombre de rois dans une main de 5 cartes tirées <b>sans remise</b> d'un jeu de 32 ?</p>
+        <ol class="choices"><li>oui, toujours</li><li>non : les tirages ne sont pas indépendants</li><li>oui si on compte les dames</li><li>non car il y a plus de 2 issues</li></ol>
+        <p class="explain">Sans remise, la probabilité change à chaque tirage. On l'approche par une binomiale seulement si la population est très grande devant l'échantillon.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+probabilites+conditionnelles+arbre">Probabilités conditionnelles — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+loi+binomiale">Loi binomiale — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=loi+binomiale+calculatrice+numworks+ti+casio">Loi binomiale à la calculatrice<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  /* Probabilité binomiale P(X = k), calculée en logarithmes pour éviter les débordements
+     (C(100, 50) ≈ 10^29 et p^k très petit). */
+  function lnFact(n) { var s = 0; for (var i = 2; i <= n; i++) s += Math.log(i); return s; }
+  function binom(n, p, k) {
+    if (p <= 0) return k === 0 ? 1 : 0;
+    if (p >= 1) return k === n ? 1 : 0;
+    return Math.exp(lnFact(n) - lnFact(k) - lnFact(n - k) + k * Math.log(p) + (n - k) * Math.log(1 - p));
+  }
+
+  /* --- Diagramme en bâtons de B(n, p) --- */
+  var w = document.getElementById('w-binom');
+  var P = Course.plot(w.querySelector('canvas'), { xlabel: 'k' });
+  Course.onInput(w, function (v) {
+    var n = v.n, p = v.p, a = Math.max(0, v.a | 0), b = Math.min(n, v.b | 0);
+    var probs = [], max = 0, sum = 0;
+    for (var k = 0; k <= n; k++) { var q = binom(n, p, k); probs.push(q); max = Math.max(max, q); if (k >= a && k <= b) sum += q; }
+    P.draw = function (g) {
+      probs.forEach(function (q, k) {
+        var col = k >= a && k <= b ? '--c2' : '--c1';
+        g.poly([[k - 0.4, 0], [k - 0.4, q], [k + 0.4, q], [k + 0.4, 0]], col, { close: true, fill: true, alpha: 0.6, width: 1 });
+      });
+      g.seg(n * p, 0, n * p, max * 1.1, '--c4', { dash: [5, 4] });   // espérance
+      g.text(n * p, max * 1.13, 'E(X) = np', '--c4', { align: 'center' });
+    };
+    P.redraw({ xmin: -1, xmax: n + 1, ymin: -max * 0.05, ymax: max * 1.25 });
+    w.querySelector('.readout').textContent =
+      'P(' + a + ' ≤ X ≤ ' + b + ') = ' + Course.fmt(sum, 4) +
+      '\nE(X) = np = ' + Course.fmt(n * p, 2) + '    σ(X) = √(np(1−p)) = ' + Course.fmt(Math.sqrt(n * p * (1 - p)), 3) +
+      '\nP(X ≥ 1) = 1 − (1−p)^n = ' + Course.fmt(1 - Math.pow(1 - p, n), 4);
+  });
+
+  /* --- Simulation : on réutilise n et p du widget précédent --- */
+  var ws = document.getElementById('w-simu');
+  var PS = Course.plot(ws.querySelector('canvas'), { xlabel: 'nb d\'expériences' });
+  var means = [], total = 0;
+  function params() {
+    return { n: +w.querySelector('[data-k="n"]').value, p: +w.querySelector('[data-k="p"]').value };
+  }
+  function run(times) {
+    var pr = params();
+    for (var r = 0; r < times; r++) {
+      var succ = 0;
+      for (var i = 0; i < pr.n; i++) if (Math.random() < pr.p) succ++;   // une épreuve de Bernoulli
+      total += succ;
+      means.push(total / (means.length + 1));                           // moyenne cumulée
+    }
+    drawSimu();
+  }
+  function drawSimu() {
+    var pr = params(), m = pr.n * pr.p, N = Math.max(10, means.length);
+    PS.draw = function (g) {
+      g.seg(0, m, N, m, '--c4', { dash: [5, 4] });
+      if (means.length) g.poly(means.map(function (y, i) { return [i + 1, y]; }), '--c1', { width: 1.8 });
+    };
+    PS.redraw({ xmin: 0, xmax: N, ymin: 0, ymax: Math.max(1, m * 2) });
+    ws.querySelector('.readout').textContent = means.length
+      ? means.length + ' expériences — moyenne observée : ' + Course.fmt(means[means.length - 1], 3) + '   (théorique np = ' + Course.fmt(m, 3) + ')'
+      : 'Clique sur un bouton pour lancer la simulation avec B(' + pr.n + ' ; ' + pr.p + ').';
+  }
+  document.getElementById('simu-10').addEventListener('click', function () { run(10); });
+  document.getElementById('simu-1000').addEventListener('click', function () { run(1000); });
+  document.getElementById('simu-reset').addEventListener('click', function () { means = []; total = 0; drawSimu(); });
+  drawSimu();
+
+  /* --- Exercices : P(X = k), P(X ≥ 1), probabilités totales --- */
+  Course.drill('#w-drill', function () {
+    var R = Course.rand, t = R(0, 2);
+    if (t === 0) {
+      var n = R(5, 15), p = Course.pick([0.1, 0.2, 0.3, 0.5]), k = R(0, 3);
+      return { q: 'X \\sim \\mathcal{B}(' + n + '\\,;' + String(p).replace('.', '{,}') + '),\\quad P(X = ' + k + ') = ?', answer: binom(n, p, k), tol: 0.001,
+        explain: '\\(\\binom{' + n + '}{' + k + '}p^{' + k + '}(1-p)^{' + (n - k) + '}\\).' };
+    }
+    if (t === 1) {
+      var n2 = R(5, 30), p2 = Course.pick([0.02, 0.05, 0.1]);
+      return { q: 'X \\sim \\mathcal{B}(' + n2 + '\\,;' + String(p2).replace('.', '{,}') + '),\\quad P(X \\geq 1) = ?', answer: 1 - Math.pow(1 - p2, n2), tol: 0.001,
+        explain: '\\(1 - (1-p)^n\\).' };
+    }
+    var pa = R(2, 8) / 10, pb = R(1, 9) / 100, pc = R(1, 9) / 100;
+    return { html: '<p>\\(P(A) = ' + String(pa).replace('.', '{,}') + '\\), \\(P_A(D) = ' + String(pb).replace('.', '{,}') + '\\), \\(P_{\\bar A}(D) = ' + String(pc).replace('.', '{,}') + '\\). Calcule \\(P(D)\\).</p>',
+      answer: pa * pb + (1 - pa) * pc, tol: 0.001, explain: 'Probabilités totales : \\(P(A)P_A(D) + P(\\bar A)P_{\\bar A}(D)\\).' };
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Statistiques à deux variables · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+</head>
+<body data-root="../" data-chapter="maths/statistiques">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths · Statistiques · Tronc commun</p>
+    <h1>Statistiques à deux variables</h1>
+    <p class="lead">Nuage de points, ajustement affine par la méthode des moindres carrés, coefficient de corrélation, changement de variable
+      pour linéariser une croissance exponentielle. C'est exactement ce que tu fais en TP quand tu traces une droite de régression.</p>
+    <p class="prereq">Prérequis : moyenne, équation de droite, <a href="logarithme.html">logarithme</a> (pour la partie 3).</p>
+  </header>
+
+  <section>
+    <h2>1. Nuage de points et point moyen</h2>
+    <div class="box def"><p class="box-title">Définitions</p>
+      <p>Une série statistique à deux variables \((x_i\,;y_i)\), \(1 \leq i \leq n\), se représente par un <b>nuage de points</b>.
+        Le <b>point moyen</b> est \(G(\bar x\,;\bar y)\) avec \(\bar x = \dfrac{1}{n}\sum x_i\) et \(\bar y = \dfrac{1}{n}\sum y_i\).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Ajustement affine (moindres carrés)</h2>
+    <div class="box prop"><p class="box-title">Droite de régression de \(y\) en \(x\)</p>
+      <p>Parmi toutes les droites \(y = ax + b\), celle qui minimise la somme des carrés des écarts verticaux \(\sum (y_i - ax_i - b)^2\) a pour coefficients
+        \[a = \frac{\text{cov}(x, y)}{V(x)} = \frac{\frac1n\sum x_iy_i - \bar x\bar y}{\frac1n\sum x_i^2 - \bar x^2}, \qquad b = \bar y - a\bar x.\]
+        Elle passe toujours par le point moyen \(G\). En pratique, la calculatrice ou le tableur la donne directement.</p>
+    </div>
+    <div class="box def"><p class="box-title">Coefficient de corrélation</p>
+      <p>\(r = \dfrac{\text{cov}(x,y)}{\sigma_x\sigma_y} \in [-1\,;1]\). Plus \(|r|\) est proche de 1, plus le nuage est aligné.
+        On considère souvent l'ajustement affine pertinent si \(|r| > 0{,}9\) (critère indicatif, à juger aussi visuellement !).</p>
+    </div>
+    <div class="box warning"><p class="box-title">Corrélation ≠ causalité</p>
+      <p>Deux grandeurs peuvent être très corrélées sans que l'une cause l'autre (ex. : ventes de glaces et coups de soleil, toutes deux causées par l'ensoleillement).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — étalonnage d'un capteur</p>
+      <p>On mesure la tension d'un capteur de température :</p>
+      <div class="table-scroll"><table>
+        <tr><th>\(\theta\) (°C)</th><td>0</td><td>20</td><td>40</td><td>60</td><td>80</td></tr>
+        <tr><th>\(U\) (mV)</th><td>102</td><td>139</td><td>183</td><td>218</td><td>261</td></tr>
+      </table></div>
+      <p>Déterminer la droite de régression et estimer la température pour \(U = 200\) mV.</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\bar\theta = 40\), \(\bar U = 180{,}6\). \(\text{cov}(\theta, U) = 8\,812 - 40 \times 180{,}6 = 1\,588\) et \(V(\theta) = 2\,400 - 1\,600 = 800\),
+          donc \(a = 1{,}985\) et \(b = 180{,}6 - 1{,}985 \times 40 = 101{,}2\) : \(U \approx 1{,}985\,\theta + 101{,}2\) avec \(r \approx 0{,}999\).</p>
+        <p>\(200 = 1{,}985\,\theta + 101{,}2 \iff \theta \approx 49{,}8\) °C (interpolation : on reste dans la plage mesurée, donc fiable).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Changement de variable</h2>
+    <div class="box method"><p class="box-title">Linéariser une croissance exponentielle</p>
+      <p>Si le nuage \((x_i\,;y_i)\) a une allure exponentielle, on pose \(z = \ln y\). Si \((x_i\,;z_i)\) est bien aligné, \(z = ax + b\) donne
+        \(y = e^{ax + b} = e^{b}\,e^{ax}\). C'est pour cela qu'on utilise du papier semi-logarithmique.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — nombre de connexions</p>
+      <p>Un ajustement donne \(z = \ln y \approx 0{,}35x + 2{,}1\). Exprimer \(y\) en fonction de \(x\) et prévoir \(y\) pour \(x = 10\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(y = e^{2{,}1}e^{0{,}35x} \approx 8{,}17\,e^{0{,}35x}\). Pour \(x = 10\) : \(y \approx 8{,}17 \times e^{3{,}5} \approx 270\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
+    <div class="widget" id="w-reg">
+      <p class="widget-title">Construis ton nuage</p>
+      <p class="hint">Clique sur le graphique pour ajouter des points (clic sur un point existant pour l'enlever). La droite des moindres carrés et \(r\) se recalculent en direct.
+        Essaie de faire un nuage avec \(r \approx 0\) mais une relation évidente (une parabole !).</p>
+      <div class="controls">
+        <button class="btn ghost" type="button" id="reg-lin">Exemple linéaire</button>
+        <button class="btn ghost" type="button" id="reg-para">Exemple parabole</button>
+        <button class="btn ghost" type="button" id="reg-clear">Effacer</button>
+        <label><input type="checkbox" data-k="res"> afficher les résidus</label>
+      </div>
+      <canvas class="plot tall"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : point moyen</p>
+      <p class="hint">Calcule la coordonnée demandée du point moyen.</p>
+      <div class="drill-q"></div>
+      <div class="drill"><input type="text" aria-label="Ta réponse"><button class="btn drill-check" type="button">Vérifier</button><button class="btn ghost drill-new" type="button">Nouvelle question</button></div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <ul>
+        <li>En physique, la <b>régression linéaire</b> devient un outil de TP quotidien (Python : <code>numpy.polyfit</code>), avec incertitudes-types et analyse des résidus.</li>
+        <li>En maths, la méthode des moindres carrés est une <b>projection orthogonale</b> (algèbre linéaire, 2<sup>e</sup> année).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>La droite de régression de \(y\) en \(x\) passe toujours par :</p>
+        <ol class="choices"><li>l'origine</li><li>le point moyen</li><li>le premier point</li><li>aucun point particulier</li></ol>
+        <p class="explain">\(b = \bar y - a\bar x\) équivaut à \(\bar y = a\bar x + b\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>\(r = -0{,}98\) signifie :</p>
+        <ol class="choices"><li>pas de lien</li><li>lien linéaire faible</li><li>erreur de calcul, \(r\) est positif</li><li>forte corrélation linéaire décroissante</li></ol>
+        <p class="explain">\(|r|\) proche de 1 : nuage très aligné ; le signe donne le sens.</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Si \(\ln y = 0{,}2x + 1\), alors :</p>
+        <ol class="choices"><li>\(y = e\,e^{0{,}2x}\)</li><li>\(y = 0{,}2x + e\)</li><li>\(y = e^{0{,}2x} + 1\)</li><li>\(y = 0{,}2e^{x} + 1\)</li></ol>
+        <p class="explain">\(y = e^{0{,}2x + 1} = e^{1}\times e^{0{,}2x}\).</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Utiliser la droite de régression très loin de la plage mesurée (extrapolation) est :</p>
+        <ol class="choices"><li>toujours fiable si \(r > 0{,}99\)</li><li>interdit</li><li>risqué : rien ne garantit que la tendance se poursuit</li><li>plus précis que l'interpolation</li></ol>
+        <p class="explain">Le modèle n'est validé que sur la plage des mesures.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+ajustement+affine+moindres+carres">Ajustement affine — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=regression+lineaire+calculatrice+lycee">Régression linéaire à la calculatrice<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  /* --- Nuage interactif + droite des moindres carrés --- */
+  var w = document.getElementById('w-reg');
+  var P = Course.plot(w.querySelector('canvas'), { xmin: 0, xmax: 10, ymin: 0, ymax: 10, xlabel: 'x', ylabel: 'y' });
+  var out = w.querySelector('.readout');
+  var pts = [], opts = { res: false };
+  var LIN = [[1, 2.1], [2, 2.8], [3, 4.2], [4, 4.6], [5, 5.9], [6, 6.3], [7, 7.8], [8, 8.1], [9, 9.4]];
+  var PARA = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (x) { return [x, 9 - 0.45 * (x - 5) * (x - 5)]; });
+
+  // statistiques : moyennes, covariance, variances → a, b, r
+  function stats() {
+    var n = pts.length, sx = 0, sy = 0, sxx = 0, syy = 0, sxy = 0;
+    pts.forEach(function (p) { sx += p[0]; sy += p[1]; sxx += p[0] * p[0]; syy += p[1] * p[1]; sxy += p[0] * p[1]; });
+    var mx = sx / n, my = sy / n;
+    var vx = sxx / n - mx * mx, vy = syy / n - my * my, cov = sxy / n - mx * my;
+    var a = cov / vx, b = my - a * mx;
+    return { n: n, mx: mx, my: my, a: a, b: b, r: cov / Math.sqrt(vx * vy) };
+  }
+  function draw() {
+    var s = pts.length >= 2 ? stats() : null;
+    P.draw = function (g) {
+      if (s && isFinite(s.a)) {
+        g.fn(function (x) { return s.a * x + s.b; }, '--c2');
+        if (opts.res) pts.forEach(function (p) { g.seg(p[0], p[1], p[0], s.a * p[0] + s.b, '--c4', { dash: [3, 3] }); });
+        g.point(s.mx, s.my, '--c3', 'G', { r: 6 });
+      }
+      pts.forEach(function (p) { g.point(p[0], p[1], '--c1'); });
+    };
+    P.redraw();
+    if (!s) { out.textContent = 'Ajoute au moins 2 points.'; return; }
+    if (!isFinite(s.a)) { out.textContent = 'Tous les points ont la même abscisse : pas de droite y = ax + b.'; return; }
+    out.textContent = 'n = ' + s.n + '   G(' + Course.fmt(s.mx, 2) + ' ; ' + Course.fmt(s.my, 2) + ')' +
+      '\ny = ' + Course.fmt(s.a, 3) + 'x ' + (s.b < 0 ? '− ' : '+ ') + Course.fmt(Math.abs(s.b), 3) +
+      '\nr = ' + (isFinite(s.r) ? Course.fmt(s.r, 3) : '—') + (isFinite(s.r) ? (Math.abs(s.r) > 0.9 ? '  → ajustement affine pertinent' : '  → ajustement affine discutable') : '');
+  }
+  Course.onInput(w, function (v) { opts = v; draw(); });
+  // clic : enlève le point proche s'il existe, sinon en ajoute un
+  P.onPointer(function (x, y, type) {
+    if (type !== 'down') return;
+    var i = pts.findIndex(function (p) { return Math.hypot(p[0] - x, p[1] - y) < 0.25; });
+    if (i >= 0) pts.splice(i, 1); else pts.push([x, y]);
+    draw();
+  });
+  document.getElementById('reg-lin').addEventListener('click', function () { pts = LIN.slice(); draw(); });
+  document.getElementById('reg-para').addEventListener('click', function () { pts = PARA.slice(); draw(); });
+  document.getElementById('reg-clear').addEventListener('click', function () { pts = []; draw(); });
+  pts = LIN.slice(); draw();
+
+  /* --- Exercices : coordonnée du point moyen d'une petite série --- */
+  Course.drill('#w-drill', function () {
+    var R = Course.rand, n = R(3, 5), xs = [], ys = [];
+    for (var i = 0; i < n; i++) { xs.push(R(0, 20)); ys.push(R(0, 50)); }
+    var which = R(0, 1), arr = which ? ys : xs;
+    var mean = arr.reduce(function (a, b) { return a + b; }, 0) / n;
+    return { html: '<p>\\(x_i\\) : ' + xs.join(' ; ') + '<br>\\(y_i\\) : ' + ys.join(' ; ') + '<br>Calcule \\(' + (which ? '\\bar y' : '\\bar x') + '\\) (à 0,01 près).</p>',
+      answer: mean, tol: 0.01, explain: 'Somme des valeurs divisée par ' + n + '.' };
+  });
+});
+</script>
+</body>
+</html>
