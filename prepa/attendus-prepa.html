@@ -2,39 +2,46 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Réussir son entrée en prépa · STI2D → Prépa</title>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
 <script defer src="../assets/chapters.js"></script>
 <script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
 </head>
 <body data-root="../" data-chapter="prepa/attendus-prepa">
 <main class="chapter">
   <header class="chapter-head">
     <p class="kicker">Pont vers la prépa · Méthode</p>
     <h1>Réussir son entrée en prépa</h1>
-    <p class="lead">Quelle prépa après un bac STI2D, comment fonctionne une semaine type, comment travailler, et un auto-diagnostic
-      pour savoir quels chapitres de ce site reprendre en priorité.</p>
+    <p class="lead">Quelle prépa choisir après un bac STI2D, comment on y entre, comment se passe une semaine, comment travailler efficacement,
+      et un auto-diagnostic pour savoir quels chapitres de ce site reprendre en priorité.</p>
   </header>
 
   <section>
     <h2>1. Les prépas accessibles après STI2D</h2>
     <div class="box def"><p class="box-title">La filière TSI</p>
       <p>La prépa <b>TSI</b> (Technologie et Sciences Industrielles) est conçue <b>pour les bacheliers STI2D et STL</b>. Le programme de première année
-        part de tes acquis de Terminale technologique : c'est la voie la plus naturelle. Elle prépare aux concours d'écoles d'ingénieurs
-        (banques de concours communes aux autres filières, avec des places réservées TSI).</p>
-      <p>Les très bons élèves de STI2D intègrent aussi parfois des PTSI ou MPSI, mais l'écart en maths y est plus important. Renseigne-toi sur
-        les sites des lycées et sur Parcoursup (taux d'accès, profil des admis).</p>
+        part de tes acquis de Terminale technologique : c'est la voie la plus naturelle. Après deux ans, elle prépare aux concours des écoles d'ingénieurs
+        (Centrale-Supélec, Mines-Télécom, CCINP, banque e3a-Polytech…), avec des places réservées aux candidats TSI.</p>
+      <p>De très bons élèves de STI2D intègrent aussi des PTSI ou MPSI, mais l'écart en maths y est plus important. Il existe aussi la voie <b>ATS</b> (une année après un BTS ou un BUT).
+        Renseigne-toi sur les sites des lycées et sur Parcoursup (taux d'accès, profil des admis, internat).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Comment on est admis</p>
+      <p>Sur Parcoursup, les prépas regardent surtout les bulletins de 1re et Terminale en <b>maths</b> et <b>physique-chimie</b>, les appréciations (travail, régularité, autonomie) et la lettre de motivation.
+        Un dossier régulier et des progrès comptent autant qu'une très bonne note isolée.</p>
     </div>
     <div class="box prop"><p class="box-title">Ce qui change par rapport au lycée</p>
       <ul>
         <li><b>Volume</b> : environ 35 h de cours par semaine plus le travail personnel — compte 2 à 3 h le soir et une bonne partie du week-end.</li>
-        <li><b>Colles</b> (khôlles) : interrogations orales d'une heure à trois élèves, au tableau, chaque semaine. On y attend le cours <b>par cœur</b> et des démonstrations.</li>
-        <li><b>DS</b> réguliers de 2 à 4 h : les notes sont souvent basses au début. C'est normal ; c'est la progression qui compte.</li>
-        <li><b>Rigueur</b> : chaque affirmation doit être justifiée. « On voit que » ne suffit plus.</li>
+        <li><b>Colles</b> (on écrit aussi « khôlles ») : des interrogations orales d'une heure, à trois élèves, au tableau, chaque semaine. On y attend le cours <b>par cœur</b> et des démonstrations.</li>
+        <li><b>DS</b> (devoirs surveillés) réguliers de 2 à 4 h : les notes sont souvent basses au début. C'est normal ; c'est la progression qui compte.</li>
+        <li><b>Rigueur</b> : chaque affirmation doit être justifiée. « On voit que » ne suffit plus. Voir <a href="logique-raisonnement.html">Logique et raisonnement</a>.</li>
+        <li><b>Rythme</b> : un chapitre de maths dure une à deux semaines ; il n'y a pas de « révision » à la fin, il faut tenir à jour en continu.</li>
       </ul>
     </div>
   </section>
@@ -43,11 +50,12 @@
     <h2>2. Méthodes de travail qui marchent</h2>
     <div class="box method"><p class="box-title">Le cycle hebdomadaire</p>
       <ol>
-        <li><b>Le soir même</b> : relire le cours, refaire les démonstrations vues sans regarder.</li>
-        <li><b>Fiches</b> : une page par chapitre avec définitions, théorèmes, méthodes, pièges.</li>
-        <li><b>Exercices</b> : chercher vraiment 20–30 minutes avant de regarder une correction, puis le refaire seul quelques jours plus tard.</li>
-        <li><b>Avant la colle</b> : réciter les énoncés et démonstrations du programme de colle à voix haute.</li>
-        <li><b>Sommeil et sport</b> : non négociables. Une année de prépa est un marathon.</li>
+        <li><b>Le soir même</b> : relire le cours, refaire les démonstrations vues en classe sans regarder.</li>
+        <li><b>Fiches</b> : une page par chapitre avec définitions, théorèmes, méthodes, pièges. Elles servent pour les colles et les concours.</li>
+        <li><b>Exercices</b> : chercher vraiment 20 à 30 minutes avant de regarder une correction, puis refaire l'exercice seul quelques jours plus tard.</li>
+        <li><b>Avant la colle</b> : réciter à voix haute les énoncés et démonstrations du programme de colle.</li>
+        <li><b>Après un DS</b> : refaire les questions ratées avec la correction, et noter l'erreur dans un « carnet d'erreurs ».</li>
+        <li><b>Sommeil et sport</b> : non négociables. Une année de prépa est un marathon, pas un sprint.</li>
       </ol>
     </div>
     <div class="box example"><p class="box-title">Exemple 1 — une semaine type (première année)</p>
@@ -67,6 +75,13 @@
           refaire les démonstrations de cours désignées (« question de cours ») ; s'entraîner sur 3–4 exercices types (arithmético-géométrique, \(u_{n+1} = f(u_n)\), étude d'une suite définie par une somme).</p>
       </details>
     </div>
+    <div class="box prop"><p class="box-title">Pendant l'été avant la prépa</p>
+      <ul>
+        <li>Reprendre les chapitres essentiels de ce site, surtout <a href="calcul-algebrique.html">le calcul algébrique</a>, <a href="../maths/derivation.html">la dérivation</a>, <a href="../maths/exponentielle.html">exp</a>, <a href="../maths/logarithme.html">ln</a> et <a href="../maths/complexes.html">les complexes</a>.</li>
+        <li>Faire un peu de calcul chaque jour (20 minutes suffisent) plutôt que tout en une semaine.</li>
+        <li>Garder du vrai repos : arriver en forme compte autant qu'arriver préparé.</li>
+      </ul>
+    </div>
   </section>
 
   <section>
@@ -83,8 +98,8 @@
       <p class="widget-title">Planifier tes révisions d'été</p>
       <p class="hint">Combien de temps peux-tu y consacrer ? Le calcul répartit les chapitres prioritaires (diagnostic ci-dessus, sinon tous les chapitres) sur tes semaines.</p>
       <div class="controls">
-        <label>semaines disponibles <input type="range" data-k="weeks" min="2" max="10" step="1" value="6"> <output data-show="weeks"></output></label>
-        <label>heures par semaine <input type="range" data-k="hours" min="2" max="20" step="1" value="6"> <output data-show="hours"></output></label>
+        <label>semaines disponibles <input type="range" data-k="weeks" min="1" max="20" step="1" value="6"> <output data-show="weeks"></output></label>
+        <label>heures par semaine <input type="range" data-k="hours" min="1" max="40" step="1" value="6"> <output data-show="hours"></output></label>
       </div>
       <div class="readout" aria-live="polite"></div>
     </div>

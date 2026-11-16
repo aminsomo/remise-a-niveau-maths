@@ -2,117 +2,124 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Nombres complexes · STI2D → Prépa</title>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
 <script defer src="../assets/chapters.js"></script>
 <script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
 </head>
 <body data-root="../" data-chapter="maths/complexes">
 <main class="chapter">
   <header class="chapter-head">
-    <p class="kicker">Maths · Algèbre · Spécialité STI2D</p>
+    <p class="kicker">Maths · Nombres complexes · Spécialité STI2D</p>
     <h1>Nombres complexes</h1>
-    <p class="lead">Un nombre complexe, c'est un point (ou un vecteur) du plan sur lequel on sait calculer. Les trois écritures —
-      algébrique, trigonométrique, exponentielle — servent à additionner, multiplier, et décrire les grandeurs sinusoïdales en électricité.</p>
-    <p class="prereq">Prérequis : <a href="trigonometrie.html">trigonométrie</a> (cercle trigonométrique, valeurs remarquables).</p>
+    <p class="lead">Les nombres complexes permettent de calculer très simplement avec des grandeurs sinusoïdales : en électricité, une impédance est un nombre complexe,
+      et on additionne des tensions déphasées comme on additionne des vecteurs. En Terminale, on ajoute la forme exponentielle, la plus pratique pour multiplier.</p>
+    <p class="prereq">Prérequis : <a href="../maths-1re/complexes.html">complexes de 1re</a>, <a href="trigonometrie.html">trigonométrie</a>, <a href="exponentielle.html">exponentielle</a>.</p>
   </header>
 
   <section>
     <h2>1. Forme algébrique</h2>
-    <div class="box def"><p class="box-title">Définition</p>
-      <p>On admet l'existence d'un nombre \(i\) tel que \(i^2 = -1\). Un <b>nombre complexe</b> s'écrit de façon unique
-        \[z = a + ib, \qquad a, b \in \mathbb{R}.\]
-        \(a = \text{Re}(z)\) est la <b>partie réelle</b>, \(b = \text{Im}(z)\) la <b>partie imaginaire</b>. L'ensemble des complexes est noté \(\mathbb{C}\).
-        On note \(j\) au lieu de \(i\) en électricité (pour ne pas confondre avec l'intensité).</p>
+    <div class="box def"><p class="box-title">Rappels</p>
+      <p>\(i^2 = -1\) (en électricité on note \(j\)). Tout complexe s'écrit \(z = a + ib\), \(a = \mathrm{Re}(z)\), \(b = \mathrm{Im}(z)\).
+        On calcule comme avec des réels en remplaçant \(i^2\) par \(-1\). Conjugué : \(\bar z = a - ib\), et \(z\bar z = a^2 + b^2\).
+        Pour un quotient, on multiplie haut et bas par le conjugué du dénominateur.</p>
     </div>
-    <div class="box prop"><p class="box-title">Calculs</p>
-      <ul>
-        <li>On calcule comme avec des polynômes en \(i\), en remplaçant \(i^2\) par \(-1\).</li>
-        <li><b>Conjugué</b> : \(\bar z = a - ib\). On a \(z\bar z = a^2 + b^2\) (réel positif).</li>
-        <li>Pour diviser, on multiplie numérateur et dénominateur par le conjugué du dénominateur.</li>
-      </ul>
+    <div class="box prop"><p class="box-title">Équations du second degré à coefficients réels</p>
+      <p>Pour \(az^2 + bz + c = 0\) avec \(\Delta = b^2 - 4ac &lt; 0\), il y a deux solutions complexes conjuguées :
+        \[z_1 = \frac{-b - i\sqrt{-\Delta}}{2a}, \qquad z_2 = \frac{-b + i\sqrt{-\Delta}}{2a}.\]
+        (Si \(\Delta \geq 0\), on retrouve les solutions réelles habituelles.)</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1</p>
-      <p>Avec \(z_1 = 2 + 3i\) et \(z_2 = 1 - i\), calculer \(z_1 z_2\) et \(\dfrac{z_1}{z_2}\).</p>
+      <p>Résoudre \(z^2 + 2z + 5 = 0\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(z_1z_2 = 2 - 2i + 3i - 3i^2 = 2 + i + 3 = 5 + i\).</p>
-        <p>\(\dfrac{z_1}{z_2} = \dfrac{(2+3i)(1+i)}{(1-i)(1+i)} = \dfrac{2 + 2i + 3i - 3}{1 + 1} = -\dfrac12 + \dfrac52 i\).</p>
+        <p>\(\Delta = 4 - 20 = -16\), \(\sqrt{-\Delta} = 4\) : \(z = \dfrac{-2 \pm 4i}{2}\), soit \(z_1 = -1 - 2i\) et \(z_2 = -1 + 2i\).</p>
       </details>
-    </div>
-    <div class="box prop"><p class="box-title">Équation du second degré à coefficients réels</p>
-      <p>\(az^2 + bz + c = 0\) avec \(\Delta = b^2 - 4ac &lt; 0\) a deux solutions complexes conjuguées :
-        \[z = \frac{-b \pm i\sqrt{-\Delta}}{2a}.\]</p>
     </div>
   </section>
 
   <section>
     <h2>2. Module, argument, forme trigonométrique</h2>
     <div class="box def"><p class="box-title">Définitions</p>
-      <p>Le point \(M(a\,;b)\) est l'<b>image</b> de \(z = a + ib\) dans le plan complexe.</p>
-      <ul>
-        <li><b>Module</b> : \(|z| = \sqrt{a^2 + b^2} = OM\) (une longueur).</li>
-        <li><b>Argument</b> : \(\arg z = \theta\) (à \(2\pi\) près), angle orienté entre l'axe des réels et \(\overrightarrow{OM}\), avec
-          \(\cos\theta = \dfrac{a}{|z|}\) et \(\sin\theta = \dfrac{b}{|z|}\).</li>
-        <li><b>Forme trigonométrique</b> : \(z = r(\cos\theta + i\sin\theta)\) avec \(r = |z|\).</li>
-      </ul>
+      <p>Dans le plan complexe, \(z = a + ib\) est l'affixe de \(M(a\,;\,b)\). Le <b>module</b> \(|z| = \sqrt{a^2 + b^2} = OM\) ; un <b>argument</b> \(\theta = \arg z\) est l'angle entre l'axe réel et \(\overrightarrow{OM}\) (à \(2\pi\) près).
+        Forme trigonométrique : \(z = r(\cos\theta + i\sin\theta)\) avec \(r = |z|\), \(\cos\theta = \dfrac ar\), \(\sin\theta = \dfrac br\).</p>
     </div>
-    <div class="box example"><p class="box-title">Exemple 2</p>
-      <p>Écrire \(z = 1 + i\sqrt3\) sous forme trigonométrique.</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>\(|z| = \sqrt{1 + 3} = 2\). \(\cos\theta = \tfrac12\), \(\sin\theta = \tfrac{\sqrt3}{2}\) donc \(\theta = \dfrac{\pi}{3}\).
-          \(z = 2\left(\cos\dfrac{\pi}{3} + i\sin\dfrac{\pi}{3}\right)\).</p>
-      </details>
+    <div class="box prop"><p class="box-title">Règles</p>
+      <ul>
+        <li>\(|zz'| = |z||z'|\), \(\left|\dfrac{z}{z'}\right| = \dfrac{|z|}{|z'|}\), \(|z^n| = |z|^n\), \(|\bar z| = |z|\).</li>
+        <li>\(\arg(zz') = \arg z + \arg z'\), \(\arg\dfrac{z}{z'} = \arg z - \arg z'\), \(\arg(z^n) = n\arg z\), \(\arg\bar z = -\arg z\) (à \(2\pi\) près).</li>
+        <li>Géométrie : \(AB = |z_B - z_A|\) ; l'angle \((\overrightarrow{AB}, \overrightarrow{AC})\) vaut \(\arg\dfrac{z_C - z_A}{z_B - z_A}\).</li>
+      </ul>
     </div>
   </section>
 
   <section>
     <h2>3. Forme exponentielle</h2>
     <div class="box def"><p class="box-title">Notation d'Euler</p>
-      <p>On pose \(e^{i\theta} = \cos\theta + i\sin\theta\). Tout complexe non nul s'écrit \(z = r\,e^{i\theta}\).</p>
+      <p>On pose \(e^{i\theta} = \cos\theta + i\sin\theta\). Tout complexe non nul s'écrit alors
+        \[z = r\,e^{i\theta} \qquad (r = |z| > 0,\ \theta = \arg z).\]
+        Valeurs à connaître : \(e^{i0} = 1\), \(e^{i\pi/2} = i\), \(e^{i\pi} = -1\), \(e^{-i\pi/2} = -i\).</p>
     </div>
-    <div class="box prop"><p class="box-title">Règles (comme les puissances)</p>
-      \[r e^{i\theta} \times r' e^{i\theta'} = rr'\,e^{i(\theta + \theta')} \qquad \frac{re^{i\theta}}{r'e^{i\theta'}} = \frac{r}{r'}e^{i(\theta-\theta')} \qquad \left(re^{i\theta}\right)^n = r^n e^{in\theta}\]
-      <p>Multiplier : on <b>multiplie les modules</b> et on <b>ajoute les arguments</b>. Multiplier par \(e^{i\alpha}\) = tourner de \(\alpha\) autour de \(O\).</p>
+    <div class="box prop"><p class="box-title">Pourquoi c'est pratique</p>
+      <ul>
+        <li>Multiplier : \(r e^{i\theta} \times r' e^{i\theta'} = rr'\,e^{i(\theta + \theta')}\) (on multiplie les modules, on additionne les arguments).</li>
+        <li>Diviser : \(\dfrac{re^{i\theta}}{r'e^{i\theta'}} = \dfrac{r}{r'}e^{i(\theta - \theta')}\) ; conjugué : \(\overline{re^{i\theta}} = re^{-i\theta}\).</li>
+        <li>Puissance (formule de Moivre) : \((re^{i\theta})^n = r^ne^{in\theta}\).</li>
+        <li>Formules d'Euler : \(\cos\theta = \dfrac{e^{i\theta} + e^{-i\theta}}{2}\), \(\sin\theta = \dfrac{e^{i\theta} - e^{-i\theta}}{2i}\).</li>
+      </ul>
     </div>
-    <div class="box example"><p class="box-title">Exemple 3 — puissance</p>
-      <p>Calculer \((1 + i)^{8}\).</p>
+    <div class="box example"><p class="box-title">Exemple 2</p>
+      <p>\(z = 1 + i\). Forme exponentielle, puis calcul de \(z^8\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(1 + i = \sqrt2\,e^{i\pi/4}\) donc \((1+i)^8 = (\sqrt2)^8 e^{i\,8\pi/4} = 16\,e^{2i\pi} = 16\).</p>
+        <p>\(|z| = \sqrt2\), \(\arg z = \dfrac{\pi}{4}\) : \(z = \sqrt2\,e^{i\pi/4}\).</p>
+        <p>\(z^8 = (\sqrt2)^8 e^{i8\pi/4} = 16\,e^{2i\pi} = 16\).</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>4. Application : impédances complexes</h2>
-    <p>En régime sinusoïdal, une tension \(u(t) = U\sqrt2\cos(\omega t + \varphi)\) est représentée par le complexe \(\underline{U} = U e^{j\varphi}\).
-      Chaque dipôle a une <b>impédance complexe</b> \(\underline{Z}\) avec \(\underline{U} = \underline{Z}\,\underline{I}\) :</p>
-    <div class="table-scroll">
-    <table>
-      <thead><tr><th>Dipôle</th><th>\(\underline{Z}\)</th><th>module</th><th>déphasage \(u\) / \(i\)</th></tr></thead>
-      <tbody>
-        <tr><td>Résistance \(R\)</td><td>\(R\)</td><td>\(R\)</td><td>\(0\)</td></tr>
-        <tr><td>Bobine \(L\)</td><td>\(jL\omega\)</td><td>\(L\omega\)</td><td>\(+\pi/2\) (u en avance)</td></tr>
-        <tr><td>Condensateur \(C\)</td><td>\(\dfrac{1}{jC\omega} = -\dfrac{j}{C\omega}\)</td><td>\(\dfrac{1}{C\omega}\)</td><td>\(-\pi/2\) (u en retard)</td></tr>
-      </tbody>
-    </table>
+    <div class="box prop"><p class="box-title">Représentation complexe d'un signal</p>
+      <p>À la tension \(u(t) = U\sqrt2\cos(\omega t + \varphi)\) on associe le complexe \(\underline U = U e^{j\varphi}\) (module = valeur efficace, argument = phase).
+        Dériver revient à multiplier par \(j\omega\).</p>
     </div>
-    <p>En série, les impédances s'additionnent : \(\underline{Z} = R + jL\omega\). Le module \(|\underline{Z}|\) donne le rapport des valeurs efficaces \(U/I\),
-      l'argument donne le déphasage \(\varphi\), et \(\cos\varphi\) est le <b>facteur de puissance</b>.</p>
-    <div class="box example"><p class="box-title">Exemple 4 — moteur modélisé par R-L série</p>
-      <p>\(R = 30\ \Omega\), \(L = 0{,}127\) H, sous 230 V / 50 Hz. Calculer \(\underline{Z}\), \(I\) et \(\cos\varphi\).</p>
+    <div class="box prop"><p class="box-title">Impédances</p>
+      <ul>
+        <li>Loi d'Ohm complexe : \(\underline U = \underline Z\,\underline I\).</li>
+        <li>Résistance : \(\underline Z_R = R\) ; bobine : \(\underline Z_L = jL\omega\) ; condensateur : \(\underline Z_C = \dfrac{1}{jC\omega} = -\dfrac{j}{C\omega}\).</li>
+        <li>En série, les impédances s'ajoutent ; en parallèle, les inverses s'ajoutent : \(\dfrac{1}{\underline Z} = \dfrac{1}{\underline Z_1} + \dfrac{1}{\underline Z_2}\).</li>
+        <li>\(|\underline Z| = \dfrac{U}{I}\) (rapport des valeurs efficaces) et \(\arg\underline Z = \varphi_u - \varphi_i\) (déphasage de la tension sur le courant).</li>
+        <li>RLC série : \(\underline Z = R + j\left(L\omega - \dfrac{1}{C\omega}\right)\) ; <b>résonance</b> quand \(L\omega = \dfrac{1}{C\omega}\), soit \(f_0 = \dfrac{1}{2\pi\sqrt{LC}}\) : \(\underline Z = R\), le courant est maximal.</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3</p>
+      <p>Une résistance de 30 Ω en série avec une bobine de 0,127 H, sous 230 V et 50 Hz. Impédance, intensité efficace, déphasage ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(L\omega = 0{,}127 \times 2\pi \times 50 \approx 40\ \Omega\). \(\underline{Z} = 30 + 40j\), \(|\underline{Z}| = 50\ \Omega\).</p>
-        <p>\(I = 230 / 50 = 4{,}6\) A ; \(\cos\varphi = 30 / 50 = 0{,}6\) ; \(\varphi = \arctan(40/30) \approx 53°\).</p>
+        <p>\(L\omega = 0{,}127 \times 100\pi \approx 40\) Ω : \(\underline Z = 30 + 40j\), \(|\underline Z| = 50\) Ω, \(I = \dfrac{230}{50} = 4{,}6\) A.</p>
+        <p>\(\varphi = \arctan\dfrac{40}{30} \approx 53^\circ\) : la tension est en avance sur le courant (circuit inductif).</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>5. Manipuler</h2>
+    <h2>5. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(z = a + ib = r(\cos\theta + i\sin\theta) = re^{i\theta}\), \(r = \sqrt{a^2 + b^2}\).</li>
+        <li>\(re^{i\theta} \cdot r'e^{i\theta'} = rr'e^{i(\theta + \theta')}\) ; \((re^{i\theta})^n = r^ne^{in\theta}\) ; \(e^{i\pi} = -1\).</li>
+        <li>\(\Delta &lt; 0\) : \(z = \dfrac{-b \pm i\sqrt{-\Delta}}{2a}\).</li>
+        <li>\(\underline Z_R = R\), \(\underline Z_L = jL\omega\), \(\underline Z_C = \dfrac{1}{jC\omega}\) ; \(\underline U = \underline Z\,\underline I\) ; résonance \(f_0 = \dfrac{1}{2\pi\sqrt{LC}}\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. Manipuler</h2>
     <div class="widget" id="w-plan">
       <p class="widget-title">Le plan complexe : produit = rotation + homothétie</p>
       <p class="hint">Fais glisser \(z_1\) (rose) avec la souris ou le doigt. Le produit \(z_1 z_2\) a pour module \(|z_1||z_2|\) et pour argument \(\arg z_1 + \arg z_2\).</p>
@@ -129,10 +136,10 @@
       <p class="widget-title">Impédance d'un circuit R, L, C série</p>
       <p class="hint">Fais varier la fréquence : le vecteur \(\underline{Z}\) tourne. À la résonance \(L\omega = \dfrac{1}{C\omega}\), \(\underline{Z} = R\) est réel.</p>
       <div class="controls">
-        <label>\(R\) (Ω) <input type="range" data-k="R" min="5" max="100" step="1" value="20"> <output data-show="R"></output></label>
-        <label>\(L\) (mH) <input type="range" data-k="L" min="10" max="500" step="5" value="100"> <output data-show="L"></output></label>
-        <label>\(C\) (µF) <input type="range" data-k="C" min="1" max="200" step="1" value="47"> <output data-show="C"></output></label>
-        <label>\(f\) (Hz) <input type="range" data-k="f" min="5" max="300" step="1" value="50"> <output data-show="f"></output></label>
+        <label>\(R\) (Ω) <input type="range" data-k="R" min="1" max="1000" step="1" value="20"> <output data-show="R"></output></label>
+        <label>\(L\) (mH) <input type="range" data-k="L" min="1" max="2000" step="5" value="100"> <output data-show="L"></output></label>
+        <label>\(C\) (µF) <input type="range" data-k="C" min="0.1" max="1000" step="1" value="47"> <output data-show="C"></output></label>
+        <label>\(f\) (Hz) <input type="range" data-k="f" min="1" max="5000" step="1" value="50"> <output data-show="f"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -148,7 +155,7 @@
   </section>
 
   <section>
-    <h2>6. En prépa</h2>
+    <h2>7. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li>Formules d'Euler \(\cos\theta = \dfrac{e^{i\theta} + e^{-i\theta}}{2}\) et de Moivre, pour <b>linéariser</b> \(\cos^3 x\) ou exprimer \(\cos 3x\).</li>

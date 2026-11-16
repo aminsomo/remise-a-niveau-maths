@@ -2,91 +2,105 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ondes et signaux · STI2D → Prépa</title>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
 <script defer src="../assets/chapters.js"></script>
 <script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
 </head>
 <body data-root="../" data-chapter="physique/ondes">
 <main class="chapter">
   <header class="chapter-head">
-    <p class="kicker">Physique · Ondes et information</p>
+    <p class="kicker">Physique-chimie · Ondes et signaux</p>
     <h1>Ondes et signaux</h1>
-    <p class="lead">Ondes mécaniques (son, ultrasons) et électromagnétiques (lumière, radio, Wi-Fi) : célérité, période, longueur d'onde,
-      spectre, énergie des photons, atténuation et transmission de l'information.</p>
-    <p class="prereq">Prérequis : <a href="../maths/trigonometrie.html">fonctions sinusoïdales</a>, <a href="../maths/logarithme.html">décibels</a>.</p>
+    <p class="lead">Ondes mécaniques et électromagnétiques, photons, puis transmission de l'information : comment un signal voyage dans une fibre optique, comment on le numérise
+      et à quelle vitesse on peut transmettre des données.</p>
+    <p class="prereq">Prérequis : <a href="../physique-1re/ondes.html">ondes (1re)</a>, <a href="../physique-1re/ondes-electromagnetiques.html">ondes électromagnétiques (1re)</a>, <a href="../maths/logarithme.html">logarithme décimal</a>.</p>
   </header>
 
   <section>
     <h2>1. Ondes progressives</h2>
-    <div class="box def"><p class="box-title">Définition</p>
-      <p>Une <b>onde progressive</b> est la propagation d'une perturbation, <b>sans transport de matière</b> mais avec transport d'énergie.
-        Elle est <b>mécanique</b> si elle a besoin d'un milieu matériel (son), <b>électromagnétique</b> sinon (lumière, se propage dans le vide).</p>
-    </div>
-    <div class="box prop"><p class="box-title">Onde périodique sinusoïdale</p>
+    <div class="box prop"><p class="box-title">Rappels</p>
       <ul>
-        <li><b>Périodicité temporelle</b> : période \(T\) (s), fréquence \(f = 1/T\) (Hz).</li>
-        <li><b>Périodicité spatiale</b> : longueur d'onde \(\lambda\) (m), distance parcourue pendant une période.</li>
-        <li>Relation fondamentale : \[\lambda = v\,T = \frac{v}{f}\]
-          avec \(v\) la célérité : environ 340 m/s pour le son dans l'air, 1 500 m/s dans l'eau, \(c = 3{,}00 \times 10^8\) m/s pour la lumière dans le vide.</li>
-        <li>Retard : un point situé à la distance \(d\) de la source reproduit son mouvement avec un retard \(\Delta t = d/v\).</li>
+        <li>Une onde est la propagation d'une perturbation, avec transport d'énergie mais sans transport de matière.</li>
+        <li>Célérité \(v = \dfrac{d}{\tau}\) (\(\tau\) : retard) ; onde périodique : \(T\), \(f = \dfrac1T\), \(\lambda = vT = \dfrac vf\).</li>
+        <li>Onde sinusoïdale le long d'un axe : \(y(x, t) = A\cos\left(2\pi\left(\dfrac tT - \dfrac x\lambda\right)\right)\) ; deux points distants de \(\lambda\) vibrent en phase, de \(\tfrac{\lambda}{2}\) en opposition de phase.</li>
       </ul>
     </div>
-    <div class="box example"><p class="box-title">Exemple 1 — télémètre à ultrasons</p>
-      <p>Un capteur émet une salve à 40 kHz et reçoit l'écho 5,8 ms plus tard. Distance de l'obstacle et longueur d'onde (\(v = 340\) m/s) ?</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>Aller-retour : \(2d = v\Delta t\) donc \(d = \dfrac{340 \times 5{,}8\times10^{-3}}{2} \approx 0{,}99\) m. \(\lambda = \dfrac{340}{40\,000} = 8{,}5\) mm.</p>
-      </details>
+    <div class="box prop"><p class="box-title">Diffraction</p>
+      <p>Quand une onde passe par une ouverture (ou contourne un obstacle) de taille \(a\) comparable à sa longueur d'onde, elle s'étale : c'est la <b>diffraction</b>.
+        Le demi-angle d'ouverture du faisceau vaut \(\theta \approx \dfrac{\lambda}{a}\) (en rad). Elle limite la finesse d'un faisceau laser ou d'une image.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Niveau sonore</p>
+      <p>\(L = 10\log\dfrac{I}{I_0}\) (dB), \(I_0 = 10^{-12}\ \mathrm{W\,m^{-2}}\). Doubler l'intensité : +3 dB ; la multiplier par 10 : +10 dB. Seuil de danger : 85 dB en exposition prolongée.</p>
     </div>
   </section>
 
   <section>
     <h2>2. Ondes électromagnétiques et photons</h2>
-    <div class="box prop"><p class="box-title">Spectre et énergie</p>
+    <div class="box prop"><p class="box-title">Rappels</p>
       <ul>
-        <li>Du plus énergétique au moins énergétique : gamma, X, UV, <b>visible (400–800 nm)</b>, infrarouge, micro-ondes, radio.</li>
-        <li>La lumière est aussi un flux de <b>photons</b> d'énergie \[E = hf = \frac{hc}{\lambda}, \qquad h = 6{,}63 \times 10^{-34}\ \text{J·s}.\]
-          On utilise souvent l'électronvolt : 1 eV = \(1{,}60 \times 10^{-19}\) J.</li>
-        <li>Une cellule photovoltaïque ne convertit que les photons dont l'énergie dépasse le <b>gap</b> du semi-conducteur (1,12 eV pour le silicium).</li>
+        <li>Dans le vide, \(c = 3{,}00 \times 10^8\) m/s et \(\lambda = \dfrac cf\) ; spectre : radio, IR, visible (400–800 nm), UV, X, γ.</li>
+        <li>Photon : \(E = hf = \dfrac{hc}{\lambda}\), \(h = 6{,}63 \times 10^{-34}\) J·s ; \(1\ \mathrm{eV} = 1{,}60 \times 10^{-19}\) J.</li>
+        <li>Un atome n'absorbe ou n'émet que des photons dont l'énergie correspond exactement à l'écart entre deux de ses niveaux d'énergie : \(\Delta E = hf\) (c'est l'origine des raies des spectres).</li>
+        <li>Puissance lumineuse et nombre de photons par seconde : \(P = N \times hf\).</li>
       </ul>
     </div>
-    <div class="box example"><p class="box-title">Exemple 2 — seuil du silicium</p>
-      <p>Quelle longueur d'onde maximale peut absorber une cellule au silicium ?</p>
+    <div class="box example"><p class="box-title">Exemple 1</p>
+      <p>Un laser de 1 mW émet à 650 nm. Énergie d'un photon ? Nombre de photons émis par seconde ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(\lambda_{\max} = \dfrac{hc}{E_g} = \dfrac{6{,}63\times10^{-34} \times 3\times10^8}{1{,}12 \times 1{,}6\times10^{-19}} \approx 1{,}11\times10^{-6}\) m = 1 110 nm (proche infrarouge).</p>
+        <p>\(E = \dfrac{6{,}63 \times 10^{-34} \times 3{,}00 \times 10^8}{650 \times 10^{-9}} \approx 3{,}06 \times 10^{-19}\) J ; \(N = \dfrac{10^{-3}}{3{,}06 \times 10^{-19}} \approx 3{,}3 \times 10^{15}\) photons/s.</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>3. Transmission de l'information</h2>
-    <div class="box prop"><p class="box-title">Notions clés</p>
+    <div class="box def"><p class="box-title">Chaîne de transmission</p>
+      <p>Source → <b>codage</b> → émetteur → <b>canal</b> (câble, fibre optique, air) → récepteur → décodage → destinataire.
+        Le signal s'affaiblit dans le canal : c'est l'<b>atténuation</b>, exprimée en décibels :
+        \[A = 10\log\frac{P_{\text{entrée}}}{P_{\text{sortie}}} \ (\text{dB}).\]
+        Pour un câble ou une fibre, on donne le coefficient d'atténuation linéique \(\alpha\) (dB/km) : \(A = \alpha \times L\).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Numérisation d'un signal</p>
       <ul>
-        <li><b>Atténuation</b> d'une ligne ou d'une fibre : \(A_{\text{dB}} = 10\log\dfrac{P_e}{P_s}\), souvent donnée en dB/km.</li>
-        <li><b>Débit binaire</b> \(D\) (bit/s) : nombre de bits transmis par seconde. Durée de transfert : \(\Delta t = \dfrac{\text{taille (bits)}}{D}\). Attention : 1 octet = 8 bits.</li>
-        <li><b>Modulation</b> : pour transmettre un signal par ondes radio, on fait varier l'amplitude (AM) ou la fréquence (FM) d'une porteuse haute fréquence.</li>
+        <li><b>Échantillonnage</b> : on mesure le signal \(f_e\) fois par seconde. Pour ne rien perdre, il faut \(f_e > 2f_{\max}\) (critère de Shannon) : le CD audio échantillonne à 44,1 kHz pour des sons jusqu'à 20 kHz.</li>
+        <li><b>Quantification</b> : chaque mesure est codée sur \(n\) bits, soit \(2^n\) valeurs possibles. Pas de quantification : \(\dfrac{\text{étendue}}{2^n}\).</li>
+        <li><b>Débit binaire</b> : \(D = f_e \times n \times \text{nombre de voies}\) (bit/s). Un CD stéréo : \(44\,100 \times 16 \times 2 \approx 1{,}41\) Mbit/s.</li>
       </ul>
     </div>
-    <div class="box example"><p class="box-title">Exemple 3 — fibre optique</p>
-      <p>Une fibre atténue de 0,2 dB/km. On injecte 1 mW. Puissance reçue après 50 km ?</p>
+    <div class="box example"><p class="box-title">Exemple 2 — fibre optique</p>
+      <p>Une fibre atténue 0,2 dB/km. Sur 100 km, quelle fraction de la puissance reste-t-il ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(A = 10\) dB donc \(P_e/P_s = 10\) et \(P_s = 0{,}1\) mW.</p>
+        <p>\(A = 0{,}2 \times 100 = 20\) dB, donc \(\dfrac{P_e}{P_s} = 10^{20/10} = 100\) : il reste 1 % de la puissance. Il faut des amplificateurs sur les longues distances.</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(v = d/\tau\), \(\lambda = vT = v/f\) ; diffraction \(\theta \approx \lambda/a\) ; \(L = 10\log(I/I_0)\).</li>
+        <li>\(E = hf = hc/\lambda\) ; \(\Delta E = hf\) ; \(P = Nhf\).</li>
+        <li>Atténuation \(A = 10\log(P_e/P_s) = \alpha L\) ; Shannon \(f_e > 2f_{\max}\) ; \(2^n\) niveaux ; débit \(D = f_e \times n \times\) voies.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-onde">
       <p class="widget-title">Onde progressive : double périodicité</p>
       <p class="hint">Le graphique du haut est une « photo » de la corde à l'instant \(t\) (on y lit \(\lambda\)). Le point M (orange) oscille sur place : ce n'est pas la matière qui avance, c'est la perturbation.</p>
       <div class="controls">
-        <label>\(f\) (Hz) <input type="range" data-k="f" min="0.2" max="2" step="0.05" value="0.5"> <output data-show="f"></output></label>
-        <label>\(v\) (m/s) <input type="range" data-k="v" min="0.5" max="4" step="0.1" value="2"> <output data-show="v"></output></label>
+        <label>\(f\) (Hz) <input type="range" data-k="f" min="0.05" max="20" step="0.05" value="0.5"> <output data-show="f"></output></label>
+        <label>\(v\) (m/s) <input type="range" data-k="v" min="0.1" max="50" step="0.1" value="2"> <output data-show="v"></output></label>
         <button class="btn" type="button" id="onde-play">⏸ Pause</button>
       </div>
       <canvas class="plot short"></canvas>
@@ -96,7 +110,7 @@
     <div class="widget" id="w-spectre">
       <p class="widget-title">Du spectre aux photons</p>
       <p class="hint">Choisis une longueur d'onde : couleur, fréquence et énergie du photon. Compare au gap du silicium (1,12 eV).</p>
-      <div class="controls"><label>\(\lambda\) (nm) <input type="range" data-k="l" min="200" max="1500" step="5" value="550"> <output data-show="l"></output></label></div>
+      <div class="controls"><label>\(\lambda\) (nm) <input type="range" data-k="l" min="100" max="3000" step="5" value="550"> <output data-show="l"></output></label></div>
       <canvas class="plot short"></canvas>
       <div class="readout" aria-live="polite"></div>
     </div>
@@ -111,7 +125,7 @@
   </section>
 
   <section>
-    <h2>5. En prépa</h2>
+    <h2>6. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li>Équation d'onde \(\dfrac{\partial^2 y}{\partial t^2} = v^2\dfrac{\partial^2 y}{\partial x^2}\), solutions \(y = A\cos(\omega t - kx)\) avec \(k = 2\pi/\lambda\).</li>

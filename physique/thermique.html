@@ -2,96 +2,105 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Énergie thermique et transferts · STI2D → Prépa</title>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
 <script defer src="../assets/chapters.js"></script>
 <script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
 </head>
 <body data-root="../" data-chapter="physique/thermique">
 <main class="chapter">
   <header class="chapter-head">
-    <p class="kicker">Physique · Énergie thermique</p>
+    <p class="kicker">Physique-chimie · Énergie thermique</p>
     <h1>Énergie thermique et transferts</h1>
-    <p class="lead">Énergie interne, capacité thermique, changements d'état, modes de transfert (conduction, convection, rayonnement),
-      résistance thermique d'une paroi : de quoi dimensionner l'isolation d'un bâtiment.</p>
-    <p class="prereq">Prérequis : <a href="energie.html">énergie et puissance</a>.</p>
+    <p class="lead">Chauffer de l'eau, faire fondre de la glace, isoler une maison : on fait le bilan de l'énergie échangée et on calcule les pertes à travers les parois
+      grâce à la résistance thermique. C'est le cœur de la thermique du bâtiment et des systèmes de chauffage.</p>
+    <p class="prereq">Prérequis : <a href="../physique-1re/energie-interne.html">énergie interne (1re)</a>.</p>
   </header>
 
   <section>
     <h2>1. Énergie interne et capacité thermique</h2>
-    <div class="box def"><p class="box-title">Définitions</p>
+    <div class="box prop"><p class="box-title">Variation d'énergie interne</p>
       <ul>
-        <li>L'<b>énergie interne</b> \(U\) d'un système est la somme des énergies microscopiques (agitation et interactions des particules).</li>
-        <li>Pour un solide ou un liquide sans changement d'état : \(\Delta U = Q = m\,c\,\Delta\theta\), avec \(c\) la <b>capacité thermique massique</b> (J·kg<sup>−1</sup>·K<sup>−1</sup>).
-          Eau liquide : \(c = 4\,180\) J·kg<sup>−1</sup>·K<sup>−1</sup> (valeur très élevée → bon stockage de chaleur).</li>
-        <li>Une variation de 1 °C est une variation de 1 K : \(\Delta\theta\) en °C ou en K, c'est pareil. Mais \(T(\text{K}) = \theta(°\text{C}) + 273{,}15\).</li>
+        <li>\(T(\mathrm K) = \theta({}^\circ\mathrm C) + 273{,}15\) ; une variation de 1 °C = 1 K.</li>
+        <li>Solide ou liquide sans changement d'état : \(\Delta U = mc\,\Delta\theta\) ; on note aussi \(C = mc\) la capacité thermique du corps (J/K).</li>
+        <li><b>Premier principe</b> (bilan) : \(\Delta U = W + Q\) — l'énergie interne varie du travail \(W\) et du transfert thermique \(Q\) reçus.</li>
+        <li>Système isolé (calorimètre) : la somme des énergies échangées est nulle : \(\sum m_ic_i(\theta_f - \theta_i) = 0\).</li>
       </ul>
     </div>
-    <div class="box example"><p class="box-title">Exemple 1 — ballon d'eau chaude</p>
-      <p>On chauffe 200 L d'eau de 15 °C à 60 °C avec une résistance de 3 kW (rendement 100 %). Énergie et durée ?</p>
+    <div class="box example"><p class="box-title">Exemple 1 — bouilloire</p>
+      <p>Une bouilloire de 2 000 W chauffe 1,5 L d'eau de 20 °C à 100 °C en 5 min. Énergie utile ? Rendement ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(Q = 200 \times 4180 \times 45 \approx 3{,}76\times10^{7}\) J \(\approx 10{,}5\) kWh. \(\Delta t = Q/P \approx 12\,500\) s \(\approx 3\) h 30.</p>
+        <p>\(Q = 1{,}5 \times 4\,180 \times 80 = 501\,600\) J ; énergie électrique : \(2\,000 \times 300 = 600\,000\) J ; \(\eta \approx 0{,}84\).</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>2. Changements d'état</h2>
-    <div class="box prop"><p class="box-title">Chaleur latente</p>
-      <p>Pendant un changement d'état d'un corps pur, la température reste <b>constante</b>. L'énergie échangée vaut \(Q = m\,L\), avec \(L\) la chaleur latente (J/kg).
-        Eau : \(L_{\text{fusion}} = 334\) kJ/kg, \(L_{\text{vaporisation}} = 2\,260\) kJ/kg.</p>
-      <p>Fusion, vaporisation, sublimation absorbent de l'énergie ; solidification, liquéfaction, condensation en libèrent (principe de la pompe à chaleur).</p>
+    <div class="box prop"><p class="box-title">Énergie de changement d'état</p>
+      <p>Pendant un changement d'état d'un corps pur, sous pression constante, la température reste constante et \(Q = mL\) (\(L\) en J/kg).
+        Eau : \(L_f = 334\) kJ/kg (fusion), \(L_v = 2\,257\) kJ/kg (vaporisation). Fusion, vaporisation, sublimation absorbent de l'énergie ; solidification, liquéfaction, condensation en libèrent
+        (c'est le principe des pompes à chaleur et des réfrigérateurs).</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 2 — glaçon</p>
-      <p>Énergie pour transformer 100 g de glace à −10 °C en eau à 20 °C ? (\(c_{\text{glace}} = 2\,100\))</p>
+      <p>Énergie pour transformer 200 g de glace à −10 °C en eau à 20 °C ? (\(c_{\text{glace}} = 2\,100\), \(c_{\text{eau}} = 4\,180\))</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(Q_1 = 0{,}1 \times 2100 \times 10 = 2\,100\) J ; \(Q_2 = 0{,}1 \times 334\,000 = 33\,400\) J ; \(Q_3 = 0{,}1 \times 4180 \times 20 = 8\,360\) J.
-          Total : \(\approx 43{,}9\) kJ. La fusion représente plus des trois quarts !</p>
+        <p>\(0{,}2 \times 2\,100 \times 10 + 0{,}2 \times 334\,000 + 0{,}2 \times 4\,180 \times 20 = 4\,200 + 66\,800 + 16\,720 \approx 87{,}7\) kJ : la fusion en représente les trois quarts.</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>3. Transferts thermiques et résistance thermique</h2>
-    <div class="box prop"><p class="box-title">Trois modes</p>
+    <div class="box def"><p class="box-title">Trois modes</p>
       <ul>
-        <li><b>Conduction</b> : de proche en proche dans la matière, sans déplacement de matière.</li>
-        <li><b>Convection</b> : par déplacement d'un fluide (air chaud qui monte).</li>
-        <li><b>Rayonnement</b> : par ondes électromagnétiques (infrarouge), même dans le vide.</li>
+        <li><b>Conduction</b> : dans la matière, de proche en proche (murs, vitres). Elle dépend de la conductivité \(\lambda\) du matériau (W·m⁻¹·K⁻¹) : cuivre ≈ 400, béton ≈ 1,7, bois ≈ 0,15, laine de verre ≈ 0,04.</li>
+        <li><b>Convection</b> : par déplacement d'un fluide (air contre une paroi, radiateur, eau d'un circuit).</li>
+        <li><b>Rayonnement</b> : par ondes électromagnétiques. Un corps chaud émet d'autant plus et d'autant plus « bleu » qu'il est chaud : \(\lambda_{\max}T \approx 2{,}9 \times 10^{-3}\) m·K (loi de Wien), et la puissance rayonnée par m² croît comme \(T^4\).</li>
       </ul>
-      <p>Le transfert se fait toujours spontanément du corps <b>chaud</b> vers le corps <b>froid</b>.</p>
     </div>
-    <div class="box def"><p class="box-title">Flux et résistance thermique</p>
-      <p>Le <b>flux thermique</b> \(\Phi\) (W) traversant une paroi est proportionnel à l'écart de température :
-        \[\Phi = \frac{\theta_{\text{int}} - \theta_{\text{ext}}}{R_{\text{th}}}, \qquad R_{\text{th}} = \frac{e}{\lambda S}\ (\text{K/W})\]
-        avec \(e\) l'épaisseur, \(S\) la surface, \(\lambda\) la conductivité thermique (W·m<sup>−1</sup>·K<sup>−1</sup>). C'est l'analogue de la loi d'Ohm (\(\Delta\theta \leftrightarrow U\), \(\Phi \leftrightarrow I\)).
-        Parois en série : les résistances s'<b>ajoutent</b>.</p>
-      <p>Dans le bâtiment on utilise la résistance surfacique \(r = e/\lambda\) (m²·K/W).</p>
+    <div class="box prop"><p class="box-title">Flux et résistance thermique</p>
+      <p>En régime permanent, le flux thermique (une puissance, en W) qui traverse une paroi est
+        \[\Phi = \frac{\theta_{\text{int}} - \theta_{\text{ext}}}{R_{\text{th}}}, \qquad R_{\text{th}} = \frac{e}{\lambda S}\ (\mathrm{K/W}).\]
+        C'est l'analogue de la loi d'Ohm (\(\Delta\theta \leftrightarrow U\), \(\Phi \leftrightarrow I\)). Des couches successives sont <b>en série</b> : leurs résistances s'ajoutent.
+        En bâtiment, on utilise la résistance surfacique \(r = \dfrac e\lambda\) (m²·K/W) et le coefficient \(U = \dfrac1r\) : \(\Phi = U\,S\,\Delta\theta\).</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 3 — mur isolé</p>
-      <p>Mur de 20 m² : 20 cm de béton (\(\lambda = 1{,}75\)) + 12 cm de laine de verre (\(\lambda = 0{,}035\)). Pertes pour 19 °C dedans et 0 °C dehors ?</p>
+      <p>Un mur de 20 m² : 20 cm de béton (\(\lambda = 1{,}7\)) + 10 cm de laine de verre (\(\lambda = 0{,}04\)). Pertes pour 20 °C dedans et 0 °C dehors ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(r = \dfrac{0{,}20}{1{,}75} + \dfrac{0{,}12}{0{,}035} = 0{,}114 + 3{,}43 = 3{,}54\) m²·K/W ; \(R_{\text{th}} = r/S = 0{,}177\) K/W.</p>
-        <p>\(\Phi = 19 / 0{,}177 \approx 107\) W. Sans isolant : \(\Phi = 19 \times 20 / 0{,}114 \approx 3\,300\) W !</p>
+        <p>\(r = \dfrac{0{,}2}{1{,}7} + \dfrac{0{,}1}{0{,}04} \approx 0{,}12 + 2{,}5 = 2{,}62\) m²·K/W ; \(\Phi = \dfrac{20 \times 20}{2{,}62} \approx 153\) W. Sans isolant : \(\dfrac{400}{0{,}12} \approx 3{,}4\) kW !</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(\Delta U = mc\Delta\theta\) ; \(Q = mL\) ; \(\Delta U = W + Q\) ; système isolé : \(\sum Q = 0\).</li>
+        <li>\(\Phi = \dfrac{\Delta\theta}{R_{\text{th}}}\), \(R_{\text{th}} = \dfrac{e}{\lambda S}\), résistances en série qui s'ajoutent ; \(\Phi = US\Delta\theta\).</li>
+        <li>Conduction, convection, rayonnement ; Wien \(\lambda_{\max}T \approx 2{,}9 \times 10^{-3}\) m·K.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-mur">
       <p class="widget-title">Isoler un mur</p>
       <p class="hint">Modifie les épaisseurs et les matériaux. Le profil de température (à droite) chute surtout dans l'isolant : c'est là qu'est la résistance thermique.</p>
       <div class="controls">
         <label>maçonnerie <select data-k="m1"><option value="1.75">béton (λ = 1,75)</option><option value="0.84">brique pleine (0,84)</option><option value="0.12">bois (0,12)</option></select></label>
-        <label>épaisseur (cm) <input type="range" data-k="e1" min="5" max="40" step="1" value="20"> <output data-show="e1"></output></label>
+        <label>épaisseur (cm) <input type="range" data-k="e1" min="1" max="100" step="1" value="20"> <output data-show="e1"></output></label>
         <label>isolant <select data-k="m2"><option value="0.035">laine de verre (0,035)</option><option value="0.022">polyuréthane (0,022)</option><option value="0.040">fibre de bois (0,040)</option></select></label>
-        <label>épaisseur (cm) <input type="range" data-k="e2" min="0" max="30" step="1" value="12"> <output data-show="e2"></output></label>
-        <label>\(\theta_{\text{ext}}\) (°C) <input type="range" data-k="te" min="-15" max="15" step="1" value="0"> <output data-show="te"></output></label>
+        <label>épaisseur (cm) <input type="range" data-k="e2" min="0" max="100" step="1" value="12"> <output data-show="e2"></output></label>
+        <label>\(\theta_{\text{ext}}\) (°C) <input type="range" data-k="te" min="-30" max="40" step="1" value="0"> <output data-show="te"></output></label>
       </div>
       <canvas class="plot short"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -100,7 +109,7 @@
     <div class="widget" id="w-chauffe">
       <p class="widget-title">Courbe de chauffe de l'eau</p>
       <p class="hint">On chauffe 1 kg de glace à −20 °C avec une puissance constante. Repère les paliers : la température ne bouge pas pendant les changements d'état.</p>
-      <div class="controls"><label>puissance (W) <input type="range" data-k="P" min="500" max="3000" step="100" value="1000"> <output data-show="P"></output></label></div>
+      <div class="controls"><label>puissance (W) <input type="range" data-k="P" min="100" max="10000" step="100" value="1000"> <output data-show="P"></output></label></div>
       <canvas class="plot"></canvas>
       <div class="readout" aria-live="polite"></div>
     </div>
@@ -115,7 +124,7 @@
   </section>
 
   <section>
-    <h2>5. En prépa</h2>
+    <h2>6. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li>Premier et second principes de la thermodynamique, gaz parfaits, entropie.</li>

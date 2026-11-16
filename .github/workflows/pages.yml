@@ -26,6 +26,9 @@ jobs:
           python-version: "3.12"
       # On ne publie pas un site cassé : les tests doivent passer d'abord
       # (ignoré tant que le dossier tests/ n'existe pas).
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
       - name: Tests
         run: if [ -d tests ]; then python -m unittest discover -s tests -v; fi
       # Le site est statique : on copie uniquement les fichiers publics dans _site/
@@ -33,7 +36,7 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p _site
-          for p in index.html assets maths physique prepa .nojekyll; do
+          for p in index.html assets maths maths-1re physique physique-1re prepa .nojekyll; do
             [ -e "$p" ] && cp -r "$p" _site/
           done
           ls -R _site | head -50

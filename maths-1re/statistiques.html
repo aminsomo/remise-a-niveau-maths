@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Statistiques à deux variables · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="maths-1re/statistiques">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths 1re · Statistiques · Tronc commun</p>
+    <h1>Statistiques à deux variables</h1>
+    <p class="lead">Deux situations : croiser deux caractères d'une population (par exemple l'usine d'origine et la présence d'une panne) avec un tableau croisé,
+      puis relier deux grandeurs mesurées (tension et température d'un capteur) par une droite, pour estimer des valeurs qu'on n'a pas mesurées — comme une droite d'étalonnage en physique.</p>
+    <p class="prereq">Prérequis : fréquences, moyenne (seconde), équation de droite.</p>
+  </header>
+
+  <section>
+    <h2>1. Tableau croisé et fréquences</h2>
+    <div class="box def"><p class="box-title">Définitions</p>
+      <p>Un <b>tableau croisé d'effectifs</b> répartit une population selon deux caractères (en lignes et en colonnes), avec les totaux à droite et en bas. À partir de l'effectif total \(N\) :</p>
+      <ul>
+        <li>la <b>fréquence marginale</b> de A est \(f(A) = \dfrac{n_A}{N}\) : on lit un <b>total</b> de ligne ou de colonne et on divise par \(N\) ;</li>
+        <li>la <b>fréquence conditionnelle</b> de B <b>parmi</b> A est \(f_A(B) = \dfrac{n_{A \cap B}}{n_A}\) : on se restreint à la ligne (ou colonne) A, et on divise par son total ;</li>
+        <li>la fréquence de « A et B » sur toute la population est \(f(A \cap B) = \dfrac{n_{A \cap B}}{N}\).</li>
+      </ul>
+    </div>
+    <div class="table-scroll"><table>
+      <thead><tr><th></th><th>panne (P)</th><th>sans panne</th><th>total</th></tr></thead>
+      <tbody>
+        <tr><th>usine 1</th><td>12</td><td>588</td><td>600</td></tr>
+        <tr><th>usine 2</th><td>16</td><td>384</td><td>400</td></tr>
+        <tr><th>total</th><td>28</td><td>972</td><td>1 000</td></tr>
+      </tbody>
+    </table></div>
+    <div class="box warning"><p class="box-title">Attention à la phrase</p>
+      <p>« La proportion de pannes <b>parmi</b> les moteurs de l'usine 2 » (\(f_{U_2}(P)\)) et « la proportion de moteurs de l'usine 2 <b>parmi</b> les pannes » (\(f_P(U_2)\)) ne désignent pas la même chose :
+        le mot « parmi » indique le groupe par lequel on divise.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — contrôle qualité</p>
+      <p>Avec le tableau ci-dessus : fréquence des pannes ? Fréquence des pannes parmi les moteurs de l'usine 2 ? Proportion de l'usine 2 parmi les pannes ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(f(P) = \tfrac{28}{1000} = 2{,}8\,\%\) ; \(f_{U_2}(P) = \tfrac{16}{400} = 4\,\%\) ; \(f_P(U_2) = \tfrac{16}{28} \approx 57\,\%\).</p>
+      </details>
+    </div>
+    <div class="box method"><p class="box-title">Compléter un tableau à partir de fréquences</p>
+      <p>On part de l'effectif total, on calcule les totaux avec les fréquences marginales (\(n_A = f(A) \times N\)), puis les cases avec les fréquences conditionnelles (\(n_{A \cap B} = f_A(B) \times n_A\)), et on finit par soustraction.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Nuage de points et point moyen</h2>
+    <div class="box def"><p class="box-title">Définitions</p>
+      <p>Une série à deux variables quantitatives est une liste de couples \((x_i\,;\,y_i)\) pour \(i\) de 1 à \(n\) (par ex. température et tension).
+        On la représente par un <b>nuage de points</b>. Le <b>point moyen</b> est
+        \[G(\bar x\,;\,\bar y) \qquad\text{avec}\qquad \bar x = \frac{x_1 + \dots + x_n}{n}, \quad \bar y = \frac{y_1 + \dots + y_n}{n}.\]</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Ajustement affine</h2>
+    <div class="box def"><p class="box-title">L'idée</p>
+      <p>Quand le nuage a une forme allongée, presque alignée, on le résume par une droite \(y = ax + b\) : c'est un <b>ajustement affine</b>. Trois façons de la choisir :</p>
+      <ul>
+        <li><b>Au jugé</b> : on trace « à l'œil » une droite qui passe au milieu des points (de préférence par \(G\)).</li>
+        <li><b>Droite de Mayer</b> : on coupe le nuage en deux moitiés (selon \(x\)), on calcule le point moyen de chaque moitié, et on trace la droite qui passe par ces deux points.</li>
+        <li><b>Moindres carrés</b> : la droite qui rend la plus petite possible la somme \(\sum_i \big(y_i - (ax_i + b)\big)^2\) des carrés des écarts verticaux.
+          Elle passe toujours par \(G\). La calculatrice (ou le tableur) donne \(a\) et \(b\) ; on a \(a = \dfrac{\sum (x_i - \bar x)(y_i - \bar y)}{\sum (x_i - \bar x)^2}\) et \(b = \bar y - a\bar x\).</li>
+      </ul>
+    </div>
+    <div class="box method"><p class="box-title">Interpoler, extrapoler</p>
+      <p>Pour estimer \(y\) pour une valeur de \(x\), on remplace \(x\) dans \(y = ax + b\) (et pour trouver \(x\) connaissant \(y\), on résout l'équation).
+        À l'intérieur de la zone des mesures, c'est une <b>interpolation</b> (en général fiable). Au-delà, c'est une <b>extrapolation</b> : rien ne garantit que la tendance continue — il faut garder un esprit critique.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — étalonnage d'un capteur</p>
+      <p>Un capteur donne une tension \(U\) (mV) selon la température \(\theta\) (°C) : (0 ; 2), (20 ; 41), (40 ; 79), (60 ; 122). Point moyen ? Avec l'ajustement des moindres carrés \(U = 1{,}99\,\theta + 1{,}3\), quelle température pour 100 mV ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\bar\theta = 30\), \(\bar U = \tfrac{2 + 41 + 79 + 122}{4} = 61\) : \(G(30\,;\,61)\). (On vérifie que la droite passe par \(G\) : \(1{,}99 \times 30 + 1{,}3 = 61\).)</p>
+        <p>\(100 = 1{,}99\,\theta + 1{,}3 \iff \theta \approx 49{,}6\) °C (interpolation).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Fréquence marginale \(f(A) = \dfrac{n_A}{N}\) ; conditionnelle \(f_A(B) = \dfrac{n_{A \cap B}}{n_A}\) (« parmi A » : on divise par \(n_A\)).</li>
+        <li>Point moyen \(G(\bar x\,;\,\bar y)\).</li>
+        <li>Moindres carrés : droite passant par \(G\), \(a = \dfrac{\sum (x_i - \bar x)(y_i - \bar y)}{\sum (x_i - \bar x)^2}\), \(b = \bar y - a\bar x\).</li>
+        <li>Interpolation : dans la zone des mesures ; extrapolation : au-delà, avec prudence.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
+    <div class="widget" id="w-reg">
+      <p class="widget-title">Nuage de points et droite des moindres carrés</p>
+      <p class="hint">Augmente le bruit : le nuage s'étale et l'ajustement devient moins pertinent. Le point orange est le point moyen \(G\).</p>
+      <div class="controls">
+        <label>pente vraie <input type="range" data-k="a" min="-5" max="5" step="0.1" value="0.8"> <output data-show="a"></output></label>
+        <label>bruit <input type="range" data-k="s" min="0" max="10" step="0.1" value="1"> <output data-show="s"></output></label>
+        <label>points <input type="range" data-k="n" min="3" max="100" step="1" value="12"> <output data-show="n"></output></label>
+        <button class="btn ghost" type="button" id="reg-new">Nouvelles mesures</button>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : fréquences et ajustement</p>
+      <p class="hint">Fréquences en décimal (ex. 0,25) ; valeurs arrondies à 0,01 près.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="2">
+        <p>Avec le tableau du §1, la fréquence des moteurs de l'usine 1 parmi ceux sans panne vaut :</p>
+        <ol class="choices"><li>\(\tfrac{588}{600}\)</li><li>\(\tfrac{588}{1000}\)</li><li>\(\tfrac{588}{972}\)</li><li>\(\tfrac{600}{1000}\)</li></ol>
+        <p class="explain">On se restreint à la colonne « sans panne » (972 moteurs).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>La droite des moindres carrés passe toujours par :</p>
+        <ol class="choices"><li>le point moyen</li><li>l'origine</li><li>le premier point</li><li>le point le plus haut</li></ol>
+        <p class="explain">C'est une propriété de l'ajustement par les moindres carrés.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Utiliser un ajustement pour prévoir une valeur très loin des mesures, c'est :</p>
+        <ol class="choices"><li>une interpolation sûre</li><li>une moyenne</li><li>une fréquence conditionnelle</li><li>une extrapolation, à prendre avec prudence</li></ol>
+        <p class="explain">Hors du domaine observé, le modèle peut cesser d'être valable.</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Points (1 ; 3), (2 ; 5), (3 ; 10). Le point moyen est :</p>
+        <ol class="choices"><li>(3 ; 18)</li><li>(2 ; 6)</li><li>(2 ; 5)</li><li>(6 ; 18)</li></ol>
+        <p class="explain">\(\bar x = 2\), \(\bar y = 18/3 = 6\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+tableau+croise+frequence+conditionnelle">Tableaux croisés, fréquences conditionnelles — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+ajustement+affine+point+moyen">Point moyen et ajustement affine<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=droite+des+moindres+carres+calculatrice">Moindres carrés à la calculatrice<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  var w = document.getElementById('w-reg'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { xmin: -0.5, xmax: 10.5, ymin: -8, ymax: 14 });
+  var noise = [];
+  function gauss() { var u = 1 - Math.random(), v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+  function refill() { noise = []; for (var i = 0; i < 100; i++) noise.push([Math.random() * 10, gauss()]); }
+  refill();
+  var update = Course.onInput(w, function (v) {
+    var pts = noise.slice(0, v.n).map(function (p) { return [p[0], v.a * p[0] + 3 + v.s * p[1]]; });
+    var mx = 0, my = 0; pts.forEach(function (p) { mx += p[0]; my += p[1]; }); mx /= pts.length; my /= pts.length;
+    var sxy = 0, sxx = 0; pts.forEach(function (p) { sxy += (p[0] - mx) * (p[1] - my); sxx += (p[0] - mx) * (p[0] - mx); });
+    var a = sxx ? sxy / sxx : 0, b = my - a * mx;
+    G.draw = function (g) {
+      pts.forEach(function (p) { g.seg(p[0], p[1], p[0], a * p[0] + b, '--c2', { width: 1, dash: [2, 3] }); g.point(p[0], p[1], '--c1', null, { r: 4 }); });
+      g.fn(function (x) { return a * x + b; }, '--c3');
+      g.point(mx, my, '--c4', 'G', { r: 6 });
+    };
+    var ylo = Math.min.apply(null, pts.map(function (q) { return q[1]; })), yhi = Math.max.apply(null, pts.map(function (q) { return q[1]; }));
+    var py = (yhi - ylo) * 0.12 || 2;
+    G.redraw({ ymin: Math.min(-1, ylo - py), ymax: Math.max(1, yhi + py) });
+    var S = 0; pts.forEach(function (p) { S += Math.pow(p[1] - a * p[0] - b, 2); });
+    out.textContent = 'G(' + Course.fmt(mx, 2) + ' ; ' + Course.fmt(my, 2) + ')   droite : y = ' + Course.fmt(a, 3) + 'x + ' + Course.fmt(b, 3) +
+      '\nsomme des carrés des écarts (pointillés) : ' + Course.fmt(S, 2);
+  });
+  document.getElementById('reg-new').addEventListener('click', function () { refill(); update(); });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 3), a = R(5, 40), b = R(5, 40), c = R(5, 40), d = R(5, 40), N = a + b + c + d;
+    var tab = '<div class="table-scroll"><table><thead><tr><th></th><th>B</th><th>non B</th></tr></thead><tbody><tr><th>A</th><td>' + a + '</td><td>' + b + '</td></tr><tr><th>non A</th><td>' + c + '</td><td>' + d + '</td></tr></tbody></table></div>';
+    if (k === 0) return { html: tab + '<p>Fréquence conditionnelle \\(f_A(B)\\) ?</p>', answer: a / (a + b), tol: A(a / (a + b)), explain: '\\(\\frac{' + a + '}{' + a + ' + ' + b + '}\\).' };
+    if (k === 1) return { html: tab + '<p>Fréquence conditionnelle \\(f_B(A)\\) ?</p>', answer: a / (a + c), tol: A(a / (a + c)), explain: '\\(\\frac{' + a + '}{' + a + ' + ' + c + '}\\) : on se restreint à la colonne B.' };
+    if (k === 2) { var xs = [1, 2, 3, 4, 5].slice(0, R(3, 5)), ys = xs.map(function () { return R(0, 20); }), my = ys.reduce(function (s, y) { return s + y; }, 0) / ys.length;
+      return { html: '<p>Série : ' + xs.map(function (x, i) { return '(' + x + ' ; ' + ys[i] + ')'; }).join(', ') + '. Ordonnée \\(\\bar y\\) du point moyen ?</p>', answer: my, tol: A(my), explain: 'Moyenne des ordonnées.' }; }
+    var aa = P([0.5, 1.2, 2, -1.5, 3]), bb = R(-10, 20), x0 = R(5, 30), y0 = aa * x0 + bb;
+    return { html: '<p>Ajustement : \\(y = ' + String(aa).replace('.', '{,}') + 'x ' + (bb < 0 ? '- ' + -bb : '+ ' + bb) + '\\). Estimation de \\(y\\) pour \\(x = ' + x0 + '\\) ?</p>', answer: y0, tol: A(y0), explain: 'On remplace \\(x\\) par ' + x0 + '.' };
+  });
+});
+</script>
+</body>
+</html>

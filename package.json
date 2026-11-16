@@ -1,0 +1,12 @@
+{
+  "name": "remise-a-niveau-maths",
+  "private": true,
+  "description": "Outils de test du site (le site lui-même n'a aucune étape de build).",
+  "scripts": {
+    "test:unit": "node --test tests/js",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1"
+  }
+}

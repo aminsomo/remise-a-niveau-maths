@@ -2,96 +2,113 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mouvement et lois de Newton · STI2D → Prépa</title>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
 <script defer src="../assets/chapters.js"></script>
 <script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
 </head>
 <body data-root="../" data-chapter="physique/mecanique">
 <main class="chapter">
   <header class="chapter-head">
-    <p class="kicker">Physique · Mouvement et interactions</p>
+    <p class="kicker">Physique-chimie · Mouvement et interactions</p>
     <h1>Mouvement et lois de Newton</h1>
-    <p class="lead">Décrire un mouvement (position, vitesse, accélération), puis l'expliquer par les forces avec les trois lois de Newton.
-      On termine par le mouvement d'un projectile, résolu entièrement par le calcul.</p>
-    <p class="prereq">Prérequis : <a href="../maths/derivation.html">dérivation</a>, <a href="../maths/integrales.html">primitives</a>, vecteurs.</p>
+    <p class="lead">Décrire un mouvement avec des vecteurs (position, vitesse, accélération), puis l'expliquer avec les trois lois de Newton.
+      Avec la deuxième loi, on peut prédire la trajectoire d'un projectile, le freinage d'un véhicule ou le mouvement sur une pente.</p>
+    <p class="prereq">Prérequis : <a href="../physique-1re/energie-mecanique.html">mouvement et énergie (1re)</a>, <a href="../maths/derivation.html">dérivation</a>, <a href="../maths/integrales.html">primitives</a>.</p>
   </header>
 
   <section>
     <h2>1. Décrire un mouvement (cinématique)</h2>
-    <div class="box def"><p class="box-title">Position, vitesse, accélération</p>
-      <p>Dans un référentiel donné, avec un repère d'origine \(O\) :</p>
-      \[\overrightarrow{OM}(t) \quad\xrightarrow{\ \text{dériver}\ }\quad \vec v(t) = \frac{\mathrm{d}\overrightarrow{OM}}{\mathrm{d}t} \quad\xrightarrow{\ \text{dériver}\ }\quad \vec a(t) = \frac{\mathrm{d}\vec v}{\mathrm{d}t}\]
-      <p>Unités : m, m·s<sup>−1</sup>, m·s<sup>−2</sup>. Dans l'autre sens, on <b>intègre</b> (on cherche des primitives) en utilisant les conditions initiales.</p>
+    <div class="box def"><p class="box-title">Vecteurs position, vitesse, accélération</p>
+      <p>Dans un référentiel muni d'un repère, la position du point \(M\) est donnée par \(\overrightarrow{OM}(t) = (x(t)\,;\,y(t))\). Alors :
+        \[\vec v(t) = \frac{\mathrm{d}\overrightarrow{OM}}{\mathrm{d}t} = (x'(t)\,;\,y'(t)), \qquad \vec a(t) = \frac{\mathrm{d}\vec v}{\mathrm{d}t} = (x''(t)\,;\,y''(t)).\]
+        Le vecteur vitesse est tangent à la trajectoire, dans le sens du mouvement ; sa norme est la vitesse \(v\) (m/s). L'accélération (m/s²) mesure comment le vecteur vitesse change (en valeur <b>ou</b> en direction).</p>
     </div>
-    <div class="box prop"><p class="box-title">Mouvements particuliers</p>
+    <div class="box prop"><p class="box-title">Mouvements à connaître</p>
       <ul>
-        <li><b>Rectiligne uniforme</b> : \(\vec v\) constant, \(\vec a = \vec 0\), \(x(t) = v\,t + x_0\).</li>
-        <li><b>Rectiligne uniformément varié</b> : \(a\) constante, \(v(t) = at + v_0\), \(x(t) = \tfrac12 at^2 + v_0t + x_0\).</li>
-        <li><b>Circulaire uniforme</b> (rayon \(R\)) : \(\|\vec v\|\) constante, \(\vec a\) dirigée vers le centre, \(a = \dfrac{v^2}{R}\) ; \(v = R\omega\).</li>
+        <li><b>Rectiligne uniforme</b> : \(\vec v\) constant, \(\vec a = \vec 0\), \(x(t) = vt + x_0\).</li>
+        <li><b>Rectiligne uniformément varié</b> : \(a\) constante, \(v(t) = at + v_0\), \(x(t) = \tfrac12at^2 + v_0t + x_0\), et \(v^2 - v_0^2 = 2a(x - x_0)\).</li>
+        <li><b>Circulaire uniforme</b> (rayon \(R\), vitesse \(v\) constante) : l'accélération est dirigée vers le centre, de valeur \(a = \dfrac{v^2}{R}\). Même à vitesse constante, il y a une accélération, car la direction change.</li>
       </ul>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 1 — freinage</p>
-      <p>Une voiture roule à 90 km/h et freine avec une décélération constante de 6 m·s<sup>−2</sup>. Durée et distance de freinage ?</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>\(v_0 = 25\) m/s. \(v(t) = -6t + 25 = 0 \iff t = 4{,}17\) s.</p>
-        <p>\(x(t) = -3t^2 + 25t\) donc \(x(4{,}17) \approx 52\) m. (Vérification : \(d = \dfrac{v_0^2}{2a} = \dfrac{625}{12} \approx 52\) m.)</p>
-      </details>
     </div>
   </section>
 
   <section>
     <h2>2. Les trois lois de Newton</h2>
-    <div class="box prop"><p class="box-title">Lois</p>
+    <div class="box prop"><p class="box-title">Les lois (dans un référentiel galiléen, le sol en général)</p>
       <ol>
-        <li><b>Principe d'inertie</b> : dans un référentiel galiléen, si \(\sum \vec F = \vec 0\), le centre de masse est immobile ou en mouvement rectiligne uniforme (et réciproquement).</li>
-        <li><b>Principe fondamental de la dynamique (PFD)</b> : \(\sum \vec F_{\text{ext}} = m\,\vec a\).</li>
-        <li><b>Actions réciproques</b> : \(\vec F_{A/B} = -\vec F_{B/A}\).</li>
+        <li><b>Principe d'inertie</b> : si les forces se compensent (\(\sum\vec F = \vec 0\)), le système est immobile ou en mouvement rectiligne uniforme, et réciproquement.</li>
+        <li><b>Deuxième loi</b> (principe fondamental de la dynamique) : \(\displaystyle\sum \vec F = m\,\vec a\). La somme des forces donne l'accélération (même direction, même sens).</li>
+        <li><b>Actions réciproques</b> : si A exerce une force \(\vec F_{A/B}\) sur B, alors B exerce sur A une force opposée : \(\vec F_{B/A} = -\vec F_{A/B}\).</li>
       </ol>
     </div>
-    <div class="box method"><p class="box-title">Méthode de résolution (à appliquer à chaque exercice)</p>
+    <div class="box method"><p class="box-title">Méthode de résolution</p>
       <ol>
-        <li>Définir le <b>système</b> et le <b>référentiel</b> (galiléen).</li>
-        <li>Faire le <b>bilan des forces</b> avec un schéma : poids \(m\vec g\), réaction, tension, frottements…</li>
-        <li>Appliquer le PFD et <b>projeter</b> sur des axes bien choisis.</li>
-        <li>Intégrer pour obtenir \(v(t)\) puis \(x(t)\) avec les conditions initiales.</li>
+        <li>Choisir le <b>système</b> et le <b>référentiel</b> ; faire l'<b>inventaire des forces</b> (poids \(m\vec g\), réaction du support, tension, frottements, poussée…) et un schéma.</li>
+        <li>Choisir un repère adapté (souvent un axe le long du mouvement).</li>
+        <li>Écrire \(\sum\vec F = m\vec a\) et le <b>projeter</b> sur chaque axe.</li>
+        <li>Trouver \(\vec a\), puis \(\vec v\) et la position par primitives, avec les conditions initiales.</li>
       </ol>
     </div>
-    <div class="box example"><p class="box-title">Exemple 2 — plan incliné sans frottement</p>
-      <p>Un solide de masse \(m\) glisse sur un plan incliné d'angle \(\alpha = 20°\). Quelle est son accélération ?</p>
+    <div class="box example"><p class="box-title">Exemple 1 — plan incliné sans frottement</p>
+      <p>Un chariot de masse \(m\) glisse sans frottement sur une pente d'angle \(\alpha = 20^\circ\). Accélération ? Vitesse après 5 m, en partant du repos ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>Forces : poids \(m\vec g\) et réaction normale \(\vec R\). On projette le PFD sur l'axe parallèle à la pente (vers le bas) :
-          \(mg\sin\alpha + 0 = ma\), donc \(a = g\sin\alpha \approx 9{,}81 \times 0{,}342 \approx 3{,}4\) m·s<sup>−2</sup>, indépendante de la masse.</p>
+        <p>Forces : poids et réaction (perpendiculaire à la pente). Sur l'axe de la pente : \(mg\sin\alpha = ma\), donc \(a = g\sin\alpha \approx 9{,}81 \times 0{,}342 \approx 3{,}36\) m/s².</p>
+        <p>\(v^2 = 2ad\) donne \(v = \sqrt{2 \times 3{,}36 \times 5} \approx 5{,}8\) m/s.</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>3. Mouvement dans un champ de pesanteur uniforme</h2>
-    <p>Un projectile lancé depuis l'origine avec une vitesse \(v_0\) faisant un angle \(\alpha\) avec l'horizontale, sans frottement. Le PFD donne \(\vec a = \vec g\) :</p>
-    \[\begin{cases} a_x = 0 \\ a_y = -g \end{cases} \Rightarrow \begin{cases} v_x = v_0\cos\alpha \\ v_y = -gt + v_0\sin\alpha \end{cases} \Rightarrow \begin{cases} x = v_0\cos\alpha\,t \\ y = -\tfrac12 gt^2 + v_0\sin\alpha\,t \end{cases}\]
-    <p>En éliminant \(t\) : trajectoire <b>parabolique</b> \(y = -\dfrac{g}{2v_0^2\cos^2\alpha}x^2 + \tan\alpha\,x\). Portée (retour à \(y = 0\)) : \(d = \dfrac{v_0^2\sin 2\alpha}{g}\), maximale pour \(\alpha = 45°\).</p>
-    <div class="box example"><p class="box-title">Exemple 3</p>
-      <p>Un ballon est tiré à 15 m/s sous 30°. Hauteur maximale et portée ? (\(g = 9{,}81\))</p>
+    <div class="box prop"><p class="box-title">Équations horaires d'un projectile</p>
+      <p>Lancé depuis l'origine avec une vitesse \(v_0\) faisant un angle \(\alpha\) avec l'horizontale, sans frottements : \(\sum\vec F = m\vec g\), donc \(\vec a = \vec g\) (vertical vers le bas, \(g = 9{,}81\) m/s²). On intègre :
+        \[\begin{cases} x(t) = v_0\cos\alpha\,t \\ y(t) = -\tfrac12 g t^2 + v_0\sin\alpha\,t \end{cases}\]
+        En éliminant \(t\) (\(t = \dfrac{x}{v_0\cos\alpha}\)), on obtient l'équation de la trajectoire :
+        \[y = -\frac{g}{2v_0^2\cos^2\alpha}x^2 + x\tan\alpha.\]
+        La trajectoire est une <b>parabole</b> ; la masse n'intervient pas.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Portée et flèche</p>
+      <ul>
+        <li><b>Portée</b> (retour à la hauteur de départ) : \(D = \dfrac{v_0^2\sin 2\alpha}{g}\), maximale pour \(\alpha = 45^\circ\).</li>
+        <li><b>Flèche</b> (hauteur maximale, quand \(v_y = 0\)) : \(H = \dfrac{v_0^2\sin^2\alpha}{2g}\).</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — tir</p>
+      <p>Un ballon est lancé à 15 m/s avec un angle de 30°. Portée, flèche et durée du vol ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>Sommet : \(v_y = 0 \iff t = \dfrac{v_0\sin\alpha}{g} = 0{,}76\) s, \(h = \dfrac{(v_0\sin\alpha)^2}{2g} \approx 2{,}87\) m.</p>
-        <p>Portée : \(d = \dfrac{225 \times \sin 60°}{9{,}81} \approx 19{,}9\) m.</p>
+        <p>\(D = \dfrac{225 \times \sin 60^\circ}{9{,}81} \approx 19{,}9\) m ; \(H = \dfrac{225 \times 0{,}25}{19{,}62} \approx 2{,}87\) m.</p>
+        <p>Durée : \(y = 0\) pour \(t = \dfrac{2v_0\sin\alpha}{g} = \dfrac{15}{9{,}81} \approx 1{,}53\) s.</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(\vec v = \dfrac{\mathrm{d}\overrightarrow{OM}}{\mathrm{d}t}\), \(\vec a = \dfrac{\mathrm{d}\vec v}{\mathrm{d}t}\) ; MRUA : \(v = at + v_0\), \(x = \tfrac12at^2 + v_0t + x_0\), \(v^2 - v_0^2 = 2a\Delta x\).</li>
+        <li>Circulaire uniforme : \(a = v^2/R\), vers le centre.</li>
+        <li>Newton : inertie ; \(\sum\vec F = m\vec a\) ; \(\vec F_{B/A} = -\vec F_{A/B}\).</li>
+        <li>Projectile : \(\vec a = \vec g\), parabole, \(D = \dfrac{v_0^2\sin2\alpha}{g}\), \(H = \dfrac{v_0^2\sin^2\alpha}{2g}\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-proj">
       <p class="widget-title">Tir de projectile</p>
       <p class="hint">Règle la vitesse et l'angle, puis lance. Les vecteurs vitesse (bleu) sont tracés à intervalles réguliers : la composante horizontale ne change jamais. Active les frottements pour voir la trajectoire perdre sa symétrie.</p>
       <div class="controls">
-        <label>\(v_0\) (m/s) <input type="range" data-k="v0" min="2" max="30" step="0.5" value="15"> <output data-show="v0"></output></label>
-        <label>\(\alpha\) (°) <input type="range" data-k="al" min="5" max="85" step="1" value="45"> <output data-show="al"></output></label>
+        <label>\(v_0\) (m/s) <input type="range" data-k="v0" min="1" max="300" step="0.5" value="15"> <output data-show="v0"></output></label>
+        <label>\(\alpha\) (°) <input type="range" data-k="al" min="1" max="89" step="1" value="45"> <output data-show="al"></output></label>
         <label><input type="checkbox" data-k="fr"> frottements \(\vec f = -k\vec v\)</label>
         <button class="btn" type="button" id="launch">Lancer</button>
       </div>
@@ -109,7 +126,7 @@
   </section>
 
   <section>
-    <h2>5. En prépa</h2>
+    <h2>6. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li>Frottements fluides \(-k\vec v\) : équation différentielle \(m\dfrac{\mathrm{d}v}{\mathrm{d}t} + kv = mg\), vitesse limite \(v_\ell = mg/k\) (voir <a href="../maths/equations-differentielles.html">équations différentielles</a>).</li>
