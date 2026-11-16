@@ -16,87 +16,97 @@
 <body data-root="../" data-chapter="maths/probabilites">
 <main class="chapter">
   <header class="chapter-head">
-    <p class="kicker">Maths · Probabilités · Tronc commun + spécialité</p>
+    <p class="kicker">Maths · Probabilités · Tronc commun + spé</p>
     <h1>Probabilités et loi binomiale</h1>
-    <p class="lead">Probabilités conditionnelles et arbres, variables aléatoires, espérance, et la loi binomiale qui modélise
-      le nombre de succès dans une série d'épreuves indépendantes : pièces défectueuses, tests qualité, fiabilité.</p>
-    <p class="prereq">Prérequis : fractions, pourcentages.</p>
+    <p class="lead">Contrôle qualité, fiabilité d'un système, tests de dépistage : on modélise le hasard avec des arbres, des variables aléatoires et surtout la loi binomiale,
+      qui compte le nombre de succès quand on répète une même expérience.</p>
+    <p class="prereq">Prérequis : <a href="../maths-1re/probabilites.html">probabilités de 1re</a>, <a href="../maths-1re/variables-aleatoires.html">variables aléatoires de 1re</a>.</p>
   </header>
 
   <section>
     <h2>1. Probabilités conditionnelles</h2>
-    <div class="box def"><p class="box-title">Définition</p>
-      <p>Si \(P(A) \neq 0\), la probabilité de \(B\) <b>sachant</b> \(A\) est
-        \[P_A(B) = \frac{P(A \cap B)}{P(A)}, \qquad \text{donc } P(A \cap B) = P(A) \times P_A(B).\]</p>
-    </div>
-    <div class="box prop"><p class="box-title">Arbre pondéré et probabilités totales</p>
+    <div class="box def"><p class="box-title">Rappels</p>
       <ul>
-        <li>La somme des probabilités issues d'un même nœud vaut 1.</li>
-        <li>La probabilité d'un chemin est le <b>produit</b> des probabilités sur ses branches.</li>
-        <li><b>Formule des probabilités totales</b> : \(P(B) = P(A \cap B) + P(\bar A \cap B)\).</li>
-        <li>\(A\) et \(B\) sont <b>indépendants</b> si \(P(A \cap B) = P(A)P(B)\), c'est-à-dire \(P_A(B) = P(B)\).</li>
+        <li>\(P(\bar A) = 1 - P(A)\) ; \(P(A \cup B) = P(A) + P(B) - P(A \cap B)\).</li>
+        <li>Probabilité de B sachant A (si \(P(A) \neq 0\)) : \(P_A(B) = \dfrac{P(A \cap B)}{P(A)}\), d'où \(P(A \cap B) = P(A)P_A(B)\).</li>
+        <li>A et B indépendants \(\iff P(A \cap B) = P(A)P(B) \iff P_A(B) = P(B)\).</li>
       </ul>
     </div>
-    <div class="box example"><p class="box-title">Exemple 1 — contrôle qualité</p>
-      <p>Une usine a deux machines : M1 produit 60 % des pièces avec 2 % de défauts, M2 produit 40 % avec 5 % de défauts.
-        (a) Probabilité qu'une pièce soit défectueuse ? (b) Sachant qu'une pièce est défectueuse, probabilité qu'elle vienne de M2 ?</p>
+    <div class="box prop"><p class="box-title">Arbres et probabilités totales</p>
+      <p>Dans un arbre pondéré : les branches issues d'un même nœud ont des probabilités de somme 1 ; la probabilité d'un chemin est le <b>produit</b> des probabilités de ses branches ;
+        la probabilité d'un événement est la <b>somme</b> des chemins qui y mènent. Si \(A_1, \dots, A_n\) partagent l'univers (une <b>partition</b>) :
+        \[P(B) = P(A_1)P_{A_1}(B) + \dots + P(A_n)P_{A_n}(B).\]</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — deux fournisseurs</p>
+      <p>60 % des pièces viennent du fournisseur A (2 % défectueuses), 40 % de B (5 % défectueuses). Probabilité qu'une pièce soit défectueuse ? Qu'elle vienne de B sachant qu'elle est défectueuse ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>(a) \(P(D) = 0{,}6 \times 0{,}02 + 0{,}4 \times 0{,}05 = 0{,}012 + 0{,}02 = 0{,}032\).</p>
-        <p>(b) \(P_D(M_2) = \dfrac{P(M_2 \cap D)}{P(D)} = \dfrac{0{,}02}{0{,}032} = 0{,}625\). Plus de 6 pièces défectueuses sur 10 viennent de M2.</p>
+        <p>\(P(D) = 0{,}6 \times 0{,}02 + 0{,}4 \times 0{,}05 = 0{,}012 + 0{,}02 = 0{,}032\).</p>
+        <p>\(P_D(B) = \dfrac{0{,}02}{0{,}032} = 0{,}625\).</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>2. Variables aléatoires</h2>
-    <div class="box def"><p class="box-title">Définitions</p>
-      <p>Une variable aléatoire \(X\) associe un nombre à chaque issue. Sa <b>loi</b> donne les \(P(X = x_i)\).</p>
-      \[E(X) = \sum_i x_i\,P(X = x_i) \qquad V(X) = \sum_i (x_i - E(X))^2 P(X = x_i) \qquad \sigma(X) = \sqrt{V(X)}\]
-      <p>\(E(X)\) est la moyenne à long terme ; \(\sigma(X)\) mesure la dispersion. Linéarité : \(E(aX + b) = aE(X) + b\).</p>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 2 — jeu</p>
-      <p>On mise 2 €, on lance un dé : on gagne 10 € (mise comprise) si on fait 6, rien sinon. Le jeu est-il équitable ?</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>Gain algébrique \(G\) : \(+8\) avec probabilité \(\tfrac16\), \(-2\) avec probabilité \(\tfrac56\).
-          \(E(G) = \tfrac86 - \tfrac{10}{6} = -\tfrac13 \approx -0{,}33\) €. Défavorable au joueur.</p>
-      </details>
+    <div class="box def"><p class="box-title">Loi, espérance, variance</p>
+      <p>Une variable aléatoire \(X\) prend les valeurs \(x_1, \dots, x_n\) avec les probabilités \(p_i = P(X = x_i)\) (somme 1). Alors :</p>
+      <ul>
+        <li>espérance (valeur moyenne à long terme) : \(E(X) = \sum x_i p_i\) ;</li>
+        <li>variance (dispersion) : \(V(X) = \sum p_i\,(x_i - E(X))^2 = E(X^2) - E(X)^2\) ; écart-type \(\sigma(X) = \sqrt{V(X)}\) ;</li>
+        <li>\(E(aX + b) = aE(X) + b\) et \(V(aX + b) = a^2V(X)\).</li>
+      </ul>
     </div>
   </section>
 
   <section>
     <h2>3. Loi binomiale</h2>
-    <div class="box def"><p class="box-title">Schéma de Bernoulli</p>
-      <p>On répète \(n\) fois, de façon <b>identique et indépendante</b>, une épreuve à deux issues : succès (probabilité \(p\)) ou échec.
-        Le nombre \(X\) de succès suit la <b>loi binomiale</b> \(\mathcal B(n, p)\) :
-        \[P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \qquad k = 0, 1, \dots, n.\]
-        \(\binom{n}{k}\) est le nombre de chemins de l'arbre à \(k\) succès (touche <code>nCr</code> ou <code>Combinaison</code> de la calculatrice).</p>
+    <div class="box def"><p class="box-title">Schéma de Bernoulli et loi binomiale</p>
+      <p>On répète \(n\) fois, de façon <b>identique et indépendante</b>, une épreuve à deux issues (succès de probabilité \(p\), échec \(1 - p\)). Le nombre \(X\) de succès suit la <b>loi binomiale</b> \(\mathcal B(n, p)\) :
+        \[P(X = k) = \binom{n}{k} p^k (1 - p)^{n-k}, \qquad k = 0, 1, \dots, n.\]
+        Le <b>coefficient binomial</b> \(\binom{n}{k}\) (« k parmi n ») est le nombre de chemins de l'arbre qui contiennent exactement \(k\) succès (touche nCr de la calculatrice).
+        \(\binom{n}{0} = \binom{n}{n} = 1\), \(\binom{n}{1} = n\), \(\binom{n}{k} = \binom{n}{n-k}\), et \(\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}\) (triangle de Pascal).</p>
     </div>
-    <div class="box prop"><p class="box-title">Espérance et écart-type</p>
-      \[E(X) = np \qquad V(X) = np(1-p) \qquad \sigma(X) = \sqrt{np(1-p)}\]
+    <div class="box prop"><p class="box-title">Espérance et variance</p>
+      <p>\(E(X) = np\), \(V(X) = np(1 - p)\), \(\sigma(X) = \sqrt{np(1 - p)}\). Sur 100 pièces avec 3 % de défauts, on s'attend en moyenne à 3 pièces défectueuses.</p>
     </div>
     <div class="box method"><p class="box-title">Méthode : « au moins un »</p>
-      <p>\(P(X \geq 1) = 1 - P(X = 0) = 1 - (1-p)^n\). C'est l'événement contraire qui se calcule facilement.</p>
+      <p>\(P(X \geq 1) = 1 - P(X = 0) = 1 - (1 - p)^n\). Pour \(P(X \leq k)\) ou \(P(a \leq X \leq b)\), on utilise la calculatrice (« binomFRép » / « binomcdf »).</p>
     </div>
-    <div class="box example"><p class="box-title">Exemple 3 — lot de composants</p>
-      <p>Un composant est défectueux avec probabilité 0,03. On en prélève 50 (tirage assimilé à des tirages avec remise).
-        Probabilité d'avoir exactement 2 défectueux ? Au moins un ? Nombre moyen ?</p>
+    <div class="box prop"><p class="box-title">Fluctuation et loi des grands nombres</p>
+      <p>Quand \(n\) est grand, la fréquence \(\dfrac Xn\) des succès est très probablement proche de \(p\) : environ 95 % des fréquences observées tombent dans l'intervalle
+        \[\left[p - 2\sqrt{\frac{p(1-p)}{n}}\,;\,p + 2\sqrt{\frac{p(1-p)}{n}}\right].\] Une fréquence en dehors de cet intervalle fait douter du modèle.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — lot de composants</p>
+      <p>Un composant est défectueux avec probabilité 0,05. On en teste 20. Probabilité d'exactement 2 défectueux ? D'au moins un ? Nombre moyen de défectueux ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(X \sim \mathcal B(50\,;0{,}03)\). \(P(X = 2) = \binom{50}{2} 0{,}03^2 \times 0{,}97^{48} = 1225 \times 0{,}0009 \times 0{,}2321 \approx 0{,}256\).</p>
-        <p>\(P(X \geq 1) = 1 - 0{,}97^{50} \approx 0{,}782\). \(E(X) = 50 \times 0{,}03 = 1{,}5\).</p>
+        <p>\(X \sim \mathcal B(20\,;\,0{,}05)\). \(P(X = 2) = \binom{20}{2}0{,}05^2 \times 0{,}95^{18} = 190 \times 0{,}0025 \times 0{,}397 \approx 0{,}189\).</p>
+        <p>\(P(X \geq 1) = 1 - 0{,}95^{20} \approx 0{,}642\) ; \(E(X) = 20 \times 0{,}05 = 1\).</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(P_A(B) = \dfrac{P(A \cap B)}{P(A)}\) ; probabilités totales ; indépendance \(P(A \cap B) = P(A)P(B)\).</li>
+        <li>\(E(X) = \sum x_ip_i\), \(V(X) = E(X^2) - E(X)^2\), \(\sigma = \sqrt V\) ; \(E(aX + b) = aE(X) + b\).</li>
+        <li>\(\mathcal B(n, p)\) : \(P(X = k) = \binom nk p^k(1-p)^{n-k}\), \(E = np\), \(V = np(1-p)\).</li>
+        <li>\(P(X \geq 1) = 1 - (1-p)^n\) ; 95 % des fréquences dans \(p \pm 2\sqrt{p(1-p)/n}\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-binom">
       <p class="widget-title">Diagramme de la loi binomiale</p>
       <p class="hint">Règle \(n\) et \(p\). Les barres colorées sont celles qui comptent pour \(P(a \leq X \leq b)\). Le pic est proche de \(E(X) = np\).</p>
       <div class="controls">
-        <label>\(n\) <input type="range" data-k="n" min="1" max="100" step="1" value="20"> <output data-show="n"></output></label>
+        <label>\(n\) <input type="range" data-k="n" min="1" max="1000" step="1" value="20"> <output data-show="n"></output></label>
         <label>\(p\) <input type="range" data-k="p" min="0.01" max="0.99" step="0.01" value="0.3"> <output data-show="p"></output></label>
-        <label>\(a\) <input type="number" data-k="a" min="0" max="100" step="1" value="4"></label>
-        <label>\(b\) <input type="number" data-k="b" min="0" max="100" step="1" value="8"></label>
+        <label>\(a\) <input type="number" data-k="a" min="0" max="1000" step="1" value="4"></label>
+        <label>\(b\) <input type="number" data-k="b" min="0" max="1000" step="1" value="8"></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -124,7 +134,7 @@
   </section>
 
   <section>
-    <h2>5. En prépa</h2>
+    <h2>6. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li><b>Dénombrement</b> : listes, arrangements, combinaisons, formule du binôme \((a+b)^n = \sum \binom{n}{k}a^kb^{n-k}\).</li>

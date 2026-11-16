@@ -18,65 +18,60 @@
   <header class="chapter-head">
     <p class="kicker">Maths · Analyse · Spécialité</p>
     <h1>Primitives et intégrales</h1>
-    <p class="lead">Intégrer, c'est additionner une infinité de petites contributions : une aire, une énergie à partir d'une puissance,
-      une distance à partir d'une vitesse, une valeur moyenne ou efficace. On calcule une intégrale grâce aux primitives.</p>
-    <p class="prereq">Prérequis : <a href="derivation.html">formulaire de dérivation</a>.</p>
+    <p class="lead">L'intégrale additionne des petits morceaux : une aire sous une courbe, une énergie à partir d'une puissance, une charge à partir d'un courant, une distance à partir d'une vitesse.
+      On la calcule grâce aux primitives (la « dérivation à l'envers »), et elle donne aussi la valeur moyenne et la valeur efficace d'un signal.</p>
+    <p class="prereq">Prérequis : <a href="derivation.html">dérivation</a>, <a href="../maths-1re/primitives.html">primitives (1re)</a>.</p>
   </header>
 
   <section>
     <h2>1. Primitives</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>\(F\) est une <b>primitive</b> de \(f\) sur un intervalle \(I\) si \(F' = f\) sur \(I\).
-        Si \(F\) est une primitive, toutes les autres sont \(F + C\) avec \(C\) constante réelle.</p>
+      <p>\(F\) est une <b>primitive</b> de \(f\) sur un intervalle \(I\) si \(F' = f\) sur \(I\). Toutes les primitives de \(f\) sont alors les \(F + C\) (\(C\) constante) ;
+        une condition comme \(F(t_0) = y_0\) fixe \(C\). On vérifie toujours une primitive en la dérivant.</p>
     </div>
-    <div class="table-scroll">
-    <table>
-      <thead><tr><th>\(f(x)\)</th><th>une primitive \(F(x)\)</th><th>remarque</th></tr></thead>
-      <tbody>
-        <tr><td>\(k\)</td><td>\(kx\)</td><td></td></tr>
-        <tr><td>\(x^{n}\) (\(n \neq -1\))</td><td>\(\dfrac{x^{n+1}}{n+1}\)</td><td>on augmente l'exposant puis on divise</td></tr>
-        <tr><td>\(\dfrac{1}{x}\)</td><td>\(\ln x\)</td><td>sur \(]0\,;+\infty[\)</td></tr>
-        <tr><td>\(\dfrac{1}{x^2}\)</td><td>\(-\dfrac{1}{x}\)</td><td></td></tr>
-        <tr><td>\(e^{ax+b}\)</td><td>\(\dfrac{1}{a}e^{ax+b}\)</td><td>\(a \neq 0\)</td></tr>
-        <tr><td>\(\cos(\omega t + \varphi)\)</td><td>\(\dfrac{1}{\omega}\sin(\omega t + \varphi)\)</td><td></td></tr>
-        <tr><td>\(\sin(\omega t + \varphi)\)</td><td>\(-\dfrac{1}{\omega}\cos(\omega t + \varphi)\)</td><td>attention au signe</td></tr>
-        <tr><td>\(u'e^{u}\)</td><td>\(e^{u}\)</td><td>forme composée</td></tr>
-        <tr><td>\(\dfrac{u'}{u}\)</td><td>\(\ln u\)</td><td>si \(u > 0\)</td></tr>
-        <tr><td>\(u'u^{n}\)</td><td>\(\dfrac{u^{n+1}}{n+1}\)</td><td></td></tr>
-      </tbody>
-    </table>
-    </div>
-    <div class="box method"><p class="box-title">Méthode : vérifier une primitive</p>
-      <p>On <b>dérive</b> le résultat : on doit retrouver \(f\). C'est le réflexe qui évite les erreurs de signe ou de coefficient.</p>
+    <div class="box prop"><p class="box-title">Tableau des primitives</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th>\(f(x)\)</th><th>une primitive \(F(x)\)</th><th>\(f(x)\)</th><th>une primitive \(F(x)\)</th></tr></thead>
+        <tbody>
+          <tr><td>\(k\)</td><td>\(kx\)</td><td>\(x^n\) (\(n \neq -1\))</td><td>\(\dfrac{x^{n+1}}{n+1}\)</td></tr>
+          <tr><td>\(\dfrac{1}{x}\) (\(x > 0\))</td><td>\(\ln x\)</td><td>\(\dfrac{1}{x^2}\)</td><td>\(-\dfrac1x\)</td></tr>
+          <tr><td>\(e^x\)</td><td>\(e^x\)</td><td>\(e^{ax+b}\) (\(a \neq 0\))</td><td>\(\dfrac1a e^{ax+b}\)</td></tr>
+          <tr><td>\(\cos(\omega x + \varphi)\)</td><td>\(\dfrac{1}{\omega}\sin(\omega x + \varphi)\)</td><td>\(\sin(\omega x + \varphi)\)</td><td>\(-\dfrac{1}{\omega}\cos(\omega x + \varphi)\)</td></tr>
+          <tr><td>\(u'e^{u}\)</td><td>\(e^{u}\)</td><td>\(\dfrac{u'}{u}\) (\(u > 0\))</td><td>\(\ln u\)</td></tr>
+          <tr><td>\(u'u^n\)</td><td>\(\dfrac{u^{n+1}}{n+1}\)</td><td>\(\dfrac{u'}{\sqrt u}\)</td><td>\(2\sqrt u\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Une primitive d'une somme est la somme des primitives ; celle de \(kf\) est \(kF\). Pour les formes « composées », il faut reconnaître \(u'\) devant (quitte à ajuster une constante).</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1</p>
-      <p>Trouver la primitive de \(f(x) = 6x^2 - \dfrac{4}{x} + e^{-2x}\) sur \(]0\,;+\infty[\) qui s'annule en \(1\).</p>
+      <p>Trouver une primitive de \(f(x) = 3x^2 - \dfrac{2}{x} + e^{2x}\) sur \(]0\,;\,+\infty[\), puis de \(g(x) = \dfrac{2x}{x^2 + 1}\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(F(x) = 2x^3 - 4\ln x - \dfrac12 e^{-2x} + C\). \(F(1) = 2 - 0 - \dfrac12 e^{-2} + C = 0\) donc \(C = \dfrac12 e^{-2} - 2\).</p>
+        <p>\(F(x) = x^3 - 2\ln x + \tfrac12 e^{2x}\). Pour \(g\), on reconnaît \(\dfrac{u'}{u}\) avec \(u = x^2 + 1 > 0\) : \(G(x) = \ln(x^2 + 1)\).</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>2. Intégrale et aire</h2>
-    <div class="box def"><p class="box-title">Définition</p>
-      <p>Si \(f\) est continue sur \([a\,;b]\) et \(F\) une primitive de \(f\) :
-        \[\int_a^b f(x)\,\mathrm{d}x = \big[F(x)\big]_a^b = F(b) - F(a).\]
-        Si \(f \geq 0\) sur \([a\,;b]\), c'est l'<b>aire</b> (en unités d'aire) sous la courbe, entre \(x = a\) et \(x = b\).</p>
+    <div class="box def"><p class="box-title">Définition et calcul</p>
+      <p>Si \(f\) est continue et positive sur \([a\,;\,b]\), l'<b>intégrale</b> \(\displaystyle\int_a^b f(x)\,\mathrm{d}x\) est l'<b>aire</b> (en unités d'aire) du domaine compris entre la courbe, l'axe des abscisses et les droites \(x = a\) et \(x = b\).
+        Dans tous les cas, si \(F\) est une primitive de \(f\) :
+        \[\int_a^b f(x)\,\mathrm{d}x = \Big[F(x)\Big]_a^b = F(b) - F(a).\]
+        Le « \(\mathrm{d}x\) » rappelle qu'on additionne des bandes de largeur infiniment petite \(\mathrm{d}x\) et de hauteur \(f(x)\).</p>
     </div>
     <div class="box prop"><p class="box-title">Propriétés</p>
       <ul>
-        <li>Linéarité : \(\int_a^b (\alpha f + \beta g) = \alpha\int_a^b f + \beta\int_a^b g\).</li>
-        <li>Chasles : \(\int_a^b f + \int_b^c f = \int_a^c f\).</li>
-        <li>Positivité : si \(f \geq 0\) et \(a \leq b\), \(\int_a^b f \geq 0\). Là où \(f &lt; 0\), l'aire compte <b>négativement</b>.</li>
-        <li>Aire entre deux courbes (\(f \geq g\)) : \(\int_a^b \big(f(x) - g(x)\big)\,\mathrm{d}x\).</li>
+        <li><b>Chasles</b> : \(\displaystyle\int_a^b f + \int_b^c f = \int_a^c f\) ; et \(\displaystyle\int_a^a f = 0\), \(\displaystyle\int_b^a f = -\int_a^b f\).</li>
+        <li><b>Linéarité</b> : \(\displaystyle\int_a^b (\alpha f + \beta g) = \alpha\int_a^b f + \beta\int_a^b g\).</li>
+        <li><b>Positivité</b> : si \(f \geq 0\) sur \([a\,;\,b]\) (avec \(a \leq b\)), \(\displaystyle\int_a^b f \geq 0\) ; si \(f \leq g\), \(\displaystyle\int_a^b f \leq \int_a^b g\).</li>
+        <li>Si \(f\) est négative, l'intégrale est l'<b>opposé</b> de l'aire. Aire entre deux courbes (\(f \geq g\)) : \(\displaystyle\int_a^b (f - g)\).</li>
       </ul>
     </div>
     <div class="box example"><p class="box-title">Exemple 2</p>
-      <p>Calculer \(I = \int_0^2 (3x^2 - 2x + 1)\,\mathrm{d}x\) et \(J = \int_0^{\pi} \sin t\,\mathrm{d}t\).</p>
+      <p>Calculer \(\displaystyle\int_0^2 (x^2 + 1)\,\mathrm{d}x\) et \(\displaystyle\int_0^{\pi} \sin x\,\mathrm{d}x\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(I = \big[x^3 - x^2 + x\big]_0^2 = (8 - 4 + 2) - 0 = 6\).</p>
-        <p>\(J = \big[-\cos t\big]_0^{\pi} = -\cos\pi + \cos 0 = 1 + 1 = 2\).</p>
+        <p>\(\Big[\tfrac{x^3}{3} + x\Big]_0^2 = \tfrac83 + 2 = \tfrac{14}{3} \approx 4{,}67\).</p>
+        <p>\(\Big[-\cos x\Big]_0^{\pi} = -\cos\pi + \cos 0 = 1 + 1 = 2\) : l'aire sous une arche de sinusoïde vaut exactement 2.</p>
       </details>
     </div>
   </section>
@@ -84,35 +79,52 @@
   <section>
     <h2>3. Valeur moyenne et applications physiques</h2>
     <div class="box def"><p class="box-title">Valeur moyenne et valeur efficace</p>
-      \[\mu = \frac{1}{b-a}\int_a^b f(t)\,\mathrm{d}t \qquad\qquad U_{\text{eff}} = \sqrt{\frac{1}{T}\int_0^T u(t)^2\,\mathrm{d}t}\]
-      <p>Pour \(u(t) = U_{\max}\sin(\omega t)\) : moyenne nulle sur une période, \(U_{\text{eff}} = \dfrac{U_{\max}}{\sqrt2}\) (230 V efficaces ⇔ 325 V crête).</p>
+      <p>La <b>valeur moyenne</b> de \(f\) sur \([a\,;\,b]\) est \(\mu = \dfrac{1}{b - a}\displaystyle\int_a^b f(x)\,\mathrm{d}x\) : c'est la hauteur du rectangle de même aire.
+        La <b>valeur efficace</b> d'un signal périodique \(u\) de période \(T\) est \(U_{\text{eff}} = \sqrt{\dfrac{1}{T}\displaystyle\int_0^T u^2(t)\,\mathrm{d}t}\).
+        Pour une sinusoïde d'amplitude \(U_m\) : moyenne nulle, \(U_{\text{eff}} = \dfrac{U_m}{\sqrt2}\).</p>
     </div>
-    <div class="box prop"><p class="box-title">Intégrales en physique</p>
+    <div class="box prop"><p class="box-title">Une intégrale « additionne » une grandeur</p>
       <ul>
-        <li>Énergie à partir de la puissance : \(E = \int_{t_1}^{t_2} P(t)\,\mathrm{d}t\).</li>
-        <li>Distance à partir de la vitesse : \(x(t_2) - x(t_1) = \int_{t_1}^{t_2} v(t)\,\mathrm{d}t\).</li>
-        <li>Charge à partir de l'intensité : \(Q = \int i(t)\,\mathrm{d}t\).</li>
+        <li>Énergie à partir de la puissance : \(E = \displaystyle\int_{t_1}^{t_2} p(t)\,\mathrm{d}t\).</li>
+        <li>Charge à partir de l'intensité : \(q = \displaystyle\int i(t)\,\mathrm{d}t\) ; distance à partir de la vitesse : \(d = \displaystyle\int v(t)\,\mathrm{d}t\).</li>
+        <li>Travail d'une force variable le long d'un axe : \(W = \displaystyle\int_{x_1}^{x_2} F(x)\,\mathrm{d}x\).</li>
       </ul>
     </div>
-    <div class="box example"><p class="box-title">Exemple 3 — énergie d'un moteur au démarrage</p>
-      <p>La puissance d'un moteur au démarrage vaut \(P(t) = 2\,000\big(1 - e^{-t}\big)\) W. Énergie consommée pendant les 3 premières secondes ?</p>
+    <div class="box example"><p class="box-title">Exemple 3 — énergie d'une décharge</p>
+      <p>Une résistance reçoit la puissance \(p(t) = 50\,e^{-2t}\) (W, s). Énergie reçue entre 0 et 3 s ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(E = \int_0^3 2000(1 - e^{-t})\,\mathrm{d}t = 2000\big[t + e^{-t}\big]_0^3 = 2000\big(3 + e^{-3} - 1\big) \approx 4\,100\) J.</p>
+        <p>\(E = \displaystyle\int_0^3 50e^{-2t}\,\mathrm{d}t = \Big[-25e^{-2t}\Big]_0^3 = 25(1 - e^{-6}) \approx 24{,}9\) J.</p>
       </details>
+    </div>
+    <div class="box method"><p class="box-title">Calcul approché : méthode des rectangles</p>
+      <p>On découpe \([a\,;\,b]\) en \(n\) bandes de largeur \(\dfrac{b - a}{n}\) et on additionne les aires des rectangles (hauteur prise au milieu de chaque bande) :
+        plus \(n\) est grand, plus on s'approche de l'intégrale. C'est ce que fait l'animation ci-dessous, et ce que fait ta calculatrice.</p>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Primitives : \(x^n \to \dfrac{x^{n+1}}{n+1}\), \(\dfrac1x \to \ln x\), \(e^{ax+b} \to \dfrac1ae^{ax+b}\), \(u'e^u \to e^u\), \(\dfrac{u'}{u} \to \ln u\).</li>
+        <li>\(\displaystyle\int_a^b f = F(b) - F(a)\) ; aire si \(f \geq 0\) ; Chasles, linéarité, positivité.</li>
+        <li>Moyenne \(\mu = \dfrac{1}{b-a}\displaystyle\int_a^b f\) ; efficace \(\sqrt{\dfrac1T\displaystyle\int_0^T u^2}\), \(U_m/\sqrt2\) pour une sinusoïde.</li>
+        <li>\(E = \displaystyle\int p\,\mathrm{d}t\), \(q = \displaystyle\int i\,\mathrm{d}t\), \(d = \displaystyle\int v\,\mathrm{d}t\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-riemann">
       <p class="widget-title">Aire et sommes de rectangles</p>
       <p class="hint">L'intégrale est la limite des sommes de rectangles quand leur nombre \(n\) augmente. Compare l'approximation à la valeur exacte.</p>
       <div class="controls">
         <label>Fonction <select data-k="f">
           <option value="0">x² − 2x + 2</option><option value="1">eˣ</option><option value="2">sin x</option><option value="3">1/x</option></select></label>
-        <label>\(a\) <input type="range" data-k="a" min="0.5" max="3" step="0.1" value="0.5"> <output data-show="a"></output></label>
-        <label>\(b\) <input type="range" data-k="b" min="1" max="4" step="0.1" value="3"> <output data-show="b"></output></label>
-        <label>\(n\) rectangles <input type="range" data-k="n" min="1" max="100" step="1" value="6"> <output data-show="n"></output></label>
+        <label>\(a\) <input type="range" data-k="a" min="0.1" max="10" step="0.1" value="0.5"> <output data-show="a"></output></label>
+        <label>\(b\) <input type="range" data-k="b" min="0.2" max="12" step="0.1" value="3"> <output data-show="b"></output></label>
+        <label>\(n\) rectangles <input type="range" data-k="n" min="1" max="500" step="1" value="6"> <output data-show="n"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -128,7 +140,7 @@
   </section>
 
   <section>
-    <h2>5. En prépa</h2>
+    <h2>6. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li><b>Intégration par parties</b> : \(\int_a^b u v' = [uv]_a^b - \int_a^b u'v\). Ex. : \(\int_0^1 x e^{x}\,\mathrm{d}x = 1\).</li>
@@ -201,15 +213,15 @@ window.addEventListener('DOMContentLoaded', function () {
     }
     var exact = fo.F(b) - fo.F(a);
     // Fenêtre adaptée aux valeurs prises par f sur [0 ; 4.5]
-    var ys = []; for (var x = 0.2; x <= 4.5; x += 0.05) ys.push(fo.f(x));
-    var ymax = Math.min(Math.max.apply(null, ys), 60), ymin = Math.min(0, Math.min.apply(null, ys));
+    var xR = Math.max(4.5, b + 0.5), ys = []; for (var x = 0.2; x <= xR; x += (xR - 0.2) / 100) ys.push(fo.f(x));
+    var ymax = Math.min(Math.max.apply(null, ys), 1e5), ymin = Math.min(0, Math.min.apply(null, ys));
     P.draw = function (g) {
       rects.forEach(function (r) {
         g.poly([[r[0], 0], [r[0], r[1]], [r[0] + dx, r[1]], [r[0] + dx, 0]], '--c4', { close: true, fill: true, alpha: 0.25, width: 1 });
       });
       g.fn(fo.f, '--c1', { from: +v.f === 3 ? 0.05 : undefined });
     };
-    P.redraw({ xmin: -0.3, xmax: 4.5, ymin: ymin - 0.5, ymax: ymax * 1.1 + 0.5 });
+    P.redraw({ xmin: -0.3, xmax: xR, ymin: ymin - 0.5, ymax: ymax * 1.1 + 0.5 });
     out.textContent = 'Somme des ' + n + ' rectangles : ' + Course.fmt(S, 5) +
       '\nValeur exacte F(b) − F(a)  : ' + Course.fmt(exact, 5) +
       '\nErreur : ' + Course.fmt(Math.abs(S - exact), 6);

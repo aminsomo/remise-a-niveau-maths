@@ -16,34 +16,38 @@
 <body data-root="../" data-chapter="maths/logarithme">
 <main class="chapter">
   <header class="chapter-head">
-    <p class="kicker">Maths · Analyse · Tronc commun + spécialité</p>
+    <p class="kicker">Maths · Analyse · Tronc commun + spé</p>
     <h1>Logarithmes (ln et log)</h1>
-    <p class="lead">Le logarithme « défait » l'exponentielle : il sert à résoudre \(a^n = b\), à trouver un exposant, à mesurer
-      des grandeurs sur plusieurs ordres de grandeur (décibels, pH). Ses règles transforment les produits en sommes.</p>
-    <p class="prereq">Prérequis : <a href="exponentielle.html">fonction exponentielle</a>.</p>
+    <p class="lead">Le logarithme répond à la question « à quelle puissance faut-il élever ? ». Il permet de résoudre \(e^x = 5\) ou \(1{,}04^n \geq 2\),
+      et il se cache derrière les décibels, le pH et l'échelle de Richter : des échelles qui « compressent » des valeurs immenses.</p>
+    <p class="prereq">Prérequis : <a href="exponentielle.html">fonction exponentielle</a>, puissances.</p>
   </header>
 
   <section>
     <h2>1. Le logarithme népérien</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>Pour tout réel \(x > 0\), l'équation \(e^{y} = x\) a une unique solution \(y\), notée \(\ln x\).
-        Ainsi \(\ln\) est la <b>fonction réciproque</b> de \(\exp\) :</p>
-      \[y = \ln x \iff x = e^{y} \qquad (x > 0)\]
-      <p>\(\ln(e^{a}) = a\) pour tout réel \(a\), \(e^{\ln x} = x\) pour tout \(x > 0\), \(\ln 1 = 0\), \(\ln e = 1\).</p>
+      <p>Pour tout réel \(x > 0\), l'équation \(e^y = x\) a une unique solution, notée \(\ln x\) : le <b>logarithme népérien</b> de \(x\).
+        Autrement dit, \(\ln\) « défait » l'exponentielle (on dit que c'est sa fonction <b>réciproque</b>) :
+        \[e^{\ln x} = x \ (x > 0) \qquad\qquad \ln(e^y) = y \ (\text{tout réel } y).\]
+        Valeurs à connaître : \(\ln 1 = 0\), \(\ln e = 1\). Attention : \(\ln x\) n'existe que pour \(x > 0\).
+        Les courbes de \(\ln\) et de \(\exp\) sont symétriques par rapport à la droite \(y = x\).</p>
     </div>
-    <div class="box prop"><p class="box-title">Règles de calcul (pour \(a, b > 0\))</p>
+    <div class="box prop"><p class="box-title">Règles de calcul (\(a, b > 0\), \(n\) entier)</p>
       \[\ln(ab) = \ln a + \ln b \qquad \ln\frac{a}{b} = \ln a - \ln b \qquad \ln\frac{1}{b} = -\ln b \qquad \ln(a^{n}) = n\ln a \qquad \ln\sqrt{a} = \tfrac12\ln a\]
+      <p>Le logarithme transforme les produits en sommes et les puissances en produits : c'est ce qui le rend si pratique.</p>
     </div>
-    <div class="box warning"><p class="box-title">Pièges</p>
+    <div class="box prop"><p class="box-title">Équations et inéquations</p>
       <ul>
-        <li>\(\ln(a + b) \neq \ln a + \ln b\) ! Il n'y a <b>aucune</b> formule pour \(\ln(a+b)\).</li>
-        <li>\(\ln x\) n'existe que pour \(x > 0\) : toujours commencer par le <b>domaine</b>.</li>
+        <li>\(e^x = k\) (avec \(k > 0\)) \(\iff x = \ln k\). Si \(k \leq 0\), pas de solution.</li>
+        <li>\(\ln a = \ln b \iff a = b\) et \(\ln a &lt; \ln b \iff a &lt; b\) (pour \(a, b > 0\)), car \(\ln\) est strictement croissante.</li>
+        <li>Signe : \(\ln x &lt; 0\) pour \(0 &lt; x &lt; 1\), \(\ln x > 0\) pour \(x > 1\).</li>
       </ul>
     </div>
-    <div class="box example"><p class="box-title">Exemple 1 — simplifier</p>
-      <p>Écrire \(A = \ln 50 - 2\ln 5 + \ln 4\) le plus simplement possible.</p>
+    <div class="box example"><p class="box-title">Exemple 1 — seuil</p>
+      <p>Un placement augmente de 4 % par an. Au bout de combien d'années aura-t-il doublé ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(A = \ln 50 - \ln 25 + \ln 4 = \ln\dfrac{50 \times 4}{25} = \ln 8 = 3\ln 2\).</p>
+        <p>\(1{,}04^n \geq 2 \iff n\ln 1{,}04 \geq \ln 2 \iff n \geq \dfrac{\ln 2}{\ln 1{,}04} \approx 17{,}7\), car \(\ln 1{,}04 > 0\). Il faut 18 ans.</p>
+        <p>Attention : avec un taux de baisse (\(q &lt; 1\)), \(\ln q &lt; 0\) et il faut <b>changer le sens</b> de l'inégalité en divisant.</p>
       </details>
     </div>
   </section>
@@ -52,62 +56,61 @@
     <h2>2. Étude de la fonction ln</h2>
     <div class="box prop"><p class="box-title">Propriétés</p>
       <ul>
-        <li>\(\ln\) est définie et dérivable sur \(]0\,;+\infty[\) avec \((\ln x)' = \dfrac{1}{x} > 0\) : strictement croissante.</li>
-        <li>\(\lim\limits_{x\to 0^+} \ln x = -\infty\) (asymptote verticale \(x = 0\)) ; \(\lim\limits_{x\to+\infty} \ln x = +\infty\).</li>
-        <li>Croissances comparées : \(\lim\limits_{x\to+\infty} \dfrac{\ln x}{x} = 0\) et \(\lim\limits_{x\to 0^+} x\ln x = 0\).</li>
-        <li>Signe : \(\ln x &lt; 0\) sur \(]0\,;1[\), \(\ln x > 0\) sur \(]1\,;+\infty[\).</li>
-        <li>Les courbes de \(\ln\) et \(\exp\) sont symétriques par rapport à la droite \(y = x\).</li>
+        <li>\(\ln\) est définie et dérivable sur \(]0\,;\,+\infty[\), et \((\ln x)' = \dfrac1x > 0\) : elle est <b>strictement croissante</b>.</li>
+        <li>Limites : \(\lim\limits_{x \to 0^+} \ln x = -\infty\) (l'axe des ordonnées est asymptote) et \(\lim\limits_{x \to +\infty} \ln x = +\infty\) (mais très lentement).</li>
+        <li><b>Croissances comparées</b> : \(\lim\limits_{x \to +\infty} \dfrac{\ln x}{x} = 0\) et \(\lim\limits_{x \to 0^+} x\ln x = 0\) : toute puissance de \(x\) l'emporte sur le logarithme.</li>
+        <li>Dérivée composée : \((\ln u)' = \dfrac{u'}{u}\) (pour \(u > 0\)).</li>
+        <li>Tangente en 1 : \(y = x - 1\), et \(\ln x \leq x - 1\).</li>
       </ul>
     </div>
-    <div class="box method"><p class="box-title">Méthode : résoudre \(a^{n} \geq b\) (seuil d'une suite géométrique)</p>
-      <p>On applique \(\ln\) (croissante, donc l'ordre est conservé) : \(n\ln a \geq \ln b\).
-        <b>Attention</b> : si \(0 &lt; a &lt; 1\), \(\ln a &lt; 0\) et on change le sens en divisant.</p>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 2 — demi-vie</p>
-      <p>Une activité radioactive vaut \(A(t) = A_0 e^{-\lambda t}\) avec \(\lambda = 0{,}0866\ \text{an}^{-1}\). Au bout de combien de temps a-t-elle été divisée par 2 ?</p>
+    <div class="box example"><p class="box-title">Exemple 2</p>
+      <p>Étudier \(f(x) = x - \ln x\) sur \(]0\,;\,+\infty[\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(e^{-\lambda t} = \tfrac12 \iff -\lambda t = \ln\tfrac12 = -\ln 2 \iff t = \dfrac{\ln 2}{\lambda} \approx 8{,}0\) ans.</p>
-      </details>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 3 — seuil</p>
-      <p>À partir de quel rang \(n\) a-t-on \(0{,}9^{n} &lt; 0{,}01\) ?</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>\(n\ln 0{,}9 &lt; \ln 0{,}01\). Comme \(\ln 0{,}9 &lt; 0\) : \(n > \dfrac{\ln 0{,}01}{\ln 0{,}9} \approx 43{,}7\). Donc \(n \geq 44\).</p>
+        <p>\(f'(x) = 1 - \dfrac1x = \dfrac{x - 1}{x}\) : négative sur \(]0\,;\,1[\), positive après. Minimum \(f(1) = 1\) : donc \(x - \ln x \geq 1 > 0\) pour tout \(x > 0\).</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>3. Logarithme décimal et échelles logarithmiques</h2>
-    <div class="box def"><p class="box-title">Définition</p>
-      <p>\(\log x = \dfrac{\ln x}{\ln 10}\). Il vérifie les mêmes règles que \(\ln\), et \(\log(10^{n}) = n\) : il « compte les zéros ».
-        \(y = \log x \iff x = 10^{y}\).</p>
+    <div class="box def"><p class="box-title">Logarithme décimal</p>
+      <p>\(\log x = \dfrac{\ln x}{\ln 10}\). Il a les mêmes règles que \(\ln\), et en plus \(\log(10^n) = n\) : \(\log 1\,000 = 3\), \(\log 0{,}01 = -2\).
+        \(10^y = x \iff y = \log x\). Il compte « le nombre de zéros » : il sert dès qu'une grandeur varie sur de nombreuses puissances de 10.</p>
     </div>
-    <div class="table-scroll">
-    <table>
-      <thead><tr><th>Grandeur</th><th>Formule</th><th>Remarque</th></tr></thead>
-      <tbody>
-        <tr><td>Niveau d'intensité sonore</td><td>\(L = 10\log\dfrac{I}{I_0}\) (dB), \(I_0 = 10^{-12}\ \text{W/m}^2\)</td><td>doubler \(I\) ajoute \(\approx 3\) dB</td></tr>
-        <tr><td>pH d'une solution</td><td>\(\text{pH} = -\log[\text{H}_3\text{O}^+]\)</td><td>pH 3 est 10 fois plus acide que pH 4</td></tr>
-        <tr><td>Gain d'un filtre</td><td>\(G_{\text{dB}} = 20\log\dfrac{U_s}{U_e}\)</td><td>diagramme de Bode</td></tr>
-      </tbody>
-    </table>
+    <div class="box prop"><p class="box-title">Trois échelles logarithmiques</p>
+      <ul>
+        <li><b>Niveau sonore</b> : \(L = 10\log\dfrac{I}{I_0}\) (dB), avec \(I_0 = 10^{-12}\ \mathrm{W\,m^{-2}}\). Multiplier l'intensité par 10 ajoute 10 dB ; doubler la source ajoute environ 3 dB.</li>
+        <li><b>pH</b> : \(\mathrm{pH} = -\log[\mathrm{H_3O^+}]\) (concentration en mol/L). Diviser l'acidité par 10 augmente le pH de 1.</li>
+        <li><b>Magnitude</b> (Richter) : chaque degré correspond à une amplitude 10 fois plus grande.</li>
+      </ul>
     </div>
-    <div class="box example"><p class="box-title">Exemple 4 — deux machines</p>
-      <p>Une machine produit 80 dB. Quel niveau pour deux machines identiques ? Pour dix ?</p>
+    <div class="box example"><p class="box-title">Exemple 3 — décibels</p>
+      <p>Une machine produit 80 dB. Quel niveau pour deux machines identiques ? pour dix ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>Les intensités s'additionnent : \(L_2 = 10\log\dfrac{2I}{I_0} = 10\log 2 + L_1 \approx 83\) dB.
-          \(L_{10} = 10\log 10 + 80 = 90\) dB.</p>
+        <p>Les intensités s'ajoutent : \(L_2 = 10\log\dfrac{2I}{I_0} = 80 + 10\log 2 \approx 83\) dB ; \(L_{10} = 80 + 10 = 90\) dB.</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(e^x = k \iff x = \ln k\) (\(k > 0\)) ; \(\ln 1 = 0\), \(\ln e = 1\), \(e^{\ln x} = x\), \(\ln e^y = y\).</li>
+        <li>\(\ln(ab) = \ln a + \ln b\), \(\ln\frac ab = \ln a - \ln b\), \(\ln a^n = n\ln a\).</li>
+        <li>\((\ln x)' = \dfrac1x\), \((\ln u)' = \dfrac{u'}{u}\) ; \(\ln x \to -\infty\) en \(0^+\), \(\to +\infty\) en \(+\infty\) ; \(\dfrac{\ln x}{x} \to 0\).</li>
+        <li>\(\log x = \dfrac{\ln x}{\ln 10}\), \(\log 10^n = n\) ; \(L = 10\log(I/I_0)\), \(\mathrm{pH} = -\log[\mathrm{H_3O^+}]\).</li>
+        <li>Seuil \(q^n \geq S\) : \(n \geq \dfrac{\ln S}{\ln q}\) si \(q > 1\) (sens inversé si \(0 &lt; q &lt; 1\)).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-reciproque">
       <p class="widget-title">ln, réciproque de exp</p>
       <p class="hint">Déplace \(x\). Le point \(M(x\,;\ln x)\) et le point \(M'(\ln x\,;x)\) sur la courbe de exp sont symétriques par rapport à \(y = x\).</p>
-      <div class="controls"><label>\(x\) <input type="range" data-k="x" min="0.1" max="7" step="0.05" value="3"> <output data-show="x"></output></label></div>
+      <div class="controls"><label>\(x\) <input type="range" data-k="x" min="0.01" max="100" step="0.01" value="3"> <output data-show="x"></output></label></div>
       <canvas class="plot tall"></canvas>
       <div class="readout" aria-live="polite"></div>
     </div>
@@ -116,8 +119,8 @@
       <p class="widget-title">Décibels : additionner des sources</p>
       <p class="hint">\(n\) sources identiques de niveau \(L_1\) : le niveau total vaut \(L_1 + 10\log n\), pas \(n \times L_1\) !</p>
       <div class="controls">
-        <label>\(L_1\) (dB) <input type="range" data-k="L" min="30" max="110" step="1" value="70"> <output data-show="L"></output></label>
-        <label>\(n\) sources <input type="range" data-k="n" min="1" max="100" step="1" value="2"> <output data-show="n"></output></label>
+        <label>\(L_1\) (dB) <input type="range" data-k="L" min="0" max="140" step="1" value="70"> <output data-show="L"></output></label>
+        <label>\(n\) sources <input type="range" data-k="n" min="1" max="10000" step="1" value="2"> <output data-show="n"></output></label>
       </div>
       <div class="readout" aria-live="polite"></div>
     </div>
@@ -132,7 +135,7 @@
   </section>
 
   <section>
-    <h2>5. En prépa</h2>
+    <h2>6. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li>\(a^{x} = e^{x\ln a}\) pour \(a > 0\) : c'est la <b>définition</b> des puissances réelles.</li>
@@ -198,7 +201,8 @@ window.addEventListener('DOMContentLoaded', function () {
       g.point(v.x, y, '--c1', 'M');
       g.point(y, v.x, '--c2', "M'");
     };
-    P.redraw();
+    var R0 = Math.max(7.5, v.x + 1);
+    P.redraw({ xmin: -3, xmax: R0, ymin: -3, ymax: R0 });
     out.textContent = 'ln(' + Course.fmt(v.x) + ') = ' + Course.fmt(y, 4) + '    et    e^(' + Course.fmt(y, 4) + ') = ' + Course.fmt(v.x);
   });
 

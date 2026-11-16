@@ -18,29 +18,29 @@
   <header class="chapter-head">
     <p class="kicker">Maths · Analyse · Tronc commun</p>
     <h1>Suites numériques</h1>
-    <p class="lead">Reconnaître une suite arithmétique ou géométrique, calculer n'importe quel terme, une somme de termes,
-      et étudier le comportement « à l'infini ». C'est la porte d'entrée de toute l'analyse en prépa.</p>
-    <p class="prereq">Prérequis : calcul avec les puissances, équations du premier degré.</p>
+    <p class="lead">Reconnaître une suite arithmétique ou géométrique, calculer n'importe quel terme ou une somme de termes, et comprendre ce qui se passe « à l'infini » (la limite).
+      C'est la porte d'entrée de toute l'analyse en prépa.</p>
+    <p class="prereq">Prérequis : calcul avec les puissances, équations du premier degré, <a href="../maths-1re/suites.html">suites de 1re</a>.</p>
   </header>
 
   <section>
     <h2>1. Qu'est-ce qu'une suite ?</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>Une <b>suite numérique</b> \((u_n)\) associe à chaque entier naturel \(n\) un réel \(u_n\), appelé <b>terme de rang \(n\)</b>.
-        On peut la voir comme une fonction définie sur \(\mathbb{N}\) : \(n \mapsto u_n\).</p>
+      <p>Une <b>suite numérique</b> \((u_n)\) associe à chaque entier naturel \(n\) un nombre réel \(u_n\), le <b>terme de rang \(n\)</b>.
+        On peut la voir comme une fonction définie seulement sur les entiers : \(n \mapsto u_n\).</p>
     </div>
-    <p>Deux grandes façons de définir une suite :</p>
     <ul>
       <li><b>Forme explicite</b> : \(u_n = f(n)\). On calcule directement n'importe quel terme. Ex. : \(u_n = 3n^2 - 1\), donc \(u_{10} = 299\).</li>
       <li><b>Par récurrence</b> : on donne le premier terme et une relation \(u_{n+1} = f(u_n)\). Pour obtenir \(u_{10}\), il faut calculer tous les termes précédents.
         Ex. : \(u_0 = 2\) et \(u_{n+1} = 0{,}5\,u_n + 3\).</li>
     </ul>
     <div class="box def"><p class="box-title">Sens de variation</p>
-      <p>\((u_n)\) est <b>croissante</b> si pour tout \(n\), \(u_{n+1} \geq u_n\), c'est-à-dire \(u_{n+1} - u_n \geq 0\).
-        Elle est <b>décroissante</b> si \(u_{n+1} - u_n \leq 0\) pour tout \(n\).</p>
+      <p>\((u_n)\) est <b>croissante</b> si, pour tout \(n\), \(u_{n+1} \geq u_n\), c'est-à-dire \(u_{n+1} - u_n \geq 0\). Elle est <b>décroissante</b> si \(u_{n+1} - u_n \leq 0\) pour tout \(n\).
+        Une suite est <b>majorée</b> par \(M\) si \(u_n \leq M\) pour tout \(n\), <b>minorée</b> par \(m\) si \(u_n \geq m\), <b>bornée</b> si elle est les deux.</p>
     </div>
     <div class="box method"><p class="box-title">Méthode : étudier le sens de variation</p>
-      <p>On calcule \(u_{n+1} - u_n\) et on étudie son signe. Si les termes sont strictement positifs, on peut aussi comparer \(\dfrac{u_{n+1}}{u_n}\) à \(1\).</p>
+      <p>On calcule \(u_{n+1} - u_n\) et on étudie son signe. Si tous les termes sont strictement positifs, on peut aussi comparer \(\dfrac{u_{n+1}}{u_n}\) à 1.
+        Si \(u_n = f(n)\), on peut étudier les variations de \(f\) sur \([0\,;\,+\infty[\).</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1</p>
       <p>Étudier le sens de variation de \(u_n = n^2 - 4n\).</p>
@@ -54,21 +54,18 @@
   <section>
     <h2>2. Suites arithmétiques</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>\((u_n)\) est <b>arithmétique de raison \(r\)</b> si on passe d'un terme au suivant en <b>ajoutant</b> toujours le même nombre :
-        \[u_{n+1} = u_n + r.\]</p>
+      <p>\((u_n)\) est <b>arithmétique de raison \(r\)</b> si on passe d'un terme au suivant en <b>ajoutant</b> toujours le même nombre : \(u_{n+1} = u_n + r\).</p>
     </div>
     <div class="box prop"><p class="box-title">Propriétés</p>
       <ul>
-        <li>Terme général : \(u_n = u_0 + n\,r\), et plus généralement \(u_n = u_p + (n-p)\,r\).</li>
+        <li>Terme général : \(u_n = u_0 + n\,r\), et plus généralement \(u_n = u_p + (n - p)\,r\).</li>
         <li>Sens de variation : croissante si \(r > 0\), décroissante si \(r &lt; 0\), constante si \(r = 0\).</li>
-        <li>Les points \((n\,;\,u_n)\) sont <b>alignés</b> : croissance linéaire.</li>
-        <li>Somme de termes consécutifs :
-          \[S = \text{(nombre de termes)} \times \frac{\text{premier} + \text{dernier}}{2}.\]
-          En particulier \(1 + 2 + \dots + n = \dfrac{n(n+1)}{2}\).</li>
+        <li>Limite : \(+\infty\) si \(r > 0\), \(-\infty\) si \(r &lt; 0\).</li>
+        <li>Somme de termes consécutifs : \(S = \text{(nombre de termes)} \times \dfrac{\text{premier} + \text{dernier}}{2}\) ; en particulier \(1 + 2 + \dots + n = \dfrac{n(n+1)}{2}\).</li>
       </ul>
     </div>
     <div class="box example"><p class="box-title">Exemple 2 — tarif d'abonnement</p>
-      <p>Un loyer vaut 600 € la première année et augmente de 15 € chaque année. Quel loyer la 10<sup>e</sup> année ? Combien a-t-on payé au total sur 10 ans (loyer annuel) ?</p>
+      <p>Un loyer vaut 600 € la première année et augmente de 15 € chaque année. Quel loyer la 10<sup>e</sup> année ? Combien a-t-on payé au total sur 10 ans ?</p>
       <details class="solution"><summary>Solution</summary>
         <p>On pose \(u_1 = 600\) et \(r = 15\). Alors \(u_{10} = u_1 + 9r = 600 + 135 = 735\) €.</p>
         <p>Somme : \(S = 10 \times \dfrac{600 + 735}{2} = 6\,675\) €.</p>
@@ -79,25 +76,22 @@
   <section>
     <h2>3. Suites géométriques</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>\((u_n)\) est <b>géométrique de raison \(q\)</b> si on passe d'un terme au suivant en <b>multipliant</b> toujours par le même nombre :
-        \[u_{n+1} = q \times u_n.\]</p>
+      <p>\((u_n)\) est <b>géométrique de raison \(q\)</b> si on passe d'un terme au suivant en <b>multipliant</b> toujours par le même nombre : \(u_{n+1} = q \times u_n\).</p>
     </div>
     <div class="box prop"><p class="box-title">Propriétés</p>
       <ul>
         <li>Terme général : \(u_n = u_0 \times q^n\), et \(u_n = u_p \times q^{\,n-p}\).</li>
-        <li>Si \(u_0 > 0\) : croissante si \(q > 1\), décroissante si \(0 &lt; q &lt; 1\).</li>
-        <li>Somme (pour \(q \neq 1\)) :
-          \[1 + q + q^2 + \dots + q^n = \frac{1 - q^{n+1}}{1 - q}\]
-          et plus généralement
-          \[S = \text{premier terme} \times \frac{1 - q^{\text{nb de termes}}}{1 - q}.\]</li>
+        <li>Si \(u_0 > 0\) : croissante si \(q > 1\), décroissante si \(0 &lt; q &lt; 1\) ; si \(q &lt; 0\), les termes changent de signe à chaque rang.</li>
+        <li>Somme (pour \(q \neq 1\)) :</li>
       </ul>
+      \[1 + q + q^2 + \dots + q^n = \frac{1 - q^{n+1}}{1 - q} \qquad\qquad S = \text{premier terme} \times \frac{1 - q^{\text{nombre de termes}}}{1 - q}\]
     </div>
     <div class="box method"><p class="box-title">Méthode : évolution en pourcentage</p>
       <p>Augmenter de \(t\,\%\) revient à multiplier par \(1 + \dfrac{t}{100}\) ; diminuer de \(t\,\%\) revient à multiplier par \(1 - \dfrac{t}{100}\).
         Une évolution d'un pourcentage <b>constant</b> donne donc une suite géométrique.</p>
     </div>
-    <div class="box example"><p class="box-title">Exemple 3 — décharge et pertes</p>
-      <p>Une batterie perd 3 % de sa capacité maximale à chaque cycle d'usure de 100 charges. Neuve, elle stocke 50 Wh. Capacité après 8 de ces cycles ?</p>
+    <div class="box example"><p class="box-title">Exemple 3 — usure d'une batterie</p>
+      <p>Une batterie perd 3 % de sa capacité à chaque cycle d'usure de 100 charges. Neuve, elle stocke 50 Wh. Capacité après 8 de ces cycles ?</p>
       <details class="solution"><summary>Solution</summary>
         <p>\(C_n = 50 \times 0{,}97^n\) donc \(C_8 = 50 \times 0{,}97^8 \approx 39{,}2\) Wh.</p>
       </details>
@@ -113,13 +107,24 @@
 
   <section>
     <h2>4. Limites et algorithme de seuil</h2>
+    <div class="box def"><p class="box-title">Ce que veut dire « tendre vers »</p>
+      <p>\((u_n)\) <b>tend vers \(+\infty\)</b> si ses termes finissent par dépasser n'importe quel nombre, aussi grand soit-il. Elle <b>converge vers \(\ell\)</b> si ses termes finissent par être aussi proches de \(\ell\) qu'on veut.
+        On note \(\lim\limits_{n \to +\infty} u_n = \ell\). Une suite qui ne converge pas est dite <b>divergente</b>.</p>
+    </div>
     <div class="box prop"><p class="box-title">Limite de \(q^n\)</p>
       <ul>
         <li>Si \(q > 1\) : \(\lim\limits_{n\to+\infty} q^n = +\infty\).</li>
         <li>Si \(-1 &lt; q &lt; 1\) : \(\lim\limits_{n\to+\infty} q^n = 0\).</li>
         <li>Si \(q = 1\) : \(q^n = 1\) ; si \(q \leq -1\) : pas de limite (les termes oscillent).</li>
       </ul>
-      <p>Conséquence : pour \(|q| &lt; 1\), \(1 + q + q^2 + \dots + q^n \to \dfrac{1}{1-q}\).</p>
+      <p>Conséquence : pour \(-1 &lt; q &lt; 1\), \(1 + q + q^2 + \dots + q^n \to \dfrac{1}{1-q}\).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Opérations et théorèmes</p>
+      <ul>
+        <li>Les limites s'ajoutent, se multiplient et se divisent comme on s'y attend, sauf dans les <b>formes indéterminées</b> : \(\infty - \infty\), \(0 \times \infty\), \(\dfrac{\infty}{\infty}\), \(\dfrac00\) (il faut alors transformer l'expression, souvent en factorisant le terme le plus fort).</li>
+        <li><b>Comparaison</b> : si \(u_n \geq v_n\) et \(v_n \to +\infty\), alors \(u_n \to +\infty\). <b>Gendarmes</b> : si \(v_n \leq u_n \leq w_n\) et \(v_n, w_n \to \ell\), alors \(u_n \to \ell\).</li>
+        <li>Une suite <b>croissante et majorée</b> converge ; une suite <b>décroissante et minorée</b> converge (théorème admis en Terminale).</li>
+      </ul>
     </div>
     <p>Pour trouver le <b>premier rang</b> à partir duquel \(u_n\) dépasse un seuil, on programme une boucle <code>while</code> :</p>
 <pre><code>def seuil(u0, q, S):
@@ -130,21 +135,33 @@
     return n
 
 print(seuil(50, 1.04, 100))   # 18 : la valeur double en 18 ans à +4 %/an</code></pre>
-    <p>En Terminale, tu pourras aussi résoudre \(u_0 q^n \geq S\) avec le logarithme (voir le chapitre <a href="logarithme.html">Logarithmes</a>).</p>
+    <p>On peut aussi résoudre \(u_0 q^n \geq S\) avec le logarithme (voir le chapitre <a href="logarithme.html">Logarithmes</a>).</p>
   </section>
 
   <section>
-    <h2>5. Manipuler</h2>
+    <h2>5. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Arithmétique : \(u_n = u_0 + nr\), somme = nb de termes × (premier + dernier)/2, \(1 + \dots + n = \dfrac{n(n+1)}{2}\).</li>
+        <li>Géométrique : \(u_n = u_0q^n\), \(1 + q + \dots + q^n = \dfrac{1 - q^{n+1}}{1 - q}\) ; \(+t\,\%\) ⇔ \(\times(1 + t/100)\).</li>
+        <li>\(q^n \to +\infty\) si \(q > 1\), \(\to 0\) si \(|q| &lt; 1\) ; formes indéterminées : \(\infty - \infty\), \(0 \times \infty\), \(\infty/\infty\), \(0/0\).</li>
+        <li>Croissante + majorée ⇒ convergente ; gendarmes ; seuil : boucle <code>while</code> ou logarithme.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. Manipuler</h2>
     <div class="widget" id="w-suite">
       <p class="widget-title">Explorer une suite arithmétique ou géométrique</p>
       <p class="hint">Choisis le type, le premier terme et la raison. Observe l'alignement (arithmétique) ou l'explosion / l'écrasement (géométrique).</p>
       <div class="controls">
         <label>Type
           <select data-k="type"><option value="a">arithmétique</option><option value="g" selected>géométrique</option></select></label>
-        <label>\(u_0\) <input type="range" data-k="u0" min="-5" max="10" step="0.5" value="2"> <output data-show="u0"></output></label>
-        <label class="only-a">raison \(r\) <input type="range" data-k="r" min="-3" max="3" step="0.1" value="0.8"> <output data-show="r"></output></label>
-        <label class="only-g">raison \(q\) <input type="range" data-k="q" min="-1.5" max="1.6" step="0.05" value="1.2"> <output data-show="q"></output></label>
-        <label>nb de termes <input type="range" data-k="N" min="5" max="40" step="1" value="15"> <output data-show="N"></output></label>
+        <label>\(u_0\) <input type="range" data-k="u0" min="-50" max="100" step="0.5" value="2"> <output data-show="u0"></output></label>
+        <label class="only-a">raison \(r\) <input type="range" data-k="r" min="-20" max="20" step="0.1" value="0.8"> <output data-show="r"></output></label>
+        <label class="only-g">raison \(q\) <input type="range" data-k="q" min="-3" max="3" step="0.05" value="1.2"> <output data-show="q"></output></label>
+        <label>nb de termes <input type="range" data-k="N" min="2" max="100" step="1" value="15"> <output data-show="N"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -160,7 +177,7 @@ print(seuil(50, 1.04, 100))   # 18 : la valeur double en 18 ans à +4 %/an</code
   </section>
 
   <section>
-    <h2>6. En prépa</h2>
+    <h2>7. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li>Les <b>suites arithmético-géométriques</b> \(u_{n+1} = a u_n + b\) : on cherche le point fixe \(\ell = a\ell + b\), puis \(v_n = u_n - \ell\) est géométrique de raison \(a\).</li>

@@ -407,3 +407,37 @@ test('chaque graphique avec axes propose les outils de navigation', async ({ pag
     expect(r.every(Boolean), url).toBe(true);
   }
 });
+
+/* ---------- Curseurs : aucune erreur aux valeurs extrêmes ---------- */
+test.describe('curseurs poussés aux extrêmes : aucune erreur', () => {
+  test.skip(({ isMobile }) => isMobile, 'logique indépendante de l’appareil : vérifiée sur ordinateur');
+  for (const url of PAGES.slice(1)) {
+    test(url, async ({ page }) => {
+      const errors = [];
+      page.on('pageerror', (e) => errors.push(e.message));
+      await open(page, url);
+      const bad = await page.evaluate(() => {
+        const out = [];
+        const fire = (el) => { el.dispatchEvent(new Event('input', { bubbles: true })); el.dispatchEvent(new Event('change', { bubbles: true })); };
+        document.querySelectorAll('.widget input[type="range"]').forEach((r) => {
+          const w = r.closest('.widget');
+          const initial = r.value;
+          for (const v of [r.min, r.max, initial]) {
+            r.value = v; fire(r);
+            w.querySelectorAll('.readout').forEach((ro) => {
+              if (/NaN|undefined|Infinity/.test(ro.textContent)) out.push(`${w.id} ${r.dataset.k}=${v} : « ${ro.textContent.trim().slice(0, 80)} »`);
+            });
+          }
+        });
+        document.querySelectorAll('.widget select[data-k]').forEach((s) => {
+          const initial = s.value;
+          Array.from(s.options).forEach((o) => { s.value = o.value; fire(s); });
+          s.value = initial; fire(s);
+        });
+        return out;
+      });
+      expect(bad.slice(0, 5)).toEqual([]);
+      expect(errors).toEqual([]);
+    });
+  }
+});
