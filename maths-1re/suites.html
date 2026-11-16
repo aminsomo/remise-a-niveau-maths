@@ -18,30 +18,39 @@
   <header class="chapter-head">
     <p class="kicker">Maths 1re · Analyse · Tronc commun</p>
     <h1>Suites : modèles d'évolutions discrètes</h1>
-    <p class="lead">Une suite décrit une grandeur mesurée à intervalles réguliers : un capital chaque année, une population
-      de bactéries chaque heure, la charge d'une batterie à chaque cycle. On apprend à la générer, à la représenter
-      et à reconnaître une croissance linéaire ou exponentielle.</p>
+    <p class="lead">Une suite, c'est une liste de nombres qui décrit une grandeur mesurée à intervalles réguliers : un capital chaque année,
+      une population de bactéries chaque heure, la charge d'une batterie à chaque cycle. Tu vas apprendre à fabriquer une suite,
+      à la dessiner, et à reconnaître deux grands modèles : la croissance linéaire et la croissance exponentielle.</p>
     <p class="prereq">Prérequis : <a href="automatismes.html">évolutions en pourcentage</a>, fonctions affines.</p>
   </header>
 
   <section>
-    <h2>1. Générer une suite</h2>
+    <h2>1. Qu'est-ce qu'une suite ?</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>Une <b>suite</b> \(u\) associe à chaque entier naturel \(n\) un nombre réel noté \(u(n)\) ou \(u_n\) : le <b>terme de rang \(n\)</b>.</p>
+      <p>Une <b>suite</b> \(u\) associe à chaque entier naturel \(n\) (0, 1, 2, 3…) un nombre réel, noté \(u(n)\) ou \(u_n\).
+        \(n\) est le <b>rang</b> (la « position ») et \(u_n\) le <b>terme de rang \(n\)</b>. Attention : \(u_{n+1}\) est le terme suivant \(u_n\), alors que \(u_n + 1\) est \(u_n\) augmenté de 1.</p>
+    </div>
+    <div class="box def"><p class="box-title">Deux façons de fabriquer une suite</p>
       <ul>
-        <li><b>Relation fonctionnelle</b> : \(u_n = f(n)\), par exemple \(u_n = n^2 + 1\). On calcule directement \(u_{10} = 101\).</li>
-        <li><b>Relation de récurrence</b> : on donne \(u_0\) et une règle \(u_{n+1} = f(u_n)\). Pour \(u_3\), il faut \(u_1\), puis \(u_2\).</li>
+        <li><b>Par une formule en fonction de \(n\)</b> (relation fonctionnelle) : \(u_n = f(n)\), par exemple \(u_n = n^2 + 1\).
+          On calcule directement n'importe quel terme : \(u_{10} = 101\).</li>
+        <li><b>Par récurrence</b> : on donne le premier terme et une règle pour passer d'un terme au suivant, \(u_{n+1} = f(u_n)\).
+          Par exemple \(u_0 = 5\) et \(u_{n+1} = 2u_n - 3\). Pour connaître \(u_3\), il faut d'abord calculer \(u_1\), puis \(u_2\).</li>
       </ul>
     </div>
-    <div class="box def"><p class="box-title">Sens de variation et représentation</p>
-      <p>\(u\) est <b>croissante</b> si \(u_{n+1} \geq u_n\) pour tout \(n\), <b>décroissante</b> si \(u_{n+1} \leq u_n\).
-        On représente une suite par le <b>nuage de points</b> de coordonnées \((n\,;\,u_n)\) : des points isolés, sans les relier.</p>
+    <div class="box def"><p class="box-title">Sens de variation</p>
+      <p>\(u\) est <b>croissante</b> si chaque terme est plus grand que le précédent : \(u_{n+1} \geq u_n\) pour tout \(n\).
+        Elle est <b>décroissante</b> si \(u_{n+1} \leq u_n\) pour tout \(n\). Elle est <b>constante</b> si tous ses termes sont égaux.
+        Pour le savoir, on étudie le signe de la différence \(u_{n+1} - u_n\).</p>
+    </div>
+    <div class="box def"><p class="box-title">Représentation graphique</p>
+      <p>On représente une suite par le <b>nuage de points</b> de coordonnées \((n\,;\,u_n)\). Ce sont des points isolés : on ne les relie pas, car la suite n'existe que pour des entiers.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1 — une suite ni arithmétique ni géométrique</p>
       <p>\(u_0 = 1\) et \(u_{n+1} = 2u_n - 3\). Calculer \(u_1, u_2, u_3\).</p>
       <details class="solution"><summary>Solution</summary>
         <p>\(u_1 = 2 \times 1 - 3 = -1\), \(u_2 = 2 \times (-1) - 3 = -5\), \(u_3 = -13\).
-          Les écarts \(-2, -4, -8\) ne sont pas constants et les quotients non plus : elle n'est ni arithmétique ni géométrique.</p>
+          Les écarts (\(-2, -4, -8\)) ne sont pas constants, les quotients non plus : ce n'est ni une suite arithmétique ni une suite géométrique.</p>
       </details>
     </div>
   </section>
@@ -49,53 +58,60 @@
   <section>
     <h2>2. Suites arithmétiques : croissance linéaire</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>\(u\) est <b>arithmétique de raison \(r\)</b> si, pour tout \(n\), \(u_{n+1} = u_n + r\) : on ajoute toujours la même quantité.
-        C'est le modèle d'une <b>évolution absolue constante</b>.</p>
+      <p>\(u\) est <b>arithmétique de raison \(r\)</b> si on passe d'un terme au suivant en <b>ajoutant toujours le même nombre</b> \(r\) :
+        \[u_{n+1} = u_n + r.\]
+        C'est le modèle d'une <b>évolution absolue constante</b> : « +40 € par an », « −3 cm par jour ».</p>
     </div>
     <div class="box prop"><p class="box-title">Propriétés</p>
       <ul>
-        <li>Croissante si \(r > 0\), décroissante si \(r &lt; 0\), constante si \(r = 0\).</li>
-        <li>Les points \((n\,;\,u_n)\) sont <b>alignés</b>. Terme de rang \(n\) : \(u_n = u_0 + nr\).</li>
+        <li>Terme de rang \(n\) : \(u_n = u_0 + n\,r\). Plus généralement, pour deux rangs \(n\) et \(p\) : \(u_n = u_p + (n - p)\,r\).</li>
+        <li>Sens de variation : croissante si \(r > 0\), décroissante si \(r &lt; 0\), constante si \(r = 0\).</li>
+        <li>Les points \((n\,;\,u_n)\) sont <b>alignés</b> : c'est une croissance (ou décroissance) <b>linéaire</b>.</li>
+        <li>Somme de termes consécutifs : \(S = \text{nombre de termes} \times \dfrac{\text{premier} + \text{dernier}}{2}\). En particulier \(1 + 2 + \dots + n = \dfrac{n(n+1)}{2}\).</li>
       </ul>
     </div>
-    <div class="box method"><p class="box-title">Méthode : démontrer qu'une suite est arithmétique</p>
-      <p>On calcule \(u_{n+1} - u_n\) pour un \(n\) quelconque et on montre que le résultat ne dépend pas de \(n\).
-        Ex. \(u_n = 5 - 3n\) : \(u_{n+1} - u_n = 5 - 3(n+1) - 5 + 3n = -3\). Arithmétique de raison \(-3\).</p>
+    <div class="box method"><p class="box-title">Méthode : montrer qu'une suite est arithmétique</p>
+      <p>On calcule \(u_{n+1} - u_n\) et on vérifie que le résultat <b>ne dépend pas de \(n\)</b> : c'est la raison.
+        Ex. : \(u_n = 5 - 3n\) donne \(u_{n+1} - u_n = 5 - 3(n+1) - 5 + 3n = -3\). La suite est arithmétique de raison \(-3\).</p>
     </div>
   </section>
 
   <section>
     <h2>3. Suites géométriques : croissance exponentielle</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>\(u\) (à termes strictement positifs) est <b>géométrique de raison \(q > 0\)</b> si \(u_{n+1} = q \times u_n\) : on multiplie toujours par le même nombre.
-        C'est le modèle d'une <b>évolution relative constante</b> : \(+t\,\%\) par période donne \(q = 1 + \tfrac{t}{100}\).</p>
+      <p>\(u\) (à termes strictement positifs) est <b>géométrique de raison \(q > 0\)</b> si on passe d'un terme au suivant en <b>multipliant toujours par le même nombre</b> \(q\) :
+        \[u_{n+1} = q \times u_n.\]
+        C'est le modèle d'une <b>évolution relative constante</b> : une hausse de \(t\,\%\) par période donne \(q = 1 + \dfrac{t}{100}\), une baisse de \(t\,\%\) donne \(q = 1 - \dfrac{t}{100}\).</p>
     </div>
     <div class="box prop"><p class="box-title">Propriétés (\(u_0 > 0\))</p>
       <ul>
-        <li>Croissante si \(q > 1\), décroissante si \(0 &lt; q &lt; 1\), constante si \(q = 1\).</li>
-        <li>Terme de rang \(n\) : \(u_n = u_0 \times q^n\) (formule étudiée en détail en Terminale).</li>
+        <li>Terme de rang \(n\) : \(u_n = u_0 \times q^n\), et \(u_n = u_p \times q^{\,n-p}\) (formule détaillée en Terminale).</li>
+        <li>Sens de variation : croissante si \(q > 1\), décroissante si \(0 &lt; q &lt; 1\), constante si \(q = 1\).</li>
+        <li>Somme : pour \(q \neq 1\), \(1 + q + q^2 + \dots + q^n = \dfrac{1 - q^{n+1}}{1 - q}\).</li>
+        <li>Les points \((n\,;\,u_n)\) ne sont pas alignés : la croissance s'accélère (on parle de croissance <b>exponentielle</b>).</li>
       </ul>
     </div>
-    <div class="box method"><p class="box-title">Méthode : démontrer qu'une suite est géométrique</p>
-      <p>On montre que \(\dfrac{u_{n+1}}{u_n}\) est constant. Ex. \(u_n = 3 \times 2^n\) : \(\dfrac{u_{n+1}}{u_n} = \dfrac{3 \times 2^{n+1}}{3 \times 2^n} = 2\).</p>
+    <div class="box method"><p class="box-title">Méthode : montrer qu'une suite est géométrique</p>
+      <p>On calcule \(\dfrac{u_{n+1}}{u_n}\) et on vérifie que le résultat ne dépend pas de \(n\).
+        Ex. : \(u_n = 3 \times 2^n\) donne \(\dfrac{u_{n+1}}{u_n} = \dfrac{3 \times 2^{n+1}}{3 \times 2^n} = 2\) : géométrique de raison 2.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 2 — deux offres d'abonnement</p>
       <p>Offre A : 600 € la 1re année puis +40 € par an. Offre B : 600 € puis +6 % par an. Laquelle est la moins chère la 5e année ?</p>
       <details class="solution"><summary>Solution</summary>
         <p>A est arithmétique : \(a_4 = 600 + 4 \times 40 = 760\) €. B est géométrique : \(b_4 = 600 \times 1{,}06^4 \approx 757{,}49\) €.</p>
-        <p>B est encore un peu moins chère la 5e année, mais la croissance exponentielle finit toujours par dépasser la linéaire : dès la 6e année, \(b_5 \approx 802{,}94 > a_5 = 800\).</p>
+        <p>B est encore un peu moins chère la 5e année, mais la croissance exponentielle finit toujours par dépasser la croissance linéaire : dès la 6e année, \(b_5 \approx 802{,}94 > a_5 = 800\).</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>4. Algorithme de seuil</h2>
-    <p>Pour trouver le premier rang où une suite dépasse un seuil, on calcule les termes un par un avec une boucle <code>while</code> :</p>
+    <p>Pour trouver le <b>premier rang</b> à partir duquel une suite dépasse une valeur (un « seuil »), on calcule les termes un par un avec une boucle <code>while</code> (« tant que ») :</p>
 <pre><code>def seuil(u0, S):
     n, u = 0, u0
-    while u &lt;= S:
-        u = 2 * u - 3      # relation de récurrence
-        n = n + 1
+    while u &lt;= S:          # tant que le seuil n'est pas dépassé
+        u = 2 * u - 3      # on calcule le terme suivant
+        n = n + 1          # et on avance d'un rang
     return n
 
 print(seuil(4, 1000))   # 10 : u_10 = 1 027 est le premier terme &gt; 1 000</code></pre>
@@ -108,15 +124,33 @@ print(seuil(4, 1000))   # 10 : u_10 = 1 027 est le premier terme &gt; 1 000</cod
   </section>
 
   <section>
-    <h2>5. Manipuler</h2>
+    <h2>5. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th></th><th>arithmétique (raison \(r\))</th><th>géométrique (raison \(q\))</th></tr></thead>
+        <tbody>
+          <tr><th>récurrence</th><td>\(u_{n+1} = u_n + r\)</td><td>\(u_{n+1} = q\,u_n\)</td></tr>
+          <tr><th>terme de rang \(n\)</th><td>\(u_n = u_0 + nr\)</td><td>\(u_n = u_0 q^n\)</td></tr>
+          <tr><th>sens de variation</th><td>signe de \(r\)</td><td>\(q > 1\) : croissante ; \(0 &lt; q &lt; 1\) : décroissante</td></tr>
+          <tr><th>somme</th><td>\(\text{nb de termes} \times \frac{\text{premier} + \text{dernier}}{2}\)</td><td>\(1 + q + \dots + q^n = \frac{1 - q^{n+1}}{1 - q}\)</td></tr>
+          <tr><th>graphique</th><td>points alignés</td><td>croissance de plus en plus rapide</td></tr>
+          <tr><th>situation</th><td>« + la même quantité »</td><td>« + le même pourcentage »</td></tr>
+        </tbody>
+      </table></div>
+      <p>Nombre de termes de \(u_p\) à \(u_n\) : \(n - p + 1\) (ne pas oublier le « +1 »).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. Manipuler</h2>
     <div class="widget" id="w-rec">
       <p class="widget-title">Suite définie par \(u_{n+1} = a\,u_n + b\)</p>
       <p class="hint">Avec \(a = 1\) elle est arithmétique, avec \(b = 0\) géométrique. Ailleurs, elle n'est ni l'une ni l'autre : observe le nuage de points.</p>
       <div class="controls">
-        <label>\(u_0\) <input type="range" data-k="u0" min="-5" max="10" step="0.5" value="2"> <output data-show="u0"></output></label>
-        <label>\(a\) <input type="range" data-k="a" min="0" max="2" step="0.05" value="1.2"> <output data-show="a"></output></label>
-        <label>\(b\) <input type="range" data-k="b" min="-3" max="3" step="0.5" value="0"> <output data-show="b"></output></label>
-        <label>seuil <input type="range" data-k="S" min="5" max="60" step="1" value="20"> <output data-show="S"></output></label>
+        <label>\(u_0\) <input type="range" data-k="u0" min="-20" max="50" step="0.5" value="2"> <output data-show="u0"></output></label>
+        <label>\(a\) <input type="range" data-k="a" min="-2" max="3" step="0.05" value="1.2"> <output data-show="a"></output></label>
+        <label>\(b\) <input type="range" data-k="b" min="-10" max="10" step="0.5" value="0"> <output data-show="b"></output></label>
+        <label>seuil <input type="range" data-k="S" min="1" max="500" step="1" value="20"> <output data-show="S"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -128,7 +162,7 @@ print(seuil(4, 1000))   # 10 : u_10 = 1 027 est le premier terme &gt; 1 000</cod
   </section>
 
   <section>
-    <h2>6. En prépa</h2>
+    <h2>7. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <p>La suite \(u_{n+1} = a u_n + b\) (arithmético-géométrique) est un grand classique : on cherche le point fixe \(\ell = a\ell + b\)
         puis on montre que \(u_n - \ell\) est géométrique. Les suites récurrentes \(u_{n+1} = f(u_n)\) sont étudiées dès le premier trimestre.
@@ -179,20 +213,20 @@ window.addEventListener('DOMContentLoaded', function () {
   var G = Course.plot(w.querySelector('canvas'), {});
   Course.onInput(w, function (v) {
     var u = [v.u0];
-    for (var n = 1; n < 20; n++) u.push(v.a * u[n - 1] + v.b);
+    for (var n = 1; n < 30; n++) u.push(v.a * u[n - 1] + v.b);
     var shown = u.map(function (x) { return Math.max(-1e4, Math.min(1e4, x)); });
     var lo = Math.min(0, v.S, Math.min.apply(null, shown)), hi = Math.max(1, v.S, Math.max.apply(null, shown));
     hi = Math.min(hi, Math.max(v.S * 3, 10)); lo = Math.max(lo, -Math.max(v.S * 3, 10));
     var pad = (hi - lo) * 0.08 || 1, first = -1;
     for (var k = 0; k < u.length; k++) if (u[k] > v.S) { first = k; break; }
     G.draw = function (g) {
-      g.seg(-1, v.S, 20, v.S, '--c4', { dash: [6, 4], width: 1.5 });
+      g.seg(-1, v.S, 30, v.S, '--c4', { dash: [6, 4], width: 1.5 });
       u.forEach(function (y, i) { if (y >= lo - pad && y <= hi + pad) g.point(i, y, i === first ? '--c4' : '--c2', null, { r: i === first ? 6 : 4 }); });
     };
-    G.redraw({ xmin: -1, xmax: 20, ymin: lo - pad, ymax: hi + pad });
+    G.redraw({ xmin: -1, xmax: 30, ymin: lo - pad, ymax: hi + pad });
     var nat = v.a === 1 ? 'arithmétique de raison ' + Course.fmt(v.b) : v.b === 0 ? 'géométrique de raison ' + Course.fmt(v.a) : 'ni arithmétique ni géométrique';
     out.textContent = 'Nature : ' + nat + '\nu_1 = ' + Course.fmt(u[1]) + '   u_2 = ' + Course.fmt(u[2]) + '   u_5 = ' + Course.fmt(u[5]) +
-      '\npremier rang où u_n > ' + v.S + ' : ' + (first >= 0 ? 'n = ' + first : 'pas avant n = 19');
+      '\npremier rang où u_n > ' + v.S + ' : ' + (first >= 0 ? 'n = ' + first : 'pas avant n = 29');
   });
 
   /* Exercices : terme par récurrence, raison, rang de seuil */

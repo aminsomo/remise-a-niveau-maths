@@ -18,18 +18,19 @@
   <header class="chapter-head">
     <p class="kicker">Maths 1re · Statistiques · Tronc commun</p>
     <h1>Statistiques à deux variables</h1>
-    <p class="lead">Croiser deux caractères d'une population (tableau croisé, fréquences conditionnelles), puis relier deux grandeurs
-      mesurées (nuage de points, ajustement affine) pour interpoler ou extrapoler — comme une droite d'étalonnage en physique.</p>
+    <p class="lead">Deux situations : croiser deux caractères d'une population (par exemple l'usine d'origine et la présence d'une panne) avec un tableau croisé,
+      puis relier deux grandeurs mesurées (tension et température d'un capteur) par une droite, pour estimer des valeurs qu'on n'a pas mesurées — comme une droite d'étalonnage en physique.</p>
     <p class="prereq">Prérequis : fréquences, moyenne (seconde), équation de droite.</p>
   </header>
 
   <section>
     <h2>1. Tableau croisé et fréquences</h2>
     <div class="box def"><p class="box-title">Définitions</p>
-      <p>Un <b>tableau croisé d'effectifs</b> répartit une population selon deux caractères. À partir de l'effectif total \(N\) :</p>
+      <p>Un <b>tableau croisé d'effectifs</b> répartit une population selon deux caractères (en lignes et en colonnes), avec les totaux à droite et en bas. À partir de l'effectif total \(N\) :</p>
       <ul>
-        <li><b>fréquence marginale</b> de A : \(f(A) = \dfrac{n_A}{N}\) (on lit un total de ligne ou de colonne) ;</li>
-        <li><b>fréquence conditionnelle</b> de B parmi A : \(f_A(B) = \dfrac{n_{A \cap B}}{n_A}\) (on se restreint à la ligne ou colonne A).</li>
+        <li>la <b>fréquence marginale</b> de A est \(f(A) = \dfrac{n_A}{N}\) : on lit un <b>total</b> de ligne ou de colonne et on divise par \(N\) ;</li>
+        <li>la <b>fréquence conditionnelle</b> de B <b>parmi</b> A est \(f_A(B) = \dfrac{n_{A \cap B}}{n_A}\) : on se restreint à la ligne (ou colonne) A, et on divise par son total ;</li>
+        <li>la fréquence de « A et B » sur toute la population est \(f(A \cap B) = \dfrac{n_{A \cap B}}{N}\).</li>
       </ul>
     </div>
     <div class="table-scroll"><table>
@@ -40,28 +41,44 @@
         <tr><th>total</th><td>28</td><td>972</td><td>1 000</td></tr>
       </tbody>
     </table></div>
+    <div class="box warning"><p class="box-title">Attention à la phrase</p>
+      <p>« La proportion de pannes <b>parmi</b> les moteurs de l'usine 2 » (\(f_{U_2}(P)\)) et « la proportion de moteurs de l'usine 2 <b>parmi</b> les pannes » (\(f_P(U_2)\)) ne désignent pas la même chose :
+        le mot « parmi » indique le groupe par lequel on divise.</p>
+    </div>
     <div class="box example"><p class="box-title">Exemple 1 — contrôle qualité</p>
       <p>Avec le tableau ci-dessus : fréquence des pannes ? Fréquence des pannes parmi les moteurs de l'usine 2 ? Proportion de l'usine 2 parmi les pannes ?</p>
       <details class="solution"><summary>Solution</summary>
         <p>\(f(P) = \tfrac{28}{1000} = 2{,}8\,\%\) ; \(f_{U_2}(P) = \tfrac{16}{400} = 4\,\%\) ; \(f_P(U_2) = \tfrac{16}{28} \approx 57\,\%\).</p>
-        <p>Attention à la formulation : « parmi les moteurs de l'usine 2 » et « parmi les pannes » ne désignent pas la même sous-population.</p>
       </details>
+    </div>
+    <div class="box method"><p class="box-title">Compléter un tableau à partir de fréquences</p>
+      <p>On part de l'effectif total, on calcule les totaux avec les fréquences marginales (\(n_A = f(A) \times N\)), puis les cases avec les fréquences conditionnelles (\(n_{A \cap B} = f_A(B) \times n_A\)), et on finit par soustraction.</p>
     </div>
   </section>
 
   <section>
     <h2>2. Nuage de points et point moyen</h2>
     <div class="box def"><p class="box-title">Définitions</p>
-      <p>Une série à deux variables quantitatives \((x_i\,;\,y_i)\), \(1 \leq i \leq n\), se représente par un <b>nuage de points</b>.
-        Le <b>point moyen</b> est \(G(\bar x\,;\,\bar y)\) avec \(\bar x = \dfrac{x_1 + \dots + x_n}{n}\) et \(\bar y = \dfrac{y_1 + \dots + y_n}{n}\).</p>
+      <p>Une série à deux variables quantitatives est une liste de couples \((x_i\,;\,y_i)\) pour \(i\) de 1 à \(n\) (par ex. température et tension).
+        On la représente par un <b>nuage de points</b>. Le <b>point moyen</b> est
+        \[G(\bar x\,;\,\bar y) \qquad\text{avec}\qquad \bar x = \frac{x_1 + \dots + x_n}{n}, \quad \bar y = \frac{y_1 + \dots + y_n}{n}.\]</p>
     </div>
-    <div class="box def"><p class="box-title">Ajustement affine</p>
-      <p>Quand le nuage est allongé selon une droite, on l'ajuste par une droite \(y = ax + b\) : au jugé, par la droite de Mayer (passant par les points moyens des deux moitiés du nuage)
-        ou par la méthode des <b>moindres carrés</b>, qui rend minimale la somme \(\sum_i \big(y_i - (ax_i + b)\big)^2\). Cette droite passe par \(G\) ; la calculatrice ou le tableur donne \(a\) et \(b\).</p>
+  </section>
+
+  <section>
+    <h2>3. Ajustement affine</h2>
+    <div class="box def"><p class="box-title">L'idée</p>
+      <p>Quand le nuage a une forme allongée, presque alignée, on le résume par une droite \(y = ax + b\) : c'est un <b>ajustement affine</b>. Trois façons de la choisir :</p>
+      <ul>
+        <li><b>Au jugé</b> : on trace « à l'œil » une droite qui passe au milieu des points (de préférence par \(G\)).</li>
+        <li><b>Droite de Mayer</b> : on coupe le nuage en deux moitiés (selon \(x\)), on calcule le point moyen de chaque moitié, et on trace la droite qui passe par ces deux points.</li>
+        <li><b>Moindres carrés</b> : la droite qui rend la plus petite possible la somme \(\sum_i \big(y_i - (ax_i + b)\big)^2\) des carrés des écarts verticaux.
+          Elle passe toujours par \(G\). La calculatrice (ou le tableur) donne \(a\) et \(b\) ; on a \(a = \dfrac{\sum (x_i - \bar x)(y_i - \bar y)}{\sum (x_i - \bar x)^2}\) et \(b = \bar y - a\bar x\).</li>
+      </ul>
     </div>
     <div class="box method"><p class="box-title">Interpoler, extrapoler</p>
-      <p>On remplace \(x\) par une valeur dans \(y = ax + b\). À l'intérieur du domaine des mesures, c'est une <b>interpolation</b> (fiable) ;
-        au-delà, une <b>extrapolation</b>, à manier avec esprit critique : rien ne garantit que la tendance continue.</p>
+      <p>Pour estimer \(y\) pour une valeur de \(x\), on remplace \(x\) dans \(y = ax + b\) (et pour trouver \(x\) connaissant \(y\), on résout l'équation).
+        À l'intérieur de la zone des mesures, c'est une <b>interpolation</b> (en général fiable). Au-delà, c'est une <b>extrapolation</b> : rien ne garantit que la tendance continue — il faut garder un esprit critique.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 2 — étalonnage d'un capteur</p>
       <p>Un capteur donne une tension \(U\) (mV) selon la température \(\theta\) (°C) : (0 ; 2), (20 ; 41), (40 ; 79), (60 ; 122). Point moyen ? Avec l'ajustement des moindres carrés \(U = 1{,}99\,\theta + 1{,}3\), quelle température pour 100 mV ?</p>
@@ -73,14 +90,26 @@
   </section>
 
   <section>
-    <h2>3. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Fréquence marginale \(f(A) = \dfrac{n_A}{N}\) ; conditionnelle \(f_A(B) = \dfrac{n_{A \cap B}}{n_A}\) (« parmi A » : on divise par \(n_A\)).</li>
+        <li>Point moyen \(G(\bar x\,;\,\bar y)\).</li>
+        <li>Moindres carrés : droite passant par \(G\), \(a = \dfrac{\sum (x_i - \bar x)(y_i - \bar y)}{\sum (x_i - \bar x)^2}\), \(b = \bar y - a\bar x\).</li>
+        <li>Interpolation : dans la zone des mesures ; extrapolation : au-delà, avec prudence.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-reg">
       <p class="widget-title">Nuage de points et droite des moindres carrés</p>
       <p class="hint">Augmente le bruit : le nuage s'étale et l'ajustement devient moins pertinent. Le point orange est le point moyen \(G\).</p>
       <div class="controls">
-        <label>pente vraie <input type="range" data-k="a" min="-2" max="2" step="0.1" value="0.8"> <output data-show="a"></output></label>
-        <label>bruit <input type="range" data-k="s" min="0" max="4" step="0.1" value="1"> <output data-show="s"></output></label>
-        <label>points <input type="range" data-k="n" min="4" max="40" step="1" value="12"> <output data-show="n"></output></label>
+        <label>pente vraie <input type="range" data-k="a" min="-5" max="5" step="0.1" value="0.8"> <output data-show="a"></output></label>
+        <label>bruit <input type="range" data-k="s" min="0" max="10" step="0.1" value="1"> <output data-show="s"></output></label>
+        <label>points <input type="range" data-k="n" min="3" max="100" step="1" value="12"> <output data-show="n"></output></label>
         <button class="btn ghost" type="button" id="reg-new">Nouvelles mesures</button>
       </div>
       <canvas class="plot"></canvas>
@@ -134,7 +163,7 @@ window.addEventListener('DOMContentLoaded', function () {
   var G = Course.plot(w.querySelector('canvas'), { xmin: -0.5, xmax: 10.5, ymin: -8, ymax: 14 });
   var noise = [];
   function gauss() { var u = 1 - Math.random(), v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
-  function refill() { noise = []; for (var i = 0; i < 40; i++) noise.push([Math.random() * 10, gauss()]); }
+  function refill() { noise = []; for (var i = 0; i < 100; i++) noise.push([Math.random() * 10, gauss()]); }
   refill();
   var update = Course.onInput(w, function (v) {
     var pts = noise.slice(0, v.n).map(function (p) { return [p[0], v.a * p[0] + 3 + v.s * p[1]]; });
@@ -146,7 +175,9 @@ window.addEventListener('DOMContentLoaded', function () {
       g.fn(function (x) { return a * x + b; }, '--c3');
       g.point(mx, my, '--c4', 'G', { r: 6 });
     };
-    G.redraw();
+    var ylo = Math.min.apply(null, pts.map(function (q) { return q[1]; })), yhi = Math.max.apply(null, pts.map(function (q) { return q[1]; }));
+    var py = (yhi - ylo) * 0.12 || 2;
+    G.redraw({ ymin: Math.min(-1, ylo - py), ymax: Math.max(1, yhi + py) });
     var S = 0; pts.forEach(function (p) { S += Math.pow(p[1] - a * p[0] - b, 2); });
     out.textContent = 'G(' + Course.fmt(mx, 2) + ' ; ' + Course.fmt(my, 2) + ')   droite : y = ' + Course.fmt(a, 3) + 'x + ' + Course.fmt(b, 3) +
       '\nsomme des carrés des écarts (pointillés) : ' + Course.fmt(S, 2);

@@ -18,74 +18,111 @@
   <header class="chapter-head">
     <p class="kicker">Maths 1re · Probabilités · Tronc commun</p>
     <h1>Probabilités conditionnelles et indépendance</h1>
-    <p class="lead">Un test de dépistage est positif : quelle est la probabilité d'être réellement malade ? Les probabilités conditionnelles
-      répondent à ce genre de question, et l'indépendance permet de modéliser des épreuves répétées (contrôle de pièces, tirs, transmissions).</p>
+    <p class="lead">Un test de dépistage est positif : quelle est la vraie probabilité d'être malade ? Les probabilités conditionnelles répondent à ce genre de question.
+      L'indépendance, elle, permet de modéliser des épreuves répétées : contrôle de pièces, tirs, transmissions de messages.</p>
     <p class="prereq">Prérequis : <a href="statistiques.html">fréquences conditionnelles</a>, probabilités de seconde.</p>
   </header>
 
   <section>
-    <h2>1. Probabilité conditionnelle</h2>
+    <h2>1. Rappels : événements et règles de base</h2>
+    <div class="box def"><p class="box-title">Vocabulaire</p>
+      <ul>
+        <li>L'<b>univers</b> \(\Omega\) est l'ensemble de toutes les issues possibles d'une expérience aléatoire ; un <b>événement</b> est un ensemble d'issues.</li>
+        <li>\(\bar A\) (« non A ») est l'événement <b>contraire</b> de A ; \(A \cap B\) (« A et B ») ; \(A \cup B\) (« A ou B », au moins l'un des deux).</li>
+        <li>A et B sont <b>incompatibles</b> s'ils ne peuvent pas se produire en même temps : \(A \cap B = \emptyset\).</li>
+      </ul>
+    </div>
+    <div class="box prop"><p class="box-title">Règles</p>
+      <p>\(0 \leq P(A) \leq 1\), \(P(\Omega) = 1\), \(P(\bar A) = 1 - P(A)\), \(P(A \cup B) = P(A) + P(B) - P(A \cap B)\).
+        En situation d'<b>équiprobabilité</b> (toutes les issues ont la même chance) : \(P(A) = \dfrac{\text{nombre d'issues favorables}}{\text{nombre total d'issues}}\).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Probabilité conditionnelle</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>On choisit au hasard un individu d'une population. Si \(P(A) \neq 0\), la probabilité de \(B\) <b>sachant</b> \(A\) est
+      <p>Si \(P(A) \neq 0\), la probabilité de B <b>sachant</b> A (c'est-à-dire en sachant que A est réalisé) est
         \[P_A(B) = \frac{P(A \cap B)}{P(A)}.\]
-        Avec un tableau croisé d'effectifs : \(P_A(B) = \dfrac{\mathrm{Card}(A \cap B)}{\mathrm{Card}(A)}\).</p>
+        Quand on tire au hasard un individu dans une population décrite par un tableau croisé : \(P_A(B) = \dfrac{\mathrm{Card}(A \cap B)}{\mathrm{Card}(A)}\) (Card = nombre d'éléments).
+        On en déduit la <b>formule du produit</b> : \(P(A \cap B) = P(A) \times P_A(B)\).</p>
     </div>
     <div class="box warning"><p class="box-title">Ne pas confondre</p>
-      <p>\(P(A \cap B)\) (A <b>et</b> B, sur toute la population), \(P_A(B)\) (B parmi les A) et \(P_B(A)\) (A parmi les B) sont trois nombres différents.</p>
+      <p>\(P(A \cap B)\) (A <b>et</b> B, sur toute la population), \(P_A(B)\) (B <b>parmi</b> les A) et \(P_B(A)\) (A <b>parmi</b> les B) sont trois nombres différents.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1 — test de dépistage</p>
       <p>Sur 10 000 personnes, 100 sont malades (M). Le test est positif (T) chez 95 malades et chez 495 non-malades.
-        Calculer la sensibilité \(P_M(T)\), le taux de faux positifs \(P_{\bar M}(T)\) et \(P_T(M)\).</p>
+        Calculer la <b>sensibilité</b> \(P_M(T)\), le taux de <b>faux positifs</b> \(P_{\bar M}(T)\) et \(P_T(M)\).</p>
       <details class="solution"><summary>Solution</summary>
         <p>\(P_M(T) = \tfrac{95}{100} = 0{,}95\) ; \(P_{\bar M}(T) = \tfrac{495}{9\,900} = 0{,}05\).</p>
-        <p>Parmi les \(95 + 495 = 590\) positifs : \(P_T(M) = \tfrac{95}{590} \approx 0{,}16\). Un test positif ne signifie qu'une chance sur six d'être malade : la maladie est rare !</p>
+        <p>Parmi les \(95 + 495 = 590\) positifs : \(P_T(M) = \tfrac{95}{590} \approx 0{,}16\). Un test positif ne veut dire qu'environ une chance sur six d'être malade, parce que la maladie est rare !</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>2. Indépendance</h2>
+    <h2>3. Indépendance</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>Pour \(P(A) \neq 0\), \(B\) est <b>indépendant</b> de \(A\) si \(P_A(B) = P(B)\) : savoir que A est réalisé ne change pas la probabilité de B.
-        Cela équivaut à \(P(A \cap B) = P(A) \times P(B)\), et la relation est symétrique (si \(P(B) \neq 0\), \(A\) est aussi indépendant de \(B\)).</p>
+      <p>Pour \(P(A) \neq 0\), B est <b>indépendant</b> de A si \(P_A(B) = P(B)\) : savoir que A est réalisé ne change pas la probabilité de B.
+        Cela revient à \(P(A \cap B) = P(A) \times P(B)\), et c'est symétrique : si de plus \(P(B) \neq 0\), A est aussi indépendant de B.</p>
+    </div>
+    <div class="box warning"><p class="box-title">Indépendant ≠ incompatible</p>
+      <p>Deux événements incompatibles de probabilités non nulles ne sont jamais indépendants : si l'un se produit, l'autre devient impossible.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 2</p>
       <p>Dans une classe de 30 élèves, 12 font du sport (S), 10 sont internes (I), 4 sont internes et sportifs. S et I sont-ils indépendants ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(P(S) \times P(I) = 0{,}4 \times \tfrac13 \approx 0{,}133\) et \(P(S \cap I) = \tfrac{4}{30} \approx 0{,}133\). Égalité : indépendants.</p>
+        <p>\(P(S) \times P(I) = 0{,}4 \times \tfrac13 \approx 0{,}133\) et \(P(S \cap I) = \tfrac{4}{30} \approx 0{,}133\). C'est égal : ils sont indépendants.</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>3. Épreuves indépendantes et arbres</h2>
-    <div class="box prop"><p class="box-title">Modèle produit</p>
-      <p>Lorsqu'on enchaîne des épreuves <b>indépendantes</b>, on représente l'expérience par un arbre : la probabilité d'un chemin
-        (une liste de résultats) est le <b>produit</b> des probabilités portées par ses branches. La probabilité d'un événement est la somme des probabilités des chemins qui le réalisent.</p>
+    <h2>4. Arbres et épreuves répétées</h2>
+    <div class="box prop"><p class="box-title">Règles d'un arbre pondéré</p>
+      <ul>
+        <li>La somme des probabilités des branches qui partent d'un même nœud vaut 1.</li>
+        <li>La probabilité d'un <b>chemin</b> est le <b>produit</b> des probabilités portées par ses branches (formule du produit).</li>
+        <li>La probabilité d'un événement est la <b>somme</b> des probabilités des chemins qui y mènent.</li>
+      </ul>
     </div>
-    <div class="box def"><p class="box-title">Épreuve de Bernoulli</p>
-      <p>Une épreuve à deux issues, <b>succès</b> (probabilité \(p\)) et <b>échec</b> (probabilité \(1 - p\)). En la répétant \(n\) fois de façon identique et indépendante,
-        un chemin comportant \(k\) succès a pour probabilité \(p^k(1 - p)^{n-k}\).</p>
+    <div class="box prop"><p class="box-title">Formule des probabilités totales</p>
+      <p>Si \(A\) et \(\bar A\) partagent l'univers en deux :
+        \[P(B) = P(A \cap B) + P(\bar A \cap B) = P(A)\,P_A(B) + P(\bar A)\,P_{\bar A}(B).\]</p>
+    </div>
+    <div class="box def"><p class="box-title">Épreuve de Bernoulli, épreuves indépendantes</p>
+      <p>Une <b>épreuve de Bernoulli</b> n'a que deux issues : <b>succès</b> (probabilité \(p\)) et <b>échec</b> (probabilité \(1 - p\)).
+        Quand on enchaîne des épreuves <b>indépendantes</b> (le résultat de l'une n'influence pas les autres), la probabilité d'une liste de résultats est le produit des probabilités.
+        En répétant \(n\) fois la même épreuve de Bernoulli, un chemin qui contient \(k\) succès a pour probabilité \(p^k(1 - p)^{n-k}\).</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 3 — trois pièces contrôlées</p>
       <p>Une pièce est défectueuse avec probabilité \(0{,}1\), indépendamment des autres. On en prélève 3. Probabilité d'exactement une défectueuse ? D'au moins une ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>Trois chemins réalisent « exactement une » (D en 1re, 2e ou 3e position), chacun de probabilité \(0{,}1 \times 0{,}9^2 = 0{,}081\) : total \(0{,}243\).</p>
+        <p>Trois chemins donnent « exactement une » (la pièce défectueuse en 1re, 2e ou 3e position), chacun de probabilité \(0{,}1 \times 0{,}9^2 = 0{,}081\) : total \(0{,}243\).</p>
         <p>« Au moins une » est le contraire de « aucune » : \(1 - 0{,}9^3 = 0{,}271\).</p>
       </details>
-    </div>
-    <div class="box prop"><p class="box-title">Formule des probabilités totales</p>
-      <p>Si \(A\) et \(\bar A\) partagent l'univers : \(P(B) = P(A \cap B) + P(\bar A \cap B) = P(A)P_A(B) + P(\bar A)P_{\bar A}(B)\).</p>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>5. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(P(\bar A) = 1 - P(A)\) ; \(P(A \cup B) = P(A) + P(B) - P(A \cap B)\).</li>
+        <li>\(P_A(B) = \dfrac{P(A \cap B)}{P(A)}\) ; \(P(A \cap B) = P(A)\,P_A(B)\).</li>
+        <li>Indépendance : \(P(A \cap B) = P(A)P(B)\), ou \(P_A(B) = P(B)\).</li>
+        <li>Probabilités totales : \(P(B) = P(A)P_A(B) + P(\bar A)P_{\bar A}(B)\).</li>
+        <li>\(n\) épreuves de Bernoulli indépendantes : un chemin à \(k\) succès a pour probabilité \(p^k(1-p)^{n-k}\) ; « au moins un succès » : \(1 - (1 - p)^n\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. Manipuler</h2>
     <div class="widget" id="w-bern">
       <p class="widget-title">\(n\) épreuves de Bernoulli : probabilité du nombre de succès</p>
       <p class="hint">Chaque barre additionne tous les chemins de l'arbre ayant \(k\) succès.</p>
       <div class="controls">
-        <label>\(n\) <input type="range" data-k="n" min="1" max="4" step="1" value="3"> <output data-show="n"></output></label>
+        <label>\(n\) <input type="range" data-k="n" min="1" max="10" step="1" value="3"> <output data-show="n"></output></label>
         <label>\(p\) <input type="range" data-k="p" min="0" max="1" step="0.05" value="0.3"> <output data-show="p" data-digits="2"></output></label>
       </div>
       <canvas class="plot"></canvas>
@@ -144,7 +181,7 @@ window.addEventListener('DOMContentLoaded', function () {
     G.draw = function (g) {
       probs.forEach(function (q, k) {
         g.poly([[k - 0.3, 0], [k - 0.3, q], [k + 0.3, q], [k + 0.3, 0]], '--c1', { close: true, fill: true, alpha: 0.45 });
-        g.text(k, q + 0.04, Course.fmt(q, 3), '--text', { align: 'center', bold: true });
+        if (v.n <= 6) g.text(k, q + 0.04, Course.fmt(q, 3), '--text', { align: 'center', bold: true });
       });
     };
     G.redraw({ xmin: -0.7, xmax: v.n + 0.7, ymin: -0.05, ymax: 1.1 });

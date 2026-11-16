@@ -18,42 +18,53 @@
   <header class="chapter-head">
     <p class="kicker">Maths 1re · Analyse · Spécialité PCM</p>
     <h1>Primitives et méthode d'Euler</h1>
-    <p class="lead">Dériver, c'est passer de la position à la vitesse. Trouver une <b>primitive</b>, c'est faire le chemin inverse :
-      retrouver la position à partir de la vitesse. Et quand on ne sait pas calculer, la <b>méthode d'Euler</b> construit la courbe pas à pas.</p>
+    <p class="lead">Dériver, c'est passer de la position à la vitesse. Chercher une <b>primitive</b>, c'est faire le chemin inverse : retrouver la position à partir de la vitesse.
+      Et quand on ne sait pas faire le calcul exact, la <b>méthode d'Euler</b> construit la courbe pas à pas.</p>
     <p class="prereq">Prérequis : <a href="fonctions-derivees.html">fonctions dérivées</a>.</p>
   </header>
 
   <section>
     <h2>1. Définition et propriété fondamentale</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>Soit \(f\) définie sur un intervalle \(I\). Une <b>primitive</b> de \(f\) sur \(I\) est une fonction \(F\) dérivable sur \(I\) telle que \(F' = f\).</p>
+      <p>Soit \(f\) une fonction définie sur un intervalle \(I\). Une <b>primitive</b> de \(f\) sur \(I\) est une fonction \(F\) dont la dérivée est \(f\) :
+        \[F'(x) = f(x) \text{ pour tout } x \text{ de } I.\]
+        Exemple : \(F(x) = x^2\) est une primitive de \(f(x) = 2x\), car \((x^2)' = 2x\). Pour vérifier qu'on a trouvé une primitive, on <b>dérive</b> et on doit retomber sur \(f\).</p>
     </div>
-    <div class="box prop"><p class="box-title">Propriété (admise)</p>
-      <p>Si \(F\) est une primitive de \(f\) sur \(I\), les primitives de \(f\) sont les fonctions \(F + C\), \(C\) constante réelle.
-        Deux primitives d'une même fonction diffèrent d'une constante : leurs courbes se déduisent l'une de l'autre par translation verticale.
-        Il existe une <b>unique</b> primitive prenant une valeur donnée \(y_0\) en \(t_0\).</p>
+    <div class="box prop"><p class="box-title">Toutes les primitives (admis)</p>
+      <p>Si \(F\) est une primitive de \(f\) sur \(I\), alors les primitives de \(f\) sont <b>toutes</b> les fonctions \(F + C\), où \(C\) est une constante réelle.
+        Autrement dit, deux primitives d'une même fonction diffèrent d'une constante : leurs courbes sont « parallèles », l'une est la translation verticale de l'autre.</p>
+      <p>Il y a donc une <b>seule</b> primitive qui prend une valeur donnée \(y_0\) en un point \(t_0\) : on trouve \(C\) grâce à cette <b>condition initiale</b>.</p>
     </div>
-    <div class="box example"><p class="box-title">Exemple 1 — une raison cinématique</p>
+    <div class="box example"><p class="box-title">Exemple 1 — l'idée en physique</p>
       <p>Un mobile a une vitesse nulle à chaque instant. Que dire de sa position ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>Il ne bouge pas : sa position est constante. Une fonction de dérivée nulle sur un intervalle est constante — c'est pourquoi deux primitives (même dérivée) ne diffèrent que d'une constante.</p>
+        <p>Il ne bouge pas : sa position est constante. Une fonction dont la dérivée est nulle sur un intervalle est constante — c'est pour ça que deux primitives (même dérivée) ne diffèrent que d'une constante.</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>2. Primitives usuelles</h2>
+    <h2>2. Primitives usuelles et règles</h2>
     <div class="box prop"><p class="box-title">Tableau</p>
       <div class="table-scroll"><table>
         <thead><tr><th>\(f(t)\)</th><th>une primitive \(F(t)\)</th></tr></thead>
         <tbody>
           <tr><td>\(k\) (constante)</td><td>\(kt\)</td></tr>
+          <tr><td>\(t\)</td><td>\(\dfrac{t^2}{2}\)</td></tr>
+          <tr><td>\(t^2\)</td><td>\(\dfrac{t^3}{3}\)</td></tr>
           <tr><td>\(t^n\) (\(n \geq 0\) entier)</td><td>\(\dfrac{t^{n+1}}{n + 1}\)</td></tr>
           <tr><td>\(A\cos(\omega t + \varphi)\)</td><td>\(\dfrac{A}{\omega}\sin(\omega t + \varphi)\)</td></tr>
           <tr><td>\(A\sin(\omega t + \varphi)\)</td><td>\(-\dfrac{A}{\omega}\cos(\omega t + \varphi)\)</td></tr>
         </tbody>
       </table></div>
-      <p>Une primitive d'une somme est la somme des primitives ; une primitive de \(k f\) est \(k F\). On vérifie toujours en dérivant !</p>
+      <p>Moyen mnémotechnique pour \(t^n\) : « on monte l'exposant de 1, puis on divise par le nouvel exposant ».</p>
+    </div>
+    <div class="box prop"><p class="box-title">Règles (linéarité)</p>
+      <p>Une primitive de \(f + g\) est \(F + G\) ; une primitive de \(k f\) est \(k F\). Pour un polynôme, on prend donc une primitive de chaque terme.
+        Ex. : une primitive de \(6t^2 - 4t + 5\) est \(2t^3 - 2t^2 + 5t\).</p>
+    </div>
+    <div class="box method"><p class="box-title">Méthode : la primitive qui vérifie une condition</p>
+      <ol><li>Écrire toutes les primitives : \(F(t) = \dots + C\).</li><li>Remplacer \(t\) par \(t_0\) et écrire \(F(t_0) = y_0\).</li><li>En déduire \(C\) et conclure.</li></ol>
     </div>
     <div class="box example"><p class="box-title">Exemple 2 — retrouver la position</p>
       <p>Un mobile a pour vitesse \(v(t) = 3t^2 - 4t + 2\) (m/s) et se trouve en \(x = 5\) m à \(t = 0\). Donner \(x(t)\).</p>
@@ -61,10 +72,17 @@
         <p>\(x(t) = t^3 - 2t^2 + 2t + C\) et \(x(0) = C = 5\), donc \(x(t) = t^3 - 2t^2 + 2t + 5\).</p>
       </details>
     </div>
-    <div class="box example"><p class="box-title">Exemple 3 — intensité et charge</p>
-      <p>Un courant \(i(t) = 2\cos(100\pi t)\) (A) charge une armature, \(q(0) = 0\). Sachant \(i = \dfrac{\mathrm{d}q}{\mathrm{d}t}\), exprimer \(q(t)\).</p>
+    <div class="box example"><p class="box-title">Exemple 3 — de l'accélération à la position</p>
+      <p>Une voiture démarre avec une accélération constante \(a = 2\ \mathrm{m/s^2}\), vitesse et position nulles à \(t = 0\). Exprimer \(v(t)\) et \(x(t)\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(q(t) = \dfrac{2}{100\pi}\sin(100\pi t) + C\) et \(q(0) = C = 0\) : \(q(t) = \dfrac{1}{50\pi}\sin(100\pi t)\) (en C).</p>
+        <p>\(v' = a = 2\) donc \(v(t) = 2t + C_1\), et \(v(0) = 0\) donne \(v(t) = 2t\).</p>
+        <p>\(x' = v = 2t\) donc \(x(t) = t^2 + C_2\), et \(x(0) = 0\) donne \(x(t) = t^2\). Après 10 s : 100 m parcourus, à 20 m/s.</p>
+      </details>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 4 — intensité et charge</p>
+      <p>Un courant \(i(t) = 2\cos(100\pi t)\) (A) charge une armature, avec \(q(0) = 0\). Sachant \(i = \dfrac{\mathrm{d}q}{\mathrm{d}t}\), exprimer \(q(t)\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(q(t) = \dfrac{2}{100\pi}\sin(100\pi t) + C\) et \(q(0) = C = 0\) : \(q(t) = \dfrac{1}{50\pi}\sin(100\pi t)\) (en coulombs).</p>
       </details>
     </div>
   </section>
@@ -72,38 +90,51 @@
   <section>
     <h2>3. Méthode d'Euler</h2>
     <div class="box method"><p class="box-title">Principe</p>
-      <p>On cherche \(y\) telle que \(y'(t) = f(t)\) et \(y(t_0) = y_0\) (problème de Cauchy), sans connaître de primitive explicite.
-        Avec un <b>pas</b> \(h\) petit, l'approximation affine \(y(t + h) \approx y(t) + h\,y'(t)\) donne :
+      <p>On cherche une fonction \(y\) telle que \(y'(t) = f(t)\) et \(y(t_0) = y_0\) (c'est un « problème de Cauchy »), sans savoir écrire de primitive exacte.
+        Idée : sur un petit pas \(h\), la courbe ressemble à sa tangente, donc \(y(t + h) \approx y(t) + h \times y'(t)\). On avance de proche en proche :
         \[t_{k+1} = t_k + h, \qquad y_{k+1} = y_k + h \times f(t_k).\]
-        On relie les points \((t_k\,;\,y_k)\) : plus \(h\) est petit, meilleure est l'approximation.</p>
+        On relie les points \((t_k\,;\,y_k)\) : on obtient une ligne brisée qui approche la vraie courbe. Plus \(h\) est petit, meilleure est l'approximation (mais plus il faut de calculs).</p>
     </div>
 <pre><code>def euler(f, t0, y0, h, n):
     t, y = t0, y0
     points = [(t, y)]
     for k in range(n):
-        y = y + h * f(t)
+        y = y + h * f(t)      # on suit la tangente sur un pas h
         t = t + h
         points.append((t, y))
     return points
 
 print(euler(lambda t: 1 / (1 + t**2), 0, 0, 0.5, 4)[-1])   # (2.0, 1.3038...)</code></pre>
-    <div class="box example"><p class="box-title">Exemple 4 — à la main</p>
-      <p>\(y' = 2t\), \(y(0) = 1\), pas \(h = 0{,}5\). Calculer \(y_1, y_2\) puis comparer à la solution exacte.</p>
+    <div class="box example"><p class="box-title">Exemple 5 — à la main</p>
+      <p>\(y' = 2t\), \(y(0) = 1\), pas \(h = 0{,}5\). Calculer \(y_1\) et \(y_2\), puis comparer à la solution exacte.</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(y_1 = 1 + 0{,}5 \times 0 = 1\) ; \(y_2 = 1 + 0{,}5 \times 2 \times 0{,}5 = 1{,}5\).</p>
-        <p>Exacte : \(y = t^2 + 1\), donc \(y(1) = 2\). Euler sous-estime (la courbe est convexe) ; avec \(h = 0{,}1\) on trouverait \(1{,}9\).</p>
+        <p>\(y_1 = 1 + 0{,}5 \times (2 \times 0) = 1\) ; \(y_2 = 1 + 0{,}5 \times (2 \times 0{,}5) = 1{,}5\).</p>
+        <p>Solution exacte : \(y = t^2 + 1\), donc \(y(1) = 2\). Euler sous-estime ici ; avec \(h = 0{,}1\), on trouverait \(1{,}9\).</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(F\) primitive de \(f\) ⇔ \(F' = f\) ; toutes les primitives : \(F + C\) ; condition initiale → \(C\).</li>
+        <li>Primitive de \(t^n\) : \(\dfrac{t^{n+1}}{n+1}\) ; de \(k\) : \(kt\).</li>
+        <li>Primitive de \(A\cos(\omega t + \varphi)\) : \(\dfrac{A}{\omega}\sin(\omega t + \varphi)\) ; de \(A\sin(\omega t + \varphi)\) : \(-\dfrac{A}{\omega}\cos(\omega t + \varphi)\).</li>
+        <li>Physique : \(a \xrightarrow{\text{primitive}} v \xrightarrow{\text{primitive}} x\) ; \(i \to q\).</li>
+        <li>Euler : \(y_{k+1} = y_k + h\,f(t_k)\), \(t_{k+1} = t_k + h\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-euler">
       <p class="widget-title">Méthode d'Euler pour \(y' = f(t)\), \(y(0) = 0\)</p>
       <p class="hint">Diminue le pas : la ligne brisée (rose) se rapproche de la vraie primitive (bleu).</p>
       <div class="controls">
         <label>\(f(t)\) <select data-k="f"><option value="cos">cos t</option><option value="sq">t² − 2</option><option value="lor" selected>1 / (1 + t²)</option></select></label>
-        <label>pas \(h\) <input type="range" data-k="h" min="0.05" max="1.5" step="0.05" value="0.75"> <output data-show="h" data-digits="2"></output></label>
+        <label>pas \(h\) <input type="range" data-k="h" min="0.01" max="3" step="0.01" value="0.75"> <output data-show="h" data-digits="2"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -165,7 +196,7 @@ window.addEventListener('DOMContentLoaded', function () {
     G.draw = function (g) {
       g.fn(o.F, '--c1', { from: 0 });
       g.poly(pts, '--c2', { width: 2 });
-      pts.forEach(function (p) { g.point(p[0], p[1], '--c2', null, { r: 3 }); });
+      if (pts.length < 120) pts.forEach(function (p) { g.point(p[0], p[1], '--c2', null, { r: 3 }); });
     };
     G.redraw({ xmin: o.v[0], xmax: o.v[1], ymin: o.v[2], ymax: o.v[3] });
     var last = pts[pts.length - 1];

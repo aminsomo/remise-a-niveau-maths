@@ -18,19 +18,22 @@
   <header class="chapter-head">
     <p class="kicker">Maths 1re · Analyse · Tronc commun + spé</p>
     <h1>Nombre dérivé et tangente</h1>
-    <p class="lead">Une vitesse moyenne se calcule sur un intervalle de temps ; la vitesse affichée par le compteur est une vitesse
-      <em>instantanée</em>. Le nombre dérivé formalise ce passage à la limite. C'est l'outil central de la physique (vitesse,
-      puissance instantanée) et de toute l'analyse.</p>
+    <p class="lead">Une vitesse moyenne se calcule sur un trajet ; la vitesse affichée par le compteur, elle, est une vitesse <em>à un instant précis</em>.
+      Le nombre dérivé, c'est exactement ce passage de « en moyenne » à « à cet instant ». C'est l'outil central de la physique (vitesse, puissance instantanée)
+      et de toute l'analyse.</p>
     <p class="prereq">Prérequis : coefficient directeur d'une droite (<a href="automatismes.html">automatismes</a>).</p>
   </header>
 
   <section>
     <h2>1. Taux de variation et sécante</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>Soit \(f\) une fonction et \(a \neq b\). Le <b>taux de variation</b> de \(f\) entre \(a\) et \(b\) est
+      <p>Soit \(f\) une fonction et deux nombres \(a \neq b\). Le <b>taux de variation</b> de \(f\) entre \(a\) et \(b\) mesure de combien \(f\) change, en moyenne, quand \(x\) augmente de 1 :
         \[\frac{f(b) - f(a)}{b - a}.\]
-        C'est le coefficient directeur de la <b>sécante</b> passant par \(A(a\,;\,f(a))\) et \(B(b\,;\,f(b))\).
-        En posant \(b = a + h\), il s'écrit \(\dfrac{f(a + h) - f(a)}{h}\).</p>
+        Graphiquement, c'est le <b>coefficient directeur</b> de la droite qui passe par \(A(a\,;\,f(a))\) et \(B(b\,;\,f(b))\), qu'on appelle une <b>sécante</b>.
+        En posant \(b = a + h\) (\(h\) = le petit pas qu'on fait), il s'écrit \(\dfrac{f(a + h) - f(a)}{h}\).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Taux de variation et variations</p>
+      <p>Si \(f\) est croissante sur un intervalle, tous ses taux de variation y sont positifs ; si elle est décroissante, ils sont négatifs.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1 — vitesse moyenne</p>
       <p>Un mobile parcourt \(x(t) = 2t^2\) mètres en \(t\) secondes. Vitesse moyenne entre \(t = 1\) et \(t = 3\) ?</p>
@@ -43,52 +46,83 @@
   <section>
     <h2>2. Nombre dérivé et tangente</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>Si le taux de variation \(\dfrac{f(a + h) - f(a)}{h}\) tend vers un nombre réel quand \(h\) tend vers 0, ce nombre est le
-        <b>nombre dérivé</b> de \(f\) en \(a\), noté \(f'(a)\) :
+      <p>On fait tendre le pas \(h\) vers 0 : le point \(B\) se rapproche de \(A\). Si le taux de variation \(\dfrac{f(a + h) - f(a)}{h}\) se rapproche d'un nombre réel,
+        ce nombre est le <b>nombre dérivé</b> de \(f\) en \(a\), noté \(f'(a)\) (« f prime de a ») :
         \[f'(a) = \lim_{h \to 0} \frac{f(a + h) - f(a)}{h}.\]
-        Géométriquement, les sécantes \((AB)\) se rapprochent d'une droite limite : la <b>tangente</b> en \(A\), de coefficient directeur \(f'(a)\).</p>
+        On dit alors que \(f\) est <b>dérivable</b> en \(a\).</p>
+    </div>
+    <div class="box def"><p class="box-title">Tangente</p>
+      <p>Quand \(h \to 0\), les sécantes \((AB)\) pivotent et se rapprochent d'une droite limite : la <b>tangente</b> à la courbe en \(A\).
+        Son coefficient directeur est \(f'(a)\). Autrement dit, \(f'(a)\) est la <b>pente</b> de la courbe au point d'abscisse \(a\).</p>
     </div>
     <div class="box prop"><p class="box-title">Équation de la tangente</p>
       <p>La tangente à la courbe de \(f\) au point d'abscisse \(a\) a pour équation
         \[y = f'(a)(x - a) + f(a).\]</p>
     </div>
+    <div class="box method"><p class="box-title">Lire un nombre dérivé sur un graphique</p>
+      <p>On repère la tangente au point voulu, on choisit deux points de cette droite et on calcule \(\dfrac{\Delta y}{\Delta x}\).
+        Une tangente horizontale signifie \(f'(a) = 0\) (souvent un sommet ou un creux de la courbe).</p>
+    </div>
     <div class="box example"><p class="box-title">Exemple 2 — calcul par la limite</p>
       <p>Pour \(f(x) = x^2\), calculer \(f'(3)\) puis l'équation de la tangente en 3.</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(\dfrac{(3 + h)^2 - 9}{h} = \dfrac{6h + h^2}{h} = 6 + h \to 6\) quand \(h \to 0\). Donc \(f'(3) = 6\).</p>
+        <p>\(\dfrac{(3 + h)^2 - 9}{h} = \dfrac{9 + 6h + h^2 - 9}{h} = \dfrac{6h + h^2}{h} = 6 + h\), qui tend vers 6 quand \(h \to 0\). Donc \(f'(3) = 6\).</p>
         <p>Tangente : \(y = 6(x - 3) + 9 = 6x - 9\).</p>
       </details>
+    </div>
+    <div class="box warning"><p class="box-title">Une fonction n'est pas toujours dérivable</p>
+      <p>Pour \(f(x) = |x|\) en 0 : le taux vaut \(1\) si \(h > 0\) et \(-1\) si \(h &lt; 0\). Il ne se rapproche pas d'un seul nombre : \(f\) n'est pas dérivable en 0 (la courbe fait un « coin »).</p>
     </div>
   </section>
 
   <section>
     <h2>3. Notations des physiciens et approximation affine</h2>
     <div class="box def"><p class="box-title">Notations</p>
-      <p>Si \(y = f(x)\) relie deux grandeurs, on note le taux de variation \(\left(\dfrac{\Delta y}{\Delta x}\right)_{x_0}\) et le nombre dérivé
+      <p>Quand \(y = f(x)\) relie deux grandeurs, on note le taux de variation \(\left(\dfrac{\Delta y}{\Delta x}\right)_{x_0}\) et le nombre dérivé
         \[f'(x_0) = \frac{\mathrm{d}y}{\mathrm{d}x}(x_0) = \frac{\mathrm{d}f}{\mathrm{d}x}(x_0).\]
-        C'est un <b>taux de variation infinitésimal</b>. Ex. : vitesse \(v = \dfrac{\mathrm{d}x}{\mathrm{d}t}\), puissance \(p = \dfrac{\mathrm{d}E}{\mathrm{d}t}\).</p>
+        Le « d » se lit « une toute petite variation de ». C'est un <b>taux de variation instantané</b>. Exemples : vitesse \(v = \dfrac{\mathrm{d}x}{\mathrm{d}t}\), accélération \(a = \dfrac{\mathrm{d}v}{\mathrm{d}t}\), puissance \(p = \dfrac{\mathrm{d}E}{\mathrm{d}t}\), intensité \(i = \dfrac{\mathrm{d}q}{\mathrm{d}t}\).</p>
     </div>
     <div class="box prop"><p class="box-title">Approximation affine</p>
-      <p>Au voisinage de \(x_0\), la courbe se confond avec sa tangente : pour \(h\) petit,
-        \[f(x_0 + h) \approx f(x_0) + f'(x_0)\,h, \qquad \text{autrement dit} \qquad \Delta y \approx f'(x_0)\,\Delta x.\]</p>
+      <p>Tout près du point \(x_0\), la courbe se confond presque avec sa tangente. Pour \(h\) petit :
+        \[f(x_0 + h) \approx f(x_0) + f'(x_0)\,h, \qquad \text{autrement dit} \qquad \Delta y \approx f'(x_0)\,\Delta x.\]
+        Plus \(h\) est petit, meilleure est l'approximation.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 3 — valeur approchée</p>
       <p>Avec \(f(x) = x^2\) et \(f'(3) = 6\), donner une valeur approchée de \(3{,}02^2\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(3{,}02^2 \approx 9 + 6 \times 0{,}02 = 9{,}12\) (valeur exacte : \(9{,}1204\)).</p>
+        <p>\(3{,}02^2 \approx 9 + 6 \times 0{,}02 = 9{,}12\) (valeur exacte : \(9{,}1204\), l'erreur est minuscule).</p>
+      </details>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 4 — en physique</p>
+      <p>La position d'un mobile est \(x(t) = 5t^2\) (m). En utilisant \(x'(t) = 10t\), estimer la distance parcourue entre \(t = 2\) s et \(t = 2{,}1\) s.</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\Delta x \approx x'(2) \times 0{,}1 = 20 \times 0{,}1 = 2\) m (exact : \(22{,}05 - 20 = 2{,}05\) m).</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Taux de variation entre \(a\) et \(a + h\) : \(\dfrac{f(a + h) - f(a)}{h}\) = pente de la sécante.</li>
+        <li>Nombre dérivé : \(f'(a) = \lim\limits_{h \to 0} \dfrac{f(a + h) - f(a)}{h}\) = pente de la tangente.</li>
+        <li>Tangente : \(y = f'(a)(x - a) + f(a)\).</li>
+        <li>Notations : \(f'(x_0) = \dfrac{\mathrm{d}y}{\mathrm{d}x}(x_0)\) ; vitesse \(v = \dfrac{\mathrm{d}x}{\mathrm{d}t}\).</li>
+        <li>Approximation affine : \(f(x_0 + h) \approx f(x_0) + f'(x_0)h\), \(\Delta y \approx f'(x_0)\Delta x\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-sec">
       <p class="widget-title">De la sécante à la tangente</p>
       <p class="hint">Fais tendre \(h\) vers 0 : la sécante (rose) pivote et se confond avec la tangente (violette).</p>
       <div class="controls">
         <label>fonction <select data-k="f"><option value="sq">x²</option><option value="cu" selected>x³ − 3x</option><option value="inv">1/x</option></select></label>
-        <label>\(a\) <input type="range" data-k="a" min="-2.5" max="2.5" step="0.1" value="1.5"> <output data-show="a"></output></label>
-        <label>\(h\) <input type="range" data-k="h" min="-2" max="2" step="0.01" value="1.2"> <output data-show="h" data-digits="2"></output></label>
+        <label>\(a\) <input type="range" data-k="a" min="-6" max="6" step="0.1" value="1.5"> <output data-show="a"></output></label>
+        <label>\(h\) <input type="range" data-k="h" min="-5" max="5" step="0.01" value="1.2"> <output data-show="h" data-digits="2"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -155,7 +189,12 @@ window.addEventListener('DOMContentLoaded', function () {
       if (Math.abs(h) > 1e-9) { g.fn(function (x) { return slope * (x - a) + fa; }, '--c2', { dash: [6, 4] }); g.point(a + h, o.f(a + h), '--c2', 'B'); }
       g.point(a, fa, '--c4', 'A');
     };
-    G.redraw({ xmin: o.v[0], xmax: o.v[1], ymin: o.v[2], ymax: o.v[3] });
+    // fenêtre qui suit a et B (on peut aussi se déplacer dans le repère)
+    var x0 = Math.min(o.v[0], a - 2, a + h - 1), x1 = Math.max(o.v[1], a + 2, a + h + 1), ylo = Infinity, yhi = -Infinity;
+    for (var t = x0; t <= x1; t += (x1 - x0) / 80) { var yy = o.f(t); if (isFinite(yy) && Math.abs(yy) < 1e3) { ylo = Math.min(ylo, yy); yhi = Math.max(yhi, yy); } }
+    if (v.f === 'inv') { ylo = Math.max(ylo, -6); yhi = Math.min(yhi, 6); }
+    var py = (yhi - ylo) * 0.1 || 1;
+    G.redraw({ xmin: x0, xmax: x1, ymin: Math.min(o.v[2], ylo - py), ymax: Math.max(o.v[3], yhi + py) });
     out.textContent = 'taux de variation entre a et a + h : ' + Course.fmt(slope, 4) +
       '\nnombre dérivé f\'(' + Course.fmt(a) + ') = ' + Course.fmt(d, 4) + '   écart : ' + Course.fmt(Math.abs(slope - d), 4) +
       '\ntangente : y = ' + Course.fmt(d, 3) + '(x − ' + Course.fmt(a) + ') + ' + Course.fmt(fa, 3);

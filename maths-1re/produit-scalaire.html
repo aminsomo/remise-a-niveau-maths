@@ -18,52 +18,70 @@
   <header class="chapter-head">
     <p class="kicker">Maths 1re · Géométrie · Spécialité PCM</p>
     <h1>Produit scalaire dans le plan</h1>
-    <p class="lead">Le produit scalaire mesure « combien un vecteur va dans la direction d'un autre ». En physique, c'est exactement
-      le travail d'une force : \(W = \vec F \cdot \overrightarrow{AB}\). En géométrie, il donne angles, longueurs et orthogonalité.</p>
+    <p class="lead">Le produit scalaire de deux vecteurs mesure « à quel point l'un va dans la direction de l'autre ». En physique, c'est exactement
+      le travail d'une force : \(W = \vec F \cdot \overrightarrow{AB}\). En géométrie, il permet de calculer des angles et des longueurs, et de prouver qu'un angle est droit.</p>
     <p class="prereq">Prérequis : vecteurs et coordonnées (seconde), <a href="trigonometrie.html">cosinus</a>.</p>
   </header>
 
   <section>
-    <h2>1. Projection orthogonale et définition</h2>
-    <div class="box def"><p class="box-title">Projection d'un vecteur sur un axe</p>
-      <p>Sur un axe dirigé par un vecteur unitaire, la projection orthogonale de \(\vec u\) a pour mesure algébrique \(\|\vec u\|\cos\theta\),
-        où \(\theta\) est l'angle entre \(\vec u\) et l'axe : positive si \(\theta\) est aigu, négative s'il est obtus, nulle s'il est droit.</p>
+    <h2>1. Rappels sur les vecteurs</h2>
+    <div class="box prop"><p class="box-title">Dans un repère orthonormé</p>
+      <ul>
+        <li>\(\overrightarrow{AB}\) a pour coordonnées \((x_B - x_A\,;\,y_B - y_A)\).</li>
+        <li>La <b>norme</b> (la longueur) de \(\vec u\,(x\,;\,y)\) est \(\|\vec u\| = \sqrt{x^2 + y^2}\). Donc \(AB = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2}\).</li>
+        <li>\(\vec u + \vec v\) a pour coordonnées \((x + x'\,;\,y + y')\) et \(k\vec u\) a pour coordonnées \((kx\,;\,ky)\).</li>
+        <li>\(\vec u\) et \(\vec v\) sont <b>colinéaires</b> (même direction) si et seulement si \(xy' - x'y = 0\).</li>
+      </ul>
     </div>
-    <div class="box def"><p class="box-title">Définition géométrique</p>
+  </section>
+
+  <section>
+    <h2>2. Projection et définition du produit scalaire</h2>
+    <div class="box def"><p class="box-title">Projection d'un vecteur sur un axe</p>
+      <p>Sur un axe, la <b>projection orthogonale</b> de \(\vec u\) est son « ombre » quand on éclaire perpendiculairement à l'axe.
+        Sa mesure (avec un signe) vaut \(\|\vec u\|\cos\theta\), où \(\theta\) est l'angle entre \(\vec u\) et l'axe :
+        positive si l'angle est aigu, négative s'il est obtus, nulle s'il est droit.</p>
+    </div>
+    <div class="box def"><p class="box-title">Définition</p>
       <p>Si \(\vec u\) et \(\vec v\) sont non nuls et forment un angle \(\theta\) :
         \[\vec u \cdot \vec v = \|\vec u\| \times \|\vec v\| \times \cos\theta.\]
-        Si l'un des deux vecteurs est nul, \(\vec u \cdot \vec v = 0\).</p>
+        Si l'un des deux vecteurs est nul, \(\vec u \cdot \vec v = 0\). Le résultat est un <b>nombre</b> (pas un vecteur), positif, négatif ou nul.</p>
     </div>
-    <div class="box prop"><p class="box-title">Interprétation par projection</p>
-      <p>Si \(\vec{v'}\) est le projeté orthogonal de \(\vec v\) sur la droite dirigée par \(\vec u\), alors \(\vec u \cdot \vec v = \vec u \cdot \vec{v'}\) :
-        c'est \(\pm\|\vec u\| \times \|\vec{v'}\|\), avec le signe \(+\) si \(\vec u\) et \(\vec{v'}\) ont le même sens.</p>
+    <div class="box prop"><p class="box-title">Avec une projection</p>
+      <p>Si \(\vec{v'}\) est le projeté orthogonal de \(\vec v\) sur la droite qui porte \(\vec u\), alors \(\vec u \cdot \vec v = \vec u \cdot \vec{v'}\) :
+        c'est \(\|\vec u\| \times \|\vec{v'}\|\) si \(\vec u\) et \(\vec{v'}\) sont dans le même sens, et \(-\|\vec u\| \times \|\vec{v'}\|\) sinon.
+        Pratique avec des points : \(\overrightarrow{AB} \cdot \overrightarrow{AC} = \overrightarrow{AB} \cdot \overrightarrow{AH}\) où \(H\) est le projeté de \(C\) sur \((AB)\).</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1</p>
       <p>\(\|\vec u\| = 4\), \(\|\vec v\| = 3\), angle \(120^\circ\). Calculer \(\vec u \cdot \vec v\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(4 \times 3 \times \cos 120^\circ = 12 \times (-\tfrac12) = -6\).</p>
+        <p>\(4 \times 3 \times \cos 120^\circ = 12 \times \left(-\tfrac12\right) = -6\).</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>2. Dans un repère orthonormé</h2>
-    <div class="box prop"><p class="box-title">Expression analytique</p>
-      <p>Si \(\vec u\,(x\,;\,y)\) et \(\vec v\,(x'\,;\,y')\) dans une base orthonormée :
-        \[\vec u \cdot \vec v = xx' + yy' \qquad\qquad \|\vec u\| = \sqrt{\vec u \cdot \vec u} = \sqrt{x^2 + y^2}.\]</p>
+    <h2>3. Avec les coordonnées, propriétés et orthogonalité</h2>
+    <div class="box prop"><p class="box-title">Expression dans un repère orthonormé</p>
+      <p>Si \(\vec u\,(x\,;\,y)\) et \(\vec v\,(x'\,;\,y')\) :
+        \[\vec u \cdot \vec v = xx' + yy' \qquad\qquad \vec u \cdot \vec u = \|\vec u\|^2 = x^2 + y^2.\]</p>
     </div>
-    <div class="box prop"><p class="box-title">Propriétés</p>
+    <div class="box prop"><p class="box-title">Règles de calcul</p>
       <ul>
         <li>Symétrie : \(\vec u \cdot \vec v = \vec v \cdot \vec u\).</li>
         <li>Bilinéarité : \(\vec u \cdot (\vec v + \vec w) = \vec u \cdot \vec v + \vec u \cdot \vec w\) et \((k\vec u) \cdot \vec v = k(\vec u \cdot \vec v)\).</li>
-        <li><b>Orthogonalité</b> : \(\vec u \perp \vec v \iff \vec u \cdot \vec v = 0\).</li>
+        <li>Identités : \(\|\vec u + \vec v\|^2 = \|\vec u\|^2 + 2\,\vec u \cdot \vec v + \|\vec v\|^2\) et \(\|\vec u - \vec v\|^2 = \|\vec u\|^2 - 2\,\vec u \cdot \vec v + \|\vec v\|^2\).</li>
+        <li>Donc aussi : \(\vec u \cdot \vec v = \dfrac12\left(\|\vec u + \vec v\|^2 - \|\vec u\|^2 - \|\vec v\|^2\right)\) (avec seulement des longueurs).</li>
       </ul>
     </div>
+    <div class="box prop"><p class="box-title">Orthogonalité</p>
+      <p>\(\vec u\) et \(\vec v\) sont <b>orthogonaux</b> (perpendiculaires) si et seulement si \(\vec u \cdot \vec v = 0\). C'est l'outil n°1 pour prouver qu'un angle est droit.</p>
+    </div>
     <div class="box method"><p class="box-title">Méthode : calculer un angle</p>
-      <p>\(\cos\theta = \dfrac{\vec u \cdot \vec v}{\|\vec u\|\,\|\vec v\|}\), puis \(\theta = \arccos(\dots)\) à la calculatrice (touche <code>cos⁻¹</code>).</p>
+      <p>On calcule \(\vec u \cdot \vec v\) avec les coordonnées, puis \(\cos\theta = \dfrac{\vec u \cdot \vec v}{\|\vec u\|\,\|\vec v\|}\), et enfin \(\theta\) à la calculatrice (touche <code>cos⁻¹</code>, en mode degrés).</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 2</p>
-      <p>\(\vec u\,(3\,;\,1)\) et \(\vec v\,(-1\,;\,3)\) sont-ils orthogonaux ? Angle entre \(\vec u\) et \(\vec w\,(2\,;\,4)\) ?</p>
+      <p>\(\vec u\,(3\,;\,1)\) et \(\vec v\,(-1\,;\,3)\) sont-ils orthogonaux ? Quel est l'angle entre \(\vec u\) et \(\vec w\,(2\,;\,4)\) ?</p>
       <details class="solution"><summary>Solution</summary>
         <p>\(\vec u \cdot \vec v = -3 + 3 = 0\) : orthogonaux.</p>
         <p>\(\vec u \cdot \vec w = 6 + 4 = 10\), \(\|\vec u\| = \sqrt{10}\), \(\|\vec w\| = \sqrt{20}\) ; \(\cos\theta = \dfrac{10}{\sqrt{200}} = \dfrac{\sqrt2}{2}\), donc \(\theta = 45^\circ\).</p>
@@ -72,14 +90,14 @@
   </section>
 
   <section>
-    <h2>3. Al Kashi et parallélogramme</h2>
+    <h2>4. Al Kashi et parallélogramme</h2>
     <div class="box prop"><p class="box-title">Théorème d'Al Kashi (Pythagore généralisé)</p>
-      <p>Dans un triangle \(ABC\) avec \(a = BC\), \(b = AC\), \(c = AB\) et \(\hat A\) l'angle en \(A\) :
+      <p>Dans un triangle \(ABC\), avec \(a = BC\), \(b = AC\), \(c = AB\) et \(\hat A\) l'angle en \(A\) :
         \[a^2 = b^2 + c^2 - 2bc\cos\hat A.\]
-        Si \(\hat A = 90^\circ\), on retrouve Pythagore.</p>
+        Si \(\hat A = 90^\circ\), \(\cos\hat A = 0\) et on retrouve Pythagore. Il sert à calculer un côté (connaissant deux côtés et l'angle entre eux) ou un angle (connaissant les trois côtés).</p>
     </div>
     <div class="box prop"><p class="box-title">Égalité du parallélogramme</p>
-      <p>\(\|\vec u + \vec v\|^2 + \|\vec u - \vec v\|^2 = 2\left(\|\vec u\|^2 + \|\vec v\|^2\right)\) : la somme des carrés des diagonales vaut la somme des carrés des quatre côtés.</p>
+      <p>\(\|\vec u + \vec v\|^2 + \|\vec u - \vec v\|^2 = 2\left(\|\vec u\|^2 + \|\vec v\|^2\right)\) : dans un parallélogramme, la somme des carrés des deux diagonales vaut la somme des carrés des quatre côtés.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 3 — distance inaccessible</p>
       <p>Depuis un point \(A\), on vise deux bouées \(B\) et \(C\) : \(AB = 300\) m, \(AC = 500\) m, \(\widehat{BAC} = 60^\circ\). Distance \(BC\) ?</p>
@@ -90,25 +108,39 @@
   </section>
 
   <section>
-    <h2>4. Travail d'une force</h2>
-    <div class="box prop"><p class="box-title">Lien avec la physique</p>
-      <p>Le travail d'une force constante \(\vec F\) sur un déplacement rectiligne \(\overrightarrow{AB}\) est
+    <h2>5. Travail d'une force</h2>
+    <div class="box prop"><p class="box-title">Le lien avec la physique</p>
+      <p>Le travail d'une force constante \(\vec F\) lors d'un déplacement rectiligne de \(A\) à \(B\) est
         \[W_{AB}(\vec F) = \vec F \cdot \overrightarrow{AB} = F \times AB \times \cos\alpha.\]
-        Une force perpendiculaire au déplacement ne travaille pas ; par bilinéarité, le travail de la résultante est la somme des travaux.
+        Le travail est <b>moteur</b> (\(W > 0\)) si la force « aide » le mouvement, <b>résistant</b> (\(W &lt; 0\)) si elle le freine, <b>nul</b> si elle est perpendiculaire au déplacement.
+        Par bilinéarité, le travail de la somme des forces est la somme des travaux.
         Voir <a href="../physique-1re/energie-mecanique.html">Mouvement et énergie mécanique</a>.</p>
     </div>
   </section>
 
   <section>
-    <h2>5. Manipuler</h2>
+    <h2>6. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(\vec u \cdot \vec v = \|\vec u\|\|\vec v\|\cos\theta = xx' + yy'\) ; \(\vec u \cdot \vec u = \|\vec u\|^2\).</li>
+        <li>\(\vec u \cdot \vec v = \dfrac12\left(\|\vec u + \vec v\|^2 - \|\vec u\|^2 - \|\vec v\|^2\right)\) ; projection : \(\overrightarrow{AB} \cdot \overrightarrow{AC} = \overrightarrow{AB} \cdot \overrightarrow{AH}\).</li>
+        <li>\(\vec u \perp \vec v \iff \vec u \cdot \vec v = 0\) ; \(\cos\theta = \dfrac{\vec u \cdot \vec v}{\|\vec u\|\|\vec v\|}\).</li>
+        <li>Al Kashi : \(a^2 = b^2 + c^2 - 2bc\cos\hat A\) ; parallélogramme : \(\|\vec u + \vec v\|^2 + \|\vec u - \vec v\|^2 = 2(\|\vec u\|^2 + \|\vec v\|^2)\).</li>
+        <li>Travail : \(W = \vec F \cdot \overrightarrow{AB} = F \cdot AB \cdot \cos\alpha\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>7. Manipuler</h2>
     <div class="widget" id="w-ps">
       <p class="widget-title">Produit scalaire et projection</p>
       <p class="hint">Le segment orange est la projection de \(\vec v\) sur la droite de \(\vec u\). Le produit scalaire change de signe quand l'angle dépasse 90°.</p>
       <div class="controls">
-        <label>\(\vec u\) : x <input type="range" data-k="ux" min="-5" max="5" step="0.5" value="4"> <output data-show="ux"></output></label>
-        <label>y <input type="range" data-k="uy" min="-5" max="5" step="0.5" value="1"> <output data-show="uy"></output></label>
-        <label>\(\vec v\) : x <input type="range" data-k="vx" min="-5" max="5" step="0.5" value="1.5"> <output data-show="vx"></output></label>
-        <label>y <input type="range" data-k="vy" min="-5" max="5" step="0.5" value="3"> <output data-show="vy"></output></label>
+        <label>\(\vec u\) : x <input type="range" data-k="ux" min="-15" max="15" step="0.5" value="4"> <output data-show="ux"></output></label>
+        <label>y <input type="range" data-k="uy" min="-15" max="15" step="0.5" value="1"> <output data-show="uy"></output></label>
+        <label>\(\vec v\) : x <input type="range" data-k="vx" min="-15" max="15" step="0.5" value="1.5"> <output data-show="vx"></output></label>
+        <label>y <input type="range" data-k="vy" min="-15" max="15" step="0.5" value="3"> <output data-show="vy"></output></label>
       </div>
       <canvas class="plot tall"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -169,7 +201,8 @@ window.addEventListener('DOMContentLoaded', function () {
       g.arrow(0, 0, v.ux, v.uy, '--c1', 'u');
       g.arrow(0, 0, v.vx, v.vy, '--c2', 'v');
     };
-    G.redraw();
+    var R0 = Math.max(6, Math.abs(v.ux), Math.abs(v.uy), Math.abs(v.vx), Math.abs(v.vy)) + 1;
+    G.redraw({ xmin: -R0, xmax: R0, ymin: -R0, ymax: R0 });
     var ang = nu && nv ? Math.acos(Math.max(-1, Math.min(1, dot / (nu * nv)))) * 180 / Math.PI : NaN;
     out.textContent = 'u · v = ' + Course.fmt(v.ux) + ' × ' + Course.fmt(v.vx) + ' + ' + Course.fmt(v.uy) + ' × ' + Course.fmt(v.vy) + ' = ' + Course.fmt(dot) +
       '\n‖u‖ = ' + Course.fmt(nu) + '   ‖v‖ = ' + Course.fmt(nv) + '   angle = ' + Course.fmt(ang, 1) + '°' +

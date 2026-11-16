@@ -18,87 +18,121 @@
   <header class="chapter-head">
     <p class="kicker">Maths 1re · Analyse · Tronc commun + spé</p>
     <h1>Fonctions dérivées et variations</h1>
-    <p class="lead">Calculer une fonction dérivée sans repasser par la limite, puis lire dans son signe les variations de la fonction :
-      c'est la méthode universelle pour trouver un maximum, un minimum, un optimum.</p>
+    <p class="lead">Calculer la dérivée d'une fonction sans repasser par les limites, grâce à un petit formulaire et quelques règles.
+      Puis lire dans le signe de la dérivée si la fonction monte ou descend : c'est la méthode universelle pour trouver un maximum, un minimum, un optimum.</p>
     <p class="prereq">Prérequis : <a href="nombre-derive.html">nombre dérivé et tangente</a>, <a href="trigonometrie.html">cos et sin</a>.</p>
   </header>
 
   <section>
-    <h2>1. Dérivées des fonctions usuelles</h2>
+    <h2>1. Fonction dérivée et dérivées usuelles</h2>
+    <div class="box def"><p class="box-title">Fonction dérivée</p>
+      <p>Si \(f\) est dérivable en tout point d'un intervalle \(I\), la fonction qui à chaque \(x\) associe le nombre dérivé \(f'(x)\) s'appelle la <b>fonction dérivée</b> de \(f\), notée \(f'\).
+        Elle donne, en chaque point, la pente de la courbe de \(f\).</p>
+    </div>
     <div class="box prop"><p class="box-title">Tableau à connaître</p>
       <div class="table-scroll"><table>
-        <thead><tr><th>\(f(x)\)</th><th>\(f'(x)\)</th><th>validité</th></tr></thead>
+        <thead><tr><th>\(f(x)\)</th><th>\(f'(x)\)</th><th>où ?</th></tr></thead>
         <tbody>
           <tr><td>\(k\) (constante)</td><td>\(0\)</td><td>\(\mathbb{R}\)</td></tr>
           <tr><td>\(x\)</td><td>\(1\)</td><td>\(\mathbb{R}\)</td></tr>
+          <tr><td>\(mx + p\)</td><td>\(m\)</td><td>\(\mathbb{R}\)</td></tr>
+          <tr><td>\(x^2\)</td><td>\(2x\)</td><td>\(\mathbb{R}\)</td></tr>
+          <tr><td>\(x^3\)</td><td>\(3x^2\)</td><td>\(\mathbb{R}\)</td></tr>
           <tr><td>\(x^n\) (\(n \geq 1\) entier)</td><td>\(n\,x^{n-1}\)</td><td>\(\mathbb{R}\)</td></tr>
           <tr><td>\(\dfrac{1}{x}\)</td><td>\(-\dfrac{1}{x^2}\)</td><td>\(x \neq 0\)</td></tr>
+          <tr><td>\(\sqrt{x}\)</td><td>\(\dfrac{1}{2\sqrt x}\)</td><td>\(x > 0\)</td></tr>
           <tr><td>\(\cos x\)</td><td>\(-\sin x\)</td><td>\(\mathbb{R}\)</td></tr>
           <tr><td>\(\sin x\)</td><td>\(\cos x\)</td><td>\(\mathbb{R}\)</td></tr>
         </tbody>
       </table></div>
-      <p>Moyen mnémotechnique : \((x^n)' = n x^{n-1}\) donne \((x^2)' = 2x\), \((x^3)' = 3x^2\)… et \(\left(\tfrac1x\right)' = (x^{-1})' = -x^{-2}\) suit la même règle.</p>
+      <p>Moyen mnémotechnique : \((x^n)' = n x^{n-1}\) : « l'exposant descend devant et on lui retire 1 ». Ça marche aussi pour \(\tfrac1x = x^{-1}\) : \((x^{-1})' = -x^{-2}\).</p>
     </div>
   </section>
 
   <section>
-    <h2>2. Opérations sur les dérivées</h2>
-    <div class="box prop"><p class="box-title">Règles (\(u\), \(v\) dérivables, \(k\) réel)</p>
+    <h2>2. Règles de calcul</h2>
+    <div class="box prop"><p class="box-title">Opérations (\(u\), \(v\) dérivables, \(k\) réel)</p>
       <div class="table-scroll"><table>
-        <thead><tr><th>fonction</th><th>dérivée</th></tr></thead>
+        <thead><tr><th>fonction</th><th>dérivée</th><th>exemple</th></tr></thead>
         <tbody>
-          <tr><td>\(u + v\)</td><td>\(u' + v'\)</td></tr>
-          <tr><td>\(k\,u\)</td><td>\(k\,u'\)</td></tr>
-          <tr><td>\(u\,v\)</td><td>\(u'v + uv'\)</td></tr>
-          <tr><td>\(\dfrac{1}{v}\)</td><td>\(-\dfrac{v'}{v^2}\)</td></tr>
-          <tr><td>\(\dfrac{u}{v}\)</td><td>\(\dfrac{u'v - uv'}{v^2}\)</td></tr>
-          <tr><td>\(f(ax + b)\)</td><td>\(a\,f'(ax + b)\)</td></tr>
-          <tr><td>\(A\cos(\omega t + \varphi)\)</td><td>\(-A\omega\sin(\omega t + \varphi)\)</td></tr>
-          <tr><td>\(A\sin(\omega t + \varphi)\)</td><td>\(A\omega\cos(\omega t + \varphi)\)</td></tr>
+          <tr><td>\(u + v\)</td><td>\(u' + v'\)</td><td>\((x^2 + x)' = 2x + 1\)</td></tr>
+          <tr><td>\(k\,u\)</td><td>\(k\,u'\)</td><td>\((5x^3)' = 15x^2\)</td></tr>
+          <tr><td>\(u\,v\)</td><td>\(u'v + uv'\)</td><td>\((x\sin x)' = \sin x + x\cos x\)</td></tr>
+          <tr><td>\(\dfrac{1}{v}\)</td><td>\(-\dfrac{v'}{v^2}\)</td><td>\(\left(\dfrac{1}{x^2 + 1}\right)' = -\dfrac{2x}{(x^2 + 1)^2}\)</td></tr>
+          <tr><td>\(\dfrac{u}{v}\)</td><td>\(\dfrac{u'v - uv'}{v^2}\)</td><td>voir exemple 1</td></tr>
+          <tr><td>\(f(ax + b)\)</td><td>\(a\,f'(ax + b)\)</td><td>\(((2x - 1)^3)' = 2 \times 3(2x - 1)^2\)</td></tr>
+          <tr><td>\(A\cos(\omega t + \varphi)\)</td><td>\(-A\omega\sin(\omega t + \varphi)\)</td><td>\((3\cos 2t)' = -6\sin 2t\)</td></tr>
+          <tr><td>\(A\sin(\omega t + \varphi)\)</td><td>\(A\omega\cos(\omega t + \varphi)\)</td><td>\((\sin 5t)' = 5\cos 5t\)</td></tr>
         </tbody>
       </table></div>
+      <p>Pourquoi la règle du produit n'est pas \(u'v'\) ? Quand \(x\) varie un peu, \(u\) et \(v\) changent tous les deux : la variation de \(uv\) est « ce qui vient de \(u\) » (\(u'v\)) plus « ce qui vient de \(v\) » (\(uv'\)).</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1</p>
       <p>Dériver \(f(x) = (2x + 1)(x^2 - 3)\), \(g(x) = \dfrac{x}{x + 1}\) et \(h(t) = 5\cos(100\pi t)\).</p>
       <details class="solution"><summary>Solution</summary>
         <p>\(f'(x) = 2(x^2 - 3) + (2x + 1) \times 2x = 6x^2 + 2x - 6\).</p>
-        <p>\(g'(x) = \dfrac{1 \times (x + 1) - x \times 1}{(x + 1)^2} = \dfrac{1}{(x + 1)^2}\).</p>
-        <p>\(h'(t) = -500\pi\sin(100\pi t)\) : c'est la vitesse d'une grandeur sinusoïdale de fréquence 50 Hz.</p>
+        <p>\(g'(x) = \dfrac{1 \times (x + 1) - x \times 1}{(x + 1)^2} = \dfrac{1}{(x + 1)^2}\) (pour \(x \neq -1\)).</p>
+        <p>\(h'(t) = -500\pi\sin(100\pi t)\) : c'est la vitesse de variation d'une grandeur sinusoïdale de fréquence 50 Hz.</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>3. Signe de la dérivée et variations</h2>
-    <div class="box prop"><p class="box-title">Théorème (admis)</p>
-      <p>Sur un intervalle \(I\) : si \(f'(x) \geq 0\), \(f\) est croissante ; si \(f'(x) \leq 0\), \(f\) est décroissante ; si \(f' = 0\), \(f\) est constante.
-        Si \(f'\) s'annule en changeant de signe en \(x_0\), \(f\) admet un <b>extremum local</b> en \(x_0\).</p>
+    <div class="box prop"><p class="box-title">Théorème</p>
+      <p>Sur un intervalle \(I\) :</p>
+      <ul>
+        <li>si \(f'(x) \geq 0\) sur \(I\), \(f\) est <b>croissante</b> sur \(I\) ;</li>
+        <li>si \(f'(x) \leq 0\) sur \(I\), \(f\) est <b>décroissante</b> sur \(I\) ;</li>
+        <li>si \(f'(x) = 0\) sur \(I\), \(f\) est <b>constante</b> sur \(I\).</li>
+      </ul>
+      <p>Si \(f'\) s'annule <b>en changeant de signe</b> en \(x_0\), alors \(f\) a un <b>extremum local</b> en \(x_0\) : un maximum si \(f'\) passe de + à −, un minimum si elle passe de − à +.
+        (Attention : \(f'(x_0) = 0\) sans changement de signe ne donne pas d'extremum, par exemple \(x^3\) en 0.)</p>
     </div>
     <div class="box method"><p class="box-title">Méthode : étudier les variations</p>
       <ol>
-        <li>Calculer \(f'(x)\) et la factoriser.</li>
-        <li>Étudier son signe (tableau de signes).</li>
-        <li>En déduire le tableau de variations ; calculer les extremums.</li>
+        <li>Calculer \(f'(x)\) et la mettre sous une forme dont on sait étudier le signe (factoriser !).</li>
+        <li>Faire le tableau de signes de \(f'(x)\).</li>
+        <li>En déduire le tableau de variations de \(f\) (flèches), puis calculer les valeurs aux extrémités et aux extremums.</li>
+      </ol>
+    </div>
+    <div class="box method"><p class="box-title">Méthode : un problème d'optimisation</p>
+      <ol>
+        <li>Choisir la variable \(x\) et préciser ses valeurs possibles (un intervalle).</li>
+        <li>Exprimer la grandeur à optimiser en fonction de \(x\).</li>
+        <li>Étudier les variations ; le maximum (ou minimum) se lit dans le tableau. Conclure par une phrase avec les unités.</li>
       </ol>
     </div>
     <div class="box example"><p class="box-title">Exemple 2 — boîte de volume maximal</p>
       <p>Dans une plaque carrée de 12 cm de côté, on découpe 4 carrés de côté \(x\) aux coins pour plier une boîte. \(V(x) = x(12 - 2x)^2\) pour \(x \in [0\,;\,6]\). Quel \(x\) maximise le volume ?</p>
       <details class="solution"><summary>Solution</summary>
         <p>\(V(x) = 4x^3 - 48x^2 + 144x\), donc \(V'(x) = 12x^2 - 96x + 144 = 12(x - 2)(x - 6)\).</p>
-        <p>Sur \([0\,;\,6]\) : \(V' > 0\) sur \([0\,;\,2[\), \(V' &lt; 0\) sur \(]2\,;\,6[\). Maximum en \(x = 2\) : \(V(2) = 2 \times 8^2 = 128\) cm³.</p>
+        <p>Sur \([0\,;\,6]\) : \(V' > 0\) sur \([0\,;\,2[\) et \(V' &lt; 0\) sur \(]2\,;\,6[\). Maximum en \(x = 2\) : \(V(2) = 2 \times 8^2 = 128\) cm³.</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\((x^n)' = nx^{n-1}\), \(\left(\tfrac1x\right)' = -\tfrac{1}{x^2}\), \((\sqrt x)' = \tfrac{1}{2\sqrt x}\), \(\cos' = -\sin\), \(\sin' = \cos\).</li>
+        <li>\((u + v)' = u' + v'\), \((ku)' = ku'\), \((uv)' = u'v + uv'\), \(\left(\tfrac uv\right)' = \tfrac{u'v - uv'}{v^2}\), \((f(ax + b))' = af'(ax + b)\).</li>
+        <li>\(f' \geq 0\) ⇒ \(f\) croissante ; \(f' \leq 0\) ⇒ décroissante ; changement de signe de \(f'\) ⇒ extremum.</li>
+        <li>Tangente : \(y = f'(a)(x - a) + f(a)\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-var">
       <p class="widget-title">\(f(x) = ax^3 + bx^2 + cx\) et sa dérivée</p>
       <p class="hint">Quand \(f'\) (pointillés) est au-dessus de l'axe, \(f\) monte ; ses racines donnent les extremums de \(f\).</p>
       <div class="controls">
-        <label>\(a\) <input type="range" data-k="a" min="-1" max="1" step="0.05" value="0.3"> <output data-show="a"></output></label>
-        <label>\(b\) <input type="range" data-k="b" min="-2" max="2" step="0.1" value="0"> <output data-show="b"></output></label>
-        <label>\(c\) <input type="range" data-k="c" min="-6" max="6" step="0.25" value="-3"> <output data-show="c"></output></label>
+        <label>\(a\) <input type="range" data-k="a" min="-3" max="3" step="0.05" value="0.3"> <output data-show="a"></output></label>
+        <label>\(b\) <input type="range" data-k="b" min="-6" max="6" step="0.1" value="0"> <output data-show="b"></output></label>
+        <label>\(c\) <input type="range" data-k="c" min="-20" max="20" step="0.25" value="-3"> <output data-show="c"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="legend"><span><i style="background:var(--c1)"></i>\(f\)</span><span><i style="background:var(--c2)"></i>\(f'\)</span></div>
@@ -161,7 +195,12 @@ window.addEventListener('DOMContentLoaded', function () {
       g.fn(f, '--c1');
       roots.forEach(function (r) { g.point(r, f(r), '--c4'); g.seg(r, 0, r, f(r), '--c4', { dash: [2, 3], width: 1 }); });
     };
-    G.redraw();
+    var x0 = -5, x1 = 5;
+    roots.forEach(function (r) { x0 = Math.min(x0, r - 2); x1 = Math.max(x1, r + 2); });
+    var big = 2;
+    for (var t = x0; t <= x1; t += (x1 - x0) / 100) big = Math.max(big, Math.abs(f(t)));
+    big = Math.min(big, 400);
+    G.redraw({ xmin: x0, xmax: x1, ymin: -big * 1.1, ymax: big * 1.1 });
     out.textContent = 'f\'(x) = ' + Course.fmt(A3) + 'x² + ' + Course.fmt(B2) + 'x + ' + Course.fmt(v.c) +
       '\n' + (roots.length ? 'f\' s\'annule en ' + roots.map(function (r) { return Course.fmt(r, 2); }).join(' et ') + ' → extremums f = ' + roots.map(function (r) { return Course.fmt(f(r), 2); }).join(' ; ')
         : 'f\' ne s\'annule pas en changeant de signe : f est monotone');

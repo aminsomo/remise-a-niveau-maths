@@ -18,45 +18,55 @@
   <header class="chapter-head">
     <p class="kicker">Maths 1re · Algorithmique et programmation · Tronc commun</p>
     <h1>Algorithmique et programmation en Python</h1>
-    <p class="lead">Variables, conditions, boucles, fonctions et listes en Python : de quoi calculer les termes d'une suite,
-      trouver un seuil, approcher une solution par balayage ou simuler une expérience aléatoire.</p>
+    <p class="lead">Variables, conditions, boucles, fonctions et listes en Python : de quoi calculer les termes d'une suite, chercher un seuil,
+      approcher une solution d'équation ou simuler une expérience aléatoire. À l'examen comme en prépa, on te demandera surtout de <b>lire</b> un programme et de prévoir ce qu'il affiche.</p>
     <p class="prereq">Prérequis : les bases de Python vues en seconde.</p>
   </header>
 
   <section>
-    <h2>1. Variables, affectation, fonctions</h2>
+    <h2>1. Variables, types et opérations</h2>
     <div class="box def"><p class="box-title">Affectation</p>
-      <p><code>x = 3</code> range la valeur 3 dans la variable <code>x</code> (en langage naturel : \(x \leftarrow 3\)). <code>x = x + 1</code> remplace l'ancienne valeur par la nouvelle.
-        Types usuels : entier (<code>int</code>), flottant (<code>float</code>), booléen (<code>True</code>/<code>False</code>), chaîne (<code>str</code>), liste (<code>list</code>).</p>
+      <p><code>x = 3</code> range la valeur 3 dans la variable <code>x</code> (en langage naturel on écrit \(x \leftarrow 3\)).
+        <code>x = x + 1</code> calcule d'abord <code>x + 1</code> avec l'ancienne valeur, puis remplace : <code>x</code> vaut maintenant 4.
+        Le signe <code>=</code> de Python n'est donc pas une égalité mathématique, c'est une « mise en mémoire ».</p>
+    </div>
+    <div class="box prop"><p class="box-title">Types et opérateurs</p>
+      <ul>
+        <li>Types : entier <code>int</code> (7), flottant <code>float</code> (7.5 — avec un point !), booléen <code>bool</code> (<code>True</code>/<code>False</code>), chaîne <code>str</code> (<code>"bonjour"</code>), liste <code>list</code>.</li>
+        <li><code>+ - * /</code> ; <code>**</code> pour la puissance (<code>2**3</code> vaut 8) ; <code>//</code> quotient entier (<code>17 // 5</code> vaut 3) ; <code>%</code> reste (<code>17 % 5</code> vaut 2).</li>
+        <li>Fonctions utiles : <code>abs</code>, <code>round</code>, <code>len</code> ; avec <code>from math import sqrt, pi, exp, log</code> : racine, π, exponentielle, ln.</li>
+      </ul>
     </div>
     <div class="box def"><p class="box-title">Fonction</p>
 <pre><code>def f(x):
-    return 3 * x**2 - 2 * x + 1   # ** est la puissance en Python
+    return 3 * x**2 - 2 * x + 1   # return renvoie le résultat
 
 print(f(2))   # 9</code></pre>
+      <p>Une fonction reçoit des <b>paramètres</b> et <b>renvoie</b> une valeur avec <code>return</code> (à ne pas confondre avec <code>print</code>, qui se contente d'afficher).</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1 — échange</p>
       <p>Que contiennent <code>a</code> et <code>b</code> après <code>a = 5</code>, <code>b = 2</code>, <code>a = a + b</code>, <code>b = a - b</code>, <code>a = a - b</code> ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(a = 7\), puis \(b = 7 - 2 = 5\), puis \(a = 7 - 5 = 2\) : les valeurs ont été échangées (\(a = 2\), \(b = 5\)).</p>
+        <p>\(a = 7\), puis \(b = 7 - 2 = 5\), puis \(a = 7 - 5 = 2\) : les valeurs ont été échangées (\(a = 2\), \(b = 5\)). En Python, on peut aussi écrire <code>a, b = b, a</code>.</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>2. Conditions et boucles</h2>
-    <div class="box def"><p class="box-title">Instruction conditionnelle et opérateurs logiques</p>
+    <div class="box def"><p class="box-title">Instruction conditionnelle</p>
 <pre><code>if x &gt; 0 and x &lt; 10:      # and (ET), or (OU), not (NON)
     print("entre 0 et 10")
-elif x == 0:               # == teste l'égalité, = affecte
+elif x == 0:               # == teste l'égalité ; != « différent »
     print("nul")
 else:
     print("ailleurs")</code></pre>
+      <p>L'<b>indentation</b> (le décalage vers la droite) indique ce qui est « à l'intérieur » du <code>if</code> : elle est obligatoire en Python.</p>
     </div>
     <div class="box def"><p class="box-title">Boucles</p>
       <ul>
-        <li><code>for k in range(n):</code> répète \(n\) fois, \(k\) prenant les valeurs \(0, 1, \dots, n - 1\).</li>
-        <li><code>while condition:</code> répète tant que la condition est vraie (nombre de tours inconnu à l'avance : algorithme de seuil).</li>
+        <li><code>for k in range(n):</code> répète \(n\) fois, \(k\) prenant les valeurs \(0, 1, \dots, n - 1\). <code>range(a, b)</code> va de \(a\) à \(b - 1\) ; <code>range(a, b, p)</code> avance de \(p\) en \(p\).</li>
+        <li><code>while condition:</code> répète <b>tant que</b> la condition est vraie. On l'utilise quand on ne connaît pas le nombre de tours à l'avance (algorithme de seuil). Attention à la boucle infinie si la condition ne devient jamais fausse !</li>
       </ul>
     </div>
     <div class="box example"><p class="box-title">Exemple 2 — somme et seuil</p>
@@ -77,12 +87,19 @@ print(somme(10), seuil(2))   # 55 15</code></pre>
   </section>
 
   <section>
-    <h2>3. Listes et balayage</h2>
-    <div class="box def"><p class="box-title">Listes</p>
-      <p>Une liste se crée en <b>extension</b> <code>L = [2, 3, 5, 7]</code> ou en <b>compréhension</b> <code>carres = [k**2 for k in range(6)]</code>
-        (→ <code>[0, 1, 4, 9, 16, 25]</code>), éventuellement filtrée : <code>[k for k in range(20) if k % 3 == 0]</code>.
-        <code>L[0]</code> est le premier élément, <code>len(L)</code> la longueur, <code>L.append(x)</code> ajoute \(x\) à la fin.</p>
+    <h2>3. Listes</h2>
+    <div class="box def"><p class="box-title">Créer et utiliser une liste</p>
+      <ul>
+        <li>En <b>extension</b> : <code>L = [2, 3, 5, 7]</code>. En <b>compréhension</b> : <code>carres = [k**2 for k in range(6)]</code> donne <code>[0, 1, 4, 9, 16, 25]</code>,
+          avec un filtre : <code>[k for k in range(20) if k % 3 == 0]</code> (les multiples de 3).</li>
+        <li><code>L[0]</code> est le premier élément (on compte à partir de 0), <code>L[-1]</code> le dernier, <code>len(L)</code> la longueur.</li>
+        <li><code>L.append(x)</code> ajoute \(x\) à la fin ; <code>sum(L)</code>, <code>max(L)</code>, <code>min(L)</code> ; <code>for x in L:</code> parcourt les éléments.</li>
+      </ul>
     </div>
+  </section>
+
+  <section>
+    <h2>4. Algorithmes classiques</h2>
     <div class="box method"><p class="box-title">Résoudre \(f(x) = 0\) par balayage</p>
 <pre><code>def balayage(f, a, pas):
     x = a
@@ -91,6 +108,22 @@ print(somme(10), seuil(2))   # 55 15</code></pre>
     return x, x + pas              # la solution est entre les deux
 
 print(balayage(lambda x: x**3 - 2, 0, 0.01))   # (1.25..., 1.26...) car ∛2 ≈ 1,2599</code></pre>
+      <p>Si \(f\) change de signe entre \(x\) et \(x + \text{pas}\), la courbe traverse l'axe entre les deux : on a encadré la solution à « pas » près.</p>
+    </div>
+    <div class="box method"><p class="box-title">Compter, chercher un maximum</p>
+<pre><code>def compter(L, seuil):          # combien de valeurs dépassent le seuil ?
+    c = 0
+    for x in L:
+        if x &gt; seuil:
+            c = c + 1
+    return c
+
+def maximum(L):
+    m = L[0]
+    for x in L:
+        if x &gt; m:
+            m = x
+    return m</code></pre>
     </div>
     <div class="box example"><p class="box-title">Exemple 3 — simulation</p>
       <p>Écrire une fonction qui simule \(n\) lancers d'un dé et renvoie la fréquence des 6.</p>
@@ -106,12 +139,25 @@ print(freq6(10000))   # proche de 1/6 ≈ 0,167</code></pre>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>5. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Aide-mémoire</p>
+      <ul>
+        <li><code>=</code> affecte, <code>==</code> compare ; <code>**</code> puissance, <code>//</code> quotient entier, <code>%</code> reste.</li>
+        <li><code>range(n)</code> : 0 à \(n - 1\) (soit \(n\) tours) ; <code>range(a, b)</code> : \(a\) à \(b - 1\).</li>
+        <li><code>for</code> : nombre de tours connu ; <code>while</code> : on s'arrête quand une condition devient fausse (seuil).</li>
+        <li>Listes : indices à partir de 0, <code>append</code>, <code>len</code>, compréhension <code>[expr for k in range(n) if condition]</code>.</li>
+        <li>Pour prévoir ce qu'affiche un programme : faire un <b>tableau d'état</b> des variables, tour par tour.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. Manipuler</h2>
     <div class="widget" id="w-scan">
       <p class="widget-title">Balayage pas à pas pour \(x^3 - c = 0\)</p>
       <p class="hint">Le programme avance de \(x\) en \(x + \text{pas}\) jusqu'au changement de signe. Un pas 10 fois plus petit : un chiffre exact de plus, mais 10 fois plus de tours.</p>
       <div class="controls">
-        <label>\(c\) <input type="range" data-k="c" min="1" max="20" step="1" value="2"> <output data-show="c"></output></label>
+        <label>\(c\) <input type="range" data-k="c" min="1" max="1000" step="1" value="2"> <output data-show="c"></output></label>
         <label>pas <select data-k="pas"><option value="1">1</option><option value="0.1" selected>0,1</option><option value="0.01">0,01</option><option value="0.001">0,001</option></select></label>
       </div>
       <canvas class="plot"></canvas>

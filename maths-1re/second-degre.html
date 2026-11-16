@@ -18,40 +18,58 @@
   <header class="chapter-head">
     <p class="kicker">Maths 1re · Fonctions · Tronc commun</p>
     <h1>Fonctions polynômes du second degré</h1>
-    <p class="lead">Trajectoire d'un projectile, aire à maximiser, puissance dissipée \(P = RI^2\) : le second degré est partout.
-      Tu sauras associer une parabole à son expression, trouver son sommet par symétrie et étudier son signe.</p>
-    <p class="prereq">Prérequis : développer, factoriser, résoudre une équation produit nul.</p>
+    <p class="lead">La trajectoire d'un ballon, l'aire d'un enclos qu'on veut la plus grande possible, la puissance \(P = RI^2\) dissipée dans une résistance :
+      le second degré est partout. Tu vas apprendre à reconnaître une parabole, trouver son sommet grâce à la symétrie, et étudier le signe d'un polynôme de degré 2.</p>
+    <p class="prereq">Prérequis : développer, factoriser, résoudre une équation produit nul (<a href="automatismes.html">automatismes</a>).</p>
   </header>
 
   <section>
     <h2>1. Les fonctions polynômes de degré 2</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>Une fonction polynôme de degré 2 s'écrit \(f(x) = ax^2 + bx + c\) avec \(a \neq 0\). Sa courbe est une <b>parabole</b>.</p>
+      <p>Une fonction polynôme de degré 2 (on dit aussi « trinôme ») s'écrit \(f(x) = ax^2 + bx + c\), avec \(a\), \(b\), \(c\) des nombres réels et \(a \neq 0\).
+        Sa courbe s'appelle une <b>parabole</b>. C'est la <b>forme développée</b>.</p>
     </div>
-    <div class="box prop"><p class="box-title">Trois formes à reconnaître</p>
+    <div class="box prop"><p class="box-title">Le rôle de \(a\)</p>
       <ul>
-        <li>\(x \mapsto ax^2\) : sommet en \(O\), axe de symétrie l'axe des ordonnées.</li>
-        <li>\(x \mapsto ax^2 + b\) : la même parabole translatée verticalement de \(b\) ; sommet \((0\,;\,b)\).</li>
-        <li>\(x \mapsto a(x - x_1)(x - x_2)\) : forme <b>factorisée</b>, la parabole coupe l'axe des abscisses en \(x_1\) et \(x_2\).</li>
+        <li>Si \(a > 0\), la parabole est « tournée vers le haut » (comme un U) : la fonction a un <b>minimum</b>.</li>
+        <li>Si \(a &lt; 0\), elle est « tournée vers le bas » (comme un ∩) : la fonction a un <b>maximum</b>.</li>
+        <li>Plus \(|a|\) est grand, plus la parabole est étroite.</li>
       </ul>
-      <p>Si \(a > 0\), la parabole est « tournée vers le haut » (minimum) ; si \(a &lt; 0\), « vers le bas » (maximum).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Trois écritures à reconnaître</p>
+      <ul>
+        <li>\(x \mapsto ax^2\) : sommet en \(O(0\,;\,0)\), axe de symétrie : l'axe des ordonnées.</li>
+        <li>\(x \mapsto ax^2 + b\) : la même parabole, décalée verticalement de \(b\) ; sommet \((0\,;\,b)\).</li>
+        <li>\(x \mapsto a(x - x_1)(x - x_2)\) : la <b>forme factorisée</b>. La parabole coupe l'axe des abscisses en \(x_1\) et \(x_2\).</li>
+      </ul>
     </div>
   </section>
 
   <section>
     <h2>2. Sommet et axe de symétrie</h2>
     <div class="box prop"><p class="box-title">Propriété</p>
-      <p>La parabole admet un axe de symétrie vertical d'équation \(x = \alpha\), qui passe par son <b>sommet</b> \(S(\alpha\,;\,f(\alpha))\).
-        Deux points de même ordonnée sont symétriques par rapport à cet axe : si \(f(x_1) = f(x_2)\), alors \(\alpha = \dfrac{x_1 + x_2}{2}\).</p>
+      <p>Toute parabole a un <b>axe de symétrie vertical</b>, d'équation \(x = \alpha\), qui passe par son <b>sommet</b> \(S(\alpha\,;\,\beta)\) avec \(\beta = f(\alpha)\).
+        Deux points de la courbe à la même hauteur sont symétriques par rapport à cet axe : si \(f(x_1) = f(x_2)\), alors
+        \[\alpha = \frac{x_1 + x_2}{2}.\]
+        Pour \(f(x) = ax^2 + bx + c\), on obtient toujours \(\alpha = -\dfrac{b}{2a}\).</p>
     </div>
     <div class="box method"><p class="box-title">Méthode : trouver le sommet sans formule</p>
-      <p>On résout \(f(x) = c\) (avec \(c = f(0)\)) : \(ax^2 + bx = 0 \iff x(ax + b) = 0\), donc \(x = 0\) ou \(x = -\tfrac{b}{a}\).
-        L'axe passe au milieu : \(\alpha = -\dfrac{b}{2a}\).</p>
+      <p>On cherche deux points à la même hauteur. Le plus simple : résoudre \(f(x) = c\) (car \(f(0) = c\)).
+        \(ax^2 + bx = 0 \iff x(ax + b) = 0\), donc \(x = 0\) ou \(x = -\tfrac{b}{a}\). L'axe passe au milieu : \(\alpha = -\dfrac{b}{2a}\).
+        Ensuite \(\beta = f(\alpha)\).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Variations</p>
+      <p>Si \(a > 0\) : \(f\) est décroissante sur \(]-\infty\,;\,\alpha]\) puis croissante sur \([\alpha\,;\,+\infty[\) ; son minimum est \(\beta\).
+        Si \(a &lt; 0\) : croissante puis décroissante ; son maximum est \(\beta\).</p>
+    </div>
+    <div class="box def"><p class="box-title">Forme canonique</p>
+      <p>On peut toujours écrire \(f(x) = a(x - \alpha)^2 + \beta\). Cette écriture montre directement le sommet \((\alpha\,;\,\beta)\).
+        Ex. : \(x^2 - 6x + 11 = (x - 3)^2 + 2\) : sommet \((3\,;\,2)\), minimum 2.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1 — hauteur d'un ballon</p>
-      <p>La hauteur (en m) d'un ballon est \(h(t) = -5t^2 + 20t + 1\). Quand atteint-il sa hauteur maximale, et laquelle ?</p>
+      <p>La hauteur (en m) d'un ballon est \(h(t) = -5t^2 + 20t + 1\) (\(t\) en s). Quand atteint-il sa hauteur maximale, et laquelle ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(h(t) = 1 \iff -5t^2 + 20t = 0 \iff -5t(t - 4) = 0\) : \(t = 0\) ou \(t = 4\). L'axe est \(t = 2\).</p>
+        <p>\(h(t) = 1 \iff -5t^2 + 20t = 0 \iff -5t(t - 4) = 0\) : \(t = 0\) ou \(t = 4\). L'axe est au milieu : \(t = 2\).</p>
         <p>\(h(2) = -20 + 40 + 1 = 21\) m. Comme \(a = -5 &lt; 0\), c'est un maximum, atteint à \(t = 2\) s.</p>
       </details>
     </div>
@@ -59,41 +77,67 @@
 
   <section>
     <h2>3. Racines et signe</h2>
+    <div class="box def"><p class="box-title">Racines</p>
+      <p>Les <b>racines</b> de \(f\) sont les solutions de \(f(x) = 0\) : ce sont les abscisses des points où la parabole coupe l'axe des abscisses.
+        Il peut y en avoir 2, 1 ou aucune.</p>
+    </div>
     <div class="box prop"><p class="box-title">Avec la forme factorisée</p>
-      <p>\(f(x) = a(x - x_1)(x - x_2)\) a pour <b>racines</b> \(x_1\) et \(x_2\) (solutions de \(f(x) = 0\)).
-        \(f(x)\) est <b>du signe de \(a\) à l'extérieur des racines</b> et du signe opposé entre elles.</p>
+      <p>\(f(x) = a(x - x_1)(x - x_2)\) a pour racines \(x_1\) et \(x_2\). Règle du signe :
+        \(f(x)\) est <b>du signe de \(a\) à l'extérieur des racines</b> et <b>du signe contraire entre elles</b>.</p>
     </div>
     <div class="table-scroll"><table>
       <thead><tr><th>\(x\)</th><th>\(-\infty\)</th><th>\(x_1\)</th><th></th><th>\(x_2\)</th><th>\(+\infty\)</th></tr></thead>
       <tbody><tr><td>signe de \(f(x)\) (cas \(a > 0\))</td><td>\(+\)</td><td>0</td><td>\(-\)</td><td>0</td><td>\(+\)</td></tr></tbody>
     </table></div>
+    <div class="box prop"><p class="box-title">Somme et produit des racines</p>
+      <p>Si \(ax^2 + bx + c\) a deux racines \(x_1\) et \(x_2\), alors \(x_1 + x_2 = -\dfrac{b}{a}\) et \(x_1 \times x_2 = \dfrac{c}{a}\).
+        Très pratique pour trouver la deuxième racine quand on en connaît une.</p>
+    </div>
     <div class="box method"><p class="box-title">Méthode : factoriser avec une racine évidente</p>
-      <p>Si \(x_1\) est racine de \(ax^2 + bx + c\), on peut écrire \(a(x - x_1)(x - x_2)\) et trouver \(x_2\) en identifiant le produit des racines \(x_1 x_2 = \tfrac{c}{a}\).
-        Ex. : \(x^2 - 5x + 6\), racine évidente \(2\) ; \(2 \times x_2 = 6\), donc \(x_2 = 3\) : \(x^2 - 5x + 6 = (x - 2)(x - 3)\).</p>
+      <p>On teste des valeurs simples (0, 1, −1, 2…). Ex. : \(x^2 - 5x + 6\) s'annule en 2 (\(4 - 10 + 6 = 0\)).
+        Produit des racines : \(2 \times x_2 = 6\), donc \(x_2 = 3\). D'où \(x^2 - 5x + 6 = (x - 2)(x - 3)\).</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 2</p>
-      <p>Résoudre \(x^2 = 7\) puis \(-2(x + 1)(x - 3) > 0\).</p>
+      <p>Résoudre \(x^2 = 7\), puis \(-2(x + 1)(x - 3) > 0\).</p>
       <details class="solution"><summary>Solution</summary>
         <p>\(x^2 = 7 \iff x = \sqrt7\) ou \(x = -\sqrt7\).</p>
-        <p>\(a = -2 &lt; 0\) : le produit est positif <b>entre</b> les racines : \(S = ]-1\,;\,3[\).</p>
+        <p>Ici \(a = -2 &lt; 0\) : le produit est positif <b>entre</b> les racines −1 et 3, donc \(S = ]-1\,;\,3[\).</p>
       </details>
     </div>
     <div class="box prepa-note"><p class="box-title">Pour aller plus loin : le discriminant</p>
-      <p>Hors programme du tronc commun mais indispensable en prépa : pour \(ax^2 + bx + c\), on pose \(\Delta = b^2 - 4ac\).
-        Si \(\Delta > 0\), deux racines \(\dfrac{-b \pm \sqrt\Delta}{2a}\) ; si \(\Delta = 0\), une racine \(-\tfrac{b}{2a}\) ; si \(\Delta &lt; 0\), aucune racine réelle.
-        Voir <a href="../prepa/calcul-algebrique.html">Calcul algébrique sans faute</a>.</p>
+      <p>Pas au programme du tronc commun, mais indispensable en Terminale spécialité et en prépa. Pour \(ax^2 + bx + c\), on calcule \(\Delta = b^2 - 4ac\) :</p>
+      <ul>
+        <li>\(\Delta > 0\) : deux racines \(x_1 = \dfrac{-b - \sqrt\Delta}{2a}\) et \(x_2 = \dfrac{-b + \sqrt\Delta}{2a}\) ;</li>
+        <li>\(\Delta = 0\) : une seule racine \(-\dfrac{b}{2a}\) (le sommet est sur l'axe) ;</li>
+        <li>\(\Delta &lt; 0\) : aucune racine réelle, \(f(x)\) garde le signe de \(a\) partout.</li>
+      </ul>
+      <p>Voir <a href="../prepa/calcul-algebrique.html">Calcul algébrique sans faute</a>.</p>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Formes : développée \(ax^2 + bx + c\) ; factorisée \(a(x - x_1)(x - x_2)\) ; canonique \(a(x - \alpha)^2 + \beta\).</li>
+        <li>Sommet : \(\alpha = -\dfrac{b}{2a} = \dfrac{x_1 + x_2}{2}\), \(\beta = f(\alpha)\) ; minimum si \(a > 0\), maximum si \(a &lt; 0\).</li>
+        <li>Signe : celui de \(a\) à l'extérieur des racines, le contraire entre elles.</li>
+        <li>\(x_1 + x_2 = -\dfrac{b}{a}\), \(x_1 x_2 = \dfrac{c}{a}\).</li>
+        <li>\(x^2 = c\) : \(\pm\sqrt c\) si \(c > 0\), \(0\) si \(c = 0\), rien si \(c &lt; 0\).</li>
+        <li>(Plus loin) \(\Delta = b^2 - 4ac\), racines \(\dfrac{-b \pm \sqrt\Delta}{2a}\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-para">
       <p class="widget-title">Parabole \(y = a(x - x_1)(x - x_2)\)</p>
       <p class="hint">Déplace les racines et change \(a\) : l'axe reste au milieu des racines, le signe de \(a\) décide du sens.</p>
       <div class="controls">
-        <label>\(a\) <input type="range" data-k="a" min="-3" max="3" step="0.25" value="1"> <output data-show="a"></output></label>
-        <label>\(x_1\) <input type="range" data-k="x1" min="-5" max="5" step="0.5" value="-2"> <output data-show="x1"></output></label>
-        <label>\(x_2\) <input type="range" data-k="x2" min="-5" max="5" step="0.5" value="3"> <output data-show="x2"></output></label>
+        <label>\(a\) <input type="range" data-k="a" min="-10" max="10" step="0.25" value="1"> <output data-show="a"></output></label>
+        <label>\(x_1\) <input type="range" data-k="x1" min="-20" max="20" step="0.5" value="-2"> <output data-show="x1"></output></label>
+        <label>\(x_2\) <input type="range" data-k="x2" min="-20" max="20" step="0.5" value="3"> <output data-show="x2"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -158,7 +202,8 @@ window.addEventListener('DOMContentLoaded', function () {
       g.point(al, top, '--c4', 'S');
     };
     var m = Math.max(10, Math.abs(top) * 1.2);
-    G.redraw({ ymin: Math.min(-m * 0.4, top - 2), ymax: Math.max(m * 0.4, top + 2) });
+    var lo = Math.min(v.x1, v.x2), hi = Math.max(v.x1, v.x2), padX = Math.max(3, (hi - lo) * 0.4);
+    G.redraw({ xmin: Math.min(-7, lo - padX), xmax: Math.max(7, hi + padX), ymin: Math.min(-m * 0.4, top - 2), ymax: Math.max(m * 0.4, top + 2) });
     out.textContent = v.a === 0 ? 'a = 0 : ce n’est plus un polynôme de degré 2 (fonction nulle).' :
       'axe : x = ' + Course.fmt(al) + '   sommet S(' + Course.fmt(al) + ' ; ' + Course.fmt(top) + ') : ' + (v.a > 0 ? 'minimum' : 'maximum') +
       '\nf(x) ' + (v.a > 0 ? '< 0' : '> 0') + ' entre les racines, ' + (v.a > 0 ? '> 0' : '< 0') + ' à l’extérieur';

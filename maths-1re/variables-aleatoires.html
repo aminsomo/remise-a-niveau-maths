@@ -18,25 +18,32 @@
   <header class="chapter-head">
     <p class="kicker">Maths 1re · Probabilités · Tronc commun</p>
     <h1>Variables aléatoires et loi de Bernoulli</h1>
-    <p class="lead">Un gain à un jeu, un nombre de pièces défectueuses, un temps d'attente : ce sont des nombres aléatoires.
-      On décrit leur loi, on calcule leur valeur moyenne (l'espérance) et on observe par simulation comment la fréquence
-      fluctue d'un échantillon à l'autre.</p>
+    <p class="lead">Un gain à un jeu, un nombre de pièces défectueuses, un temps d'attente : ce sont des nombres qui dépendent du hasard.
+      On décrit leurs valeurs possibles et leurs probabilités (la <b>loi</b>), on calcule leur valeur moyenne (l'<b>espérance</b>),
+      puis on observe par simulation comment une fréquence « fluctue » d'un échantillon à l'autre.</p>
     <p class="prereq">Prérequis : <a href="probabilites.html">probabilités conditionnelles et arbres</a>.</p>
   </header>
 
   <section>
     <h2>1. Variable aléatoire et loi de probabilité</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>Une <b>variable aléatoire</b> \(X\) associe un nombre réel à chaque issue d'une expérience aléatoire.
-        \(\{X = a\}\) désigne l'événement « \(X\) prend la valeur \(a\) », \(\{X \leq a\}\) l'événement « \(X\) prend une valeur inférieure ou égale à \(a\) ».
-        La <b>loi de probabilité</b> de \(X\) donne \(P(X = x_i)\) pour chaque valeur \(x_i\) (la somme de ces probabilités vaut 1).</p>
+      <p>Une <b>variable aléatoire</b> \(X\) associe un nombre réel à chaque issue d'une expérience aléatoire (par exemple le gain d'une partie).
+        \(\{X = a\}\) est l'événement « \(X\) prend la valeur \(a\) » ; \(\{X \leq a\}\) est l'événement « \(X\) prend une valeur inférieure ou égale à \(a\) ».</p>
+    </div>
+    <div class="box def"><p class="box-title">Loi de probabilité</p>
+      <p>Donner la <b>loi</b> de \(X\), c'est donner toutes les valeurs possibles \(x_1, \dots, x_n\) et leurs probabilités \(P(X = x_i)\), en général dans un tableau.
+        La somme de ces probabilités vaut toujours 1. On en déduit par exemple \(P(X \leq a)\) en additionnant les \(P(X = x_i)\) pour les \(x_i \leq a\).</p>
     </div>
     <div class="box def"><p class="box-title">Espérance</p>
       <p>\[E(X) = x_1 P(X = x_1) + x_2 P(X = x_2) + \dots + x_n P(X = x_n).\]
-        C'est la valeur moyenne de \(X\) sur un grand nombre de répétitions. Pour un jeu, \(E(X) > 0\) signifie que le jeu est favorable au joueur à long terme.</p>
+        C'est la <b>valeur moyenne</b> de \(X\) si on répète l'expérience un très grand nombre de fois.
+        Pour un jeu : \(E(X) > 0\) favorable au joueur, \(E(X) &lt; 0\) défavorable, \(E(X) = 0\) jeu <b>équitable</b>.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Transformer une variable</p>
+      <p>Pour des réels \(a\) et \(b\) : \(E(aX + b) = a\,E(X) + b\). Ex. : si un gain est multiplié par 2 et qu'on retire 1 € de mise, l'espérance devient \(2E(X) - 1\).</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1 — jeu de grattage</p>
-      <p>Un ticket coûte 2 €. On gagne 10 € avec probabilité \(0{,}1\), 4 € avec probabilité \(0{,}2\), rien sinon. \(X\) est le gain net. Loi et espérance de \(X\) ?</p>
+      <p>Un ticket coûte 2 €. On gagne 10 € avec probabilité \(0{,}1\), 4 € avec probabilité \(0{,}2\), rien sinon. \(X\) est le gain net (gain moins prix du ticket). Loi et espérance de \(X\) ?</p>
       <details class="solution"><summary>Solution</summary>
         <div class="table-scroll"><table><tbody>
           <tr><th>\(x_i\)</th><td>\(8\)</td><td>\(2\)</td><td>\(-2\)</td></tr>
@@ -50,8 +57,11 @@
   <section>
     <h2>2. Loi de Bernoulli</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>Une variable \(X\) suit la <b>loi de Bernoulli de paramètre \(p\)</b> si elle ne prend que les valeurs 1 (succès) et 0 (échec), avec \(P(X = 1) = p\) et \(P(X = 0) = 1 - p\).
-        Son espérance est \(E(X) = 1 \times p + 0 \times (1 - p) = p\).</p>
+      <p>\(X\) suit la <b>loi de Bernoulli de paramètre \(p\)</b> si elle ne prend que les valeurs 1 (succès) et 0 (échec), avec \(P(X = 1) = p\) et \(P(X = 0) = 1 - p\).
+        Son espérance vaut \(E(X) = 1 \times p + 0 \times (1 - p) = p\).</p>
+    </div>
+    <div class="box method"><p class="box-title">Reconnaître une situation de Bernoulli</p>
+      <p>Une expérience à <b>deux issues</b> seulement, dont l'une est appelée succès : pile ou face, pièce conforme ou non, cible touchée ou non, réponse oui/non.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 2</p>
       <p>Un composant électronique est conforme avec probabilité \(0{,}97\). \(X\) vaut 1 s'il est conforme, 0 sinon. Loi et espérance ?</p>
@@ -67,36 +77,50 @@
 <pre><code>from random import random
 
 def bernoulli(p):
-    return 1 if random() &lt; p else 0     # random() est uniforme sur [0 ; 1[
+    return 1 if random() &lt; p else 0     # random() donne un nombre au hasard dans [0 ; 1[
 
 def frequence(n, p):
     return sum(bernoulli(p) for _ in range(n)) / n
 
-print(frequence(100, 0.3))   # environ 0,3, mais varie d'un appel à l'autre</code></pre>
+print(frequence(100, 0.3))   # environ 0,3, mais le résultat change à chaque appel</code></pre>
     </div>
     <div class="box prop"><p class="box-title">Fluctuation d'échantillonnage</p>
-      <p>La fréquence observée des 1 dans un échantillon de taille \(n\) varie d'un échantillon à l'autre autour de \(p\).
-        Sur un grand nombre \(N\) d'échantillons, on observe que l'écart-type \(s\) de ces fréquences est de l'ordre de \(\dfrac{1}{\sqrt n}\) (plus précisément \(\sqrt{p(1-p)/n}\)) :
-        pour diviser la dispersion par \(k\), il faut multiplier la taille de l'échantillon par \(k^2\).
-        Environ 68 %, 95 % et 99,7 % des fréquences tombent respectivement à moins de \(s\), \(2s\) et \(3s\) de \(p\).</p>
+      <p>Un <b>échantillon de taille \(n\)</b>, c'est \(n\) répétitions de l'épreuve. La fréquence des 1 obtenue varie d'un échantillon à l'autre autour de \(p\) : c'est la <b>fluctuation d'échantillonnage</b>.</p>
+      <ul>
+        <li>Sur un grand nombre \(N\) d'échantillons, l'écart-type \(s\) des fréquences observées est de l'ordre de \(\dfrac{1}{\sqrt n}\) (plus précisément \(\sqrt{\tfrac{p(1-p)}{n}}\)).</li>
+        <li>Pour diviser la dispersion par \(k\), il faut multiplier la taille de l'échantillon par \(k^2\) (par 4 pour diviser par 2).</li>
+        <li>Environ 68 %, 95 % et 99,7 % des fréquences tombent à moins de \(s\), \(2s\) et \(3s\) de \(p\). Une fréquence à plus de \(2s\) de \(p\) est une situation <b>rare</b> dans le modèle.</li>
+      </ul>
     </div>
     <div class="box example"><p class="box-title">Exemple 3 — situation rare ?</p>
       <p>Un fabricant annonce \(p = 0{,}5\). Sur un échantillon de 100, on observe une fréquence de 0,65. Est-ce surprenant ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(s \approx \sqrt{0{,}25/100} = 0{,}05\). L'écart \(0{,}15 = 3s\) : moins de 0,3 % des échantillons s'écartent autant. La situation est rare dans le cadre du modèle : on peut douter de l'annonce.</p>
+        <p>\(s \approx \sqrt{0{,}25/100} = 0{,}05\). L'écart \(0{,}15 = 3s\) : moins de 0,3 % des échantillons s'écartent autant. C'est très rare si le modèle est juste : on peut douter de l'annonce.</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Loi : tableau des \(x_i\) et des \(P(X = x_i)\), de somme 1.</li>
+        <li>\(E(X) = \sum x_i P(X = x_i)\) ; \(E(aX + b) = aE(X) + b\) ; jeu équitable : \(E(X) = 0\).</li>
+        <li>Bernoulli(\(p\)) : \(P(X = 1) = p\), \(P(X = 0) = 1 - p\), \(E(X) = p\).</li>
+        <li>Fluctuation : écart-type des fréquences \(\approx \dfrac{1}{\sqrt n}\) ; 95 % des fréquences dans \([p - 2s\,;\,p + 2s]\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-fluct">
       <p class="widget-title">\(N\) échantillons de taille \(n\) d'une loi de Bernoulli</p>
       <p class="hint">Chaque point est la fréquence des 1 d'un échantillon. Multiplie \(n\) par 4 : la bande de largeur \(\pm 2s\) se rétrécit de moitié.</p>
       <div class="controls">
         <label>\(p\) <input type="range" data-k="p" min="0.05" max="0.95" step="0.05" value="0.3"> <output data-show="p" data-digits="2"></output></label>
-        <label>\(n\) <input type="range" data-k="n" min="10" max="1000" step="10" value="100"> <output data-show="n"></output></label>
-        <label>\(N\) <input type="range" data-k="N" min="50" max="500" step="50" value="200"> <output data-show="N"></output></label>
+        <label>\(n\) <input type="range" data-k="n" min="10" max="5000" step="10" value="100"> <output data-show="n"></output></label>
+        <label>\(N\) <input type="range" data-k="N" min="20" max="1000" step="20" value="200"> <output data-show="N"></output></label>
         <button class="btn ghost" type="button" id="fl-new">Relancer la simulation</button>
       </div>
       <canvas class="plot"></canvas>
