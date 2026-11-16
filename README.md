@@ -110,17 +110,24 @@ Automatique, sans rien écrire dans les pages :
 
 - **Plein écran** : chaque `.widget` qui contient un `<canvas>` reçoit un bouton plein écran
   (graphique + réglages ; côte à côte en paysage, empilés en portrait ; Échap pour sortir).
+- **Se déplacer dans le repère** : tout graphique avec axes se fait glisser (souris, doigt), se zoome
+  (pincer, Ctrl + molette, molette seule en plein écran, boutons + −) et se recentre ; flèches du clavier.
+  Si la page déplace déjà un point au glisser, le déplacement du repère passe par le bouton « main ».
 - **Brouillon + calculatrice** (`assets/brouillon.js`) : chaque exercice `Course.drill` reçoit, à
-  côté de « Vérifier », un bouton calculatrice qui ouvre une feuille noire plein écran (saisie
-  clavier ou stylo), une palette de symboles (fractions, puissances, √, ln, log, ∫, Σ, lim, ≤, ∈…)
-  et une calculatrice scientifique (degrés/radians, Ans, historique) dont le résultat peut être
-  envoyé dans la feuille ou utilisé comme réponse. La feuille est conservée par chapitre.
+  côté de « Vérifier », un bouton calculatrice qui ouvre une feuille noire plein écran avec un
+  interrupteur **Feuille / Calculatrice**. Les maths s'écrivent comme au stylo grâce à
+  [MathLive](https://cortexjs.io/mathlive/) (chargé à la demande depuis le CDN) : fraction avec
+  barre et deux cases, intégrale avec bornes a et b, racines, puissances, Σ, lim… Clavier intégré
+  (onglets Symboles / 123 / abc), mode stylo, contenu conservé par chapitre. La calculatrice
+  évalue ces écritures (y compris ∫ₐᵇ par la méthode de Simpson et Σ) ; son résultat peut être
+  envoyé dans la feuille ou utilisé comme réponse. Sans réseau : repli sur une saisie simple.
 - **Mobile** : menu des matières repliable, sommaire repliable, formules larges découpées ou
   défilantes, tableaux défilants, cibles tactiles de 44 px, zones sûres de l'encoche.
 
 `assets/core.js` regroupe les fonctions pures (sans DOM), testées unitairement : évaluateur
-d'expressions sûr (`evaluate`, sans `eval`), `parseNum`, `fmt`, `fmtCalc`, graduations
-(`tickStep`, `decimalsFor`), `insertSnippet`, `splitTopLevel`.
+d'expressions sûr (`evaluate`, sans `eval`), évaluateur LaTeX (`compileLatex`, `evaluateLatex`,
+`simpson`), `parseNum`, `fmt`, `fmtCalc`, graduations (`tickStep`, `decimalsFor`),
+`insertSnippet`, `splitTopLevel`.
 
 ## Structure
 
