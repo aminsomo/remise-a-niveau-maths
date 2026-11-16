@@ -16,34 +16,31 @@
 <body data-root="../" data-chapter="physique/fluides">
 <main class="chapter">
   <header class="chapter-head">
-    <p class="kicker">Physique · Mouvement et fluides</p>
+    <p class="kicker">Physique-chimie · Fluides</p>
     <h1>Mécanique des fluides</h1>
-    <p class="lead">Pression, statique des fluides, poussée d'Archimède, débit et conservation du débit, relation de Bernoulli :
-      pour comprendre un circuit hydraulique, un vérin, une conduite d'eau ou une éolienne.</p>
-    <p class="prereq">Prérequis : <a href="energie.html">énergie mécanique</a>, forces.</p>
+    <p class="lead">Fluides au repos (pression, Pascal, Archimède) puis fluides en mouvement (débit, conservation, Bernoulli) : de quoi comprendre un circuit d'eau, un vérin hydraulique,
+      la flottaison d'un bateau ou le fonctionnement d'un tube de Venturi.</p>
+    <p class="prereq">Prérequis : <a href="../physique-1re/pression-hydrostatique.html">pression et hydrostatique (1re)</a>, <a href="energie.html">énergie</a>.</p>
   </header>
 
   <section>
     <h2>1. Pression et statique des fluides</h2>
-    <div class="box def"><p class="box-title">Pression</p>
-      <p>Un fluide exerce sur une surface \(S\) une force pressante perpendiculaire, de norme \(F = p\,S\). La pression \(p\) s'exprime en pascals (1 Pa = 1 N/m²) ;
-        1 bar = \(10^5\) Pa ; pression atmosphérique \(p_{\text{atm}} \approx 1{,}013\times10^5\) Pa.</p>
-    </div>
-    <div class="box prop"><p class="box-title">Loi fondamentale de la statique des fluides (fluide incompressible)</p>
-      <p>Entre deux points A et B d'un même fluide au repos (axe \(z\) vers le haut) :
-        \[p_A - p_B = \rho\,g\,(z_B - z_A).\]
-        La pression augmente avec la profondeur : environ +1 bar tous les 10 m dans l'eau. Elle est la même en tout point d'un même plan horizontal.</p>
-    </div>
-    <div class="box prop"><p class="box-title">Conséquences</p>
+    <div class="box prop"><p class="box-title">Rappels</p>
       <ul>
-        <li><b>Principe de Pascal</b> (presse / vérin hydraulique) : une variation de pression se transmet intégralement ; \(\dfrac{F_1}{S_1} = \dfrac{F_2}{S_2}\).</li>
-        <li><b>Poussée d'Archimède</b> : un corps immergé subit une force verticale vers le haut égale au poids du fluide déplacé : \(\Pi = \rho_{\text{fluide}}\,V_{\text{immergé}}\,g\).</li>
+        <li>\(p = \dfrac FS\) (Pa) ; \(1\ \mathrm{bar} = 10^5\) Pa ; \(p_{\text{atm}} \approx 1{,}013 \times 10^5\) Pa.</li>
+        <li>Principe fondamental de l'hydrostatique (fluide incompressible au repos) : \(p_B - p_A = \rho g(z_A - z_B)\) ; à la profondeur \(h\) : \(p = p_{\text{atm}} + \rho gh\).</li>
+        <li>Principe de Pascal : une variation de pression se transmet intégralement ; presse ou vérin hydraulique : \(\dfrac{F_1}{S_1} = \dfrac{F_2}{S_2}\).</li>
       </ul>
     </div>
-    <div class="box example"><p class="box-title">Exemple 1 — vérin hydraulique</p>
-      <p>On appuie avec 200 N sur un piston de 2 cm². Quelle charge peut soulever un piston de 400 cm² ?</p>
+    <div class="box prop"><p class="box-title">Poussée d'Archimède</p>
+      <p>Tout corps plongé dans un fluide reçoit une force verticale, vers le haut, égale au poids du fluide déplacé :
+        \[\Pi = \rho_{\text{fluide}}\,V_{\text{immergé}}\,g.\]
+        Un objet flotte si sa masse volumique moyenne est inférieure à celle du fluide ; à l'équilibre, le poids est égal à la poussée.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — iceberg</p>
+      <p>La glace (\(\rho = 917\ \mathrm{kg/m^3}\)) flotte sur l'eau de mer (\(1\,025\ \mathrm{kg/m^3}\)). Quelle fraction est immergée ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(p = 200 / (2\times10^{-4}) = 10^6\) Pa = 10 bar. \(F_2 = p\,S_2 = 10^6 \times 0{,}04 = 40\,000\) N (environ 4 tonnes). Le déplacement du grand piston est 200 fois plus petit : on ne gagne pas d'énergie.</p>
+        <p>\(\rho_{\text{glace}}Vg = \rho_{\text{mer}}V_{\text{im}}g \Rightarrow \dfrac{V_{\text{im}}}{V} = \dfrac{917}{1\,025} \approx 0{,}89\) : 89 % de l'iceberg est sous l'eau.</p>
       </details>
     </div>
   </section>
@@ -51,34 +48,53 @@
   <section>
     <h2>2. Fluides en mouvement</h2>
     <div class="box def"><p class="box-title">Débits</p>
-      <p>Débit volumique \(Q_v = \dfrac{V}{\Delta t} = S\,v\) (m³/s), avec \(v\) la vitesse moyenne dans la section \(S\). Débit massique \(Q_m = \rho Q_v\) (kg/s).</p>
+      <p><b>Débit volumique</b> : volume qui passe par seconde, \(Q_v = \dfrac{V}{\Delta t} = S \times v\) (m³/s ; \(1\ \mathrm{L/s} = 10^{-3}\ \mathrm{m^3/s}\)).
+        <b>Débit massique</b> : \(Q_m = \rho Q_v\) (kg/s).</p>
     </div>
-    <div class="box prop"><p class="box-title">Conservation du débit (fluide incompressible, écoulement permanent)</p>
-      <p>\(S_1 v_1 = S_2 v_2\) : quand la section diminue, la vitesse augmente (le pouce sur le tuyau d'arrosage).</p>
+    <div class="box prop"><p class="box-title">Conservation du débit</p>
+      <p>Pour un fluide incompressible en régime permanent, ce qui entre dans un tuyau ressort : \(Q_v = S_1v_1 = S_2v_2\). Quand la section rétrécit, la vitesse augmente (le doigt sur le tuyau d'arrosage).</p>
     </div>
-    <div class="box prop"><p class="box-title">Relation de Bernoulli (fluide parfait, incompressible, écoulement permanent)</p>
-      <p>Le long d'une ligne de courant :
+    <div class="box prop"><p class="box-title">Relation de Bernoulli</p>
+      <p>Pour un fluide parfait (sans frottements), incompressible, en écoulement permanent, le long d'une ligne de courant :
         \[p + \tfrac12\rho v^2 + \rho g z = \text{constante}.\]
-        C'est une conservation de l'énergie mécanique par unité de volume. Avec une pompe de puissance \(P\) : \(P = Q_v\,\Delta(p + \tfrac12\rho v^2 + \rho g z)\).</p>
+        C'est une conservation de l'énergie par unité de volume. Conséquences :</p>
+      <ul>
+        <li><b>Effet Venturi</b> : là où la vitesse augmente (rétrécissement), la pression diminue.</li>
+        <li><b>Torricelli</b> : un liquide qui s'écoule par un petit trou situé à une profondeur \(h\) sous la surface sort à \(v = \sqrt{2gh}\).</li>
+      </ul>
     </div>
-    <div class="box example"><p class="box-title">Exemple 2 — vidange d'un réservoir (Torricelli)</p>
-      <p>Un réservoir ouvert a un trou de 1 cm² situé 2 m sous la surface libre. Vitesse de sortie et débit ?</p>
+    <div class="box prop"><p class="box-title">Puissance hydraulique</p>
+      <p>Une pompe qui augmente la pression de \(\Delta p\) pour un débit \(Q_v\) fournit au fluide \(P = Q_v\,\Delta p\). Dans un vrai circuit, les frottements créent des <b>pertes de charge</b> (chute de pression), que la pompe doit compenser.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — rétrécissement</p>
+      <p>De l'eau circule à 2 L/s dans un tuyau de 4 cm de diamètre qui se rétrécit à 2 cm. Vitesses ? Différence de pression ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>Bernoulli entre la surface (vitesse ≈ 0, pression atmosphérique) et le trou (pression atmosphérique) : \(\rho g h = \tfrac12\rho v^2\), donc \(v = \sqrt{2gh} \approx 6{,}3\) m/s.</p>
-        <p>\(Q_v = 10^{-4} \times 6{,}3 = 6{,}3\times10^{-4}\) m³/s \(\approx 0{,}63\) L/s.</p>
+        <p>\(S_1 = \pi \times 0{,}02^2 \approx 1{,}26 \times 10^{-3}\) m², \(v_1 = \dfrac{2 \times 10^{-3}}{1{,}26 \times 10^{-3}} \approx 1{,}6\) m/s ; diamètre divisé par 2 → section divisée par 4 → \(v_2 \approx 6{,}4\) m/s.</p>
+        <p>\(p_1 - p_2 = \tfrac12\rho(v_2^2 - v_1^2) = 500 \times (40{,}5 - 2{,}5) \approx 1{,}9 \times 10^4\) Pa.</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>3. Manipuler</h2>
+    <h2>3. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(p = p_{\text{atm}} + \rho gh\) ; Pascal \(F_1/S_1 = F_2/S_2\) ; Archimède \(\Pi = \rho_f V_{\text{im}} g\).</li>
+        <li>\(Q_v = Sv\), \(Q_m = \rho Q_v\) ; \(S_1v_1 = S_2v_2\).</li>
+        <li>Bernoulli \(p + \tfrac12\rho v^2 + \rho gz = \text{cte}\) ; Torricelli \(v = \sqrt{2gh}\) ; \(P = Q_v\Delta p\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
     <div class="widget" id="w-venturi">
       <p class="widget-title">Tube de Venturi</p>
       <p class="hint">Rétrécis la section centrale : la vitesse augmente (conservation du débit) et la pression chute (Bernoulli). Les tubes verticaux montrent la pression.</p>
       <div class="controls">
-        <label>débit (L/s) <input type="range" data-k="Q" min="0.2" max="3" step="0.1" value="1.2"> <output data-show="Q"></output></label>
-        <label>diamètre entrée (cm) <input type="range" data-k="d1" min="3" max="8" step="0.5" value="6"> <output data-show="d1"></output></label>
-        <label>diamètre col (cm) <input type="range" data-k="d2" min="1.5" max="6" step="0.1" value="3"> <output data-show="d2"></output></label>
+        <label>débit (L/s) <input type="range" data-k="Q" min="0.05" max="20" step="0.1" value="1.2"> <output data-show="Q"></output></label>
+        <label>diamètre entrée (cm) <input type="range" data-k="d1" min="1" max="15" step="0.5" value="6"> <output data-show="d1"></output></label>
+        <label>diamètre col (cm) <input type="range" data-k="d2" min="0.5" max="15" step="0.1" value="3"> <output data-show="d2"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -88,7 +104,7 @@
       <p class="widget-title">Flotte ou coule ?</p>
       <p class="hint">Un cube de 10 cm de côté est posé dans un liquide. À l'équilibre, la fraction immergée vaut \(\rho_{\text{objet}}/\rho_{\text{liquide}}\) (si elle est &lt; 1).</p>
       <div class="controls">
-        <label>\(\rho_{\text{objet}}\) (kg/m³) <input type="range" data-k="ro" min="100" max="3000" step="10" value="700"> <output data-show="ro"></output></label>
+        <label>\(\rho_{\text{objet}}\) (kg/m³) <input type="range" data-k="ro" min="1" max="20000" step="10" value="700"> <output data-show="ro"></output></label>
         <label>liquide <select data-k="rl"><option value="1000">eau douce (1000)</option><option value="1025">eau de mer (1025)</option><option value="800">huile (800)</option><option value="13600">mercure (13600)</option></select></label>
       </div>
       <canvas class="plot short"></canvas>
@@ -105,7 +121,7 @@
   </section>
 
   <section>
-    <h2>4. En prépa</h2>
+    <h2>5. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li>Viscosité, nombre de Reynolds (laminaire / turbulent), pertes de charge dans les conduites.</li>

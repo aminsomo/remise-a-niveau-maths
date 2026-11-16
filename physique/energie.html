@@ -16,81 +16,91 @@
 <body data-root="../" data-chapter="physique/energie">
 <main class="chapter">
   <header class="chapter-head">
-    <p class="kicker">Physique · Énergie</p>
+    <p class="kicker">Physique-chimie · Énergie</p>
     <h1>Énergie, puissance et rendement</h1>
-    <p class="lead">L'énergie se conserve mais se transforme, avec des pertes. Énergie cinétique et potentielle, théorème de l'énergie cinétique,
-      puissance, chaînes de conversion et rendement : le fil rouge de toute la spécialité STI2D.</p>
-    <p class="prereq">Prérequis : <a href="mecanique.html">lois de Newton</a>, <a href="../maths/produit-scalaire.html">produit scalaire</a>.</p>
+    <p class="lead">Raisonner avec l'énergie est souvent plus simple qu'avec les forces : on fait un bilan au début et à la fin, sans suivre tout le mouvement.
+      Ce chapitre rassemble énergie mécanique, travail, puissance, stockage et rendement des chaînes de conversion.</p>
+    <p class="prereq">Prérequis : <a href="../physique-1re/energie-mecanique.html">énergie mécanique (1re)</a>, <a href="../physique-1re/energie-enjeux.html">énergie et enjeux (1re)</a>.</p>
   </header>
 
   <section>
     <h2>1. Énergie et puissance</h2>
-    <div class="box def"><p class="box-title">Définitions</p>
+    <div class="box prop"><p class="box-title">Relations de base</p>
       <ul>
-        <li>L'<b>énergie</b> \(E\) s'exprime en joules (J). Autres unités : 1 Wh = 3 600 J ; 1 kWh = 3,6 MJ ; 1 cal ≈ 4,18 J.</li>
-        <li>La <b>puissance</b> est un débit d'énergie : \(P = \dfrac{E}{\Delta t}\) en watts (W = J/s). Si \(P\) varie : \(E = \int P(t)\,\mathrm{d}t\).</li>
+        <li>\(E = P \times \Delta t\) ; puissance moyenne \(P = \dfrac{E}{\Delta t}\) ; puissance instantanée \(p(t) = \dfrac{\mathrm{d}E}{\mathrm{d}t}\), et \(E = \displaystyle\int p(t)\,\mathrm{d}t\).</li>
+        <li>Unités : J et W ; \(1\ \mathrm{kWh} = 3{,}6 \times 10^6\) J.</li>
+        <li>Puissance mécanique d'une force : \(P = \vec F \cdot \vec v\) (\(= Fv\) si la force est dans le sens du mouvement). En rotation : \(P = C\,\omega\) (couple en N·m, vitesse angulaire en rad/s).</li>
       </ul>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 1 — ordres de grandeur</p>
-      <p>Un radiateur de 2 kW fonctionne 5 h par jour pendant 30 jours. Énergie consommée et coût à 0,25 €/kWh ?</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>\(E = 2 \times 5 \times 30 = 300\) kWh \(= 1{,}08 \times 10^{9}\) J ; coût : 75 €.</p>
-      </details>
     </div>
   </section>
 
   <section>
     <h2>2. Énergie mécanique</h2>
-    <div class="box def"><p class="box-title">Formes d'énergie mécanique</p>
+    <div class="box prop"><p class="box-title">Les énergies</p>
       <ul>
-        <li><b>Cinétique</b> (translation) : \(E_c = \tfrac12 mv^2\) ; (rotation) : \(E_c = \tfrac12 J\omega^2\) avec \(J\) moment d'inertie.</li>
-        <li><b>Potentielle de pesanteur</b> : \(E_{pp} = mgz\) (axe \(z\) vers le haut).</li>
-        <li><b>Potentielle élastique</b> : \(E_{pe} = \tfrac12 kx^2\).</li>
-        <li><b>Mécanique</b> : \(E_m = E_c + E_p\).</li>
+        <li>Cinétique : \(E_c = \tfrac12mv^2\) (translation) ; \(E_c = \tfrac12J\omega^2\) (rotation, \(J\) moment d'inertie en kg·m²).</li>
+        <li>Potentielle de pesanteur : \(E_{pp} = mgz\) ; élastique : \(E_{pe} = \tfrac12kx^2\).</li>
+        <li>Mécanique : \(E_m = E_c + E_p\).</li>
       </ul>
     </div>
-    <div class="box prop"><p class="box-title">Théorèmes</p>
+    <div class="box prop"><p class="box-title">Travail et théorèmes</p>
       <ul>
-        <li><b>Travail</b> d'une force constante : \(W_{AB}(\vec F) = \vec F \cdot \overrightarrow{AB}\). Puissance d'une force : \(P = \vec F \cdot \vec v\) ; d'un couple : \(P = C\omega\).</li>
-        <li><b>Théorème de l'énergie cinétique</b> : \(\Delta E_c = \sum W(\vec F_{\text{ext}})\).</li>
-        <li>Si seules des forces conservatives (poids, ressort) travaillent : \(E_m\) se <b>conserve</b>. Sinon \(\Delta E_m = W(\text{forces non conservatives})\), négatif pour des frottements.</li>
+        <li>Travail d'une force constante sur un trajet rectiligne : \(W_{AB} = \vec F \cdot \overrightarrow{AB} = F\,AB\cos\alpha\).</li>
+        <li>Poids : \(W = mg(z_A - z_B)\), indépendant du chemin. Frottement de valeur constante \(f\) : \(W = -f \times \text{longueur parcourue}\) (toujours négatif).</li>
+        <li><b>Théorème de l'énergie cinétique</b> : \(\Delta E_c = \sum W(\vec F)\).</li>
+        <li><b>Énergie mécanique</b> : \(\Delta E_m = W(\text{forces non conservatives})\). Sans frottement, \(E_m\) se conserve ; avec frottements, elle diminue et l'énergie perdue devient thermique.</li>
       </ul>
     </div>
-    <div class="box example"><p class="box-title">Exemple 2 — chute libre et freinage</p>
-      <p>Un objet de 2 kg tombe de 20 m sans vitesse initiale. Vitesse à l'arrivée ? Si on mesure en réalité 18 m/s, quelle énergie a été dissipée ?</p>
+    <div class="box example"><p class="box-title">Exemple 1 — skateur dans une rampe</p>
+      <p>Un skateur de 60 kg part du repos à 3 m de haut. Vitesse en bas sans frottement ? Avec des frottements qui dissipent 600 J ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>Conservation : \(mgh = \tfrac12 mv^2 \Rightarrow v = \sqrt{2gh} = \sqrt{392} \approx 19{,}8\) m/s.</p>
-        <p>Énergie dissipée : \(mgh - \tfrac12 m \times 18^2 = 392 - 324 = 68\) J (frottements de l'air).</p>
+        <p>Sans frottement : \(mgh = \tfrac12mv^2\), \(v = \sqrt{2gh} \approx 7{,}7\) m/s.</p>
+        <p>Avec : \(\tfrac12mv^2 = mgh - 600 = 1\,766 - 600 = 1\,166\) J, donc \(v \approx 6{,}2\) m/s.</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>3. Chaînes de conversion et rendement</h2>
-    <div class="box def"><p class="box-title">Rendement</p>
-      <p>Pour un convertisseur : \(\eta = \dfrac{P_{\text{utile}}}{P_{\text{absorbée}}} = \dfrac{E_{\text{utile}}}{E_{\text{absorbée}}}\), avec \(0 \leq \eta &lt; 1\).
-        Pertes : \(P_{\text{pertes}} = P_{\text{abs}} - P_{\text{u}}\) (souvent sous forme thermique).</p>
+    <h2>3. Stockage, chaînes de conversion et rendement</h2>
+    <div class="box prop"><p class="box-title">Énergies stockées</p>
+      <ul>
+        <li>Condensateur : \(E = \tfrac12CU^2\) ; bobine : \(E = \tfrac12LI^2\) ; volant d'inertie : \(\tfrac12J\omega^2\).</li>
+        <li>Batterie : \(E = U \times Q\) (capacité \(Q\) en A·h : \(1\ \mathrm{Ah} = 3\,600\) C). Ex. : 12 V × 50 Ah = 600 Wh.</li>
+        <li>Barrage : \(E = mgh\) ; combustible : \(E = m \times PC\).</li>
+      </ul>
     </div>
-    <div class="box prop"><p class="box-title">Chaîne de convertisseurs en série</p>
-      <p>Le rendement global est le <b>produit</b> des rendements : \(\eta = \eta_1 \times \eta_2 \times \dots \times \eta_n\). Il est toujours inférieur au plus petit d'entre eux.</p>
+    <div class="box prop"><p class="box-title">Rendement</p>
+      <p>Pour un convertisseur : \(\eta = \dfrac{P_{\text{utile}}}{P_{\text{absorbée}}}\), et \(P_{\text{absorbée}} = P_{\text{utile}} + P_{\text{pertes}}\).
+        Pour une chaîne de convertisseurs en série, \(\eta = \eta_1 \times \eta_2 \times \dots \times \eta_n\) : le rendement global est toujours plus faible que le plus faible des rendements.</p>
     </div>
-    <div class="box example"><p class="box-title">Exemple 3 — éolienne</p>
-      <p>Une éolienne : rotor (\(\eta = 0{,}45\)), multiplicateur (\(0{,}95\)), génératrice (\(0{,}93\)), onduleur (\(0{,}97\)).
-        Le vent apporte 2 MW sur la surface balayée. Puissance électrique injectée ?</p>
+    <div class="box example"><p class="box-title">Exemple 2 — pompage-turbinage</p>
+      <p>On pompe de l'eau vers un réservoir haut (pompe 85 %), puis on la turbine (turbine 90 %, alternateur 95 %). Rendement global ? Énergie récupérée pour 10 MWh consommés ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(\eta = 0{,}45 \times 0{,}95 \times 0{,}93 \times 0{,}97 \approx 0{,}386\). \(P_e \approx 0{,}77\) MW.</p>
+        <p>\(\eta = 0{,}85 \times 0{,}90 \times 0{,}95 \approx 0{,}727\) ; on récupère environ 7,3 MWh.</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(E = P\Delta t\), \(p = \dfrac{\mathrm{d}E}{\mathrm{d}t}\) ; \(P = Fv\), \(P = C\omega\).</li>
+        <li>\(E_c = \tfrac12mv^2\) (ou \(\tfrac12J\omega^2\)), \(E_{pp} = mgz\), \(E_{pe} = \tfrac12kx^2\).</li>
+        <li>\(\Delta E_c = \sum W\) ; \(\Delta E_m = W_{\text{frottements}}\) ; \(W_{\text{poids}} = mg(z_A - z_B)\).</li>
+        <li>\(\tfrac12CU^2\), \(\tfrac12LI^2\) ; \(\eta = \dfrac{P_u}{P_a}\), chaîne : produit des rendements.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-skate">
       <p class="widget-title">Échanges Ec ↔ Ep sur une piste</p>
       <p class="hint">Un mobile glisse dans une cuvette. Sans frottement, \(E_m\) reste constante : il remonte à la même hauteur. Avec frottement, \(E_m\) diminue et l'énergie part en chaleur.</p>
       <div class="controls">
-        <label>hauteur de départ (m) <input type="range" data-k="h" min="1" max="5" step="0.1" value="4"> <output data-show="h"></output></label>
-        <label>frottement <input type="range" data-k="mu" min="0" max="0.5" step="0.01" value="0.05"> <output data-show="mu"></output></label>
+        <label>hauteur de départ (m) <input type="range" data-k="h" min="0.5" max="50" step="0.1" value="4"> <output data-show="h"></output></label>
+        <label>frottement <input type="range" data-k="mu" min="0" max="1" step="0.01" value="0.05"> <output data-show="mu"></output></label>
         <button class="btn" type="button" id="skate-go">Lâcher</button>
       </div>
       <canvas class="plot short" id="skate-track"></canvas>
@@ -102,10 +112,10 @@
       <p class="widget-title">Rendement d'une chaîne</p>
       <p class="hint">Règle le rendement de chaque étage d'un véhicule électrique (batterie → onduleur → moteur → transmission).</p>
       <div class="controls">
-        <label>batterie <input type="range" data-k="e1" min="0.5" max="1" step="0.01" value="0.95"> <output data-show="e1"></output></label>
-        <label>onduleur <input type="range" data-k="e2" min="0.5" max="1" step="0.01" value="0.97"> <output data-show="e2"></output></label>
-        <label>moteur <input type="range" data-k="e3" min="0.5" max="1" step="0.01" value="0.92"> <output data-show="e3"></output></label>
-        <label>transmission <input type="range" data-k="e4" min="0.5" max="1" step="0.01" value="0.96"> <output data-show="e4"></output></label>
+        <label>batterie <input type="range" data-k="e1" min="0.05" max="1" step="0.01" value="0.95"> <output data-show="e1"></output></label>
+        <label>onduleur <input type="range" data-k="e2" min="0.05" max="1" step="0.01" value="0.97"> <output data-show="e2"></output></label>
+        <label>moteur <input type="range" data-k="e3" min="0.05" max="1" step="0.01" value="0.92"> <output data-show="e3"></output></label>
+        <label>transmission <input type="range" data-k="e4" min="0.05" max="1" step="0.01" value="0.96"> <output data-show="e4"></output></label>
       </div>
       <canvas class="plot short"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -121,7 +131,7 @@
   </section>
 
   <section>
-    <h2>5. En prépa</h2>
+    <h2>6. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li>Énergie potentielle générale : \(\vec F = -\overrightarrow{\text{grad}}\,E_p\), positions d'équilibre et stabilité.</li>
@@ -195,10 +205,11 @@ window.addEventListener('DOMContentLoaded', function () {
     var Ep = m * g0 * z(st.x), Ec = 0.5 * m * st.v * st.v, E0 = m * g0 * sv.h;
     PT.draw = function (g) {
       g.fn(z, '--muted', { width: 3 });
-      g.seg(-5, sv.h, 5, sv.h, '--c2', { dash: [4, 4], width: 1 });
-      g.point(st.x, z(st.x) + 0.2, '--c4', null, { r: 9 });
+      g.seg(-X0, sv.h, X0, sv.h, '--c2', { dash: [4, 4], width: 1 });
+      g.point(st.x, z(st.x) + 0.2 * X0 / 5, '--c4', null, { r: 9 });
     };
-    PT.redraw();
+    var X0 = Math.max(5, 2 * Math.sqrt(sv.h) + 1);
+    PT.redraw({ xmin: -X0, xmax: X0, ymin: -0.1 * X0, ymax: Math.max(6, sv.h * 1.2) });
     // barres d'énergie normalisées par l'énergie initiale
     PB.draw = function (g) {
       [[Ec, '--c1', 'Ec'], [Ep, '--c2', 'Ep'], [st.lost, '--c4', 'dissipée']].forEach(function (b, i) {
