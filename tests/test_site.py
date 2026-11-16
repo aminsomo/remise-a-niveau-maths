@@ -292,9 +292,21 @@ class EngineWiringTests(unittest.TestCase):
 @unittest.skipUnless(shutil.which("node"), "node absent : tests unitaires JavaScript ignorés")
 class JavaScriptUnitTests(unittest.TestCase):
     def test_node_unit_tests(self):
-        r = subprocess.run(["node", "--test", str(ROOT / "tests" / "js")], capture_output=True, text=True, cwd=ROOT)
+        r = subprocess.run(["node", "--test", *map(str, sorted((ROOT / "tests" / "js").glob("*.test.js")))], capture_output=True, text=True, cwd=ROOT)
         self.assertEqual(r.returncode, 0, r.stdout[-4000:] + r.stderr[-2000:])
 
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PagesWorkflow(unittest.TestCase):
+    def test_pages_publie_tous_les_dossiers_de_pages(self):
+        """Le déploiement doit copier chaque dossier contenant des pages HTML (ex. maths-1re)."""
+        wf = (ROOT / ".github" / "workflows" / "pages.yml").read_text(encoding="utf-8")
+        m = re.search(r"for p in ([^;]+); do", wf)
+        self.assertIsNotNone(m, "liste de copie introuvable dans pages.yml")
+        copied = set(m.group(1).split())
+        exclus = {"templates", "node_modules", "playwright-report"}
+        dossiers = {f.parent.name for f in ROOT.glob("*/*.html") if f.parent.name not in exclus}
+        self.assertFalse(dossiers - copied, f"dossiers non publiés par pages.yml : {dossiers - copied}")
