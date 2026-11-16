@@ -16,111 +16,112 @@
 <body data-root="../" data-chapter="maths/derivation">
 <main class="chapter">
   <header class="chapter-head">
-    <p class="kicker">Maths · Analyse · Tronc commun + spécialité</p>
+    <p class="kicker">Maths · Analyse · Tronc commun + spé</p>
     <h1>Dérivation et variations</h1>
-    <p class="lead">Le nombre dérivé mesure une vitesse de variation. Savoir dériver vite et sans erreur, puis en déduire
-      les variations, les extremums et les tangentes : c'est l'outil que tu utiliseras le plus en prépa, en maths comme en physique.</p>
-    <p class="prereq">Prérequis : fonctions de référence, équation de droite \(y = mx + p\), signe d'un polynôme du 2<sup>d</sup> degré.</p>
+    <p class="lead">La dérivée mesure la vitesse à laquelle une grandeur change. Avec elle, on trace des tangentes, on trouve où une fonction monte ou descend, et on résout des problèmes
+      d'optimisation (le meilleur rendement, le coût minimal, la boîte la plus grande).</p>
+    <p class="prereq">Prérequis : <a href="../maths-1re/nombre-derive.html">nombre dérivé (1re)</a>, <a href="../maths-1re/fonctions-derivees.html">fonctions dérivées (1re)</a>.</p>
   </header>
 
   <section>
     <h2>1. Nombre dérivé et tangente</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>Le <b>taux de variation</b> de \(f\) entre \(a\) et \(a+h\) est \(\dfrac{f(a+h)-f(a)}{h}\) : c'est la pente de la sécante.
-        Si ce quotient tend vers un réel quand \(h \to 0\), \(f\) est <b>dérivable en \(a\)</b> et
-        \[f'(a) = \lim_{h\to 0} \frac{f(a+h) - f(a)}{h}.\]</p>
+      <p>Le <b>nombre dérivé</b> de \(f\) en \(a\) est la limite (si elle existe et est finie) du taux de variation quand le pas \(h\) tend vers 0 :
+        \[f'(a) = \lim_{h \to 0} \frac{f(a + h) - f(a)}{h}.\]
+        C'est la <b>pente de la tangente</b> à la courbe au point d'abscisse \(a\). En physique, on l'écrit \(\dfrac{\mathrm{d}y}{\mathrm{d}x}\) : la vitesse \(v = \dfrac{\mathrm{d}x}{\mathrm{d}t}\) est un nombre dérivé.</p>
     </div>
-    <div class="box prop"><p class="box-title">Tangente</p>
-      <p>La tangente à la courbe de \(f\) au point d'abscisse \(a\) a pour coefficient directeur \(f'(a)\) et pour équation
-        \[y = f'(a)(x - a) + f(a).\]</p>
+    <div class="box prop"><p class="box-title">Tangente et approximation</p>
+      <p>Équation de la tangente en \(a\) : \(y = f'(a)(x - a) + f(a)\). Près de \(a\), la courbe et sa tangente se confondent :
+        \(f(a + h) \approx f(a) + f'(a)\,h\) (approximation affine).</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1</p>
-      <p>Équation de la tangente à \(f(x) = x^2 - 3x\) en \(a = 2\).</p>
+      <p>Tangente à la courbe de \(f(x) = x^3 - 3x\) au point d'abscisse 2.</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(f'(x) = 2x - 3\) donc \(f'(2) = 1\) ; \(f(2) = -2\). Tangente : \(y = 1(x - 2) - 2 = x - 4\).</p>
+        <p>\(f'(x) = 3x^2 - 3\), donc \(f'(2) = 9\) et \(f(2) = 2\). Tangente : \(y = 9(x - 2) + 2 = 9x - 16\).</p>
       </details>
-    </div>
-    <div class="box prepa-note"><p class="box-title">Lien physique</p>
-      <p>La vitesse est la dérivée de la position : \(v(t) = x'(t)\) ; l'accélération est la dérivée de la vitesse : \(a(t) = v'(t)\).
-        L'intensité est la dérivée de la charge : \(i = \dfrac{\mathrm{d}q}{\mathrm{d}t}\). En physique on écrit souvent \(\dfrac{\mathrm{d}f}{\mathrm{d}x}\) au lieu de \(f'\).</p>
     </div>
   </section>
 
   <section>
     <h2>2. Formulaire de dérivation</h2>
-    <div class="table-scroll">
-    <table>
-      <thead><tr><th>Fonction \(f(x)\)</th><th>Dérivée \(f'(x)\)</th><th>Domaine</th></tr></thead>
-      <tbody>
-        <tr><td>\(k\) (constante)</td><td>\(0\)</td><td>\(\mathbb{R}\)</td></tr>
-        <tr><td>\(x^n\) (\(n\) entier)</td><td>\(n\,x^{n-1}\)</td><td>\(\mathbb{R}\) (ou \(\mathbb{R}^*\) si \(n&lt;0\))</td></tr>
-        <tr><td>\(\dfrac{1}{x}\)</td><td>\(-\dfrac{1}{x^2}\)</td><td>\(\mathbb{R}^*\)</td></tr>
-        <tr><td>\(\sqrt{x}\)</td><td>\(\dfrac{1}{2\sqrt{x}}\)</td><td>\(]0\,;+\infty[\)</td></tr>
-        <tr><td>\(e^{x}\)</td><td>\(e^{x}\)</td><td>\(\mathbb{R}\)</td></tr>
-        <tr><td>\(\ln x\)</td><td>\(\dfrac{1}{x}\)</td><td>\(]0\,;+\infty[\)</td></tr>
-        <tr><td>\(\cos x\)</td><td>\(-\sin x\)</td><td>\(\mathbb{R}\)</td></tr>
-        <tr><td>\(\sin x\)</td><td>\(\cos x\)</td><td>\(\mathbb{R}\)</td></tr>
-      </tbody>
-    </table>
+    <div class="box prop"><p class="box-title">Fonctions usuelles</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th>\(f(x)\)</th><th>\(f'(x)\)</th><th>où ?</th></tr></thead>
+        <tbody>
+          <tr><td>\(k\)</td><td>\(0\)</td><td>\(\mathbb{R}\)</td></tr>
+          <tr><td>\(x^n\) (\(n\) entier \(\geq 1\))</td><td>\(nx^{n-1}\)</td><td>\(\mathbb{R}\)</td></tr>
+          <tr><td>\(\dfrac1x\)</td><td>\(-\dfrac{1}{x^2}\)</td><td>\(x \neq 0\)</td></tr>
+          <tr><td>\(\sqrt x\)</td><td>\(\dfrac{1}{2\sqrt x}\)</td><td>\(x > 0\)</td></tr>
+          <tr><td>\(e^x\)</td><td>\(e^x\)</td><td>\(\mathbb{R}\)</td></tr>
+          <tr><td>\(\ln x\)</td><td>\(\dfrac1x\)</td><td>\(x > 0\)</td></tr>
+          <tr><td>\(\cos x\)</td><td>\(-\sin x\)</td><td>\(\mathbb{R}\)</td></tr>
+          <tr><td>\(\sin x\)</td><td>\(\cos x\)</td><td>\(\mathbb{R}\)</td></tr>
+        </tbody>
+      </table></div>
     </div>
-    <div class="box prop"><p class="box-title">Opérations</p>
-      <ul>
-        <li>\((u + v)' = u' + v'\) et \((k\,u)' = k\,u'\)</li>
-        <li>Produit : \((uv)' = u'v + uv'\)</li>
-        <li>Quotient : \(\left(\dfrac{u}{v}\right)' = \dfrac{u'v - uv'}{v^2}\) et \(\left(\dfrac{1}{v}\right)' = -\dfrac{v'}{v^2}\)</li>
-        <li>Composée affine : \(\big(g(ax+b)\big)' = a\,g'(ax+b)\). Ex. : \(\big(\cos(\omega t + \varphi)\big)' = -\omega\sin(\omega t + \varphi)\).</li>
-        <li>\((e^{u})' = u'e^{u}\), \((\ln u)' = \dfrac{u'}{u}\), \((u^n)' = n\,u'\,u^{n-1}\).</li>
-      </ul>
+    <div class="box prop"><p class="box-title">Opérations et fonctions composées</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th>fonction</th><th>dérivée</th><th>fonction</th><th>dérivée</th></tr></thead>
+        <tbody>
+          <tr><td>\(u + v\)</td><td>\(u' + v'\)</td><td>\(ku\)</td><td>\(ku'\)</td></tr>
+          <tr><td>\(uv\)</td><td>\(u'v + uv'\)</td><td>\(\dfrac{u}{v}\)</td><td>\(\dfrac{u'v - uv'}{v^2}\)</td></tr>
+          <tr><td>\(\dfrac1v\)</td><td>\(-\dfrac{v'}{v^2}\)</td><td>\(u^n\)</td><td>\(n\,u'\,u^{n-1}\)</td></tr>
+          <tr><td>\(e^{u}\)</td><td>\(u'\,e^{u}\)</td><td>\(\ln u\) (\(u > 0\))</td><td>\(\dfrac{u'}{u}\)</td></tr>
+          <tr><td>\(\sqrt u\) (\(u > 0\))</td><td>\(\dfrac{u'}{2\sqrt u}\)</td><td>\(f(ax + b)\)</td><td>\(a\,f'(ax + b)\)</td></tr>
+          <tr><td>\(\cos(\omega t + \varphi)\)</td><td>\(-\omega\sin(\omega t + \varphi)\)</td><td>\(\sin(\omega t + \varphi)\)</td><td>\(\omega\cos(\omega t + \varphi)\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Toutes les règles « composées » suivent la même idée : on dérive la fonction extérieure, puis on <b>multiplie par la dérivée de l'intérieur</b> \(u'\).</p>
     </div>
-    <div class="box example"><p class="box-title">Exemple 2 — quotient</p>
-      <p>Dériver \(f(x) = \dfrac{2x+1}{x-3}\) sur \(]3\,;+\infty[\).</p>
+    <div class="box example"><p class="box-title">Exemple 2</p>
+      <p>Dériver \(f(x) = (x^2 + 1)e^{-x}\), \(g(t) = e^{-t/\tau}\) et \(h(x) = \ln(x^2 + 1)\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(u = 2x+1,\ u' = 2,\ v = x - 3,\ v' = 1\).
-          \(f'(x) = \dfrac{2(x-3) - (2x+1)\times 1}{(x-3)^2} = \dfrac{-7}{(x-3)^2}\).</p>
-        <p>Négatif : \(f\) est décroissante sur \(]3\,;+\infty[\).</p>
-      </details>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 3 — produit avec exponentielle</p>
-      <p>Dériver \(g(t) = (3t - 1)e^{-2t}\).</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>\(g'(t) = 3e^{-2t} + (3t-1)(-2e^{-2t}) = (3 - 6t + 2)e^{-2t} = (5 - 6t)e^{-2t}\).</p>
-        <p>Réflexe : <b>factoriser par l'exponentielle</b>, qui est toujours strictement positive. Le signe de \(g'\) est celui de \(5 - 6t\).</p>
+        <p>\(f'(x) = 2x\,e^{-x} + (x^2 + 1)(-e^{-x}) = (-x^2 + 2x - 1)e^{-x} = -(x - 1)^2e^{-x}\).</p>
+        <p>\(g'(t) = -\dfrac{1}{\tau}e^{-t/\tau}\) ; \(h'(x) = \dfrac{2x}{x^2 + 1}\).</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>3. Variations et extremums</h2>
-    <div class="box prop"><p class="box-title">Théorème</p>
-      <p>Sur un <b>intervalle</b> \(I\) :</p>
-      <ul>
-        <li>si \(f' \geq 0\) sur \(I\), \(f\) est croissante sur \(I\) ;</li>
-        <li>si \(f' \leq 0\) sur \(I\), \(f\) est décroissante sur \(I\) ;</li>
-        <li>si \(f'\) s'annule en <b>changeant de signe</b> en \(a\), alors \(f\) admet un extremum local en \(a\).</li>
-      </ul>
+    <h2>3. Variations, extremums, convexité</h2>
+    <div class="box prop"><p class="box-title">Signe de la dérivée et variations</p>
+      <p>Sur un intervalle : \(f' \geq 0\) ⇒ \(f\) croissante ; \(f' \leq 0\) ⇒ \(f\) décroissante ; \(f' = 0\) ⇒ \(f\) constante.
+        Si \(f'\) s'annule <b>en changeant de signe</b> en \(x_0\), \(f\) admet un <b>extremum local</b> en \(x_0\) (maximum si \(f'\) passe de + à −, minimum si − à +).</p>
     </div>
-    <div class="box method"><p class="box-title">Méthode en 4 étapes</p>
+    <div class="box method"><p class="box-title">Méthode complète</p>
       <ol>
-        <li>Calculer \(f'(x)\) et le <b>factoriser</b> au maximum.</li>
-        <li>Étudier le signe de chaque facteur (tableau de signes).</li>
-        <li>En déduire le tableau de variations ; calculer les valeurs aux bornes et aux extremums.</li>
-        <li>Conclure par une phrase (« \(f\) admet un maximum égal à … atteint en … »).</li>
+        <li>Préciser l'ensemble de définition.</li>
+        <li>Calculer \(f'(x)\) et la <b>factoriser</b> au maximum (une exponentielle est toujours positive, un carré aussi).</li>
+        <li>Tableau de signes de \(f'\), puis tableau de variations de \(f\) avec les valeurs aux bornes (limites) et aux extremums.</li>
       </ol>
     </div>
-    <div class="box example"><p class="box-title">Exemple 4 — optimisation</p>
-      <p>On découpe un carré de côté \(x\) dans chaque coin d'une plaque de 30 cm × 30 cm pour former une boîte sans couvercle.
-        Quelle valeur de \(x\) maximise le volume ?</p>
+    <div class="box prepa-note"><p class="box-title">Pour aller plus loin : la convexité</p>
+      <p>La dérivée de \(f'\) est la <b>dérivée seconde</b> \(f''\). Si \(f'' \geq 0\), la courbe est <b>convexe</b> (en forme de U, au-dessus de ses tangentes) ;
+        si \(f'' \leq 0\), elle est <b>concave</b>. Un point où \(f''\) change de signe est un <b>point d'inflexion</b> : la courbe y traverse sa tangente.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3 — optimisation</p>
+      <p>Une canette cylindrique doit contenir 330 cm³. Le métal utilisé est proportionnel à l'aire \(A(r) = 2\pi r^2 + \dfrac{660}{r}\). Quel rayon minimise \(A\) ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(V(x) = x(30 - 2x)^2\) pour \(x \in [0\,;15]\).
-          \(V'(x) = (30-2x)^2 + x \times 2(30-2x)(-2) = (30-2x)(30 - 2x - 4x) = (30-2x)(30-6x)\).</p>
-        <p>Sur \([0\,;15]\), \(30 - 2x \geq 0\) ; \(30 - 6x\) s'annule en \(x = 5\) en passant de + à −.
-          Le volume est maximal pour \(x = 5\) cm : \(V(5) = 5 \times 20^2 = 2\,000\ \text{cm}^3\).</p>
+        <p>\(A'(r) = 4\pi r - \dfrac{660}{r^2} = \dfrac{4\pi r^3 - 660}{r^2}\), qui s'annule en \(r = \sqrt[3]{\dfrac{660}{4\pi}} \approx 3{,}74\) cm, négative avant, positive après.</p>
+        <p>Minimum pour \(r \approx 3{,}74\) cm (et alors la hauteur vaut \(\dfrac{330}{\pi r^2} \approx 7{,}5\) cm, soit le diamètre).</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(f'(a) = \lim\limits_{h\to0}\dfrac{f(a+h) - f(a)}{h}\) ; tangente \(y = f'(a)(x - a) + f(a)\).</li>
+        <li>\((e^x)' = e^x\), \((\ln x)' = \dfrac1x\), \((x^n)' = nx^{n-1}\), \((\sqrt x)' = \dfrac{1}{2\sqrt x}\), \(\cos' = -\sin\), \(\sin' = \cos\).</li>
+        <li>\((uv)' = u'v + uv'\), \(\left(\dfrac uv\right)' = \dfrac{u'v - uv'}{v^2}\), \((e^u)' = u'e^u\), \((\ln u)' = \dfrac{u'}{u}\), \((u^n)' = nu'u^{n-1}\).</li>
+        <li>Signe de \(f'\) ⇒ variations ; changement de signe ⇒ extremum ; \(f'' \geq 0\) ⇒ convexe.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-tangente">
       <p class="widget-title">Sécante → tangente</p>
       <p class="hint">Fais tendre \(h\) vers 0 : la sécante (pointillés) se rapproche de la tangente et le taux de variation se rapproche de \(f'(a)\).</p>
@@ -129,8 +130,8 @@
           <select data-k="f">
             <option value="0">x³ − 3x</option><option value="1">eˣ</option><option value="2">sin x</option><option value="3">√x</option>
           </select></label>
-        <label>\(a\) <input type="range" data-k="a" min="-2" max="2.5" step="0.05" value="1.5"> <output data-show="a"></output></label>
-        <label>\(h\) <input type="range" data-k="h" min="0.01" max="2" step="0.01" value="1"> <output data-show="h"></output></label>
+        <label>\(a\) <input type="range" data-k="a" min="-6" max="6" step="0.05" value="1.5"> <output data-show="a"></output></label>
+        <label>\(h\) <input type="range" data-k="h" min="0.001" max="5" step="0.001" value="1"> <output data-show="h"></output></label>
       </div>
       <canvas class="plot tall"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -146,7 +147,7 @@
   </section>
 
   <section>
-    <h2>5. En prépa</h2>
+    <h2>6. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li>La dérivée d'une <b>composée quelconque</b> : \((g \circ u)' = u' \times g' \circ u\). Ex. : \(\big(\sqrt{1+x^2}\big)' = \dfrac{x}{\sqrt{1+x^2}}\).</li>
@@ -223,7 +224,11 @@ window.addEventListener('DOMContentLoaded', function () {
       g.point(a, fa, '--c2', 'A');
       g.point(a + v.h, fah, '--c3', 'M');
     };
-    P.redraw(F0.v);
+    // la fenêtre suit A et M (on peut aussi se déplacer dans le repère)
+    var x0 = Math.min(F0.v.xmin, a - 1.5, a + v.h - 1), x1 = Math.max(F0.v.xmax, a + 1.5, a + v.h + 1), ylo = Infinity, yhi = -Infinity;
+    for (var s2 = x0; s2 <= x1; s2 += (x1 - x0) / 80) { var yy = F0.f(s2); if (isFinite(yy) && Math.abs(yy) < 1e4) { ylo = Math.min(ylo, yy); yhi = Math.max(yhi, yy); } }
+    var py = (yhi - ylo) * 0.1 || 1;
+    P.redraw({ xmin: x0, xmax: x1, ymin: Math.min(F0.v.ymin, ylo - py), ymax: Math.max(F0.v.ymax, yhi + py) });
     out.textContent = 'taux de variation (pente de AM) = ' + Course.fmt(t, 4) +
       '\nf\'(a) (pente de la tangente)   = ' + Course.fmt(d, 4) +
       '\nécart = ' + Course.fmt(Math.abs(t - d), 4) + (aInput && a !== v.a ? '   (a ramené à 0,05 : √x non dérivable en 0)' : '');

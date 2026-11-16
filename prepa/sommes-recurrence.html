@@ -18,39 +18,43 @@
   <header class="chapter-head">
     <p class="kicker">Pont vers la prépa · Outils</p>
     <h1>Sommes et récurrence</h1>
-    <p class="lead">Le symbole \(\Sigma\) est partout en prépa. Savoir le manipuler (changement d'indice, télescopage, sommes usuelles)
-      et démontrer une propriété par récurrence sont deux compétences attendues dès les premières semaines.</p>
-    <p class="prereq">Prérequis : <a href="../maths/suites.html">suites arithmétiques et géométriques</a>, <a href="logique-raisonnement.html">logique</a>.</p>
+    <p class="lead">Le symbole \(\Sigma\) pour écrire des sommes de façon compacte, et le raisonnement par récurrence pour démontrer une propriété pour tous les entiers.
+      Ce sont deux outils que tu utiliseras dès les premières semaines de prépa, presque dans chaque chapitre.</p>
+    <p class="prereq">Prérequis : <a href="../maths/suites.html">suites</a>, <a href="logique-raisonnement.html">logique</a>.</p>
   </header>
 
   <section>
     <h2>1. Le symbole Σ</h2>
     <div class="box def"><p class="box-title">Notation</p>
-      <p>\(\displaystyle\sum_{k=1}^{n} a_k = a_1 + a_2 + \dots + a_n\). L'indice \(k\) est <b>muet</b> : \(\sum_{k=1}^n k^2 = \sum_{i=1}^n i^2\).
-        Nombre de termes de \(\sum_{k=p}^{n}\) : \(n - p + 1\).</p>
+      <p>\(\displaystyle\sum_{k=1}^{n} a_k = a_1 + a_2 + \dots + a_n\) se lit « somme des \(a_k\) pour \(k\) allant de 1 à \(n\) ». La lettre \(k\) est <b>muette</b> : on peut la remplacer par \(i\) ou \(j\).
+        La somme \(\displaystyle\sum_{k=p}^{n} a_k\) contient \(n - p + 1\) termes. Ex. : \(\displaystyle\sum_{k=0}^{4} 2^k = 1 + 2 + 4 + 8 + 16 = 31\).</p>
     </div>
     <div class="box prop"><p class="box-title">Règles de calcul</p>
       <ul>
-        <li>Linéarité : \(\sum (\lambda a_k + \mu b_k) = \lambda\sum a_k + \mu\sum b_k\). Une constante : \(\sum_{k=1}^n c = nc\).</li>
-        <li>Changement d'indice : \(\sum_{k=1}^{n} a_{k-1} = \sum_{j=0}^{n-1} a_j\) (on pose \(j = k - 1\) et on décale les bornes).</li>
-        <li><b>Télescopage</b> : \(\sum_{k=1}^{n} (a_{k+1} - a_k) = a_{n+1} - a_1\).</li>
-        <li>Attention : \(\sum a_kb_k \neq \left(\sum a_k\right)\left(\sum b_k\right)\) en général.</li>
+        <li><b>Linéarité</b> : \(\displaystyle\sum (a_k + b_k) = \sum a_k + \sum b_k\) et \(\displaystyle\sum \lambda a_k = \lambda\sum a_k\). Attention : \(\displaystyle\sum a_kb_k \neq \sum a_k \times \sum b_k\).</li>
+        <li>Somme d'une constante : \(\displaystyle\sum_{k=1}^{n} c = nc\).</li>
+        <li><b>Changement d'indice</b> : en posant \(j = k + 1\), \(\displaystyle\sum_{k=0}^{n-1} a_{k+1} = \sum_{j=1}^{n} a_j\) (on décale aussi les bornes).</li>
+        <li><b>Télescopage</b> : \(\displaystyle\sum_{k=1}^{n} (u_{k+1} - u_k) = u_{n+1} - u_1\) (tous les termes intermédiaires s'annulent deux à deux).</li>
+        <li><b>Relation de Chasles</b> : \(\displaystyle\sum_{k=1}^{n} a_k = \sum_{k=1}^{m} a_k + \sum_{k=m+1}^{n} a_k\).</li>
       </ul>
     </div>
     <div class="box prop"><p class="box-title">Sommes usuelles (à connaître par cœur)</p>
-      \[\sum_{k=1}^{n} k = \frac{n(n+1)}{2} \qquad \sum_{k=1}^{n} k^2 = \frac{n(n+1)(2n+1)}{6} \qquad \sum_{k=0}^{n} q^k = \frac{1 - q^{n+1}}{1 - q}\ (q \neq 1)\]
+      \[\sum_{k=1}^{n} k = \frac{n(n+1)}{2} \qquad \sum_{k=1}^{n} k^2 = \frac{n(n+1)(2n+1)}{6} \qquad \sum_{k=1}^{n} k^3 = \left(\frac{n(n+1)}{2}\right)^2 \qquad \sum_{k=0}^{n} q^k = \frac{1 - q^{n+1}}{1 - q}\ (q \neq 1)\]
+    </div>
+    <div class="box def"><p class="box-title">Produits et factorielle</p>
+      <p>\(\displaystyle\prod_{k=1}^{n} a_k = a_1 \times a_2 \times \dots \times a_n\). La <b>factorielle</b> : \(n! = \displaystyle\prod_{k=1}^{n} k = 1 \times 2 \times \dots \times n\), avec \(0! = 1\) ; \(5! = 120\).
+        Elle sert à compter : il y a \(n!\) façons de ranger \(n\) objets, et \(\dbinom nk = \dfrac{n!}{k!(n-k)!}\).</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1 — télescopage</p>
-      <p>Calculer \(S_n = \displaystyle\sum_{k=1}^{n} \frac{1}{k(k+1)}\).</p>
+      <p>Calculer \(\displaystyle S_n = \sum_{k=1}^{n} \frac{1}{k(k+1)}\) en remarquant que \(\dfrac{1}{k(k+1)} = \dfrac1k - \dfrac{1}{k+1}\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(\dfrac{1}{k(k+1)} = \dfrac1k - \dfrac{1}{k+1}\) (réduire au même dénominateur pour vérifier).
-          \(S_n = \left(1 - \tfrac12\right) + \left(\tfrac12 - \tfrac13\right) + \dots + \left(\tfrac1n - \tfrac1{n+1}\right) = 1 - \dfrac{1}{n+1}\). Donc \(S_n \to 1\).</p>
+        <p>\(S_n = \left(1 - \tfrac12\right) + \left(\tfrac12 - \tfrac13\right) + \dots + \left(\tfrac1n - \tfrac{1}{n+1}\right) = 1 - \dfrac{1}{n+1} = \dfrac{n}{n+1}\), qui tend vers 1.</p>
       </details>
     </div>
     <div class="box example"><p class="box-title">Exemple 2 — linéarité</p>
       <p>Calculer \(\displaystyle\sum_{k=1}^{n} (2k + 3)\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(2\sum k + \sum 3 = n(n+1) + 3n = n^2 + 4n\).</p>
+        <p>\(2\displaystyle\sum k + \sum 3 = n(n+1) + 3n = n^2 + 4n\).</p>
       </details>
     </div>
   </section>
@@ -58,46 +62,65 @@
   <section>
     <h2>2. Le raisonnement par récurrence</h2>
     <div class="box prop"><p class="box-title">Principe</p>
-      <p>Soit \(\mathcal P(n)\) une propriété dépendant de \(n \in \mathbb{N}\). Si :</p>
+      <p>Soit \(P(n)\) une propriété qui dépend d'un entier \(n\). Si :</p>
       <ol>
-        <li><b>Initialisation</b> : \(\mathcal P(n_0)\) est vraie ;</li>
-        <li><b>Hérédité</b> : pour tout \(n \geq n_0\), \(\mathcal P(n) \Rightarrow \mathcal P(n+1)\) ;</li>
+        <li><b>Initialisation</b> : \(P(n_0)\) est vraie ;</li>
+        <li><b>Hérédité</b> : pour tout \(n \geq n_0\), si \(P(n)\) est vraie, alors \(P(n+1)\) est vraie ;</li>
       </ol>
-      <p>alors \(\mathcal P(n)\) est vraie pour tout \(n \geq n_0\). (Image : une rangée infinie de dominos.)</p>
+      <p>alors \(P(n)\) est vraie pour tout \(n \geq n_0\). (Image : une rangée de dominos — le premier tombe, et chacun fait tomber le suivant.)</p>
     </div>
     <div class="box method"><p class="box-title">Rédaction type</p>
-      <p>« Pour \(n \in \mathbb{N}^*\), notons \(\mathcal P(n)\) : … »<br>
-        « <i>Initialisation</i> : pour \(n = 1\), … donc \(\mathcal P(1)\) est vraie. »<br>
-        « <i>Hérédité</i> : soit \(n \geq 1\) tel que \(\mathcal P(n)\) soit vraie. Montrons \(\mathcal P(n+1)\). … »<br>
-        « <i>Conclusion</i> : par récurrence, \(\mathcal P(n)\) est vraie pour tout \(n \geq 1\). »</p>
+      <ol>
+        <li>Énoncer clairement \(P(n)\).</li>
+        <li><b>Initialisation</b> : vérifier \(P(n_0)\) par un calcul.</li>
+        <li><b>Hérédité</b> : « Soit \(n \geq n_0\) tel que \(P(n)\) est vraie (hypothèse de récurrence). Montrons \(P(n+1)\). » Puis utiliser l'hypothèse dans le calcul.</li>
+        <li><b>Conclusion</b> : « Par récurrence, \(P(n)\) est vraie pour tout \(n \geq n_0\). »</li>
+      </ol>
+    </div>
+    <div class="box warning"><p class="box-title">Pièges</p>
+      <ul>
+        <li>Oublier l'initialisation : « \(n + 1 > n + 2\) » est héréditaire mais fausse pour tout \(n\) !</li>
+        <li>Supposer « pour tout \(n\), \(P(n)\) » dans l'hérédité : c'est ce qu'on veut démontrer. On suppose \(P(n)\) pour <b>un</b> \(n\) fixé.</li>
+        <li>Ne pas utiliser l'hypothèse de récurrence : si elle ne sert pas, la récurrence est probablement inutile ou mal faite.</li>
+      </ul>
     </div>
     <div class="box example"><p class="box-title">Exemple 3 — somme des carrés</p>
-      <p>Démontrer que pour tout \(n \geq 1\), \(\displaystyle\sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6}\).</p>
+      <p>Montrer que pour tout \(n \geq 1\), \(\displaystyle\sum_{k=1}^{n} k^2 = \frac{n(n+1)(2n+1)}{6}\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p><i>Initialisation</i> : \(n = 1\) : \(1 = \dfrac{1 \times 2 \times 3}{6}\). ✓</p>
-        <p><i>Hérédité</i> : supposons la formule vraie au rang \(n\). Alors
-          \[\begin{aligned} \sum_{k=1}^{n+1} k^2 &= \frac{n(n+1)(2n+1)}{6} + (n+1)^2 \\ &= \frac{(n+1)\big[n(2n+1) + 6(n+1)\big]}{6} \\ &= \frac{(n+1)(2n^2 + 7n + 6)}{6}. \end{aligned}\]
-          Or \(2n^2 + 7n + 6 = (n+2)(2n+3)\), d'où \(\dfrac{(n+1)(n+2)(2(n+1)+1)}{6}\) : c'est \(\mathcal P(n+1)\). ✓</p>
-        <p><i>Conclusion</i> : la formule est vraie pour tout \(n \geq 1\). ∎</p>
+        <p>Initialisation : \(1 = \dfrac{1 \times 2 \times 3}{6}\). Hérédité : si c'est vrai au rang \(n\), alors
+          \[\begin{aligned} \sum_{k=1}^{n+1} k^2 &= \frac{n(n+1)(2n+1)}{6} + (n+1)^2 \\ &= \frac{(n+1)\left(2n^2 + 7n + 6\right)}{6} \\ &= \frac{(n+1)(n+2)(2n+3)}{6}, \end{aligned}\]
+          qui est la formule au rang \(n+1\).</p>
       </details>
     </div>
     <div class="box example"><p class="box-title">Exemple 4 — inégalité de Bernoulli</p>
-      <p>Montrer que pour \(x > -1\) et tout \(n \in \mathbb{N}\) : \((1 + x)^n \geq 1 + nx\).</p>
+      <p>Montrer que pour tout réel \(x \geq -1\) et tout entier \(n \geq 0\), \((1 + x)^n \geq 1 + nx\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(n = 0\) : \(1 \geq 1\). Hérédité : \((1+x)^{n+1} = (1+x)^n(1+x) \geq (1 + nx)(1 + x)\) car \(1 + x > 0\) (on peut multiplier sans changer le sens !).
-          Or \((1 + nx)(1+x) = 1 + (n+1)x + nx^2 \geq 1 + (n+1)x\). ∎</p>
+        <p>Rang 0 : \(1 \geq 1\). Si \((1 + x)^n \geq 1 + nx\), on multiplie par \(1 + x \geq 0\) (le sens est conservé) :
+          \((1 + x)^{n+1} \geq (1 + nx)(1 + x) = 1 + (n+1)x + nx^2 \geq 1 + (n+1)x\).</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>3. Manipuler</h2>
+    <h2>3. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(\sum_{k=p}^{n}\) contient \(n - p + 1\) termes ; linéarité ; changement d'indice ; télescopage \(\sum (u_{k+1} - u_k) = u_{n+1} - u_1\).</li>
+        <li>\(\sum k = \frac{n(n+1)}{2}\), \(\sum k^2 = \frac{n(n+1)(2n+1)}{6}\), \(\sum k^3 = \left(\frac{n(n+1)}{2}\right)^2\), \(\sum q^k = \frac{1 - q^{n+1}}{1 - q}\).</li>
+        <li>\(n! = 1 \times 2 \times \dots \times n\), \(0! = 1\).</li>
+        <li>Récurrence : initialisation + hérédité (avec l'hypothèse au rang \(n\)) + conclusion.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Manipuler</h2>
     <div class="widget" id="w-sommes">
       <p class="widget-title">Visualiser \(\sum k\) et \(\sum k^2\)</p>
       <p class="hint">Chaque barre est un terme. La courbe en pointillés est la formule fermée : elle coïncide toujours avec la somme cumulée (points).</p>
       <div class="controls">
         <label>Somme <select data-k="s"><option value="1">Σ k</option><option value="2">Σ k²</option><option value="3">Σ 1/(k(k+1))</option><option value="4">Σ (1/2)^k</option></select></label>
-        <label>\(n\) <input type="range" data-k="n" min="1" max="30" step="1" value="10"> <output data-show="n"></output></label>
+        <label>\(n\) <input type="range" data-k="n" min="1" max="200" step="1" value="10"> <output data-show="n"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -124,7 +147,7 @@
   </section>
 
   <section>
-    <h2>4. En prépa</h2>
+    <h2>5. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li>Récurrence double et forte, sommes doubles \(\sum_{i}\sum_j\), produits \(\prod\), factorielle.</li>

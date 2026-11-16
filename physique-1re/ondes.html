@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Introduction à la notion d'onde · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="physique-1re/ondes">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Physique-chimie 1re · Ondes et informations</p>
+    <h1>Introduction à la notion d'onde</h1>
+    <p class="lead">Une vague, le son, la lumière, le Wi-Fi : ce sont des ondes. Elles transportent de l'énergie et de l'information sans transporter de matière.
+      On définit les grandeurs qui les décrivent (célérité, période, fréquence, longueur d'onde) et la relation qui les relie.</p>
+    <p class="prereq">Prérequis : <a href="../maths-1re/trigonometrie.html">fonctions sinusoïdales</a>, vitesse.</p>
+  </header>
+
+  <section>
+    <h2>1. Qu'est-ce qu'une onde ?</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Une <b>onde</b> est la propagation d'une <b>perturbation</b> (une déformation, une variation de pression, un champ électrique…).
+        Elle transporte de l'<b>énergie</b> et de l'information, <b>sans transport de matière</b> : un bouchon sur l'eau monte et descend au passage de la vague, mais il n'avance pas avec elle.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Ondes mécaniques et électromagnétiques</p>
+      <ul>
+        <li>Une <b>onde mécanique</b> a besoin d'un <b>milieu matériel</b> pour se propager : ondes sonores (dans l'air, l'eau, les solides), ondes sismiques, vagues, onde le long d'une corde.</li>
+        <li>Une <b>onde électromagnétique</b> (lumière, ondes radio, rayons X) se propage aussi dans le <b>vide</b> : c'est ainsi que la lumière du Soleil nous parvient.</li>
+      </ul>
+    </div>
+    <div class="box def"><p class="box-title">Transversale ou longitudinale</p>
+      <p>Onde <b>transversale</b> : la perturbation est perpendiculaire à la direction de propagation (corde secouée, vague, lumière).
+        Onde <b>longitudinale</b> : elle est parallèle à la direction de propagation (son, ressort qu'on comprime).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Grandeurs caractéristiques</h2>
+    <div class="box def"><p class="box-title">Célérité et retard</p>
+      <p>La <b>célérité</b> \(v\) (m/s) est la vitesse à laquelle la perturbation se propage. Si elle met une durée \(\tau\) (le <b>retard</b>) à parcourir la distance \(d\) entre deux points :
+        \[v = \frac{d}{\tau}.\]
+        Un point situé plus loin reproduit le même mouvement que la source, avec un retard \(\tau\). La célérité dépend du milieu, pas de la forme de la perturbation.</p>
+    </div>
+    <div class="box def"><p class="box-title">Onde périodique : une double périodicité</p>
+      <p>Une onde est <b>périodique</b> si la perturbation se répète régulièrement. Elle a deux périodes :</p>
+      <ul>
+        <li>dans le <b>temps</b> : la <b>période</b> \(T\) (s), durée d'un motif en un point donné ; la <b>fréquence</b> \(f = \dfrac1T\) (Hz) est le nombre de motifs par seconde ;</li>
+        <li>dans l'<b>espace</b> : la <b>longueur d'onde</b> \(\lambda\) (m), distance entre deux points qui vibrent de la même façon au même instant (deux crêtes successives).</li>
+      </ul>
+      <p>Pendant une période, l'onde avance d'une longueur d'onde :
+        \[\lambda = v \times T = \frac{v}{f}.\]
+        On caractérise aussi la perturbation par son amplitude et ses valeurs minimale et maximale. Pour une onde sinusoïdale :
+        \(y(x, t) = A\sin\left(2\pi\left(\tfrac{t}{T} - \tfrac{x}{\lambda}\right)\right)\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — houle</p>
+      <p>Une houle a une période de 8 s et une célérité de 12 m/s. Longueur d'onde ? Fréquence ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\lambda = 12 \times 8 = 96\) m ; \(f = \tfrac18 = 0{,}125\) Hz.</p>
+      </details>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — Wi-Fi</p>
+      <p>Le Wi-Fi utilise une fréquence de 2,4 GHz et se propage à \(c = 3{,}00 \times 10^8\) m/s. Longueur d'onde ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\lambda = \dfrac{3{,}00 \times 10^8}{2{,}4 \times 10^9} = 0{,}125\) m \(= 12{,}5\) cm.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Transmission, réflexion, absorption ; information</h2>
+    <div class="box prop"><p class="box-title">Quand l'onde rencontre un obstacle</p>
+      <p>Elle peut être <b>transmise</b> (elle traverse : la lumière à travers une vitre), <b>réfléchie</b> (elle repart : écho, radar, miroir) ou <b>absorbée</b> (son énergie est captée par le milieu : mousse acoustique, vêtement noir au soleil).
+        En général, c'est un mélange des trois. Un <b>guide d'onde</b> (fibre optique, câble coaxial) canalise l'onde sur de grandes distances avec peu de pertes.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Transmettre une information</p>
+      <p>On transmet une information en <b>modulant</b> une caractéristique de l'onde (son amplitude, sa fréquence, sa présence ou son absence) selon un <b>code</b> que l'émetteur et le récepteur connaissent tous les deux
+        (le code Morse, le signal binaire 0/1 d'une télécommande infrarouge ou d'une fibre optique).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Onde = propagation d'une perturbation : transport d'énergie, pas de matière. Mécanique (milieu matériel) ou électromagnétique (aussi dans le vide).</li>
+        <li>\(v = \dfrac{d}{\tau}\) ; \(f = \dfrac{1}{T}\) ; \(\lambda = vT = \dfrac{v}{f}\).</li>
+        <li>Transmission, réflexion, absorption ; information = onde modulée selon un code.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
+    <div class="widget" id="w-wave">
+      <p class="widget-title">Onde progressive sinusoïdale le long d'une corde</p>
+      <p class="hint">Augmente la fréquence à célérité fixe : la longueur d'onde diminue. Le point rouge ne fait que monter et descendre (pas de transport de matière).</p>
+      <div class="controls">
+        <label>fréquence \(f\) (Hz) <input type="range" data-k="f" min="0.1" max="20" step="0.1" value="1"> <output data-show="f"></output></label>
+        <label>célérité \(v\) (m/s) <input type="range" data-k="v" min="0.5" max="50" step="0.5" value="4"> <output data-show="v"></output></label>
+        <label>instant \(t\) (s) <input type="range" data-k="t" min="0" max="20" step="0.02" value="0.5"> <output data-show="t" data-digits="2"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : \(\lambda = v/f\)</p>
+      <p class="hint">3 chiffres significatifs, dans l'unité demandée.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>Une onde transporte :</p>
+        <ol class="choices"><li>de la matière</li><li>de l'énergie, sans transport de matière</li><li>de la matière et de l'énergie</li><li>rien</li></ol>
+        <p class="explain">Seule la perturbation se déplace.</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Laquelle de ces ondes peut se propager dans le vide ?</p>
+        <ol class="choices"><li>le son</li><li>une onde sismique</li><li>une vague</li><li>la lumière</li></ol>
+        <p class="explain">Les ondes électromagnétiques n'ont pas besoin de milieu matériel.</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Si la fréquence double à célérité constante, la longueur d'onde :</p>
+        <ol class="choices"><li>est divisée par 2</li><li>double</li><li>ne change pas</li><li>est multipliée par 4</li></ol>
+        <p class="explain">\(\lambda = v/f\).</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>Le son est une onde :</p>
+        <ol class="choices"><li>électromagnétique</li><li>transversale</li><li>mécanique longitudinale</li><li>qui se propage dans le vide</li></ol>
+        <p class="explain">Compressions et dilatations de l'air dans la direction de propagation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=onde+mecanique+progressive+celerite+retard">Ondes mécaniques progressives<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=longueur+d%27onde+periode+frequence+lambda%3Dv%2Ff">Longueur d'onde, période, fréquence<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=onde+longitudinale+transversale+animation">Ondes longitudinales et transversales<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  var w = document.getElementById('w-wave'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { xlabel: 'x (m)', ylabel: 'y' });
+  Course.onInput(w, function (v) {
+    var lam = v.v / v.f, front = v.v * v.t, XM = Math.min(200, Math.max(20, 3 * lam));
+    var y = function (x) { return x > front ? 0 : Math.sin(2 * Math.PI * (v.f * v.t - x / lam)); };
+    var xp = 3;
+    G.draw = function (g) {
+      g.fn(y, '--c1', { from: 0, to: XM });
+      g.seg(front, -1.3, front, 1.3, '--muted', { dash: [3, 4], width: 1 });
+      g.point(xp, y(xp), '--ko', 'M');
+      if (lam < XM * 0.9 && front > lam) {
+        // deux crêtes successives (sin = 1) sont séparées de λ
+        var crest = (v.f * v.t - 0.25) * lam;
+        while (crest > front) crest -= lam;
+        if (crest - lam >= 0) { g.seg(crest - lam, 1.15, crest, 1.15, '--c4', { width: 2.5 }); g.text(crest - lam / 2, 1.38, 'λ', '--c4', { align: 'center', bold: true, size: 15 }); }
+      }
+    };
+    G.redraw({ xmin: -XM * 0.015, xmax: XM, ymin: -1.6, ymax: 1.7 });
+    out.textContent = 'λ = v / f = ' + Course.fmt(v.v, 2) + ' / ' + Course.fmt(v.f, 2) + ' = ' + Course.fmt(lam, 3) + ' m   T = ' + Course.fmt(1 / v.f, 3) + ' s' +
+      '\nle front de l’onde a parcouru ' + Course.fmt(front, 2) + ' m   le point M (x = 3 m) ' + (front < 3 ? 'n’est pas encore atteint' : 'oscille verticalement');
+  });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 3), T = function (q) { return String(q).replace('.', '{,}'); };
+    if (k === 0) { var vv = P([340, 1500, 5000, 3e8]), f = P([50, 440, 1000, 20000, 1e6]), lam = vv / f;
+      return { html: '<p>Une onde de célérité \\(' + (vv === 3e8 ? '3{,}00 \\times 10^8' : vv) + '\\) m/s a une fréquence de \\(' + (f === 1e6 ? '10^6' : f) + '\\) Hz. Longueur d\'onde (m) ?</p>', answer: lam, tol: A(lam, true), explain: '\\(\\lambda = v/f\\).' }; }
+    if (k === 1) { var d = R(10, 500), tau = R(5, 300) / 100, cel = d / tau;
+      return { html: '<p>Une perturbation parcourt ' + d + ' m en \\(' + T(tau) + '\\) s. Célérité (m/s) ?</p>', answer: cel, tol: A(cel, true), explain: '\\(v = d/\\tau\\).' }; }
+    if (k === 2) { var Tp = R(2, 200) / 100, fr = 1 / Tp;
+      return { html: '<p>Période \\(T = ' + T(Tp) + '\\) s. Fréquence (Hz) ?</p>', answer: fr, tol: A(fr, true), explain: '\\(f = 1/T\\).' }; }
+    var lm = R(5, 300) / 100, fq = R(10, 400), v2 = lm * fq;
+    return { html: '<p>Une onde de longueur d\'onde \\(' + T(lm) + '\\) m a une fréquence de ' + fq + ' Hz. Célérité (m/s) ?</p>', answer: v2, tol: A(v2, true), explain: '\\(v = \\lambda f\\).' };
+  });
+});
+</script>
+</body>
+</html>

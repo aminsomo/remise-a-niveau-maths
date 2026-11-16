@@ -275,6 +275,55 @@ test('graphique lisible : texte des graduations d’au moins 12 px', async ({ pa
   expect(size).toBeGreaterThanOrEqual(12);
 });
 
+/* ---------- Chapitres de Première : chaque exercice généré est cohérent ---------- */
+const PREMIERE = [].concat(...manifest.subjects.filter((s) => s.level === '1re')
+  .map((s) => s.chapters.map((c) => ({ url: `${s.id}/${c.slug}.html`, sig: s.id.startsWith('physique') }))));
+
+test.describe('exercices de Première : réponses finies et arrondis acceptés', () => {
+  test.skip(({ isMobile }) => isMobile, 'logique indépendante de l’appareil : vérifiée sur ordinateur');
+  for (const { url, sig } of PREMIERE) {
+    test(url, async ({ page }) => {
+      const errors = [];
+      page.on('pageerror', (e) => errors.push(e.message));
+      await open(page, url);
+      const n = await page.locator('.drill-check').count();
+      expect(n, 'au moins un exercice auto-généré').toBeGreaterThan(0);
+      const res = await page.evaluate(async ({ sig }) => {
+        const bad = [];
+        const roots = Array.from(document.querySelectorAll('.drill-check')).map((b) => b.closest('.widget'));
+        for (const root of roots) {
+          const input = root.querySelector('.drill input'), check = root.querySelector('.drill-check'), fb = root.querySelector('.feedback');
+          for (let i = 0; i < 25; i++) {
+            root.courseDrill.next();
+            const cur = root.courseDrill.current(), a = cur.answer;
+            const q = root.querySelector('.drill-q').textContent.trim();
+            if (typeof a !== 'number' || !isFinite(a)) { bad.push(`${root.id}: réponse non finie pour « ${q} »`); continue; }
+            if (!q) bad.push(`${root.id}: question vide`);
+            // ce qu'un élève taperait : 3 chiffres significatifs (physique) ou arrondi au centième (maths)
+            const typed = (sig || Math.abs(a) < 0.1) ? Number(a.toPrecision(3)) : Math.round(a * 100) / 100;
+            input.value = String(typed).replace('.', ',');
+            check.click();
+            if (!fb.classList.contains('ok')) bad.push(`${root.id}: « ${input.value} » refusé pour « ${q} » (attendu ${a})`);
+          }
+        }
+        return bad;
+      }, { sig });
+      expect(res.slice(0, 5)).toEqual([]);
+      expect(errors).toEqual([]);
+    });
+  }
+});
+
+test('accueil : les chapitres sont regroupés par niveau', async ({ page }) => {
+  await open(page, 'index.html');
+  const levels = page.locator('#subjects > section.level');
+  await expect(levels).toHaveCount(manifest.levels.length);
+  await expect(levels.first().locator('h2')).toHaveText('Première STI2D');
+  const total = manifest.subjects.reduce((n, s) => n + s.chapters.length, 0);
+  await expect(page.locator('#subjects .card')).toHaveCount(total);
+  await expect(page.locator('#stat-chapters')).toHaveText(String(total));
+});
+
 /* ---------- Se déplacer dans un graphique ---------- */
 const view = (loc) => loc.evaluate((c) => { const v = c.coursePlot.ev; return { xmin: v.xmin, xmax: v.xmax, ymin: v.ymin, ymax: v.ymax }; });
 
@@ -356,5 +405,39 @@ test('chaque graphique avec axes propose les outils de navigation', async ({ pag
     const r = await page.evaluate(() => Array.from(document.querySelectorAll('canvas.plot')).filter((c) => c.coursePlot && c.coursePlot.navigable)
       .map((c) => !!(c.parentElement.classList.contains('plot-wrap') && c.parentElement.querySelector('.plot-tools'))));
     expect(r.every(Boolean), url).toBe(true);
+  }
+});
+
+/* ---------- Curseurs : aucune erreur aux valeurs extrêmes ---------- */
+test.describe('curseurs poussés aux extrêmes : aucune erreur', () => {
+  test.skip(({ isMobile }) => isMobile, 'logique indépendante de l’appareil : vérifiée sur ordinateur');
+  for (const url of PAGES.slice(1)) {
+    test(url, async ({ page }) => {
+      const errors = [];
+      page.on('pageerror', (e) => errors.push(e.message));
+      await open(page, url);
+      const bad = await page.evaluate(() => {
+        const out = [];
+        const fire = (el) => { el.dispatchEvent(new Event('input', { bubbles: true })); el.dispatchEvent(new Event('change', { bubbles: true })); };
+        document.querySelectorAll('.widget input[type="range"]').forEach((r) => {
+          const w = r.closest('.widget');
+          const initial = r.value;
+          for (const v of [r.min, r.max, initial]) {
+            r.value = v; fire(r);
+            w.querySelectorAll('.readout').forEach((ro) => {
+              if (/NaN|undefined|Infinity/.test(ro.textContent)) out.push(`${w.id} ${r.dataset.k}=${v} : « ${ro.textContent.trim().slice(0, 80)} »`);
+            });
+          }
+        });
+        document.querySelectorAll('.widget select[data-k]').forEach((s) => {
+          const initial = s.value;
+          Array.from(s.options).forEach((o) => { s.value = o.value; fire(s); });
+          s.value = initial; fire(s);
+        });
+        return out;
+      });
+      expect(bad.slice(0, 5)).toEqual([]);
+      expect(errors).toEqual([]);
+    });
   }
 });

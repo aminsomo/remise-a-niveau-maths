@@ -801,6 +801,8 @@
       renderMath(fb);
       streakEl.textContent = ok + ' / ' + total + ' réussies' + (streak >= 3 ? ' · série de ' + streak + ' 🔥' : '');
     }
+    // Accès en lecture pour les tests de bout en bout (vérifient chaque générateur).
+    root.courseDrill = { current: function () { return cur; }, next: function () { next(); } };
     check.addEventListener('click', verify);
     calc.addEventListener('click', function () {
       if (window.CourseSheet) window.CourseSheet.open({ question: qEl, input: input, verify: verify, opener: calc });
@@ -817,12 +819,21 @@
     var totalCh = flat.length, totalDone = flat.filter(function (f) { return isDone(f.key); }).length;
     var st = document.getElementById('stat-chapters'); if (st) st.textContent = totalCh;
     var sd = document.getElementById('stat-done'); if (sd) sd.textContent = totalDone;
+    var levels = COURSE.levels || [], groups = {};
+    levels.forEach(function (l) {
+      var g = el('section', { class: 'level', id: 'niveau-' + l.id, 'aria-labelledby': 'titre-' + l.id }, [
+        el('h2', { class: 'level-title', id: 'titre-' + l.id, text: l.title })
+      ]);
+      if (l.desc) g.appendChild(el('p', { class: 'lead', text: l.desc }));
+      groups[l.id] = g; host.appendChild(g);
+    });
     COURSE.subjects.forEach(function (s) {
+      var parent = groups[s.level] || host;
       var done = s.chapters.filter(function (c) { return isDone(s.id + '/' + c.slug); }).length;
       var sec = el('section', { class: 'subject', id: s.id, style: '--subject-color: var(--' + (s.color || 'accent') + ')' });
       var bar = el('span', { class: 'bar' }, [el('i', { style: 'width:' + (s.chapters.length ? Math.round(100 * done / s.chapters.length) : 0) + '%' })]);
       sec.appendChild(el('div', { class: 'subject-head' }, [
-        el('h2', { text: s.title }), bar, el('small', { text: done + ' / ' + s.chapters.length + ' terminés' })
+        el(parent === host ? 'h2' : 'h3', { text: s.title }), bar, el('small', { text: done + ' / ' + s.chapters.length + ' terminés' })
       ]));
       if (s.desc) sec.appendChild(el('p', { class: 'lead', text: s.desc }));
       var cards = el('div', { class: 'cards' });
@@ -838,7 +849,7 @@
       });
       if (!s.chapters.length) cards.appendChild(el('p', { class: 'hint', text: 'Chapitres en préparation.' }));
       sec.appendChild(cards);
-      host.appendChild(sec);
+      parent.appendChild(sec);
     });
   }
 
@@ -858,6 +869,6 @@
   window.Course = {
     plot: plot, onInput: onInput, drill: drill, fmt: fmt, tex: tex, renderMath: renderMath,
     parseNum: parseNum, rand: rand, pick: pick, el: el, color: color, chapters: flat,
-    icon: icon, store: store, chapter: CHAPTER
+    icon: icon, store: store, chapter: CHAPTER, approx: CORE.approxTol
   };
 })();

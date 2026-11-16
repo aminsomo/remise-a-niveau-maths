@@ -16,94 +16,101 @@
 <body data-root="../" data-chapter="maths/trigonometrie">
 <main class="chapter">
   <header class="chapter-head">
-    <p class="kicker">Maths · Géométrie & fonctions · Spécialité</p>
+    <p class="kicker">Maths · Géométrie et analyse · Spécialité</p>
     <h1>Trigonométrie et signaux sinusoïdaux</h1>
-    <p class="lead">Radians, cercle trigonométrique, valeurs remarquables, fonctions cos et sin, et le modèle \(A\cos(\omega t + \varphi)\)
-      qui décrit le courant alternatif, les ondes et les oscillations.</p>
-    <p class="prereq">Prérequis : théorème de Pythagore, trigonométrie du triangle rectangle (SOH-CAH-TOA).</p>
+    <p class="lead">Radians, cercle trigonométrique, formules d'addition et signaux sinusoïdaux \(A\cos(\omega t + \varphi)\) : c'est le langage de l'électricité alternative,
+      des ondes et des vibrations. Ce chapitre reprend la 1re et ajoute les formules qui servent en Terminale et en prépa.</p>
+    <p class="prereq">Prérequis : <a href="../maths-1re/trigonometrie.html">trigonométrie de 1re</a>.</p>
   </header>
 
   <section>
     <h2>1. Radians et cercle trigonométrique</h2>
-    <div class="box def"><p class="box-title">Radian</p>
-      <p>Sur le cercle de rayon 1, un angle de \(\theta\) radians intercepte un arc de longueur \(\theta\). Un tour complet vaut \(2\pi\) rad.
-        Conversion : \(\theta_{\text{rad}} = \theta_{\text{deg}} \times \dfrac{\pi}{180}\).</p>
+    <div class="box def"><p class="box-title">Rappels</p>
+      <p>Sur le cercle trigonométrique (centre \(O\), rayon 1, sens direct = sens inverse des aiguilles d'une montre), le réel \(x\) correspond à un point \(M\) ;
+        \(\cos x\) est l'abscisse de \(M\) et \(\sin x\) son ordonnée. \(\pi\) rad \(= 180^\circ\) ; \(x\) et \(x + 2k\pi\) donnent le même point.
+        Pour tout \(x\) : \(\cos^2 x + \sin^2 x = 1\), et \(\tan x = \dfrac{\sin x}{\cos x}\) quand \(\cos x \neq 0\).</p>
     </div>
-    <div class="box def"><p class="box-title">Cosinus et sinus d'un réel</p>
-      <p>Le point \(M\) du cercle trigonométrique associé à \(\theta\) a pour coordonnées \((\cos\theta\,;\sin\theta)\). Donc :</p>
-      \[\cos^2\theta + \sin^2\theta = 1, \qquad -1 \leq \cos\theta \leq 1, \qquad -1 \leq \sin\theta \leq 1.\]
-    </div>
-    <div class="table-scroll">
-    <table>
-      <thead><tr><th>\(\theta\)</th><th>\(0\)</th><th>\(\pi/6\)</th><th>\(\pi/4\)</th><th>\(\pi/3\)</th><th>\(\pi/2\)</th><th>\(\pi\)</th></tr></thead>
+    <div class="table-scroll"><table>
+      <thead><tr><th>\(x\)</th><th>\(0\)</th><th>\(\frac{\pi}{6}\)</th><th>\(\frac{\pi}{4}\)</th><th>\(\frac{\pi}{3}\)</th><th>\(\frac{\pi}{2}\)</th><th>\(\pi\)</th></tr></thead>
       <tbody>
-        <tr><td>\(\cos\theta\)</td><td>\(1\)</td><td>\(\frac{\sqrt3}{2}\)</td><td>\(\frac{\sqrt2}{2}\)</td><td>\(\frac12\)</td><td>\(0\)</td><td>\(-1\)</td></tr>
-        <tr><td>\(\sin\theta\)</td><td>\(0\)</td><td>\(\frac12\)</td><td>\(\frac{\sqrt2}{2}\)</td><td>\(\frac{\sqrt3}{2}\)</td><td>\(1\)</td><td>\(0\)</td></tr>
+        <tr><td>\(\cos x\)</td><td>\(1\)</td><td>\(\frac{\sqrt3}{2}\)</td><td>\(\frac{\sqrt2}{2}\)</td><td>\(\frac12\)</td><td>\(0\)</td><td>\(-1\)</td></tr>
+        <tr><td>\(\sin x\)</td><td>\(0\)</td><td>\(\frac12\)</td><td>\(\frac{\sqrt2}{2}\)</td><td>\(\frac{\sqrt3}{2}\)</td><td>\(1\)</td><td>\(0\)</td></tr>
       </tbody>
-    </table>
-    </div>
-    <div class="box prop"><p class="box-title">Angles associés (à retrouver sur le cercle, pas à apprendre par cœur)</p>
-      <p>\(\cos(-\theta) = \cos\theta\), \(\sin(-\theta) = -\sin\theta\), \(\cos(\pi - \theta) = -\cos\theta\), \(\sin(\pi - \theta) = \sin\theta\),
-        \(\cos(\theta + \pi) = -\cos\theta\), \(\cos\left(\tfrac{\pi}{2} - \theta\right) = \sin\theta\).</p>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 1</p>
-      <p>Calculer \(\cos\dfrac{5\pi}{6}\) et \(\sin\left(-\dfrac{3\pi}{4}\right)\).</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>\(\dfrac{5\pi}{6} = \pi - \dfrac{\pi}{6}\) donc \(\cos\dfrac{5\pi}{6} = -\cos\dfrac{\pi}{6} = -\dfrac{\sqrt3}{2}\).</p>
-        <p>\(-\dfrac{3\pi}{4}\) est dans le 3<sup>e</sup> quadrant : \(\sin\left(-\dfrac{3\pi}{4}\right) = -\dfrac{\sqrt2}{2}\).</p>
-      </details>
+    </table></div>
+    <div class="box prop"><p class="box-title">Angles associés</p>
+      <p>\(\cos(-x) = \cos x\), \(\sin(-x) = -\sin x\) ; \(\cos(\pi - x) = -\cos x\), \(\sin(\pi - x) = \sin x\) ; \(\cos(\pi + x) = -\cos x\), \(\sin(\pi + x) = -\sin x\) ;
+        \(\cos(\tfrac{\pi}{2} - x) = \sin x\), \(\sin(\tfrac{\pi}{2} - x) = \cos x\). Tout se retrouve en dessinant le cercle.</p>
     </div>
   </section>
 
   <section>
     <h2>2. Formules d'addition et équations</h2>
-    <div class="box prop"><p class="box-title">Formules d'addition et de duplication</p>
-      \[\cos(a+b) = \cos a\cos b - \sin a\sin b \qquad \sin(a+b) = \sin a\cos b + \cos a\sin b\]
-      \[\cos 2a = \cos^2 a - \sin^2 a = 2\cos^2 a - 1 = 1 - 2\sin^2 a \qquad \sin 2a = 2\sin a\cos a\]
-      <p>Astuce : elles se retrouvent instantanément avec \(e^{i(a+b)} = e^{ia}e^{ib}\) (voir <a href="complexes.html">complexes</a>).</p>
+    <div class="box prop"><p class="box-title">Formules d'addition</p>
+      \[\cos(a + b) = \cos a\cos b - \sin a\sin b \qquad\qquad \sin(a + b) = \sin a\cos b + \cos a\sin b\]
+      \[\cos(a - b) = \cos a\cos b + \sin a\sin b \qquad\qquad \sin(a - b) = \sin a\cos b - \cos a\sin b\]
     </div>
-    <div class="box prop"><p class="box-title">Équations</p>
+    <div class="box prop"><p class="box-title">Formules de duplication (cas \(a = b\))</p>
+      \[\cos 2a = \cos^2 a - \sin^2 a = 2\cos^2 a - 1 = 1 - 2\sin^2 a \qquad \sin 2a = 2\sin a\cos a\]
+      <p>D'où aussi \(\cos^2 a = \dfrac{1 + \cos 2a}{2}\) et \(\sin^2 a = \dfrac{1 - \cos 2a}{2}\) (utile pour calculer des valeurs efficaces et des intégrales).</p>
+    </div>
+    <div class="box method"><p class="box-title">Résoudre une équation trigonométrique</p>
       <ul>
-        <li>\(\cos x = \cos a \iff x = a + 2k\pi\) ou \(x = -a + 2k\pi\) (\(k \in \mathbb{Z}\)).</li>
-        <li>\(\sin x = \sin a \iff x = a + 2k\pi\) ou \(x = \pi - a + 2k\pi\).</li>
+        <li>\(\cos x = \cos\alpha \iff x = \alpha + 2k\pi\) ou \(x = -\alpha + 2k\pi\) (\(k\) entier).</li>
+        <li>\(\sin x = \sin\alpha \iff x = \alpha + 2k\pi\) ou \(x = \pi - \alpha + 2k\pi\).</li>
+        <li>On cherche d'abord un \(\alpha\) connu (tableau des valeurs), puis on garde les solutions dans l'intervalle demandé.</li>
       </ul>
     </div>
-    <div class="box example"><p class="box-title">Exemple 2</p>
-      <p>Résoudre \(2\cos x = 1\) sur \(]-\pi\,;\pi]\).</p>
+    <div class="box example"><p class="box-title">Exemple 1</p>
+      <p>Calculer \(\cos\dfrac{\pi}{12}\) en écrivant \(\dfrac{\pi}{12} = \dfrac{\pi}{3} - \dfrac{\pi}{4}\), puis résoudre \(\sin x = \dfrac12\) sur \([0\,;\,2\pi[\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(\cos x = \tfrac12 = \cos\tfrac{\pi}{3}\). Sur \(]-\pi\,;\pi]\) : \(S = \left\{-\tfrac{\pi}{3}\,;\tfrac{\pi}{3}\right\}\).</p>
+        <p>\(\cos\dfrac{\pi}{12} = \cos\dfrac{\pi}{3}\cos\dfrac{\pi}{4} + \sin\dfrac{\pi}{3}\sin\dfrac{\pi}{4} = \dfrac12\cdot\dfrac{\sqrt2}{2} + \dfrac{\sqrt3}{2}\cdot\dfrac{\sqrt2}{2} = \dfrac{\sqrt2 + \sqrt6}{4} \approx 0{,}966\).</p>
+        <p>\(\sin x = \sin\dfrac{\pi}{6}\) : \(x = \dfrac{\pi}{6}\) ou \(x = \pi - \dfrac{\pi}{6} = \dfrac{5\pi}{6}\).</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>3. Fonctions sinusoïdales</h2>
-    <div class="box prop"><p class="box-title">Fonctions cos et sin</p>
+    <div class="box prop"><p class="box-title">Les fonctions cos et sin</p>
+      <p>Périodiques de période \(2\pi\), comprises entre −1 et 1 ; \(\cos\) est paire, \(\sin\) est impaire ; \(\cos' = -\sin\) et \(\sin' = \cos\).
+        \(\sin x = \cos\left(x - \tfrac{\pi}{2}\right)\) : la sinusoïde est la cosinusoïde décalée d'un quart de période.</p>
+    </div>
+    <div class="box def"><p class="box-title">Signal sinusoïdal \(s(t) = A\cos(\omega t + \varphi)\)</p>
       <ul>
-        <li>Définies sur \(\mathbb{R}\), <b>périodiques</b> de période \(2\pi\).</li>
-        <li>\(\cos\) est <b>paire</b> (courbe symétrique par rapport à l'axe des ordonnées), \(\sin\) est <b>impaire</b> (symétrique par rapport à l'origine).</li>
-        <li>\(\cos' = -\sin\) et \(\sin' = \cos\).</li>
+        <li>\(A > 0\) : <b>amplitude</b> ; \(\omega\) : <b>pulsation</b> (rad/s) ; \(\varphi\) : <b>phase à l'origine</b> ; \(\omega t + \varphi\) : phase instantanée.</li>
+        <li>Période \(T = \dfrac{2\pi}{\omega}\), fréquence \(f = \dfrac1T\), donc \(\omega = 2\pi f\).</li>
+        <li>Valeur moyenne nulle ; valeur efficace \(\dfrac{A}{\sqrt2}\).</li>
+        <li>Deux signaux de même pulsation, de phases \(\varphi_1\) et \(\varphi_2\), sont <b>déphasés</b> de \(\Delta\varphi = \varphi_2 - \varphi_1\). Sur un oscillogramme, un décalage \(\Delta t\) correspond à \(|\Delta\varphi| = 2\pi\dfrac{\Delta t}{T}\).
+          Si \(\Delta\varphi = 0\) : en phase ; \(\pi\) : en opposition ; \(\tfrac{\pi}{2}\) : en quadrature.</li>
       </ul>
     </div>
-    <div class="box def"><p class="box-title">Signal sinusoïdal</p>
-      \[s(t) = A\cos(\omega t + \varphi)\]
-      <ul>
-        <li>\(A > 0\) : <b>amplitude</b> (valeur maximale) ; valeur efficace \(A/\sqrt2\).</li>
-        <li>\(\omega\) : <b>pulsation</b> (rad/s), avec \(\omega = 2\pi f = \dfrac{2\pi}{T}\) ; \(f\) fréquence (Hz), \(T\) période (s).</li>
-        <li>\(\varphi\) : <b>phase à l'origine</b> (rad). Le décalage temporel entre deux signaux de même fréquence vaut \(\Delta t = \dfrac{\Delta\varphi}{\omega}\).</li>
-      </ul>
+    <div class="box prop"><p class="box-title">Somme de deux sinusoïdes de même pulsation</p>
+      <p>\(a\cos(\omega t) + b\sin(\omega t) = A\cos(\omega t + \varphi)\) avec \(A = \sqrt{a^2 + b^2}\), \(\cos\varphi = \dfrac aA\), \(\sin\varphi = -\dfrac bA\) (formule d'addition).
+        On peut aussi représenter chaque signal par un vecteur tournant (vecteur de Fresnel) ou par un <a href="complexes.html">nombre complexe</a> : additionner les signaux revient à additionner les vecteurs.</p>
     </div>
-    <div class="box example"><p class="box-title">Exemple 3 — secteur EDF</p>
-      <p>Le secteur délivre 230 V efficaces à 50 Hz. Écrire \(u(t)\) sachant que \(u(0) = 0\) et \(u\) croissante en 0.</p>
+    <div class="box example"><p class="box-title">Exemple 2</p>
+      <p>Sur un oscillogramme, deux tensions de période 20 ms sont décalées de 5 ms. Déphasage ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(A = 230\sqrt2 \approx 325\) V, \(\omega = 2\pi \times 50 = 100\pi \approx 314\) rad/s, \(T = 20\) ms.</p>
-        <p>\(u(t) = 325\sin(100\pi t) = 325\cos\left(100\pi t - \tfrac{\pi}{2}\right)\).</p>
+        <p>\(|\Delta\varphi| = 2\pi \times \dfrac{5}{20} = \dfrac{\pi}{2}\) rad : les tensions sont en quadrature.</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(\cos^2 + \sin^2 = 1\) ; angles associés ; valeurs remarquables.</li>
+        <li>\(\cos(a \pm b) = \cos a\cos b \mp \sin a\sin b\), \(\sin(a \pm b) = \sin a\cos b \pm \cos a\sin b\).</li>
+        <li>\(\cos 2a = 2\cos^2 a - 1 = 1 - 2\sin^2 a\), \(\sin 2a = 2\sin a\cos a\).</li>
+        <li>\(\cos x = \cos\alpha \iff x = \pm\alpha + 2k\pi\) ; \(\sin x = \sin\alpha \iff x = \alpha + 2k\pi\) ou \(\pi - \alpha + 2k\pi\).</li>
+        <li>\(A\cos(\omega t + \varphi)\) : \(T = 2\pi/\omega\), \(\omega = 2\pi f\), efficace \(A/\sqrt2\), déphasage \(2\pi\Delta t/T\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-cercle">
       <p class="widget-title">Du cercle à la sinusoïde</p>
       <p class="hint">Fais tourner \(\theta\) : l'abscisse de \(M\) donne \(\cos\theta\) (bleu), l'ordonnée donne \(\sin\theta\) (rose). À droite, on « déroule » le sinus.</p>
@@ -119,8 +126,8 @@
       <p class="widget-title">Signal \(A\cos(\omega t + \varphi)\)</p>
       <p class="hint">Compare au signal de référence (gris) \(\cos t\). Observe l'effet de chaque paramètre séparément.</p>
       <div class="controls">
-        <label>\(A\) <input type="range" data-k="A" min="0.2" max="3" step="0.1" value="1.5"> <output data-show="A"></output></label>
-        <label>\(\omega\) <input type="range" data-k="w" min="0.25" max="4" step="0.05" value="2"> <output data-show="w"></output></label>
+        <label>\(A\) <input type="range" data-k="A" min="0.1" max="10" step="0.1" value="1.5"> <output data-show="A"></output></label>
+        <label>\(\omega\) <input type="range" data-k="w" min="0.1" max="20" step="0.05" value="2"> <output data-show="w"></output></label>
         <label>\(\varphi\) <input type="range" data-k="p" min="-3.14" max="3.14" step="0.01" value="0.79"> <output data-show="p" data-digits="2"></output></label>
       </div>
       <canvas class="plot"></canvas>
@@ -137,7 +144,7 @@
   </section>
 
   <section>
-    <h2>5. En prépa</h2>
+    <h2>6. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li>La fonction \(\tan\), et les fonctions réciproques \(\arccos\), \(\arcsin\), \(\arctan\).</li>
@@ -242,7 +249,8 @@ window.addEventListener('DOMContentLoaded', function () {
       g.fn(Math.cos, '--muted', { width: 1.2, dash: [4, 4] });
       g.fn(function (t) { return v.A * Math.cos(v.w * t + v.p); }, '--c1');
     };
-    P2.redraw();
+    var Y0 = Math.max(3.3, v.A * 1.15);
+    P2.redraw({ ymin: -Y0, ymax: Y0, xmax: Math.max(13, Math.min(130, 2 * 2 * Math.PI / v.w)) });
     w2.querySelector('.readout').textContent =
       'période T = 2π/ω = ' + Course.fmt(2 * Math.PI / v.w, 2) + ' s    fréquence f = ' + Course.fmt(v.w / (2 * Math.PI), 3) + ' Hz' +
       '\nvaleur efficace = A/√2 = ' + Course.fmt(v.A / Math.SQRT2, 2) +

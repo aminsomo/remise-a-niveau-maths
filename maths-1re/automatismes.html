@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Automatismes : pourcentages, évolutions, calcul · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="maths-1re/automatismes">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths 1re · Automatismes · Tronc commun</p>
+    <h1>Automatismes : pourcentages, évolutions, calcul</h1>
+    <p class="lead">Ce sont les réflexes de calcul dont tu as besoin partout, en maths comme en physique : pourcentages, évolutions,
+      fractions, puissances, équations, droites, lecture de graphiques. En classe, on les travaille un peu chaque semaine ;
+      ici, tu as tout au même endroit, avec les règles à connaître par cœur.</p>
+    <p class="prereq">Prérequis : les opérations de base et les priorités de calcul (vues au collège et en seconde).</p>
+  </header>
+
+  <section>
+    <h2>1. Proportions et pourcentages</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Une <b>proportion</b> (on dit aussi <b>fréquence</b>) indique quelle part d'un ensemble représente un sous-groupe. Si un groupe A contient \(n_A\) éléments
+        dans une population E de \(n_E\) éléments :
+        \[p = \frac{n_A}{n_E}, \qquad 0 \leq p \leq 1.\]
+        On peut l'écrire de trois façons : en décimal (\(0{,}25\)), en fraction (\(\tfrac14\)) ou en pourcentage (\(25\,\%\)). Les trois veulent dire la même chose.</p>
+    </div>
+    <div class="box method"><p class="box-title">Les trois calculs à savoir faire</p>
+      <ul>
+        <li><b>Trouver la proportion</b> : \(p = \dfrac{\text{partie}}{\text{total}}\). Ex. : 18 filles sur 30 élèves → \(p = 0{,}6 = 60\,\%\).</li>
+        <li><b>Appliquer une proportion</b> : \(\text{partie} = p \times \text{total}\). Ex. : 15 % de 240 → \(0{,}15 \times 240 = 36\).</li>
+        <li><b>Retrouver le total</b> : \(\text{total} = \dfrac{\text{partie}}{p}\). Ex. : 36 élèves représentent 15 % → \(36 / 0{,}15 = 240\).</li>
+      </ul>
+    </div>
+    <div class="box prop"><p class="box-title">Proportion d'une proportion</p>
+      <p>Si A représente une proportion \(p\) de E, et B une proportion \(p'\) de A, alors B représente la proportion \(p \times p'\) de E : on <b>multiplie</b> les proportions.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1</p>
+      <p>Dans un lycée, 40 % des élèves sont en STI2D et, parmi eux, 15 % sont en option énergie-environnement. Quelle proportion des élèves du lycée cela représente-t-il ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(0{,}40 \times 0{,}15 = 0{,}06\), soit \(6\,\%\) des élèves du lycée.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Évolutions et coefficient multiplicateur</h2>
+    <div class="box prop"><p class="box-title">Du pourcentage au coefficient multiplicateur (CM)</p>
+      <ul>
+        <li>Augmenter de \(t\,\%\), c'est multiplier par \(\mathrm{CM} = 1 + \dfrac{t}{100}\). Ex. : \(+5\,\% \to \times 1{,}05\) ; \(+150\,\% \to \times 2{,}5\).</li>
+        <li>Baisser de \(t\,\%\), c'est multiplier par \(\mathrm{CM} = 1 - \dfrac{t}{100}\). Ex. : \(-5\,\% \to \times 0{,}95\) ; \(-30\,\% \to \times 0{,}7\).</li>
+        <li>Inversement, si \(\mathrm{CM} > 1\) c'est une hausse de \((\mathrm{CM} - 1) \times 100\,\%\) ; si \(\mathrm{CM} &lt; 1\), une baisse de \((1 - \mathrm{CM}) \times 100\,\%\).</li>
+      </ul>
+    </div>
+    <div class="box prop"><p class="box-title">Taux d'évolution</p>
+      <p>Pour passer d'une valeur de départ \(V_D\) à une valeur d'arrivée \(V_A\), le taux d'évolution est
+        \[t = \frac{V_A - V_D}{V_D} = \frac{V_A}{V_D} - 1 \qquad(\text{multiplie par 100 pour l'avoir en \%}).\]
+        Si \(t > 0\) c'est une hausse, si \(t &lt; 0\) une baisse. On retrouve aussi \(V_A = V_D \times \mathrm{CM}\) et \(V_D = \dfrac{V_A}{\mathrm{CM}}\).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Évolutions successives et évolution réciproque</p>
+      <ul>
+        <li>Plusieurs évolutions à la suite : on <b>multiplie</b> les coefficients, \(\mathrm{CM}_{\text{global}} = \mathrm{CM}_1 \times \mathrm{CM}_2 \times \dots\)</li>
+        <li>L'évolution <b>réciproque</b> (celle qui ramène à la valeur de départ) a pour coefficient \(\dfrac{1}{\mathrm{CM}}\).</li>
+      </ul>
+    </div>
+    <div class="box warning"><p class="box-title">Piège classique</p>
+      <p>Les pourcentages ne s'additionnent pas : \(+20\,\%\) puis \(-20\,\%\) donne \(1{,}2 \times 0{,}8 = 0{,}96\), c'est-à-dire une <b>baisse</b> de \(4\,\%\), et non 0 %.</p>
+    </div>
+    <div class="box def"><p class="box-title">Indice base 100</p>
+      <p>Pour comparer facilement des évolutions, on donne la valeur 100 à une date de référence. Si la grandeur vaut \(V_0\) à cette date et \(V\) plus tard, son indice est
+        \(I = 100 \times \dfrac{V}{V_0}\). Un indice de 112 signifie +12 % depuis la référence ; un indice de 85 signifie −15 %.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — facture d'électricité</p>
+      <p>Le prix du kWh augmente de 10 % puis de 15 %. Quel est le taux global ? Quelle baisse faudrait-il ensuite pour revenir au prix initial ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\mathrm{CM} = 1{,}10 \times 1{,}15 = 1{,}265\) : hausse globale de \(26{,}5\,\%\) (et pas 25 %).</p>
+        <p>Réciproque : \(\dfrac{1}{1{,}265} \approx 0{,}7905\), soit une baisse d'environ \(20{,}95\,\%\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Fractions, puissances et écritures des nombres</h2>
+    <div class="box prop"><p class="box-title">Fractions (\(b, d \neq 0\))</p>
+      \[\frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd} \qquad \frac{a}{b} \times \frac{c}{d} = \frac{ac}{bd} \qquad \frac{a}{b} \div \frac{c}{d} = \frac{a}{b} \times \frac{d}{c} \qquad \frac{ka}{kb} = \frac{a}{b}\]
+      <p>Pour additionner, on met d'abord au <b>même dénominateur</b> ; pour diviser, on <b>multiplie par l'inverse</b>.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Puissances (\(a, b \neq 0\), \(m, n\) entiers)</p>
+      \[a^m \times a^n = a^{m+n} \qquad \frac{a^m}{a^n} = a^{m-n} \qquad (a^m)^n = a^{mn} \qquad (ab)^n = a^n b^n \qquad a^{-n} = \frac{1}{a^n} \qquad a^0 = 1\]
+      <p>Avec les puissances de 10 : \(10^3 = 1\,000\), \(10^{-3} = 0{,}001\), \(10^5 \times 10^{-2} = 10^{3}\).</p>
+    </div>
+    <div class="box def"><p class="box-title">Écriture scientifique et ordre de grandeur</p>
+      <p>Tout nombre non nul s'écrit \(a \times 10^n\) avec \(1 \leq a &lt; 10\) : \(0{,}00042 = 4{,}2 \times 10^{-4}\), \(380\,000 = 3{,}8 \times 10^{5}\).
+        L'<b>ordre de grandeur</b> est la puissance de 10 la plus proche : celui de \(380\,000\) est \(10^5\).</p>
+    </div>
+    <div class="box method"><p class="box-title">Conversions d'unités</p>
+      <p>Préfixes : giga G = \(10^9\), méga M = \(10^6\), kilo k = \(10^3\), milli m = \(10^{-3}\), micro µ = \(10^{-6}\), nano n = \(10^{-9}\).
+        Pour les surfaces et volumes, le facteur est élevé au carré ou au cube : \(1\ \mathrm{m^2} = 10^4\ \mathrm{cm^2}\), \(1\ \mathrm{m^3} = 1\,000\ \mathrm{L}\), \(1\ \mathrm{L} = 1\ \mathrm{dm^3}\).
+        Vitesses : \(1\ \mathrm{m/s} = 3{,}6\ \mathrm{km/h}\).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Calcul littéral et équations</h2>
+    <div class="box prop"><p class="box-title">Développer et factoriser</p>
+      <p>Distributivité : \(k(a + b) = ka + kb\) et \((a + b)(c + d) = ac + ad + bc + bd\). Identités remarquables :
+        \[(a + b)^2 = a^2 + 2ab + b^2 \qquad (a - b)^2 = a^2 - 2ab + b^2 \qquad (a + b)(a - b) = a^2 - b^2\]
+        <b>Factoriser</b>, c'est l'inverse : on cherche un facteur commun (\(3x^2 - 6x = 3x(x - 2)\)) ou une identité (\(x^2 - 9 = (x - 3)(x + 3)\)).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Résoudre</p>
+      <ul>
+        <li><b>Équation du 1er degré</b> : on fait la même opération des deux côtés jusqu'à isoler \(x\).</li>
+        <li><b>Inéquation</b> : même chose, mais si on multiplie ou divise par un nombre <b>négatif</b>, on <b>change le sens</b> de l'inégalité (\(-2x &lt; 6 \iff x > -3\)).</li>
+        <li>\(x^2 = a\) : deux solutions \(\sqrt a\) et \(-\sqrt a\) si \(a > 0\) ; une seule (\(0\)) si \(a = 0\) ; aucune si \(a &lt; 0\).</li>
+        <li><b>Équation produit nul</b> : \(A \times B = 0\) équivaut à \(A = 0\) <b>ou</b> \(B = 0\).</li>
+        <li>Signe de \(ax + b\) (\(a \neq 0\)) : il s'annule en \(x = -\tfrac{b}{a}\) ; il est du signe de \(a\) à droite de cette valeur et du signe contraire à gauche.</li>
+      </ul>
+    </div>
+    <div class="box method"><p class="box-title">Isoler une grandeur dans une formule</p>
+      <p>On « défait » les opérations dans l'ordre inverse. Ex. : à partir de \(P = R I^2\), on divise par \(R\) puis on prend la racine :
+        \(I = \sqrt{\dfrac{P}{R}}\) (car \(I > 0\)). À partir de \(v = \dfrac{d}{t}\) : \(d = v t\) et \(t = \dfrac{d}{v}\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 3</p>
+      <p>Résoudre \(3x - 7 \leq 5\), puis \((2x - 1)(x + 3) = 0\), puis \(x^2 = 16\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(3x \leq 12 \iff x \leq 4\) : \(S = ]-\infty\,;\,4]\).</p>
+        <p>\(2x - 1 = 0\) ou \(x + 3 = 0\) : \(S = \{-3\,;\,\tfrac12\}\).</p>
+        <p>\(x^2 = 16 \iff x = 4\) ou \(x = -4\) (ne pas oublier la solution négative !).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Fonctions, droites et graphiques</h2>
+    <div class="box prop"><p class="box-title">Équation d'une droite</p>
+      <p>Une droite non verticale a une équation \(y = mx + p\) : \(m\) est le <b>coefficient directeur</b> (la pente : de combien on monte quand on avance de 1) et \(p\) l'<b>ordonnée à l'origine</b> (là où elle coupe l'axe des ordonnées).
+        Si elle passe par \(A(x_A\,;\,y_A)\) et \(B(x_B\,;\,y_B)\) avec \(x_A \neq x_B\) :
+        \[m = \frac{y_B - y_A}{x_B - x_A}.\]
+        Deux droites sont parallèles si elles ont le même coefficient directeur. Une droite verticale a une équation \(x = c\).</p>
+    </div>
+    <div class="box method"><p class="box-title">Lectures graphiques sur la courbe d'une fonction \(f\)</p>
+      <ul>
+        <li>L'<b>image</b> de \(a\) : on part de \(a\) sur l'axe horizontal, on monte jusqu'à la courbe, on lit \(f(a)\) sur l'axe vertical.</li>
+        <li>Les <b>antécédents</b> de \(k\) : on trace la droite horizontale \(y = k\) et on lit les abscisses des points d'intersection. Ce sont les solutions de \(f(x) = k\).</li>
+        <li>\(f(x) &lt; k\) : on garde les \(x\) pour lesquels la courbe est <b>sous</b> la droite \(y = k\).</li>
+        <li>Le <b>signe</b> de \(f\) : positive là où la courbe est au-dessus de l'axe des abscisses.</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 4</p>
+      <p>Équation de la droite passant par \(A(1\,;\,3)\) et \(B(4\,;\,9)\) ? Est-elle parallèle à \(y = 2x - 5\) ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(m = \dfrac{9 - 3}{4 - 1} = 2\). Puis \(3 = 2 \times 1 + p\) donc \(p = 1\) : \(y = 2x + 1\). Même coefficient directeur que \(y = 2x - 5\) : elles sont parallèles.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. Statistiques : les indicateurs</h2>
+    <div class="box def"><p class="box-title">Résumer une série de valeurs</p>
+      <ul>
+        <li><b>Moyenne</b> \(\bar x = \dfrac{x_1 + x_2 + \dots + x_n}{n}\) (avec effectifs : \(\bar x = \dfrac{n_1x_1 + \dots + n_px_p}{N}\)).</li>
+        <li><b>Médiane</b> : la valeur du milieu quand on range les valeurs dans l'ordre (la moitié des valeurs sont en dessous).</li>
+        <li><b>Quartiles</b> \(Q_1\), \(Q_3\) : au moins 25 % (resp. 75 %) des valeurs sont inférieures ou égales ; l'<b>écart interquartile</b> est \(Q_3 - Q_1\).</li>
+        <li><b>Écart-type</b> \(\sigma\) : mesure la dispersion autour de la moyenne (on le lit à la calculatrice). Plus il est grand, plus les valeurs sont étalées.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>7. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Proportion : \(p = \dfrac{\text{partie}}{\text{total}}\) ; proportion de proportion : \(p \times p'\).</li>
+        <li>Hausse de \(t\,\%\) : \(\times\left(1 + \tfrac{t}{100}\right)\) ; baisse : \(\times\left(1 - \tfrac{t}{100}\right)\) ; taux \(t = \dfrac{V_A - V_D}{V_D}\).</li>
+        <li>Évolutions successives : produit des CM ; réciproque : \(\dfrac{1}{\mathrm{CM}}\) ; indice \(I = 100 \times \dfrac{V}{V_0}\).</li>
+        <li>\(a^m a^n = a^{m+n}\), \((a^m)^n = a^{mn}\), \(a^{-n} = \dfrac{1}{a^n}\) ; écriture scientifique \(a \times 10^n\), \(1 \leq a &lt; 10\).</li>
+        <li>\((a \pm b)^2 = a^2 \pm 2ab + b^2\), \((a + b)(a - b) = a^2 - b^2\).</li>
+        <li>Inéquation : on change le sens si on multiplie ou divise par un négatif. \(AB = 0 \iff A = 0\) ou \(B = 0\).</li>
+        <li>Droite \(y = mx + p\), \(m = \dfrac{y_B - y_A}{x_B - x_A}\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>8. Manipuler</h2>
+    <div class="widget" id="w-evol">
+      <p class="widget-title">Évolutions successives</p>
+      <p class="hint">Une grandeur de valeur 100 subit deux évolutions. Compare le taux global à la somme des deux taux.</p>
+      <div class="controls">
+        <label>1re évolution (%) <input type="range" data-k="t1" min="-90" max="200" step="1" value="20"> <output data-show="t1"></output></label>
+        <label>2e évolution (%) <input type="range" data-k="t2" min="-90" max="200" step="1" value="-20"> <output data-show="t2"></output></label>
+      </div>
+      <canvas class="plot short"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : automatismes</p>
+      <p class="hint">Donne la valeur exacte, ou arrondie à 0,01 près. Un taux se donne en % (ex. 26,5 pour 26,5 %).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>9. En prépa</h2>
+    <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
+      <p>En CPGE, aucun calcul n'est fait « à la calculatrice » en colle : manipuler fractions, puissances et pourcentages
+        sans erreur est une condition de survie. Les évolutions successives reviennent avec les suites géométriques
+        et les intérêts composés. Voir aussi <a href="../prepa/calcul-algebrique.html">Calcul algébrique sans faute</a>.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="2">
+        <p>Diminuer un prix de 30 % revient à le multiplier par :</p>
+        <ol class="choices"><li>\(0{,}3\)</li><li>\(1{,}3\)</li><li>\(0{,}7\)</li><li>\(-0{,}3\)</li></ol>
+        <p class="explain">\(1 - \dfrac{30}{100} = 0{,}7\).</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Une hausse de 50 % suivie d'une baisse de 50 % donne globalement :</p>
+        <ol class="choices"><li>aucune évolution</li><li>une baisse de 25 %</li><li>une hausse de 25 %</li><li>une baisse de 50 %</li></ol>
+        <p class="explain">\(1{,}5 \times 0{,}5 = 0{,}75\) : baisse de \(25\,\%\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>\(\dfrac{10^5 \times 10^{-2}}{10^{-4}} =\)</p>
+        <ol class="choices"><li>\(10^{-1}\)</li><li>\(10^{3}\)</li><li>\(10^{-7}\)</li><li>\(10^{7}\)</li></ol>
+        <p class="explain">\(5 + (-2) - (-4) = 7\).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Le coefficient directeur de la droite passant par \(A(-1 ; 4)\) et \(B(3 ; -4)\) vaut :</p>
+        <ol class="choices"><li>\(-2\)</li><li>\(2\)</li><li>\(-\tfrac12\)</li><li>\(0\)</li></ol>
+        <p class="explain">\(\dfrac{-4 - 4}{3 - (-1)} = \dfrac{-8}{4} = -2\).</p>
+      </div>
+      <div class="q" data-answer="1">
+        <p>Un indice passe de 100 à 85. Cela correspond à :</p>
+        <ol class="choices"><li>une hausse de 15 %</li><li>une baisse de 15 %</li><li>une baisse de 85 %</li><li>une baisse de 17,6 %</li></ol>
+        <p class="explain">\(85/100 = 0{,}85 = 1 - 0{,}15\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+coefficient+multiplicateur+evolutions+successives">Évolutions successives — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+taux+evolution+reciproque">Taux d'évolution réciproque<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+puissances+ecriture+scientifique">Puissances et écriture scientifique<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  /* Évolutions successives : 100 → 100·CM1 → 100·CM1·CM2, en barres */
+  var w = document.getElementById('w-evol'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { grid: true });
+  Course.onInput(w, function (v) {
+    var c1 = 1 + v.t1 / 100, c2 = 1 + v.t2 / 100, vals = [100, 100 * c1, 100 * c1 * c2];
+    var top = Math.max(160, vals[1] * 1.15, vals[2] * 1.15);
+    G.draw = function (g) {
+      ['départ', 'après 1', 'après 2'].forEach(function (lab, i) {
+        g.poly([[i + 0.7, 0], [i + 0.7, vals[i]], [i + 1.3, vals[i]], [i + 1.3, 0]], i ? '--c1' : '--c3', { close: true, fill: true, alpha: 0.35 });
+        g.text(i + 1, vals[i] + top * 0.04, Course.fmt(vals[i], 2), '--text', { align: 'center', bold: true });
+        g.text(i + 1, -top * 0.07, lab, '--muted', { align: 'center' });
+      });
+      g.seg(0.3, 100, 3.7, 100, '--c2', { dash: [5, 4] });
+    };
+    G.redraw({ xmin: 0.3, xmax: 3.7, ymin: -top * 0.12, ymax: top, xstep: 10 });
+    var cm = c1 * c2;
+    out.textContent = 'CM global = ' + Course.fmt(c1, 2) + ' × ' + Course.fmt(c2, 2) + ' = ' + Course.fmt(cm, 4) +
+      '\ntaux global = ' + Course.fmt((cm - 1) * 100, 2) + ' %   (somme des taux : ' + (v.t1 + v.t2) + ' %)' +
+      '\névolution réciproque : × ' + Course.fmt(1 / cm, 4) + ' soit ' + Course.fmt((1 / cm - 1) * 100, 2) + ' %';
+  });
+
+  /* Exercices : 0 taux global, 1 valeur initiale, 2 taux réciproque, 3 puissance de 10, 4 coefficient directeur, 5 isoler */
+  Course.drill('#w-drill', function () {
+    var k = R(0, 5), ans;
+    if (k === 0) {
+      var a = P([5, 10, 20, 25, 30, 40]), b = P([-10, -20, -25, 10, 15, 50]);
+      ans = ((1 + a / 100) * (1 + b / 100) - 1) * 100;
+      return { html: '<p>Une grandeur évolue de \\(' + (a > 0 ? '+' : '') + a + '\\,\\%\\) puis de \\(' + (b > 0 ? '+' : '') + b + '\\,\\%\\). Taux global en % ?</p>',
+        answer: ans, tol: A(ans), explain: '\\(\\mathrm{CM} = ' + (1 + a / 100) + ' \\times ' + (1 + b / 100) + '\\), puis \\(t = \\mathrm{CM} - 1\\).' };
+    }
+    if (k === 1) {
+      var t = P([10, 20, 25, 50, -20, -25]), vi = R(4, 40) * 10, vf = vi * (1 + t / 100);
+      return { html: '<p>Après une évolution de \\(' + (t > 0 ? '+' : '') + t + '\\,\\%\\), un prix vaut ' + Course.fmt(vf, 2) + ' €. Prix initial (en €) ?</p>',
+        answer: vi, tol: A(vi), explain: 'On divise par le coefficient : \\(V_D = V_A / ' + Course.fmt(1 + t / 100, 2).replace(',', '{,}') + '\\).' };
+    }
+    if (k === 2) {
+      var u = P([25, 50, 100, -20, -50, 60]);
+      ans = (1 / (1 + u / 100) - 1) * 100;
+      return { html: '<p>Quel taux (en %) annule une évolution de \\(' + (u > 0 ? '+' : '') + u + '\\,\\%\\) ?</p>',
+        answer: ans, tol: A(ans), explain: 'Coefficient réciproque \\(1/\\mathrm{CM}\\), puis on retire 1.' };
+    }
+    if (k === 3) {
+      var m = R(-6, 6), n = R(-5, 5), p = R(-4, 4);
+      return { html: '<p>\\(\\dfrac{10^{' + m + '} \\times 10^{' + n + '}}{10^{' + p + '}} = 10^{x}\\). Que vaut \\(x\\) ?</p>',
+        answer: m + n - p, explain: '\\(x = ' + m + ' + (' + n + ') - (' + p + ')\\).' };
+    }
+    if (k === 4) {
+      var xa = R(-5, 2), xb = xa + R(1, 5), ya = R(-6, 6), mm = P([-3, -2, -1, 0.5, 1, 2, 3]), yb = ya + mm * (xb - xa);
+      return { html: '<p>Coefficient directeur de la droite passant par \\(A(' + xa + ' ; ' + ya + ')\\) et \\(B(' + xb + ' ; ' + String(yb).replace('.', '{,}') + ')\\) ?</p>',
+        answer: mm, tol: A(mm), explain: '\\(m = \\dfrac{y_B - y_A}{x_B - x_A}\\).' };
+    }
+    var R0 = P([2, 4, 5, 8, 10, 20]), I = P([2, 3, 4, 5]), Pw = R0 * I * I;
+    return { html: '<p>Un résistor \\(R = ' + R0 + '\\ \\Omega\\) dissipe \\(P = ' + Pw + '\\ \\mathrm{W}\\). Sachant \\(P = RI^2\\), que vaut \\(I\\) (en A) ?</p>',
+      answer: I, explain: '\\(I = \\sqrt{P/R} = \\sqrt{' + (Pw / R0) + '}\\).' };
+  });
+});
+</script>
+</body>
+</html>
