@@ -2,92 +2,113 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Électricité : circuits, condensateur, alternatif · STI2D → Prépa</title>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
 <script defer src="../assets/chapters.js"></script>
 <script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
 </head>
 <body data-root="../" data-chapter="physique/electricite">
 <main class="chapter">
   <header class="chapter-head">
-    <p class="kicker">Physique · Énergie électrique</p>
+    <p class="kicker">Physique-chimie · Énergie électrique</p>
     <h1>Électricité : circuits, condensateur, alternatif</h1>
-    <p class="lead">Lois de Kirchhoff, loi d'Ohm et effet Joule ; stockage d'énergie dans un condensateur et circuit RC ;
-      grandeurs sinusoïdales, valeurs efficaces et puissances en régime alternatif.</p>
-    <p class="prereq">Prérequis : <a href="../maths/exponentielle.html">exponentielle</a>, <a href="../maths/equations-differentielles.html">équations différentielles</a>, <a href="../maths/complexes.html">complexes</a> (partie 4).</p>
+    <p class="lead">Lois des circuits, condensateur et circuit RC (charge, décharge, constante de temps), puis régime sinusoïdal : valeurs efficaces, déphasage et puissances active, réactive et apparente.
+      C'est le socle de l'électrotechnique que tu retrouveras en prépa TSI.</p>
+    <p class="prereq">Prérequis : <a href="../physique-1re/energie-electrique.html">énergie électrique (1re)</a>, <a href="../maths/equations-differentielles.html">équations différentielles</a>.</p>
   </header>
 
   <section>
     <h2>1. Lois des circuits</h2>
-    <div class="box prop"><p class="box-title">Lois fondamentales</p>
+    <div class="box prop"><p class="box-title">Rappels essentiels</p>
       <ul>
-        <li><b>Loi des nœuds</b> : la somme des intensités qui arrivent à un nœud égale la somme de celles qui en partent (conservation de la charge).</li>
-        <li><b>Loi des mailles</b> : la somme algébrique des tensions le long d'une maille est nulle.</li>
-        <li><b>Loi d'Ohm</b> : \(U = RI\) (convention récepteur). Associations : série \(R = R_1 + R_2\) ; parallèle \(\dfrac1R = \dfrac1{R_1} + \dfrac1{R_2}\).</li>
-        <li><b>Diviseur de tension</b> : \(U_2 = E\dfrac{R_2}{R_1 + R_2}\).</li>
-        <li><b>Puissance</b> : \(P = UI\) ; effet Joule dans une résistance : \(P_J = RI^2 = \dfrac{U^2}{R}\).</li>
+        <li>Loi des nœuds : \(\sum I_{\text{entrants}} = \sum I_{\text{sortants}}\) ; loi des mailles : la somme algébrique des tensions d'une maille est nulle.</li>
+        <li>Loi d'Ohm \(u = Ri\) ; série : \(R = R_1 + R_2\) ; dérivation : \(\dfrac1R = \dfrac1{R_1} + \dfrac1{R_2}\).</li>
+        <li><b>Diviseur de tension</b> : deux résistances en série sous \(E\) : \(U_2 = E\dfrac{R_2}{R_1 + R_2}\).</li>
+        <li>Puissance \(P = UI\), effet Joule \(P = RI^2\) ; énergie \(E = P\Delta t\).</li>
       </ul>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 1 — générateur réel</p>
-      <p>Une batterie de f.é.m. \(E = 12\) V et de résistance interne \(r = 0{,}5\ \Omega\) alimente une charge \(R = 5{,}5\ \Omega\). Intensité, tension aux bornes, rendement ?</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>Loi des mailles : \(E = rI + RI \Rightarrow I = \dfrac{12}{6} = 2\) A. \(U = E - rI = 11\) V.</p>
-        <p>\(\eta = \dfrac{UI}{EI} = \dfrac{11}{12} \approx 92\,\%\). Pertes Joule internes : \(rI^2 = 2\) W.</p>
-      </details>
     </div>
   </section>
 
   <section>
     <h2>2. Condensateur et circuit RC</h2>
-    <div class="box def"><p class="box-title">Condensateur</p>
-      <p>Deux armatures séparées par un isolant. Charge \(q = Cu\) (\(C\) capacité en farads). Comme \(i = \dfrac{\mathrm{d}q}{\mathrm{d}t}\) :
-        \[i = C\frac{\mathrm{d}u}{\mathrm{d}t}, \qquad E_{\text{stockée}} = \tfrac12 Cu^2.\]
-        La tension aux bornes d'un condensateur est <b>continue</b> (elle ne peut pas sauter brutalement).</p>
+    <div class="box def"><p class="box-title">Le condensateur</p>
+      <p>Deux armatures conductrices séparées par un isolant. Il stocke des charges : \(q = C\,u_C\) (\(C\) capacité en farads, F ; souvent en µF).
+        Comme \(i = \dfrac{\mathrm{d}q}{\mathrm{d}t}\) : \(i = C\dfrac{\mathrm{d}u_C}{\mathrm{d}t}\). Conséquence : la tension aux bornes d'un condensateur <b>ne peut pas sauter</b> brusquement.
+        Énergie stockée : \(E = \tfrac12Cu_C^2\).</p>
     </div>
-    <div class="box prop"><p class="box-title">Charge sous tension constante \(E\)</p>
-      <p>Loi des mailles : \(E = Ri + u = RC\dfrac{\mathrm{d}u}{\mathrm{d}t} + u\). Avec \(u(0) = 0\) :
-        \[u(t) = E\left(1 - e^{-t/\tau}\right), \qquad i(t) = \frac{E}{R}e^{-t/\tau}, \qquad \tau = RC.\]
-        Décharge : \(u(t) = E\,e^{-t/\tau}\). À \(5\tau\), le régime transitoire est terminé.</p>
+    <div class="box prop"><p class="box-title">Charge et décharge à travers une résistance</p>
+      <p>Loi des mailles pour la charge sous \(E\) : \(RC\dfrac{\mathrm{d}u_C}{\mathrm{d}t} + u_C = E\). Avec \(\tau = RC\) (constante de temps, en s) :</p>
+      <ul>
+        <li>charge (\(u_C(0) = 0\)) : \(u_C(t) = E\left(1 - e^{-t/\tau}\right)\), et \(i(t) = \dfrac{E}{R}e^{-t/\tau}\) ;</li>
+        <li>décharge (\(u_C(0) = E\)) : \(u_C(t) = E\,e^{-t/\tau}\).</li>
+      </ul>
+      <p>À \(t = \tau\) : 63 % de la charge ; à \(5\tau\) : plus de 99 %, le régime permanent est atteint (le condensateur se comporte alors comme un interrupteur ouvert).</p>
     </div>
-    <div class="box example"><p class="box-title">Exemple 2 — supercondensateur</p>
-      <p>Un supercondensateur de 100 F est chargé sous 2,7 V. Énergie stockée ? Temps de charge à travers 0,05 Ω ?</p>
+    <div class="box def"><p class="box-title">La bobine</p>
+      <p>Une bobine d'inductance \(L\) (henry, H) vérifie \(u_L = L\dfrac{\mathrm{d}i}{\mathrm{d}t}\) (si on néglige sa résistance) : c'est le <b>courant</b> qui ne peut pas sauter.
+        Énergie stockée : \(\tfrac12Li^2\). En RL, la constante de temps est \(\tau = \dfrac{L}{R}\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1</p>
+      <p>\(R = 10\) kΩ, \(C = 47\) µF, \(E = 12\) V. Constante de temps ? Tension après 1 s ? Durée pour charger pratiquement ? Énergie finale ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(E = \tfrac12 \times 100 \times 2{,}7^2 \approx 365\) J. \(\tau = 0{,}05 \times 100 = 5\) s, charge quasi complète en 25 s.</p>
+        <p>\(\tau = 10^4 \times 47 \times 10^{-6} = 0{,}47\) s ; \(u_C(1) = 12(1 - e^{-1/0{,}47}) \approx 10{,}6\) V ; \(5\tau \approx 2{,}35\) s.</p>
+        <p>\(E = \tfrac12 \times 47 \times 10^{-6} \times 12^2 \approx 3{,}4\) mJ.</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>3. Régime sinusoïdal</h2>
-    <div class="box def"><p class="box-title">Valeurs efficaces et puissances</p>
-      <p>\(u(t) = U\sqrt2\cos(\omega t)\), \(i(t) = I\sqrt2\cos(\omega t - \varphi)\), où \(U\) et \(I\) sont les valeurs <b>efficaces</b> (lues par un multimètre en mode AC).</p>
+    <div class="box def"><p class="box-title">Grandeurs sinusoïdales</p>
+      <p>\(u(t) = U\sqrt2\cos(\omega t + \varphi_u)\) et \(i(t) = I\sqrt2\cos(\omega t + \varphi_i)\), où \(U\) et \(I\) sont les <b>valeurs efficaces</b> (l'amplitude vaut \(U\sqrt2\)) et \(\omega = 2\pi f\).
+        Le <b>déphasage</b> de \(u\) par rapport à \(i\) est \(\varphi = \varphi_u - \varphi_i\). Résistance : \(\varphi = 0\) ; bobine idéale : \(+90^\circ\) (u en avance) ; condensateur : \(-90^\circ\) (u en retard).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Impédance</p>
+      <p>\(Z = \dfrac{U}{I}\) (Ω). Avec les complexes : \(\underline Z_R = R\), \(\underline Z_L = jL\omega\), \(\underline Z_C = \dfrac{1}{jC\omega}\), et \(\varphi = \arg\underline Z\) (voir <a href="../maths/complexes.html">nombres complexes</a>).</p>
+    </div>
+    <div class="box prop"><p class="box-title">Les trois puissances</p>
       <ul>
-        <li>Puissance <b>active</b> (moyenne, en W) : \(P = UI\cos\varphi\) ; \(\cos\varphi\) est le facteur de puissance.</li>
-        <li>Puissance <b>apparente</b> (en VA) : \(S = UI\). Puissance <b>réactive</b> (en var) : \(Q = UI\sin\varphi\). On a \(S^2 = P^2 + Q^2\).</li>
+        <li><b>Active</b> (réellement consommée, en watts) : \(P = UI\cos\varphi\).</li>
+        <li><b>Réactive</b> (échangée, en var) : \(Q = UI\sin\varphi\) ; positive pour une charge inductive (moteur), négative pour une charge capacitive.</li>
+        <li><b>Apparente</b> (en VA, elle dimensionne les câbles) : \(S = UI\), et \(S^2 = P^2 + Q^2\) (triangle des puissances).</li>
+        <li><b>Facteur de puissance</b> : \(k = \dfrac{P}{S} = \cos\varphi\). Un mauvais \(\cos\varphi\) oblige à faire passer plus de courant pour la même puissance utile ; on le relève avec des condensateurs.</li>
       </ul>
     </div>
-    <div class="box example"><p class="box-title">Exemple 3 — relever le facteur de puissance</p>
-      <p>Une installation absorbe 10 A sous 230 V avec \(\cos\varphi = 0{,}7\). Calculer \(P\), \(Q\), \(S\).</p>
+    <div class="box example"><p class="box-title">Exemple 2 — moteur</p>
+      <p>Un moteur absorbe 5 A sous 230 V avec \(\cos\varphi = 0{,}8\). Puissances \(P\), \(Q\), \(S\) ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(S = 2\,300\) VA, \(P = 1\,610\) W, \(\sin\varphi = \sqrt{1 - 0{,}49} \approx 0{,}714\), \(Q \approx 1\,642\) var.
-          Pour la même puissance utile, un meilleur \(\cos\varphi\) réduirait l'intensité, donc les pertes en ligne.</p>
+        <p>\(S = 230 \times 5 = 1\,150\) VA ; \(P = 1\,150 \times 0{,}8 = 920\) W ; \(\sin\varphi = 0{,}6\), \(Q = 690\) var. On vérifie : \(920^2 + 690^2 = 1\,150^2\).</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Diviseur : \(U_2 = E\dfrac{R_2}{R_1 + R_2}\) ; \(P = UI = RI^2\).</li>
+        <li>Condensateur : \(q = Cu\), \(i = C\dfrac{\mathrm{d}u}{\mathrm{d}t}\), \(\tfrac12Cu^2\) ; RC : \(\tau = RC\), charge \(E(1 - e^{-t/\tau})\), décharge \(Ee^{-t/\tau}\).</li>
+        <li>Bobine : \(u = L\dfrac{\mathrm{d}i}{\mathrm{d}t}\), \(\tfrac12Li^2\), \(\tau = L/R\).</li>
+        <li>Sinusoïdal : amplitude \(= U\sqrt2\), \(Z = U/I\) ; \(P = UI\cos\varphi\), \(Q = UI\sin\varphi\), \(S = UI\), \(S^2 = P^2 + Q^2\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-rc">
       <p class="widget-title">Oscilloscope virtuel : circuit RC alimenté par un signal carré</p>
       <p class="hint">Compare la demi-période du signal à \(\tau = RC\). Si \(\tau\) est petit, le condensateur a le temps de se charger ; si \(\tau\) est grand, \(u_C\) devient un « triangle » de faible amplitude (filtrage).</p>
       <div class="controls">
-        <label>\(R\) (kΩ) <input type="range" data-k="R" min="0.1" max="10" step="0.1" value="1"> <output data-show="R"></output></label>
-        <label>\(C\) (µF) <input type="range" data-k="C" min="0.1" max="10" step="0.1" value="1"> <output data-show="C"></output></label>
-        <label>\(f\) (Hz) <input type="range" data-k="f" min="10" max="2000" step="10" value="100"> <output data-show="f"></output></label>
+        <label>\(R\) (kΩ) <input type="range" data-k="R" min="0.01" max="100" step="0.01" value="1"> <output data-show="R"></output></label>
+        <label>\(C\) (µF) <input type="range" data-k="C" min="0.01" max="100" step="0.01" value="1"> <output data-show="C"></output></label>
+        <label>\(f\) (Hz) <input type="range" data-k="f" min="1" max="10000" step="1" value="100"> <output data-show="f"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="legend"><span><i style="background:var(--c4)"></i>tension du générateur e(t)</span><span><i style="background:var(--c1)"></i>u<sub>C</sub>(t)</span></div>
@@ -97,7 +118,7 @@
     <div class="widget" id="w-puissance">
       <p class="widget-title">Puissance instantanée en alternatif</p>
       <p class="hint">\(p(t) = u(t)\,i(t)\). Sa valeur moyenne (pointillés) vaut \(UI\cos\varphi\). À \(\varphi = 90°\) (bobine ou condensateur parfait), la puissance moyenne est nulle.</p>
-      <div class="controls"><label>\(\varphi\) (°) <input type="range" data-k="phi" min="-90" max="90" step="1" value="30"> <output data-show="phi"></output></label></div>
+      <div class="controls"><label>\(\varphi\) (°) <input type="range" data-k="phi" min="-180" max="180" step="1" value="30"> <output data-show="phi"></output></label></div>
       <canvas class="plot"></canvas>
       <div class="legend"><span><i style="background:var(--c1)"></i>u(t)</span><span><i style="background:var(--c2)"></i>i(t) (×50)</span><span><i style="background:var(--c3)"></i>p(t)</span></div>
     </div>
@@ -112,7 +133,7 @@
   </section>
 
   <section>
-    <h2>5. En prépa</h2>
+    <h2>6. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li>Bobine \(u = L\dfrac{\mathrm{d}i}{\mathrm{d}t}\), circuits RL et RLC (2<sup>d</sup> ordre), facteur de qualité.</li>

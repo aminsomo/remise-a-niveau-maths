@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trigonométrie : cercle, radians, cos et sin · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="maths-1re/trigonometrie">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Maths 1re · Géométrie · Spécialité PCM</p>
+    <h1>Trigonométrie : cercle, radians, cos et sin</h1>
+    <p class="lead">Le cercle trigonométrique, les radians et les fonctions cosinus et sinus : c'est le langage de tout ce qui se répète
+      (tension du secteur, ondes, rotation d'un moteur). L'objectif : savoir tout retrouver en dessinant le cercle dans ta tête.</p>
+    <p class="prereq">Prérequis : cosinus et sinus dans le triangle rectangle (collège).</p>
+  </header>
+
+  <section>
+    <h2>1. Cercle trigonométrique et radian</h2>
+    <div class="box def"><p class="box-title">Le cercle trigonométrique</p>
+      <p>C'est le cercle de centre \(O\) et de <b>rayon 1</b>, dans un repère orthonormé. On le parcourt dans le sens inverse des aiguilles d'une montre :
+        c'est le sens <b>direct</b> (ou positif).</p>
+    </div>
+    <div class="box def"><p class="box-title">Le radian</p>
+      <p>Un angle de <b>1 radian</b> intercepte sur ce cercle un arc de longueur 1. Comme le périmètre vaut \(2\pi\), un tour complet mesure \(2\pi\) rad.
+        \[180^\circ = \pi \text{ rad} \qquad \alpha_{\text{rad}} = \alpha_{\text{deg}} \times \frac{\pi}{180} \qquad \alpha_{\text{deg}} = \alpha_{\text{rad}} \times \frac{180}{\pi}\]
+        Repères : \(90^\circ = \tfrac{\pi}{2}\), \(60^\circ = \tfrac{\pi}{3}\), \(45^\circ = \tfrac{\pi}{4}\), \(30^\circ = \tfrac{\pi}{6}\).
+        Sur un cercle de rayon \(R\), un arc d'angle \(\theta\) (en rad) mesure \(\ell = R\,\theta\).</p>
+    </div>
+    <div class="box def"><p class="box-title">Enrouler la droite des réels, mesure principale</p>
+      <p>À tout réel \(x\), on associe un point \(M\) du cercle : on « enroule » la droite des réels autour du cercle à partir du point \(I(1\,;\,0)\).
+        \(x\) et \(x + 2k\pi\) (\(k\) entier) arrivent au même point, puisqu'on a fait \(k\) tours de plus : ce sont des mesures du même <b>angle orienté</b>.
+        La <b>mesure principale</b> est celle qui appartient à \(]-\pi\,;\,\pi]\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1</p>
+      <p>Convertir 150° en radians, puis donner la mesure principale de \(\dfrac{17\pi}{6}\).</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(150 \times \dfrac{\pi}{180} = \dfrac{5\pi}{6}\).</p>
+        <p>\(\dfrac{17\pi}{6} = \dfrac{5\pi}{6} + \dfrac{12\pi}{6} = \dfrac{5\pi}{6} + 2\pi\), et \(\dfrac{5\pi}{6} \in ]-\pi\,;\,\pi]\) : mesure principale \(\dfrac{5\pi}{6}\).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Cosinus et sinus d'un réel</h2>
+    <div class="box def"><p class="box-title">Définition</p>
+      <p>Si \(M\) est le point du cercle associé à \(x\) : \(\cos x\) est l'<b>abscisse</b> de \(M\), \(\sin x\) est son <b>ordonnée</b>.
+        On a toujours \(-1 \leq \cos x \leq 1\), \(-1 \leq \sin x \leq 1\), et, par Pythagore, \(\cos^2 x + \sin^2 x = 1\).
+        Quand \(\cos x \neq 0\), on définit aussi la tangente : \(\tan x = \dfrac{\sin x}{\cos x}\).</p>
+    </div>
+    <div class="table-scroll"><table>
+      <thead><tr><th>\(x\)</th><th>\(0\)</th><th>\(\frac{\pi}{6}\)</th><th>\(\frac{\pi}{4}\)</th><th>\(\frac{\pi}{3}\)</th><th>\(\frac{\pi}{2}\)</th><th>\(\pi\)</th></tr></thead>
+      <tbody>
+        <tr><td>\(\cos x\)</td><td>\(1\)</td><td>\(\frac{\sqrt3}{2}\)</td><td>\(\frac{\sqrt2}{2}\)</td><td>\(\frac12\)</td><td>\(0\)</td><td>\(-1\)</td></tr>
+        <tr><td>\(\sin x\)</td><td>\(0\)</td><td>\(\frac12\)</td><td>\(\frac{\sqrt2}{2}\)</td><td>\(\frac{\sqrt3}{2}\)</td><td>\(1\)</td><td>\(0\)</td></tr>
+      </tbody>
+    </table></div>
+    <div class="box method"><p class="box-title">Retrouver les signes</p>
+      <p>Il suffit de savoir dans quel quart du cercle se trouve \(M\) : \(\cos x > 0\) à droite de l'axe vertical, \(\sin x > 0\) au-dessus de l'axe horizontal.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Angles associés (on les lit par symétrie sur le cercle)</p>
+      <div class="table-scroll"><table>
+        <tbody>
+          <tr><td>\(\cos(-x) = \cos x\)</td><td>\(\sin(-x) = -\sin x\)</td><td>symétrie par rapport à l'axe des abscisses</td></tr>
+          <tr><td>\(\cos(\pi - x) = -\cos x\)</td><td>\(\sin(\pi - x) = \sin x\)</td><td>symétrie par rapport à l'axe des ordonnées</td></tr>
+          <tr><td>\(\cos(\pi + x) = -\cos x\)</td><td>\(\sin(\pi + x) = -\sin x\)</td><td>symétrie par rapport à \(O\)</td></tr>
+          <tr><td>\(\cos(\tfrac{\pi}{2} - x) = \sin x\)</td><td>\(\sin(\tfrac{\pi}{2} - x) = \cos x\)</td><td>symétrie par rapport à la droite \(y = x\)</td></tr>
+          <tr><td>\(\cos(\tfrac{\pi}{2} + x) = -\sin x\)</td><td>\(\sin(\tfrac{\pi}{2} + x) = \cos x\)</td><td>rotation d'un quart de tour</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="box method"><p class="box-title">Résoudre \(\cos x = a\) et \(\sin x = a\) (avec \(-1 \leq a \leq 1\))</p>
+      <p>On place \(a\) sur l'axe des abscisses (pour cos) ou des ordonnées (pour sin) et on lit les deux points du cercle correspondants.
+        Si \(\alpha\) est une solution :</p>
+      <ul>
+        <li>\(\cos x = \cos\alpha \iff x = \alpha + 2k\pi\) ou \(x = -\alpha + 2k\pi\) ;</li>
+        <li>\(\sin x = \sin\alpha \iff x = \alpha + 2k\pi\) ou \(x = \pi - \alpha + 2k\pi\) (\(k\) entier).</li>
+      </ul>
+      <p>Ex. : \(\cos x = \tfrac12\) sur \(]-\pi\,;\,\pi]\) donne \(x = \tfrac{\pi}{3}\) ou \(x = -\tfrac{\pi}{3}\). Si \(|a| > 1\), il n'y a aucune solution.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Fonctions cosinus et sinus, signaux sinusoïdaux</h2>
+    <div class="box prop"><p class="box-title">Propriétés</p>
+      <ul>
+        <li><b>Périodiques de période \(2\pi\)</b> : \(\cos(x + 2\pi) = \cos x\) et \(\sin(x + 2\pi) = \sin x\) — la courbe se répète tous les \(2\pi\).</li>
+        <li>\(\cos\) est <b>paire</b> (courbe symétrique par rapport à l'axe des ordonnées), \(\sin\) est <b>impaire</b> (courbe symétrique par rapport à \(O\)).</li>
+        <li>Sur \([0\,;\,\pi]\), \(\cos\) décroît de 1 à \(-1\). Sur \([-\tfrac{\pi}{2}\,;\,\tfrac{\pi}{2}]\), \(\sin\) croît de \(-1\) à 1.</li>
+        <li>La courbe de \(\sin\) est celle de \(\cos\) décalée de \(\tfrac{\pi}{2}\) vers la droite : \(\sin x = \cos\left(x - \tfrac{\pi}{2}\right)\).</li>
+      </ul>
+    </div>
+    <div class="box def"><p class="box-title">Signaux \(t \mapsto A\cos(\omega t + \varphi)\) et \(t \mapsto A\sin(\omega t + \varphi)\)</p>
+      <ul>
+        <li>\(A > 0\) est l'<b>amplitude</b> : le signal varie entre \(-A\) et \(A\).</li>
+        <li>\(\omega\) est la <b>pulsation</b> (en rad/s) ; la <b>période</b> est \(T = \dfrac{2\pi}{\omega}\) et la <b>fréquence</b> \(f = \dfrac{1}{T} = \dfrac{\omega}{2\pi}\) (en Hz). Donc \(\omega = 2\pi f\).</li>
+        <li>\(\omega t + \varphi\) est la <b>phase instantanée</b> et \(\varphi\) la <b>phase à l'origine</b> (la valeur de la phase à \(t = 0\)) : changer \(\varphi\) fait glisser la courbe.</li>
+      </ul>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — tension du secteur</p>
+      <p>\(u(t) = 325\cos(100\pi t)\). Amplitude, période, fréquence ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(A = 325\) V, \(\omega = 100\pi\) rad/s, \(T = \dfrac{2\pi}{100\pi} = 0{,}02\) s, \(f = 50\) Hz.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(\pi\) rad \(= 180^\circ\) ; arc \(\ell = R\theta\) ; mesure principale dans \(]-\pi\,;\,\pi]\).</li>
+        <li>\(\cos^2 x + \sin^2 x = 1\), \(\tan x = \dfrac{\sin x}{\cos x}\) ; valeurs en \(0, \tfrac{\pi}{6}, \tfrac{\pi}{4}, \tfrac{\pi}{3}, \tfrac{\pi}{2}, \pi\) (tableau).</li>
+        <li>Angles associés : \(-x\), \(\pi - x\), \(\pi + x\), \(\tfrac{\pi}{2} - x\), \(\tfrac{\pi}{2} + x\) (tableau).</li>
+        <li>\(\cos x = \cos\alpha \iff x = \pm\alpha + 2k\pi\) ; \(\sin x = \sin\alpha \iff x = \alpha + 2k\pi\) ou \(\pi - \alpha + 2k\pi\).</li>
+        <li>\(A\cos(\omega t + \varphi)\) : amplitude \(A\), \(T = \dfrac{2\pi}{\omega}\), \(f = \dfrac{\omega}{2\pi}\), \(\omega = 2\pi f\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
+    <div class="widget" id="w-sig">
+      <p class="widget-title">Du cercle au signal \(A\sin(\omega t + \varphi)\)</p>
+      <p class="hint">Le point \(M\) tourne à la vitesse angulaire \(\omega\) ; sa hauteur (ordonnée) trace le signal. Change \(\varphi\) : la courbe glisse.
+        (Son abscisse donnerait \(A\cos(\omega t + \varphi)\), la même courbe décalée d'un quart de période.)</p>
+      <div class="controls">
+        <label>\(A\) <input type="range" data-k="A" min="0.5" max="10" step="0.1" value="2"> <output data-show="A"></output></label>
+        <label>\(\omega\) <input type="range" data-k="w" min="0.2" max="10" step="0.1" value="1"> <output data-show="w"></output></label>
+        <label>\(\varphi\) (rad) <input type="range" data-k="p" min="-3.14" max="3.14" step="0.01" value="0.79"> <output data-show="p" data-digits="2"></output></label>
+        <label>\(t\) <input type="range" data-k="t" min="0" max="30" step="0.05" value="1"> <output data-show="t" data-digits="2"></output></label>
+      </div>
+      <canvas class="plot tall"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : radians, cos, sin, période</p>
+      <p class="hint">Valeur décimale arrondie à 0,01 près (π, √, fractions acceptés : « pi/3 », « sqrt(3)/2 »).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>\(\dfrac{3\pi}{4}\) rad correspond à :</p>
+        <ol class="choices"><li>\(120^\circ\)</li><li>\(135^\circ\)</li><li>\(150^\circ\)</li><li>\(270^\circ\)</li></ol>
+        <p class="explain">\(\dfrac34 \times 180 = 135\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>\(\sin\left(\pi - \dfrac{\pi}{6}\right) =\)</p>
+        <ol class="choices"><li>\(-\tfrac12\)</li><li>\(\tfrac{\sqrt3}{2}\)</li><li>\(-\tfrac{\sqrt3}{2}\)</li><li>\(\tfrac12\)</li></ol>
+        <p class="explain">\(\sin(\pi - x) = \sin x\), et \(\sin\tfrac{\pi}{6} = \tfrac12\).</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>La mesure principale de \(-\dfrac{7\pi}{4}\) est :</p>
+        <ol class="choices"><li>\(\tfrac{\pi}{4}\)</li><li>\(-\tfrac{\pi}{4}\)</li><li>\(\tfrac{3\pi}{4}\)</li><li>\(-\tfrac{3\pi}{4}\)</li></ol>
+        <p class="explain">\(-\tfrac{7\pi}{4} + 2\pi = \tfrac{\pi}{4} \in ]-\pi\,;\,\pi]\).</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>La période de \(t \mapsto 4\sin(20\pi t)\) est :</p>
+        <ol class="choices"><li>\(20\pi\)</li><li>\(4\)</li><li>\(0{,}1\)</li><li>\(10\)</li></ol>
+        <p class="explain">\(T = \dfrac{2\pi}{20\pi} = 0{,}1\).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+cercle+trigonometrique+radian">Cercle trigonométrique et radians — Yvan Monka<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+angles+associes+cosinus+sinus">Angles associés<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=Yvan+Monka+resoudre+cos+x+%3D+a">Résoudre cos x = a<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  /* Cercle de centre (-4 ; 0) et signal tracé à partir de x = 0 (axe du temps) */
+  var w = document.getElementById('w-sig'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { grid: false, axes: false });
+  Course.onInput(w, function (v) {
+    var cx = -1.3 * v.A - 0.6, sc = 13 / 12.6;
+    var phase = v.w * v.t + v.p, mx = cx + v.A * Math.cos(phase), my = v.A * Math.sin(phase), yval = my;
+    G.draw = function (g) {
+      g.seg(cx - v.A - 0.3, 0, 13.5, 0, '--plot-axis', { width: 1 });
+      g.seg(0, -v.A - 0.4, 0, v.A + 0.4, '--plot-axis', { width: 1 });
+      g.circle(cx, 0, v.A, '--muted');
+      g.seg(cx, 0, mx, my, '--text', { width: 1.5 });
+      g.seg(mx, my, v.t * sc, my, '--c2', { dash: [3, 3], width: 1 });
+      g.point(mx, my, '--c4', 'M');
+      // signal : ordonnée de M en fonction du temps (axe horizontal = temps)
+      g.fn(function (x) { return v.A * Math.sin(v.w * x / sc + v.p); }, '--c1', { from: 0, to: Math.max(13, v.t * sc + 2), dash: [5, 4], width: 1.5 });
+      g.fn(function (x) { return v.A * Math.sin(v.w * x / sc + v.p); }, '--c1', { from: 0, to: v.t * sc });
+      g.point(v.t * sc, yval, '--c1');
+      g.text(13.3, 0.35, 't', '--muted');
+      var T = 2 * Math.PI / v.w;
+      if (T * sc < 13) { g.seg(0, -v.A - 0.25, T * sc, -v.A - 0.25, '--c3', { width: 2 }); g.text(T * sc / 2, -v.A - 0.55, 'T', '--c3', { align: 'center', bold: true }); }
+    };
+    G.redraw({ xmin: cx - v.A - 0.5, xmax: Math.max(13.6, v.t * sc + 1), ymin: -v.A - 0.9, ymax: v.A + 0.6, equal: true });
+    out.textContent = 'phase instantanée ωt + φ = ' + Course.fmt(phase, 2) + ' rad\nA sin(ωt + φ) = ' + Course.fmt(yval, 3) + '  (ordonnée de M)   A cos(ωt + φ) = ' + Course.fmt(mx - cx, 3) + '  (abscisse)' +
+      '\nT = 2π/ω = ' + Course.fmt(2 * Math.PI / v.w, 3) + '   f = ' + Course.fmt(v.w / (2 * Math.PI), 3);
+  });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 4);
+    if (k === 0) { var d = P([30, 45, 60, 72, 90, 120, 135, 150, 210, 270, 300]), r = d * Math.PI / 180;
+      return { html: '<p>Convertis \\(' + d + '^\\circ\\) en radians (valeur décimale).</p>', answer: r, tol: A(r), explain: '\\(' + d + ' \\times \\frac{\\pi}{180}\\).' }; }
+    if (k === 1) { var n = P([1, 2, 3, 5, 7]), dd = P([3, 4, 6]), deg = 180 * n / dd;
+      return { html: '<p>Convertis \\(\\dfrac{' + (n === 1 ? '' : n) + '\\pi}{' + dd + '}\\) rad en degrés.</p>', answer: deg, tol: A(deg), explain: '\\(\\frac{' + n + '}{' + dd + '} \\times 180\\).' }; }
+    if (k === 2) { var x = P(['\\frac{\\pi}{3}', '\\frac{2\\pi}{3}', '\\frac{\\pi}{6}', '-\\frac{\\pi}{4}', '\\frac{5\\pi}{6}', '\\pi', '-\\frac{\\pi}{2}']);
+      var val = { '\\frac{\\pi}{3}': Math.PI / 3, '\\frac{2\\pi}{3}': 2 * Math.PI / 3, '\\frac{\\pi}{6}': Math.PI / 6, '-\\frac{\\pi}{4}': -Math.PI / 4, '\\frac{5\\pi}{6}': 5 * Math.PI / 6, '\\pi': Math.PI, '-\\frac{\\pi}{2}': -Math.PI / 2 }[x];
+      var fn = P(['cos', 'sin']), ans = Math.round((fn === 'cos' ? Math.cos(val) : Math.sin(val)) * 1e12) / 1e12;
+      return { html: '<p>Calcule \\(\\' + fn + '\\left(' + x + '\\right)\\).</p>', answer: ans, tol: A(ans), explain: 'Lecture sur le cercle trigonométrique (valeurs remarquables et symétries).' }; }
+    if (k === 3) { var om = P([2, 4, 10, 50, 100, 200]), T = 2 / om;
+      return { html: '<p>Période (en s) de \\(t \\mapsto 3\\cos(' + om + '\\pi t)\\) ?</p>', answer: T, tol: A(T), explain: '\\(T = \\frac{2\\pi}{\\omega} = \\frac{2\\pi}{' + om + '\\pi}\\).' }; }
+    var m = P([7, 9, 11, 13, -5, -7, 17]), den = P([4, 6, 3]), val2 = m / den;
+    while (val2 > 1) val2 -= 2; while (val2 <= -1) val2 += 2;
+    return { html: '<p>La mesure principale de \\(\\dfrac{' + m + '\\pi}{' + den + '}\\) s\'écrit \\(k\\pi\\). Que vaut \\(k\\) ?</p>', answer: val2, tol: A(val2), explain: 'On ajoute ou retire des multiples de \\(2\\pi\\) pour arriver dans \\(]-\\pi\\,;\\,\\pi]\\).' };
+  });
+});
+</script>
+</body>
+</html>

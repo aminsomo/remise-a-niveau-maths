@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Réactions chimiques de combustion · STI2D → Prépa</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+</head>
+<body data-root="../" data-chapter="physique-1re/combustions">
+<main class="chapter">
+  <header class="chapter-head">
+    <p class="kicker">Physique-chimie 1re · Matière et matériaux</p>
+    <h1>Réactions chimiques de combustion</h1>
+    <p class="lead">Essence, gazole, gaz naturel, bioéthanol : ce sont des alcanes, des alcènes ou des alcools. Tu vas apprendre à reconnaître leurs chaînes carbonées,
+      à écrire et à équilibrer l'équation de leur combustion, puis à prévoir les quantités de produits et à repérer le réactif qui manque en premier.</p>
+    <p class="prereq">Prérequis : <a href="matiere-materiaux.html">molécules et formules</a>, <a href="energie-chimique.html">énergie chimique</a>.</p>
+  </header>
+
+  <section>
+    <h2>1. Carburants : alcanes, alcènes, alcools</h2>
+    <div class="box def"><p class="box-title">Les trois familles</p>
+      <ul>
+        <li><b>Alcanes</b> \(\mathrm{C_nH_{2n+2}}\) : chaîne carbonée avec seulement des liaisons simples. Méthane \(\mathrm{CH_4}\), éthane \(\mathrm{C_2H_6}\), propane \(\mathrm{C_3H_8}\), butane \(\mathrm{C_4H_{10}}\), …, octane \(\mathrm{C_8H_{18}}\) (dans l'essence).</li>
+        <li><b>Alcènes</b> \(\mathrm{C_nH_{2n}}\) : une double liaison C=C. Éthène \(\mathrm{C_2H_4}\), propène \(\mathrm{C_3H_6}\).</li>
+        <li><b>Alcools</b> \(\mathrm{C_nH_{2n+1}OH}\) : un groupe hydroxyle –OH. Méthanol \(\mathrm{CH_3OH}\), éthanol \(\mathrm{C_2H_5OH}\).</li>
+      </ul>
+      <p>Le nom donne le nombre de carbones : méth- (1), éth- (2), prop- (3), but- (4), pent- (5), hex- (6), hept- (7), oct- (8). La terminaison donne la famille : -ane, -ène, -ol.</p>
+    </div>
+    <div class="box def"><p class="box-title">Biocarburants</p>
+      <p>Les <b>biocarburants</b> (bioéthanol, biodiesel) sont produits à partir de biomasse (betterave, colza, déchets). Le CO₂ qu'ils rejettent a été prélevé dans l'air par les plantes pendant leur croissance,
+        ce qui améliore leur bilan carbone — mais leur culture utilise des terres et de l'énergie.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Équations de combustion</h2>
+    <div class="box prop"><p class="box-title">Combustion complète</p>
+      <p>Avec assez de dioxygène, un hydrocarbure ou un alcool donne uniquement du dioxyde de carbone et de l'eau :
+        \[\mathrm{C_3H_8 + 5\,O_2 \longrightarrow 3\,CO_2 + 4\,H_2O}\]
+        \[\mathrm{C_2H_5OH + 3\,O_2 \longrightarrow 2\,CO_2 + 3\,H_2O}\]</p>
+    </div>
+    <div class="box method"><p class="box-title">Méthode : ajuster (équilibrer) une équation</p>
+      <p>Les atomes se conservent : il doit y avoir le même nombre de chaque atome à gauche et à droite. On ajuste dans l'ordre :</p>
+      <ol>
+        <li>les <b>carbones</b> : nombre de \(\mathrm{CO_2}\) = nombre de C du combustible ;</li>
+        <li>les <b>hydrogènes</b> : nombre de \(\mathrm{H_2O}\) = (nombre de H) ÷ 2 ;</li>
+        <li>les <b>oxygènes</b> en dernier, avec \(\mathrm{O_2}\). Si on obtient une fraction, on multiplie tout par 2.</li>
+      </ol>
+      <p>Cas général d'un alcane : \(\mathrm{C_nH_{2n+2}} + \dfrac{3n + 1}{2}\,\mathrm{O_2} \longrightarrow n\,\mathrm{CO_2} + (n + 1)\,\mathrm{H_2O}\). Ex. :
+        \[\mathrm{2\,C_4H_{10} + 13\,O_2 \longrightarrow 8\,CO_2 + 10\,H_2O}\]</p>
+    </div>
+    <div class="box prop"><p class="box-title">Combustion incomplète</p>
+      <p>Quand le dioxygène manque, il se forme aussi du <b>monoxyde de carbone</b> CO (toxique) et du carbone C (suies, fumée noire) :
+        \[\mathrm{2\,CH_4 + 3\,O_2 \longrightarrow 2\,CO + 4\,H_2O}\]</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Quantités de matière et réactif limitant</h2>
+    <div class="box def"><p class="box-title">Avancement</p>
+      <p>Pour une réaction \(a\,\mathrm{A} + b\,\mathrm{B} \to c\,\mathrm{C} + d\,\mathrm{D}\), on mesure son « progrès » par l'<b>avancement</b> \(x\) (en mol) :
+        quand elle a avancé de \(x\), il a disparu \(a\,x\) mol de A et \(b\,x\) mol de B, et il s'est formé \(c\,x\) mol de C et \(d\,x\) mol de D.
+        On résume cela dans un <b>tableau d'avancement</b> (état initial, en cours, final).</p>
+    </div>
+    <div class="box method"><p class="box-title">Trouver le réactif limitant</p>
+      <p>Le <b>réactif limitant</b> est celui qui est entièrement consommé en premier : la réaction s'arrête alors. Avec des quantités initiales \(n_A\) et \(n_B\) :
+        on compare \(\dfrac{n_A}{a}\) et \(\dfrac{n_B}{b}\) ; le plus petit indique le réactif limitant, et c'est aussi l'<b>avancement maximal</b>
+        \(x_{\max} = \min\left(\dfrac{n_A}{a}, \dfrac{n_B}{b}\right)\). On forme alors \(c\,x_{\max}\) mol de C.
+        Si les deux rapports sont égaux, le mélange est dans les <b>proportions stœchiométriques</b> : tout est consommé.</p>
+    </div>
+    <div class="box method"><p class="box-title">Passer des masses aux moles</p>
+      <p>\(n = \dfrac{m}{M}\) (\(M\) : masse molaire en g/mol). Ex. : \(M(\mathrm{CO_2}) = 12 + 2 \times 16 = 44\) g/mol ; \(M(\mathrm{C_3H_8}) = 3 \times 12 + 8 \times 1 = 44\) g/mol.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — combien de CO₂ ?</p>
+      <p>On brûle complètement 1,00 kg d'octane \(\mathrm{C_8H_{18}}\) (\(M = 114\) g/mol). Masse de CO₂ produite (\(M = 44\) g/mol) ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\mathrm{2\,C_8H_{18}} + \mathrm{25\,O_2} \to \mathrm{16\,CO_2} + \mathrm{18\,H_2O}\) : une molécule d'octane donne 8 CO₂. \(n = \dfrac{1\,000}{114} \approx 8{,}77\) mol d'octane donnent \(8 \times 8{,}77 \approx 70{,}2\) mol de CO₂,
+          soit \(70{,}2 \times 44 \approx 3{,}09\) kg : plus que la masse de carburant (l'oxygène vient de l'air) !</p>
+      </details>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2 — réactif limitant</p>
+      <p>On mélange 2,0 mol de propane et 8,0 mol de dioxygène. Réactif limitant et quantité de CO₂ formée ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\tfrac{2{,}0}{1} = 2{,}0\) et \(\tfrac{8{,}0}{5} = 1{,}6\) : c'est le <b>dioxygène</b> qui limite, \(x_{\max} = 1{,}6\) mol, donc \(3 \times 1{,}6 = 4{,}8\) mol de CO₂ (il reste \(2{,}0 - 1{,}6 = 0{,}4\) mol de propane).</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Alcanes \(\mathrm{C_nH_{2n+2}}\), alcènes \(\mathrm{C_nH_{2n}}\), alcools \(\mathrm{C_nH_{2n+1}OH}\).</li>
+        <li>Combustion complète → CO₂ + H₂O ; ajuster C, puis H, puis O.</li>
+        <li>Alcane : \(\dfrac{3n+1}{2}\) O₂ par molécule.</li>
+        <li>\(x_{\max} = \min\left(\dfrac{n_A}{a}, \dfrac{n_B}{b}\right)\) ; produit formé : \(c\,x_{\max}\) ; \(n = \dfrac{m}{M}\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
+    <div class="widget" id="w-comb">
+      <p class="widget-title">Combustion du propane : \(\mathrm{C_3H_8} + \mathrm{5\,O_2} \to \mathrm{3\,CO_2} + \mathrm{4\,H_2O}\)</p>
+      <p class="hint">Fais varier les quantités initiales : l'état final (barres) montre ce qui reste et ce qui s'est formé.</p>
+      <div class="controls">
+        <label>\(n(\mathrm{C_3H_8})\) (mol) <input type="range" data-k="a" min="0" max="50" step="0.1" value="2"> <output data-show="a"></output></label>
+        <label>\(n(\mathrm{O_2})\) (mol) <input type="range" data-k="b" min="0" max="250" step="0.5" value="8"> <output data-show="b"></output></label>
+      </div>
+      <canvas class="plot"></canvas>
+      <div class="readout" aria-live="polite"></div>
+    </div>
+    <div class="widget" id="w-drill">
+      <p class="widget-title">Entraînement : équations et quantités</p>
+      <p class="hint">Coefficients entiers ou quantités avec 3 chiffres significatifs.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quiz</h2>
+    <div class="quiz">
+      <div class="q" data-answer="1">
+        <p>La formule brute de l'heptane (alcane à 7 carbones) est :</p>
+        <ol class="choices"><li>\(\mathrm{C_7H_{14}}\)</li><li>\(\mathrm{C_7H_{16}}\)</li><li>\(\mathrm{C_7H_{15}OH}\)</li><li>\(\mathrm{C_7H_{12}}\)</li></ol>
+        <p class="explain">\(\mathrm{C_nH_{2n+2}}\) avec \(n = 7\).</p>
+      </div>
+      <div class="q" data-answer="3">
+        <p>Dans \(\mathrm{CH_4} + \mathrm{a\,O_2} \to \mathrm{CO_2} + \mathrm{2\,H_2O}\), \(a =\)</p>
+        <ol class="choices"><li>1</li><li>3</li><li>4</li><li>2</li></ol>
+        <p class="explain">À droite : 2 + 2 = 4 atomes O, donc 2 O₂.</p>
+      </div>
+      <div class="q" data-answer="0">
+        <p>Une combustion incomplète produit en plus :</p>
+        <ol class="choices"><li>du monoxyde de carbone</li><li>du dioxygène</li><li>du dihydrogène</li><li>rien d'autre</li></ol>
+        <p class="explain">Par manque de dioxygène : CO et suies.</p>
+      </div>
+      <div class="q" data-answer="2">
+        <p>L'éthène \(\mathrm{C_2H_4}\) est :</p>
+        <ol class="choices"><li>un alcane</li><li>un alcool</li><li>un alcène</li><li>un acide</li></ol>
+        <p class="explain">\(\mathrm{C_nH_{2n}}\) : une double liaison C=C.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <h2>Pour aller plus loin en vidéo</h2>
+    <ul class="videos">
+      <li><a href="https://www.youtube.com/results?search_query=equation+combustion+complete+alcane+ajuster">Ajuster une équation de combustion<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=reactif+limitant+avancement+maximal+premiere">Réactif limitant et avancement<small>Recherche YouTube</small></a></li>
+      <li><a href="https://www.youtube.com/results?search_query=alcanes+alcenes+alcools+nomenclature+premiere">Alcanes, alcènes, alcools<small>Recherche YouTube</small></a></li>
+    </ul>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var R = Course.rand, P = Course.pick, A = Course.approx;
+  var w = document.getElementById('w-comb'), out = w.querySelector('.readout');
+  var G = Course.plot(w.querySelector('canvas'), { ylabel: 'n (mol)', xstep: 100 });
+  Course.onInput(w, function (v) {
+    var x = Math.min(v.a / 1, v.b / 5), fin = [v.a - x, v.b - 5 * x, 3 * x, 4 * x], ini = [v.a, v.b, 0, 0];
+    var names = ['C₃H₈', 'O₂', 'CO₂', 'H₂O'], top = Math.max(5, v.b, 4 * x) * 1.18;
+    G.draw = function (g) {
+      fin.forEach(function (q, i) {
+        g.poly([[i + 0.1, 0], [i + 0.1, ini[i]], [i + 0.42, ini[i]], [i + 0.42, 0]], '--muted', { close: true, fill: true, alpha: 0.25 });
+        g.poly([[i + 0.48, 0], [i + 0.48, q], [i + 0.9, q], [i + 0.9, 0]], i < 2 ? '--c2' : '--c1', { close: true, fill: true, alpha: 0.5 });
+        g.text(i + 0.69, q + top * 0.04, Course.fmt(q, 2), '--text', { align: 'center', bold: true, size: 12 });
+        g.text(i + 0.5, -top * 0.07, names[i], '--muted', { align: 'center' });
+      });
+    };
+    G.redraw({ xmin: 0, xmax: 4, ymin: -top * 0.12, ymax: top });
+    var lim = v.a === 0 && v.b === 0 ? '—' : v.a / 1 < v.b / 5 ? 'propane' : v.a / 1 > v.b / 5 ? 'dioxygène' : 'aucun (mélange stœchiométrique)';
+    out.textContent = 'barres grises : état initial ; barres colorées : état final\nx_max = ' + Course.fmt(x, 3) + ' mol   réactif limitant : ' + lim;
+  });
+
+  Course.drill('#w-drill', function () {
+    var k = R(0, 3), T = function (q) { return String(q).replace('.', '{,}'); };
+    if (k === 0) { var n = R(1, 8), c = (3 * n + 1);
+      return { html: '<p>Combustion complète de l\'alcane \\(\\mathrm{C_{' + n + '}H_{' + (2 * n + 2) + '}}\\), équation ajustée avec les plus petits entiers : \\(' + (n % 2 ? '1' : '2') + '\\,\\mathrm{C_{' + n + '}H_{' + (2 * n + 2) + '}} + a\\,\\mathrm{O_2} \\to \\dots\\). Que vaut \\(a\\) ?</p>',
+        answer: n % 2 ? c / 2 : c, explain: 'Pour un alcane, \\(\\frac{3n+1}{2}\\) O₂ par molécule ; on double si c\'est une fraction.' }; }
+    if (k === 1) { var n2 = R(1, 4), mol = R(1, 30) / 10, co2 = n2 * mol;
+      return { html: '<p>La combustion complète de \\(' + T(mol) + '\\) mol de \\(\\mathrm{C_{' + n2 + '}H_{' + (2 * n2 + 2) + '}}\\) produit combien de moles de CO₂ ?</p>', answer: co2, tol: A(co2, true), explain: 'Une molécule à ' + n2 + ' carbone(s) donne ' + n2 + ' CO₂.' }; }
+    if (k === 2) { var a = R(5, 40) / 10, b = R(10, 120) / 10, x = Math.min(a, b / 5), co = 3 * x;
+      return { html: '<p>\\(\\mathrm{C_3H_8 + 5\\,O_2 \\to 3\\,CO_2 + 4\\,H_2O}\\) avec \\(' + T(a) + '\\) mol de propane et \\(' + T(b) + '\\) mol de O₂. Quantité de CO₂ formée (mol) ?</p>', answer: co, tol: A(co, true), explain: '\\(x_{\\max} = \\min(n_1/1,\\ n_2/5)\\), puis \\(3x_{\\max}\\).' }; }
+    var mE = R(10, 200), nE = mE / 46, mCO2 = 2 * nE * 44;
+    return { html: '<p>Masse de CO₂ (g) produite par la combustion complète de ' + mE + ' g d\'éthanol (\\(M = 46\\) g/mol ; CO₂ : 44 g/mol) ?</p>', answer: mCO2, tol: A(mCO2, true), explain: '\\(\\mathrm{C_2H_5OH + 3\\,O_2 \\to 2\\,CO_2 + 3\\,H_2O}\\).' };
+  });
+});
+</script>
+</body>
+</html>

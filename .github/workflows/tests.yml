@@ -14,4 +14,27 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
+      # Tests de structure (Python) + tests unitaires JavaScript (node --test, lancés par Python)
       - run: python -m unittest discover -s tests -v
+
+  # Tests de bout en bout dans de vrais moteurs : Chromium (ordinateur, Android)
+  # et WebKit, le moteur de Safari (iPhone, iPad).
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium webkit
+      - run: npm run test:e2e
+        env:
+          CI: "1"
+          E2E_WEBKIT: "1"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-traces
+          path: test-results/
+          retention-days: 7

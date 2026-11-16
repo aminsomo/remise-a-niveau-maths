@@ -24,7 +24,8 @@ def load_manifest():
 
 def html_files():
     return sorted(p for p in ROOT.rglob("*.html")
-                  if ".git" not in p.parts and "templates" not in p.parts)
+                  if not {".git", ".claude", "templates", "node_modules", "playwright-report",
+                          "test-results", ".worktrees"} & set(p.parts))
 
 
 def chapter_entries():
@@ -63,6 +64,46 @@ class ManifestTests(unittest.TestCase):
             for p in (ROOT / s["id"]).glob("*.html") if (ROOT / s["id"]).exists() else []:
                 with self.subTest(page=str(p.relative_to(ROOT))):
                     self.assertIn(p, listed, "page absente du manifeste assets/chapters.js")
+
+
+class LevelTests(unittest.TestCase):
+    """Les chapitres sont regroupés par niveau et couvrent le programme officiel de Première."""
+    # Programme 2019 : maths de 1re technologique (enseignement commun) + spécialité PCM STI2D
+    PREMIERE = {
+        "maths-1re": {"automatismes", "suites", "second-degre", "degre-3", "nombre-derive", "fonctions-derivees",
+                      "trigonometrie", "produit-scalaire", "complexes", "primitives", "statistiques",
+                      "probabilites", "variables-aleatoires", "algorithmique"},
+        "physique-1re": {"mesures-incertitudes", "energie-enjeux", "energie-chimique", "energie-electrique",
+                         "energie-interne", "energie-mecanique", "pression-hydrostatique", "lumiere-energie",
+                         "matiere-materiaux", "combustions", "oxydoreduction", "ondes", "ondes-sonores",
+                         "ondes-electromagnetiques"},
+    }
+
+    def test_every_subject_has_a_known_level(self):
+        data = load_manifest()
+        levels = [l["id"] for l in data["levels"]]
+        self.assertEqual(levels, ["1re", "tle", "prepa"])
+        for s in data["subjects"]:
+            with self.subTest(subject=s["id"]):
+                self.assertIn(s.get("level"), levels)
+        order = [levels.index(s["level"]) for s in data["subjects"]]
+        self.assertEqual(order, sorted(order), "les matières suivent l'ordre des niveaux (navigation préc./suiv.)")
+
+    def test_premiere_covers_official_programme(self):
+        subjects = {s["id"]: s for s in load_manifest()["subjects"]}
+        for sid, slugs in self.PREMIERE.items():
+            with self.subTest(subject=sid):
+                self.assertIn(sid, subjects)
+                self.assertEqual(subjects[sid]["level"], "1re")
+                self.assertEqual({c["slug"] for c in subjects[sid]["chapters"]}, slugs)
+
+    def test_premiere_chapters_have_drill_and_plot(self):
+        for sid in self.PREMIERE:
+            for path in sorted((ROOT / sid).glob("*.html")):
+                with self.subTest(page=f"{sid}/{path.name}"):
+                    src = path.read_text(encoding="utf-8")
+                    self.assertIn("Course.drill(", src, "un entraînement auto-généré (avec calculatrice) par chapitre")
+                    self.assertIn('class="plot', src, "au moins un graphique manipulable (plein écran)")
 
 
 class HtmlTests(unittest.TestCase):
@@ -207,6 +248,52 @@ class ScriptTests(unittest.TestCase):
                     f.write_text(src, encoding="utf-8")
                     r = subprocess.run(["node", "--check", str(f)], capture_output=True, text=True)
                     self.assertEqual(r.returncode, 0, r.stderr)
+
+
+class EngineWiringTests(unittest.TestCase):
+    """Chaque page charge les modules dans le bon ordre et reste utilisable sur mobile."""
+    ORDER = ["core.js", "chapters.js", "app.js", "brouillon.js"]
+
+    def test_scripts_loaded_in_order(self):
+        for p in html_files():
+            with self.subTest(page=str(p.relative_to(ROOT))):
+                tree = parse(p.read_text(encoding="utf-8")).root
+                srcs = [n.attrs.get("src", "") for n in tree.iter() if n.tag == "script" and n.attrs.get("src")]
+                local = [Path(urlparse(x).path).name for x in srcs if not x.startswith("http")]
+                self.assertEqual(local, self.ORDER, "scripts locaux attendus dans cet ordre : " + ", ".join(self.ORDER))
+                for n in tree.iter():
+                    if n.tag == "script" and n.attrs.get("src") and not n.attrs["src"].startswith("http"):
+                        self.assertIn("defer", n.attrs, f"{n.attrs['src']} doit être en defer")
+
+    def test_viewport_supports_notch(self):
+        for p in html_files():
+            with self.subTest(page=str(p.relative_to(ROOT))):
+                meta = parse(p.read_text(encoding="utf-8")).root.find("meta", name="viewport")
+                content = meta.attrs.get("content", "")
+                self.assertIn("width=device-width", content)
+                self.assertIn("viewport-fit=cover", content)
+                self.assertNotIn("user-scalable=no", content, "ne jamais bloquer le zoom (accessibilité)")
+                self.assertNotIn("maximum-scale", content)
+
+    def test_core_has_no_dynamic_code_execution(self):
+        src = (ROOT / "assets" / "core.js").read_text(encoding="utf-8")
+        code = re.sub(r"/\*.*?\*/|//[^\n]*", "", src, flags=re.S)
+        for bad in (r"\beval\s*\(", r"\bFunction\s*\(", r"new\s+Function"):
+            self.assertIsNone(re.search(bad, code), "l'évaluateur doit rester sûr (pas d'eval)")
+        for f in ("app.js", "brouillon.js"):
+            src2 = (ROOT / "assets" / f).read_text(encoding="utf-8")
+            self.assertIsNone(re.search(r"\bFunction\s*\(|\beval\s*\(", src2), f)
+
+    def test_hidden_attribute_always_wins(self):
+        css = (ROOT / "assets" / "style.css").read_text(encoding="utf-8")
+        self.assertRegex(css, r"\[hidden\]\s*\{\s*display:\s*none\s*!important")
+
+
+@unittest.skipUnless(shutil.which("node"), "node absent : tests unitaires JavaScript ignorés")
+class JavaScriptUnitTests(unittest.TestCase):
+    def test_node_unit_tests(self):
+        r = subprocess.run(["node", "--test", str(ROOT / "tests" / "js")], capture_output=True, text=True, cwd=ROOT)
+        self.assertEqual(r.returncode, 0, r.stdout[-4000:] + r.stderr[-2000:])
 
 
 if __name__ == "__main__":

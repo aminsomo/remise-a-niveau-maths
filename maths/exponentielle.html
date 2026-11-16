@@ -2,102 +2,113 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fonction exponentielle · STI2D → Prépa</title>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
 <script defer src="../assets/chapters.js"></script>
 <script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
 </head>
 <body data-root="../" data-chapter="maths/exponentielle">
 <main class="chapter">
   <header class="chapter-head">
     <p class="kicker">Maths · Analyse · Spécialité</p>
     <h1>Fonction exponentielle</h1>
-    <p class="lead">La fonction qui est sa propre dérivée. Elle décrit la charge d'un condensateur, le refroidissement d'un objet,
-      la décroissance radioactive… Il faut maîtriser ses règles de calcul, ses limites, et les fonctions \(t \mapsto e^{-t/\tau}\).</p>
+    <p class="lead">La fonction exponentielle décrit tout ce qui grandit ou diminue « proportionnellement à soi-même » : la charge d'un condensateur, le refroidissement d'un objet,
+      la désintégration radioactive, une population. C'est la fonction la plus utilisée en physique.</p>
     <p class="prereq">Prérequis : <a href="derivation.html">dérivation</a>, puissances, <a href="suites.html">suites géométriques</a>.</p>
   </header>
 
   <section>
     <h2>1. Définition et propriétés algébriques</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>Il existe une unique fonction \(f\) dérivable sur \(\mathbb{R}\) telle que \(f' = f\) et \(f(0) = 1\).
-        C'est la fonction <b>exponentielle</b>, notée \(\exp\) ou \(x \mapsto e^{x}\), avec \(e = \exp(1) \approx 2{,}718\).</p>
+      <p>Il existe une unique fonction \(f\), dérivable sur \(\mathbb{R}\), telle que \(f' = f\) et \(f(0) = 1\). C'est la fonction <b>exponentielle</b>, notée \(\exp\).
+        On note \(e = \exp(1) \approx 2{,}718\) et on écrit \(\exp(x) = e^x\). Autrement dit : la pente de la courbe en chaque point est égale à la hauteur du point.</p>
     </div>
     <div class="box prop"><p class="box-title">Règles de calcul (comme les puissances)</p>
-      <p>Pour tous réels \(a\) et \(b\) et tout entier \(n\) :</p>
-      \[e^{a+b} = e^{a}e^{b} \qquad e^{-a} = \frac{1}{e^{a}} \qquad e^{a-b} = \frac{e^{a}}{e^{b}} \qquad (e^{a})^{n} = e^{na}\]
-      <p>Et surtout : \(e^{x} > 0\) pour tout \(x\) réel. L'exponentielle ne s'annule <b>jamais</b>.</p>
+      \[e^{a+b} = e^a e^b \qquad e^{a-b} = \frac{e^a}{e^b} \qquad e^{-a} = \frac{1}{e^a} \qquad (e^a)^n = e^{na} \qquad e^0 = 1\]
+      <p>Pour tout réel \(x\), \(e^x > 0\) : une exponentielle n'est <b>jamais nulle ni négative</b> (très utile pour étudier un signe).</p>
     </div>
-    <div class="box example"><p class="box-title">Exemple 1 — simplifier</p>
-      <p>Simplifier \(A = \dfrac{e^{2x+1} \times e^{-x}}{e^{x-3}}\).</p>
+    <div class="box prop"><p class="box-title">Équations et inéquations</p>
+      <p>La fonction exponentielle est strictement croissante, donc : \(e^a = e^b \iff a = b\) et \(e^a &lt; e^b \iff a &lt; b\).
+        Pour résoudre \(e^x = k\) (avec \(k > 0\)), on utilise le logarithme : \(x = \ln k\) (voir <a href="logarithme.html">Logarithmes</a>).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1</p>
+      <p>Simplifier \(\dfrac{e^{3x} \times e^{-x}}{e^{2x + 1}}\) puis résoudre \(e^{2x - 1} = e^{x + 3}\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(A = e^{2x + 1 - x - (x - 3)} = e^{4}\). Le résultat ne dépend même pas de \(x\).</p>
+        <p>\(\dfrac{e^{3x - x}}{e^{2x+1}} = e^{2x - 2x - 1} = e^{-1}\).</p>
+        <p>\(2x - 1 = x + 3 \iff x = 4\).</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>2. Étude de la fonction</h2>
-    <div class="box prop"><p class="box-title">Variations et limites</p>
+    <div class="box prop"><p class="box-title">Propriétés</p>
       <ul>
         <li>\(\exp' = \exp > 0\) : la fonction est <b>strictement croissante</b> sur \(\mathbb{R}\).</li>
-        <li>\(\lim\limits_{x\to-\infty} e^x = 0\) (asymptote horizontale \(y = 0\)) et \(\lim\limits_{x\to+\infty} e^x = +\infty\).</li>
-        <li>Croissances comparées : \(\lim\limits_{x\to+\infty} \dfrac{e^x}{x} = +\infty\) et \(\lim\limits_{x\to-\infty} x e^x = 0\). « L'exponentielle l'emporte sur \(x\). »</li>
-        <li>Tangente en 0 : \(y = x + 1\), et la courbe est au-dessus : \(e^x \geq 1 + x\).</li>
+        <li>Limites : \(\lim\limits_{x \to -\infty} e^x = 0\) (l'axe des abscisses est asymptote) et \(\lim\limits_{x \to +\infty} e^x = +\infty\).</li>
+        <li>Tangente en 0 : \(y = x + 1\) ; la courbe est toujours au-dessus : \(e^x \geq x + 1\).</li>
+        <li><b>Croissances comparées</b> : l'exponentielle l'emporte sur toute puissance : \(\lim\limits_{x \to +\infty} \dfrac{e^x}{x^n} = +\infty\) et \(\lim\limits_{x \to -\infty} x^n e^x = 0\).</li>
+        <li>Dérivée composée : \((e^{u})' = u'\,e^{u}\), par exemple \((e^{kx})' = k\,e^{kx}\).</li>
       </ul>
     </div>
-    <div class="box prop"><p class="box-title">Équations et inéquations</p>
-      <p>Comme \(\exp\) est strictement croissante : \(e^{a} = e^{b} \iff a = b\) et \(e^{a} &lt; e^{b} \iff a &lt; b\).</p>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 2 — résoudre</p>
-      <p>Résoudre \(e^{2x-1} \geq e^{x+3}\) puis \(e^{2x} - 3e^{x} + 2 = 0\).</p>
+    <div class="box example"><p class="box-title">Exemple 2</p>
+      <p>Étudier les variations de \(f(x) = x\,e^{-x}\) sur \([0\,;\,+\infty[\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>(1) \(2x - 1 \geq x + 3 \iff x \geq 4\). \(S = [4\,;+\infty[\).</p>
-        <p>(2) On pose \(X = e^{x} > 0\) : \(X^2 - 3X + 2 = 0\), \(\Delta = 1\), \(X = 1\) ou \(X = 2\).
-          \(e^x = 1 \iff x = 0\) ; \(e^x = 2 \iff x = \ln 2\). \(S = \{0\,;\ln 2\}\).</p>
+        <p>\(f'(x) = e^{-x} - x\,e^{-x} = (1 - x)e^{-x}\), du signe de \(1 - x\) (car \(e^{-x} > 0\)) : \(f\) croît sur \([0\,;\,1]\), décroît ensuite. Maximum \(f(1) = e^{-1} \approx 0{,}37\) ; et \(f(x) \to 0\) en \(+\infty\) (croissances comparées).</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>3. Les fonctions \(t \mapsto e^{kt}\) et \(t \mapsto e^{-t/\tau}\)</h2>
-    <div class="box prop"><p class="box-title">Propriétés</p>
-      <ul>
-        <li>\(\big(e^{kt}\big)' = k\,e^{kt}\) : croissante si \(k > 0\), décroissante si \(k &lt; 0\).</li>
-        <li>Pour \(k > 0\) : \(e^{kt} \to +\infty\). Pour \(k &lt; 0\) : \(e^{kt} \to 0\) quand \(t \to +\infty\).</li>
-        <li>Lien avec les suites : \(u_n = e^{kn} = (e^{k})^n\) est géométrique de raison \(e^{k}\).</li>
-      </ul>
+    <div class="box prop"><p class="box-title">Croissance et décroissance exponentielles</p>
+      <p>\(f(t) = A\,e^{kt}\) vérifie \(f' = k\,f\) : sa vitesse de variation est proportionnelle à sa valeur. Si \(k > 0\), elle croît de plus en plus vite ; si \(k &lt; 0\), elle décroît vers 0.
+        Sur des intervalles de temps égaux, elle est multipliée par le même facteur : c'est la version « continue » d'une suite géométrique.</p>
     </div>
     <div class="box def"><p class="box-title">Constante de temps \(\tau\)</p>
-      <p>En physique on écrit souvent \(e^{-t/\tau}\) avec \(\tau > 0\) (en secondes). Repères à connaître :</p>
+      <p>En physique on écrit souvent \(e^{-t/\tau}\), avec \(\tau\) (en s) la <b>constante de temps</b>. Repères à connaître :</p>
       <ul>
-        <li>à \(t = \tau\) : \(e^{-1} \approx 0{,}37\) → il reste 37 % (ou on a atteint 63 % de la valeur finale) ;</li>
-        <li>à \(t = 5\tau\) : \(e^{-5} \approx 0{,}007\) → le régime transitoire est considéré terminé (99 %) ;</li>
-        <li>la tangente à l'origine de \(1 - e^{-t/\tau}\) coupe l'asymptote \(y = 1\) en \(t = \tau\).</li>
+        <li>\(e^{-1} \approx 0{,}37\) : au bout de \(\tau\), une grandeur qui décroît vers 0 a perdu 63 % de sa valeur ;</li>
+        <li>\(1 - e^{-1} \approx 0{,}63\) : une grandeur qui monte vers \(E\) selon \(E(1 - e^{-t/\tau})\) atteint 63 % de \(E\) à \(t = \tau\) ;</li>
+        <li>à \(t = 5\tau\), on est à plus de 99 % : on considère le régime transitoire terminé.</li>
+        <li>La tangente à l'origine coupe l'asymptote à \(t = \tau\) : c'est une façon de lire \(\tau\) sur un graphique.</li>
       </ul>
     </div>
     <div class="box example"><p class="box-title">Exemple 3 — charge d'un condensateur</p>
-      <p>\(u_C(t) = 12\big(1 - e^{-t/\tau}\big)\) avec \(\tau = RC = 1\,\text{k}\Omega \times 470\,\mu\text{F}\). Calculer \(\tau\), \(u_C(\tau)\) et la durée de charge pratique.</p>
+      <p>\(u_C(t) = 12(1 - e^{-t/0{,}5})\) (V, s). Valeur à \(t = 0{,}5\) s ? Au bout de combien de temps la charge est-elle pratiquement terminée ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(\tau = 10^3 \times 470\times 10^{-6} = 0{,}47\) s. \(u_C(\tau) = 12(1 - e^{-1}) \approx 7{,}6\) V (63 % de 12 V).</p>
-        <p>Charge « complète » à 99 % après \(5\tau \approx 2{,}35\) s.</p>
+        <p>\(u_C(0{,}5) = 12(1 - e^{-1}) \approx 7{,}6\) V (63 % de 12 V). Pratiquement chargé après \(5\tau = 2{,}5\) s.</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(\exp' = \exp\), \(e^0 = 1\), \(e \approx 2{,}718\), \(e^x > 0\).</li>
+        <li>\(e^{a+b} = e^ae^b\), \(e^{-a} = 1/e^a\), \((e^a)^n = e^{na}\) ; \(e^a = e^b \iff a = b\).</li>
+        <li>Limites : 0 en \(-\infty\), \(+\infty\) en \(+\infty\) ; \(e^x/x^n \to +\infty\), \(x^ne^x \to 0\) en \(-\infty\).</li>
+        <li>\((e^u)' = u'e^u\) ; \(f' = kf \iff f(t) = Ae^{kt}\) ; \(\tau\) : 63 % à \(t = \tau\), 99 % à \(5\tau\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-tau">
       <p class="widget-title">Charge et décharge : le rôle de \(\tau\)</p>
       <p class="hint">Change \(\tau\) : la tangente à l'origine (pointillés) coupe toujours l'asymptote en \(t = \tau\). Les repères 63 % et 99 % se déplacent avec \(\tau\).</p>
       <div class="controls">
         <label>Mode <select data-k="mode"><option value="c">charge \(E(1-e^{-t/\tau})\)</option><option value="d">décharge \(Ee^{-t/\tau}\)</option></select></label>
-        <label>\(E\) (V) <input type="range" data-k="E" min="1" max="12" step="0.5" value="5"> <output data-show="E"></output></label>
-        <label>\(\tau\) (s) <input type="range" data-k="tau" min="0.2" max="3" step="0.1" value="1"> <output data-show="tau"></output></label>
+        <label>\(E\) (V) <input type="range" data-k="E" min="0.5" max="400" step="0.5" value="5"> <output data-show="E"></output></label>
+        <label>\(\tau\) (s) <input type="range" data-k="tau" min="0.01" max="100" step="0.01" value="1"> <output data-show="tau"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="legend"><span><i style="background:var(--c1)"></i>u(t)</span><span><i style="background:var(--c2)"></i>tangente à l'origine</span><span><i style="background:var(--c4)"></i>t = τ et t = 5τ</span></div>
@@ -106,7 +117,7 @@
     <div class="widget" id="w-k">
       <p class="widget-title">Famille \(f_k(x) = e^{kx}\)</p>
       <p class="hint">Toutes les courbes passent par \((0\,;1)\). Le paramètre \(k\) est la pente de la tangente en ce point.</p>
-      <div class="controls"><label>\(k\) <input type="range" data-k="k" min="-3" max="3" step="0.1" value="1"> <output data-show="k"></output></label></div>
+      <div class="controls"><label>\(k\) <input type="range" data-k="k" min="-10" max="10" step="0.1" value="1"> <output data-show="k"></output></label></div>
       <canvas class="plot short"></canvas>
     </div>
 
@@ -120,7 +131,7 @@
   </section>
 
   <section>
-    <h2>5. En prépa</h2>
+    <h2>6. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li>Croissances comparées générales : \(\dfrac{e^{x}}{x^{n}} \to +\infty\) pour tout \(n\).</li>

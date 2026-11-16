@@ -2,54 +2,71 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Logique et raisonnement · STI2D → Prépa</title>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
 <script defer src="../assets/chapters.js"></script>
 <script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
 </head>
 <body data-root="../" data-chapter="prepa/logique-raisonnement">
 <main class="chapter">
   <header class="chapter-head">
     <p class="kicker">Pont vers la prépa · Rédaction</p>
     <h1>Logique et raisonnement</h1>
-    <p class="lead">Le grand changement en prépa : on ne te demande plus seulement de calculer mais de <b>démontrer</b>.
-      Quantificateurs, implication, équivalence, contraposée, absurde, contre-exemple : les outils de base de toute démonstration.</p>
+    <p class="lead">En prépa, il ne suffit plus de trouver le bon résultat : il faut le <b>démontrer</b> proprement. Connecteurs logiques, quantificateurs « pour tout » et « il existe »,
+      et les grands types de raisonnement : c'est la grammaire de toutes les maths du supérieur.</p>
+    <p class="prereq">Prérequis : aucun, juste de l'attention aux mots.</p>
   </header>
 
   <section>
     <h2>1. Assertions et connecteurs</h2>
     <div class="box def"><p class="box-title">Définitions</p>
+      <p>Une <b>assertion</b> (ou proposition) est une phrase qui est soit vraie, soit fausse (« 7 est premier », « \(2 > 5\) »). À partir de deux assertions P et Q, on fabrique :</p>
       <ul>
-        <li>Une <b>assertion</b> est une phrase vraie ou fausse.</li>
-        <li>\(\text{non}(P)\) ; \(P \text{ et } Q\) (vraie si les deux le sont) ; \(P \text{ ou } Q\) (vraie si au moins une l'est — « ou » inclusif).</li>
-        <li><b>Implication</b> \(P \Rightarrow Q\) : « si \(P\) alors \(Q\) ». Elle n'est fausse que si \(P\) est vraie et \(Q\) fausse.</li>
-        <li><b>Équivalence</b> \(P \iff Q\) : \((P \Rightarrow Q)\) et \((Q \Rightarrow P)\).</li>
+        <li>« non P » (\(\neg P\)) : vraie quand P est fausse ;</li>
+        <li>« P et Q » : vraie quand les deux sont vraies ; « P ou Q » : vraie quand <b>au moins une</b> est vraie (le « ou » des maths est inclusif) ;</li>
+        <li>« P ⇒ Q » (P implique Q, « si P alors Q ») : fausse seulement quand P est vraie et Q fausse. P est une <b>condition suffisante</b> pour Q, et Q une <b>condition nécessaire</b> pour P ;</li>
+        <li>« P ⇔ Q » (équivalence, « si et seulement si ») : P ⇒ Q et Q ⇒ P.</li>
       </ul>
     </div>
+    <div class="table-scroll"><table>
+      <thead><tr><th>P</th><th>Q</th><th>P et Q</th><th>P ou Q</th><th>P ⇒ Q</th><th>P ⇔ Q</th></tr></thead>
+      <tbody>
+        <tr><td>V</td><td>V</td><td>V</td><td>V</td><td>V</td><td>V</td></tr>
+        <tr><td>V</td><td>F</td><td>F</td><td>V</td><td>F</td><td>F</td></tr>
+        <tr><td>F</td><td>V</td><td>F</td><td>V</td><td>V</td><td>F</td></tr>
+        <tr><td>F</td><td>F</td><td>F</td><td>F</td><td>V</td><td>V</td></tr>
+      </tbody>
+    </table></div>
     <div class="box prop"><p class="box-title">Négations (lois de De Morgan)</p>
-      \[\text{non}(P \text{ et } Q) = \text{non}P \text{ ou } \text{non}Q \qquad \text{non}(P \text{ ou } Q) = \text{non}P \text{ et } \text{non}Q \qquad \text{non}(P \Rightarrow Q) = P \text{ et } \text{non}Q\]
+      <p>non (P et Q) = (non P) ou (non Q) ; non (P ou Q) = (non P) et (non Q) ; non (P ⇒ Q) = P et (non Q).
+        Ex. : le contraire de « \(x \geq 0\) et \(x \leq 1\) » est « \(x &lt; 0\) ou \(x > 1\) ».</p>
     </div>
     <div class="box warning"><p class="box-title">Implication ≠ réciproque</p>
-      <p>« Si \(x = 2\) alors \(x^2 = 4\) » est vraie ; sa réciproque « si \(x^2 = 4\) alors \(x = 2\) » est fausse (\(x = -2\)).
-        N'écris \(\iff\) que si tu as vérifié les <b>deux</b> sens. En cas de doute, écris \(\Rightarrow\).</p>
+      <p>La <b>réciproque</b> de P ⇒ Q est Q ⇒ P : elle peut être fausse. « Si \(x = 2\) alors \(x^2 = 4\) » est vraie ; sa réciproque « si \(x^2 = 4\) alors \(x = 2\) » est fausse (\(x = -2\)).
+        La <b>contraposée</b> (non Q ⇒ non P) a toujours la même valeur que l'implication.</p>
     </div>
   </section>
 
   <section>
     <h2>2. Quantificateurs</h2>
     <div class="box def"><p class="box-title">Notations</p>
-      <p>\(\forall\) : « pour tout » ; \(\exists\) : « il existe ». Négation : on échange \(\forall\) et \(\exists\) et on nie la propriété :
-        \[\text{non}\big(\forall x,\ P(x)\big) = \exists x,\ \text{non}P(x) \qquad \text{non}\big(\exists x,\ P(x)\big) = \forall x,\ \text{non}P(x)\]
-        L'<b>ordre</b> des quantificateurs compte : \(\forall x\ \exists y,\ y > x\) est vraie dans \(\mathbb{R}\), \(\exists y\ \forall x,\ y > x\) est fausse.</p>
+      <p>\(\forall\) se lit « pour tout » ; \(\exists\) se lit « il existe (au moins un) ». Ex. : \(\forall x \in \mathbb{R},\ x^2 \geq 0\) ; \(\exists x \in \mathbb{R},\ x^2 = 2\).
+        L'<b>ordre</b> compte : « \(\forall x, \exists y,\ y > x\) » (il y a toujours plus grand) est vrai, « \(\exists y, \forall x,\ y > x\) » (un nombre plus grand que tous) est faux.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Nier une phrase quantifiée</p>
+      <p>On échange \(\forall\) et \(\exists\), et on nie la fin : non (\(\forall x,\ P(x)\)) = \(\exists x,\ \text{non } P(x)\) ; non (\(\exists x,\ P(x)\)) = \(\forall x,\ \text{non } P(x)\).
+        Pour montrer qu'une phrase « pour tout » est fausse, il suffit donc d'un <b>contre-exemple</b>.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1 — nier une définition</p>
       <p>« \(f\) est majorée » s'écrit \(\exists M \in \mathbb{R},\ \forall x \in \mathbb{R},\ f(x) \leq M\). Écrire « \(f\) n'est pas majorée ».</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(\forall M \in \mathbb{R},\ \exists x \in \mathbb{R},\ f(x) > M\) : quel que soit le seuil, la fonction le dépasse quelque part.</p>
+        <p>\(\forall M \in \mathbb{R},\ \exists x \in \mathbb{R},\ f(x) > M\) : quel que soit le nombre \(M\) choisi, la fonction finit par le dépasser.</p>
       </details>
     </div>
   </section>
@@ -58,32 +75,45 @@
     <h2>3. Types de raisonnement</h2>
     <div class="box method"><p class="box-title">Boîte à outils</p>
       <ul>
-        <li><b>Direct</b> : on suppose \(P\), on enchaîne des implications jusqu'à \(Q\).</li>
-        <li><b>Contraposée</b> : \(P \Rightarrow Q\) équivaut à \(\text{non}Q \Rightarrow \text{non}P\).</li>
-        <li><b>Absurde</b> : on suppose le contraire de ce qu'on veut montrer et on aboutit à une contradiction.</li>
-        <li><b>Contre-exemple</b> : pour montrer qu'un « \(\forall\) » est faux, <b>un seul</b> exemple suffit.</li>
-        <li><b>Disjonction de cas</b> : \(n\) pair / \(n\) impair, \(x \geq 0\) / \(x &lt; 0\)…</li>
-        <li><b>Analyse-synthèse</b> : on suppose une solution, on en déduit sa forme (analyse), puis on vérifie qu'elle convient (synthèse).</li>
-        <li><b>Récurrence</b> : voir le <a href="sommes-recurrence.html">chapitre suivant</a>.</li>
+        <li><b>Direct</b> : on suppose P et on enchaîne des déductions jusqu'à Q.</li>
+        <li><b>Par contraposée</b> : pour montrer P ⇒ Q, on montre non Q ⇒ non P (souvent plus simple).</li>
+        <li><b>Par l'absurde</b> : on suppose le contraire de ce qu'on veut montrer et on aboutit à une contradiction.</li>
+        <li><b>Disjonction de cas</b> : on traite séparément tous les cas possibles (n pair / n impair, \(x \geq 0\) / \(x &lt; 0\)).</li>
+        <li><b>Contre-exemple</b> : pour réfuter une affirmation « pour tout ».</li>
+        <li><b>Analyse-synthèse</b> : on suppose qu'une solution existe pour trouver comment elle doit être (analyse), puis on vérifie qu'elle convient (synthèse).</li>
+        <li><b>Récurrence</b> : pour une propriété qui dépend d'un entier \(n\) (voir <a href="sommes-recurrence.html">Sommes et récurrence</a>).</li>
+        <li><b>Équivalence</b> : montrer les deux implications, ou enchaîner des équivalences en vérifiant que chaque étape marche dans les deux sens.</li>
       </ul>
     </div>
     <div class="box example"><p class="box-title">Exemple 2 — contraposée</p>
       <p>Montrer que si \(n^2\) est pair, alors \(n\) est pair.</p>
       <details class="solution"><summary>Solution</summary>
-        <p>Contraposée : si \(n\) est impair, alors \(n^2\) est impair. Soit \(n = 2k + 1\) : \(n^2 = 4k^2 + 4k + 1 = 2(2k^2 + 2k) + 1\), impair. ∎</p>
+        <p>Contraposée : si \(n\) est impair, alors \(n^2\) est impair. Si \(n = 2k + 1\), alors \(n^2 = 4k^2 + 4k + 1 = 2(2k^2 + 2k) + 1\) est impair. La contraposée est vraie, donc la propriété aussi.</p>
       </details>
     </div>
     <div class="box example"><p class="box-title">Exemple 3 — absurde (classique incontournable)</p>
-      <p>Montrer que \(\sqrt2\) est irrationnel.</p>
+      <p>Montrer que \(\sqrt2\) n'est pas rationnel.</p>
       <details class="solution"><summary>Solution</summary>
-        <p>Supposons \(\sqrt2 = \dfrac pq\) avec \(p, q\) entiers sans facteur commun. Alors \(p^2 = 2q^2\) : \(p^2\) est pair, donc \(p\) aussi (exemple 2). Écrivons \(p = 2k\) :
-          \(4k^2 = 2q^2\), donc \(q^2 = 2k^2\) est pair, et \(q\) aussi. \(p\) et \(q\) sont tous deux pairs : contradiction. ∎</p>
+        <p>Supposons \(\sqrt2 = \dfrac pq\) avec \(p, q\) entiers et la fraction irréductible. Alors \(p^2 = 2q^2\) : \(p^2\) est pair, donc \(p\) est pair (exemple 2), \(p = 2k\).
+          Puis \(4k^2 = 2q^2\), \(q^2 = 2k^2\), donc \(q\) est pair aussi : la fraction n'était pas irréductible. Contradiction : \(\sqrt2\) est irrationnel.</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Aide-mémoire</p>
+      <ul>
+        <li>P ⇒ Q est faux seulement si P vrai et Q faux ; P suffisante pour Q, Q nécessaire pour P.</li>
+        <li>non (P et Q) = non P ou non Q ; non (P ⇒ Q) = P et non Q ; contraposée ≡ implication, réciproque ≠ implication.</li>
+        <li>Nier : \(\forall \leftrightarrow \exists\) et on nie la fin ; un contre-exemple suffit à réfuter un « pour tout ».</li>
+        <li>Raisonnements : direct, contraposée, absurde, cas, contre-exemple, analyse-synthèse, récurrence.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-verite">
       <p class="widget-title">Table de vérité interactive</p>
       <p class="hint">Choisis une formule : la table se remplit. Compare \(P \Rightarrow Q\) et sa contraposée \(\text{non}Q \Rightarrow \text{non}P\) : mêmes colonnes. Et la réciproque ?</p>
@@ -113,7 +143,7 @@
   </section>
 
   <section>
-    <h2>5. Bien rédiger</h2>
+    <h2>6. Bien rédiger</h2>
     <div class="box prepa-note"><p class="box-title">Ce qu'attend un correcteur de prépa</p>
       <ul>
         <li>Introduire chaque objet : « Soit \(x \in \mathbb{R}\). », « Posons \(g(x) = \dots\) ».</li>

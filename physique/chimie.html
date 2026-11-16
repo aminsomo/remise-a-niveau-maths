@@ -2,103 +2,117 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Chimie : oxydoréduction, piles, combustions · STI2D → Prépa</title>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
 <script defer src="../assets/chapters.js"></script>
 <script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
 </head>
 <body data-root="../" data-chapter="physique/chimie">
 <main class="chapter">
   <header class="chapter-head">
-    <p class="kicker">Chimie · Énergie chimique et matériaux</p>
+    <p class="kicker">Physique-chimie · Matière et énergie chimique</p>
     <h1>Chimie : oxydoréduction, piles, combustions</h1>
-    <p class="lead">Quantité de matière et avancement, réactions d'oxydoréduction, piles et électrolyse (batteries, hydrogène),
-      combustions et pouvoir calorifique, acides et bases. La chimie vue comme une source d'énergie.</p>
-    <p class="prereq">Prérequis : tableau périodique, équilibrer une équation, <a href="../maths/logarithme.html">logarithme décimal</a> (pH).</p>
+    <p class="lead">Compter la matière en moles, suivre une réaction avec l'avancement, puis appliquer ces outils aux piles, à l'électrolyse, aux combustions et aux solutions acides.
+      C'est la chimie dont un technicien et un ingénieur ont besoin au quotidien.</p>
+    <p class="prereq">Prérequis : <a href="../physique-1re/combustions.html">combustions (1re)</a>, <a href="../physique-1re/oxydoreduction.html">oxydoréduction (1re)</a>, <a href="../maths/logarithme.html">logarithme décimal</a>.</p>
   </header>
 
   <section>
     <h2>1. Quantité de matière et avancement</h2>
-    <div class="box def"><p class="box-title">Relations à connaître</p>
-      \[n = \frac{m}{M} \qquad n = C \times V \qquad n_{\text{gaz}} = \frac{V}{V_m} \qquad N = n\,N_A\ (N_A = 6{,}02\times10^{23}\ \text{mol}^{-1})\]
-      <p>\(M\) masse molaire (g/mol), \(C\) concentration (mol/L), \(V_m \approx 24\) L/mol à 20 °C sous 1 bar.</p>
+    <div class="box prop"><p class="box-title">Calculer une quantité de matière (en mol)</p>
+      <ul>
+        <li>À partir d'une masse : \(n = \dfrac{m}{M}\) (\(M\) masse molaire en g/mol).</li>
+        <li>En solution : \(n = C \times V\) (\(C\) en mol/L, \(V\) en L).</li>
+        <li>Pour un gaz : \(n = \dfrac{V}{V_m}\), avec \(V_m \approx 24\) L/mol à 20 °C et 1 bar.</li>
+        <li>\(1\) mol contient \(N_A = 6{,}02 \times 10^{23}\) entités (constante d'Avogadro).</li>
+      </ul>
     </div>
-    <div class="box method"><p class="box-title">Tableau d'avancement</p>
-      <p>Pour \(aA + bB \to cC + dD\), à l'avancement \(x\) : \(n_A = n_{A,0} - ax\), \(n_B = n_{B,0} - bx\), \(n_C = cx\), \(n_D = dx\).
-        Le <b>réactif limitant</b> est celui qui donne le plus petit \(x_{\max}\) : \(x_{\max} = \min\left(\dfrac{n_{A,0}}{a}, \dfrac{n_{B,0}}{b}\right)\).</p>
+    <div class="box method"><p class="box-title">Avancement et réactif limitant</p>
+      <p>Pour \(a\,A + b\,B \to c\,C + d\,D\), un tableau d'avancement donne les quantités en fonction de l'avancement \(x\) : \(n_A - ax\), \(n_B - bx\), \(cx\), \(dx\).
+        \(x_{\max} = \min\left(\dfrac{n_A}{a}, \dfrac{n_B}{b}\right)\) ; le réactif qui donne ce minimum est le <b>limitant</b>.
+        <b>Rendement</b> d'une synthèse : \(\eta = \dfrac{n_{\text{obtenu}}}{n_{\text{théorique}}}\).</p>
     </div>
   </section>
 
   <section>
     <h2>2. Oxydoréduction, piles et électrolyse</h2>
-    <div class="box def"><p class="box-title">Définitions</p>
-      <ul>
-        <li>Un <b>oxydant</b> capte des électrons, un <b>réducteur</b> en cède. Couple Ox/Red : \(\text{Ox} + n\,e^- = \text{Red}\).</li>
-        <li>Une <b>oxydation</b> est une perte d'électrons (le réducteur est oxydé) ; une <b>réduction</b> un gain d'électrons.</li>
-        <li>Une réaction d'oxydoréduction = transfert d'électrons du réducteur d'un couple vers l'oxydant d'un autre.</li>
-      </ul>
+    <div class="box prop"><p class="box-title">Rappels</p>
+      <p>Oxydant + \(n\,e^-\) = réducteur. Une réaction d'oxydoréduction est un transfert d'électrons du réducteur d'un couple vers l'oxydant d'un autre couple
+        (on équilibre les électrons, puis on additionne les demi-équations).</p>
     </div>
-    <div class="box example"><p class="box-title">Exemple 1 — équation bilan</p>
-      <p>Écrire la réaction entre le zinc \(\text{Zn}\) et les ions cuivre \(\text{Cu}^{2+}\) (couples \(\text{Cu}^{2+}/\text{Cu}\) et \(\text{Zn}^{2+}/\text{Zn}\)).</p>
+    <div class="box def"><p class="box-title">Pile</p>
+      <p>Une pile sépare l'oxydation (à l'<b>anode</b>, pôle −) et la réduction (à la <b>cathode</b>, pôle +) : les électrons circulent dans le circuit extérieur, du pôle − vers le pôle +.
+        Elle convertit de l'énergie chimique en énergie électrique. Charge maximale débitée : \(Q = n(e^-) \times F\), avec la constante de Faraday \(F = 96\,500\) C/mol ; et \(Q = I \times \Delta t\).</p>
+    </div>
+    <div class="box def"><p class="box-title">Électrolyse</p>
+      <p>À l'inverse, un générateur <b>force</b> une réaction d'oxydoréduction qui ne se ferait pas seule : recharge d'une batterie, production de dihydrogène, dépôt de métal (galvanoplastie).
+        Quantité d'électrons échangés : \(n(e^-) = \dfrac{I\,\Delta t}{F}\). Masse de métal déposé (ion à \(z\) charges) : \(m = \dfrac{M\,I\,\Delta t}{z\,F}\).</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 1 — cuivrage</p>
+      <p>On dépose du cuivre (\(\mathrm{Cu^{2+}} + \mathrm{2\,e^-} \to \mathrm{Cu}\), \(M = 63{,}5\) g/mol) avec un courant de 2 A pendant 30 min. Masse déposée ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(\text{Zn} = \text{Zn}^{2+} + 2e^-\) (oxydation) et \(\text{Cu}^{2+} + 2e^- = \text{Cu}\) (réduction).
-          Bilan : \(\text{Zn} + \text{Cu}^{2+} \to \text{Zn}^{2+} + \text{Cu}\). Les électrons n'apparaissent jamais dans le bilan.</p>
-      </details>
-    </div>
-    <div class="box prop"><p class="box-title">Pile et électrolyse</p>
-      <ul>
-        <li><b>Pile</b> (conversion chimique → électrique, spontanée) : à l'<b>anode</b> (borne −) a lieu l'oxydation, à la <b>cathode</b> (borne +) la réduction.
-          Les électrons circulent dans le circuit extérieur de l'anode vers la cathode ; le pont salin assure la circulation des ions.</li>
-        <li><b>Capacité</b> : charge maximale débitée, \(Q = n(e^-) \times F\) avec \(F = 96\,500\) C/mol ; aussi \(Q = I\,\Delta t\) (souvent en A·h : 1 A·h = 3 600 C).</li>
-        <li><b>Électrolyse</b> (conversion électrique → chimique, forcée) : un générateur impose la réaction inverse. Ex. : recharge d'une batterie, production de dihydrogène \(2\text{H}_2\text{O} \to 2\text{H}_2 + \text{O}_2\).</li>
-        <li><b>Pile à combustible</b> : \(2\text{H}_2 + \text{O}_2 \to 2\text{H}_2\text{O}\), ne rejette que de l'eau.</li>
-      </ul>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 2 — durée de fonctionnement</p>
-      <p>Dans une pile, 6,5 g de zinc (\(M = 65{,}4\) g/mol) peuvent être consommés. Elle débite 0,2 A. Durée de fonctionnement ?</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>\(n(\text{Zn}) = 0{,}0994\) mol ; \(n(e^-) = 2 \times 0{,}0994 = 0{,}199\) mol ; \(Q = 0{,}199 \times 96\,500 \approx 19\,200\) C.</p>
-        <p>\(\Delta t = Q/I = 96\,000\) s \(\approx 26{,}7\) h.</p>
+        <p>\(Q = 2 \times 1\,800 = 3\,600\) C ; \(n(e^-) = \dfrac{3\,600}{96\,500} \approx 0{,}0373\) mol ; \(n(\mathrm{Cu}) = 0{,}0187\) mol ; \(m \approx 1{,}18\) g.</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>3. Combustions</h2>
-    <div class="box prop"><p class="box-title">Combustion complète d'un hydrocarbure ou d'un alcool</p>
-      <p>Combustible + dioxygène → dioxyde de carbone + eau. Ex. : \(\text{CH}_4 + 2\,\text{O}_2 \to \text{CO}_2 + 2\,\text{H}_2\text{O}\).</p>
-      <p>Le <b>pouvoir calorifique</b> \(PC\) (J/kg ou kWh/kg) est l'énergie libérée par la combustion d'un kilogramme : \(Q = m \times PC\).
-        Gaz naturel ≈ 50 MJ/kg, essence ≈ 45 MJ/kg, bois ≈ 15 MJ/kg, dihydrogène ≈ 120 MJ/kg.
-        Une combustion incomplète produit du monoxyde de carbone CO, très toxique.</p>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 3 — CO₂ émis</p>
-      <p>Masse de \(\text{CO}_2\) émise par la combustion de 1 kg de méthane ? (\(M(\text{CH}_4) = 16\), \(M(\text{CO}_2) = 44\) g/mol)</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>\(n(\text{CH}_4) = 1000/16 = 62{,}5\) mol, et 1 mol de \(\text{CH}_4\) donne 1 mol de \(\text{CO}_2\) : \(m = 62{,}5 \times 44 = 2{,}75\) kg.</p>
-      </details>
+    <div class="box prop"><p class="box-title">Équations et énergie</p>
+      <p>Combustion complète d'un alcane : \(\mathrm{C_nH_{2n+2}} + \dfrac{3n + 1}{2}\,\mathrm{O_2} \to n\,\mathrm{CO_2} + (n + 1)\,\mathrm{H_2O}\).
+        Énergie libérée : \(Q = m \times PC\) (pouvoir calorifique) ou \(Q = n \times E_{\text{comb}}\) (énergie molaire de combustion, en kJ/mol).
+        Masse de CO₂ rejetée : on passe par les moles (\(n_{\mathrm{CO_2}} = n \times\) nombre de C).</p>
     </div>
   </section>
 
   <section>
     <h2>4. Acides, bases et pH</h2>
     <div class="box def"><p class="box-title">Définitions</p>
-      <p>Un <b>acide</b> cède un ion \(\text{H}^+\), une <b>base</b> en capte un. \(\text{pH} = -\log[\text{H}_3\text{O}^+]\) et \([\text{H}_3\text{O}^+] = 10^{-\text{pH}}\).
-        À 25 °C : pH &lt; 7 acide, pH = 7 neutre, pH &gt; 7 basique. Diluer 10 fois un acide fort augmente son pH de 1.</p>
+      <p>Un <b>acide</b> est une espèce capable de céder un ion \(\mathrm{H^+}\), une <b>base</b> une espèce capable d'en capter un ; ils forment des couples acide/base (\(\mathrm{CH_3COOH/CH_3COO^-}\), \(\mathrm{NH_4^+/NH_3}\)).
+        Le <b>pH</b> mesure l'acidité d'une solution aqueuse :
+        \[\mathrm{pH} = -\log[\mathrm{H_3O^+}] \qquad\Longleftrightarrow\qquad [\mathrm{H_3O^+}] = 10^{-\mathrm{pH}}\ \mathrm{mol/L}.\]
+        À 25 °C : pH &lt; 7 acide, = 7 neutre, &gt; 7 basique.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Effets de la dilution</p>
+      <p>Diluer 10 fois une solution d'acide fort augmente son pH de 1 ; diluer 10 fois une base forte diminue son pH de 1. Le pH se rapproche de 7 sans le dépasser.</p>
+    </div>
+    <div class="box warning"><p class="box-title">Sécurité</p>
+      <p>Acides et bases concentrés sont corrosifs (pictogramme CLP) : gants, lunettes ; pour diluer, on verse toujours l'acide dans l'eau, jamais l'inverse.</p>
+    </div>
+    <div class="box example"><p class="box-title">Exemple 2</p>
+      <p>Une solution d'acide chlorhydrique a \([\mathrm{H_3O^+}] = 2{,}0 \times 10^{-3}\) mol/L. pH ? pH après dilution par 10 ?</p>
+      <details class="solution"><summary>Solution</summary>
+        <p>\(\mathrm{pH} = -\log(2{,}0 \times 10^{-3}) \approx 2{,}7\) ; après dilution : \(\approx 3{,}7\).</p>
+      </details>
     </div>
   </section>
 
   <section>
-    <h2>5. Manipuler</h2>
+    <h2>5. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(n = \dfrac mM = CV = \dfrac{V}{V_m}\) ; \(N_A = 6{,}02 \times 10^{23}\ \mathrm{mol^{-1}}\).</li>
+        <li>\(x_{\max} = \min(n_A/a, n_B/b)\) ; rendement \(\eta = n_{\text{obtenu}}/n_{\text{théorique}}\).</li>
+        <li>\(Q = It = n(e^-)F\), \(F = 96\,500\) C/mol ; dépôt \(m = \dfrac{MIt}{zF}\).</li>
+        <li>\(\mathrm{pH} = -\log[\mathrm{H_3O^+}]\), \([\mathrm{H_3O^+}] = 10^{-\mathrm{pH}}\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. Manipuler</h2>
     <div class="widget" id="w-avancement">
       <p class="widget-title">Tableau d'avancement : combustion du méthane</p>
       <p class="hint">\(\text{CH}_4 + 2\,\text{O}_2 \to \text{CO}_2 + 2\,\text{H}_2\text{O}\). Règle les quantités initiales et fais avancer la réaction : qui est limitant ?</p>
       <div class="controls">
-        <label>\(n_0(\text{CH}_4)\) (mol) <input type="range" data-k="a" min="0.5" max="5" step="0.5" value="2"> <output data-show="a"></output></label>
-        <label>\(n_0(\text{O}_2)\) (mol) <input type="range" data-k="b" min="0.5" max="10" step="0.5" value="3"> <output data-show="b"></output></label>
+        <label>\(n_0(\text{CH}_4)\) (mol) <input type="range" data-k="a" min="0.1" max="50" step="0.5" value="2"> <output data-show="a"></output></label>
+        <label>\(n_0(\text{O}_2)\) (mol) <input type="range" data-k="b" min="0.1" max="100" step="0.5" value="3"> <output data-show="b"></output></label>
         <label>avancement (% de \(x_{\max}\)) <input type="range" data-k="p" min="0" max="100" step="1" value="100"> <output data-show="p"></output></label>
       </div>
       <canvas class="plot short"></canvas>
@@ -109,10 +123,10 @@
       <p class="widget-title">Décharge d'une pile Daniell</p>
       <p class="hint">Au fil de la décharge, le zinc est consommé et les ions Cu²⁺ aussi. La pile s'arrête quand l'un des deux réactifs est épuisé.</p>
       <div class="controls">
-        <label>masse de zinc (g) <input type="range" data-k="mz" min="1" max="20" step="0.5" value="6.5"> <output data-show="mz"></output></label>
-        <label>[Cu²⁺] (mol/L) <input type="range" data-k="c" min="0.05" max="1" step="0.05" value="0.5"> <output data-show="c"></output></label>
-        <label>volume (mL) <input type="range" data-k="V" min="50" max="500" step="10" value="200"> <output data-show="V"></output></label>
-        <label>\(I\) (mA) <input type="range" data-k="I" min="10" max="500" step="10" value="200"> <output data-show="I"></output></label>
+        <label>masse de zinc (g) <input type="range" data-k="mz" min="0.1" max="200" step="0.5" value="6.5"> <output data-show="mz"></output></label>
+        <label>[Cu²⁺] (mol/L) <input type="range" data-k="c" min="0.001" max="5" step="0.05" value="0.5"> <output data-show="c"></output></label>
+        <label>volume (mL) <input type="range" data-k="V" min="10" max="2000" step="10" value="200"> <output data-show="V"></output></label>
+        <label>\(I\) (mA) <input type="range" data-k="I" min="1" max="5000" step="10" value="200"> <output data-show="I"></output></label>
       </div>
       <div class="readout" aria-live="polite"></div>
     </div>
@@ -127,7 +141,7 @@
   </section>
 
   <section>
-    <h2>6. En prépa</h2>
+    <h2>7. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li>Potentiels standard et formule de Nernst, diagrammes potentiel-pH, corrosion.</li>

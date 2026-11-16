@@ -2,78 +2,94 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Statistiques à deux variables · STI2D → Prépa</title>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
 <script defer src="../assets/chapters.js"></script>
 <script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
 </head>
 <body data-root="../" data-chapter="maths/statistiques">
 <main class="chapter">
   <header class="chapter-head">
     <p class="kicker">Maths · Statistiques · Tronc commun</p>
     <h1>Statistiques à deux variables</h1>
-    <p class="lead">Nuage de points, ajustement affine par la méthode des moindres carrés, coefficient de corrélation, changement de variable
-      pour linéariser une croissance exponentielle. C'est exactement ce que tu fais en TP quand tu traces une droite de régression.</p>
-    <p class="prereq">Prérequis : moyenne, équation de droite, <a href="logarithme.html">logarithme</a> (pour la partie 3).</p>
+    <p class="lead">Relier deux grandeurs mesurées (une tension et une température, une consommation et une vitesse) par une droite ou une courbe simple, juger si le modèle est bon,
+      puis s'en servir pour prévoir. C'est ce que fait un tableur quand il affiche une « courbe de tendance ».</p>
+    <p class="prereq">Prérequis : <a href="../maths-1re/statistiques.html">statistiques de 1re</a>, <a href="logarithme.html">logarithme</a>.</p>
   </header>
 
   <section>
     <h2>1. Nuage de points et point moyen</h2>
     <div class="box def"><p class="box-title">Définitions</p>
-      <p>Une série statistique à deux variables \((x_i\,;y_i)\), \(1 \leq i \leq n\), se représente par un <b>nuage de points</b>.
-        Le <b>point moyen</b> est \(G(\bar x\,;\bar y)\) avec \(\bar x = \dfrac{1}{n}\sum x_i\) et \(\bar y = \dfrac{1}{n}\sum y_i\).</p>
+      <p>Une série statistique à deux variables est une liste de couples \((x_i\,;\,y_i)\), \(1 \leq i \leq n\), représentée par un <b>nuage de points</b>.
+        Le <b>point moyen</b> est \(G(\bar x\,;\,\bar y)\), avec \(\bar x = \dfrac1n\sum x_i\) et \(\bar y = \dfrac1n\sum y_i\).</p>
+    </div>
+    <div class="box def"><p class="box-title">Variance et covariance</p>
+      <p>\(V(x) = \dfrac1n\sum (x_i - \bar x)^2\) mesure l'étalement des \(x_i\). La <b>covariance</b> \(\mathrm{cov}(x, y) = \dfrac1n\sum (x_i - \bar x)(y_i - \bar y)\) indique si \(y\) a tendance à augmenter
+        (cov > 0) ou à diminuer (cov &lt; 0) quand \(x\) augmente.</p>
     </div>
   </section>
 
   <section>
     <h2>2. Ajustement affine (moindres carrés)</h2>
-    <div class="box prop"><p class="box-title">Droite de régression de \(y\) en \(x\)</p>
-      <p>Parmi toutes les droites \(y = ax + b\), celle qui minimise la somme des carrés des écarts verticaux \(\sum (y_i - ax_i - b)^2\) a pour coefficients
-        \[a = \frac{\text{cov}(x, y)}{V(x)} = \frac{\frac1n\sum x_iy_i - \bar x\bar y}{\frac1n\sum x_i^2 - \bar x^2}, \qquad b = \bar y - a\bar x.\]
-        Elle passe toujours par le point moyen \(G\). En pratique, la calculatrice ou le tableur la donne directement.</p>
+    <div class="box prop"><p class="box-title">Droite des moindres carrés</p>
+      <p>C'est la droite \(y = ax + b\) qui rend la plus petite possible la somme des carrés des écarts verticaux \(\sum (y_i - ax_i - b)^2\). Ses coefficients sont
+        \[a = \frac{\mathrm{cov}(x, y)}{V(x)}, \qquad b = \bar y - a\bar x,\]
+        donc elle passe toujours par le point moyen \(G\). En pratique, la calculatrice ou le tableur les donne directement.</p>
     </div>
-    <div class="box def"><p class="box-title">Coefficient de corrélation</p>
-      <p>\(r = \dfrac{\text{cov}(x,y)}{\sigma_x\sigma_y} \in [-1\,;1]\). Plus \(|r|\) est proche de 1, plus le nuage est aligné.
-        On considère souvent l'ajustement affine pertinent si \(|r| > 0{,}9\) (critère indicatif, à juger aussi visuellement !).</p>
+    <div class="box def"><p class="box-title">Qualité de l'ajustement</p>
+      <p>Le <b>coefficient de corrélation</b> \(r = \dfrac{\mathrm{cov}(x, y)}{\sigma_x\sigma_y}\) est compris entre −1 et 1. Plus \(|r|\) est proche de 1, plus les points sont proches d'une droite
+        (on considère souvent l'ajustement satisfaisant si \(|r| \geq 0{,}9\)). Les <b>résidus</b> \(y_i - (ax_i + b)\) doivent être petits et sans forme particulière.</p>
     </div>
-    <div class="box warning"><p class="box-title">Corrélation ≠ causalité</p>
-      <p>Deux grandeurs peuvent être très corrélées sans que l'une cause l'autre (ex. : ventes de glaces et coups de soleil, toutes deux causées par l'ensoleillement).</p>
+    <div class="box warning"><p class="box-title">Corrélation n'est pas causalité</p>
+      <p>Une bonne corrélation ne prouve pas qu'une grandeur cause l'autre (les deux peuvent dépendre d'une troisième). Et extrapoler loin des données est risqué.</p>
     </div>
-    <div class="box example"><p class="box-title">Exemple 1 — étalonnage d'un capteur</p>
-      <p>On mesure la tension d'un capteur de température :</p>
-      <div class="table-scroll"><table>
-        <tr><th>\(\theta\) (°C)</th><td>0</td><td>20</td><td>40</td><td>60</td><td>80</td></tr>
-        <tr><th>\(U\) (mV)</th><td>102</td><td>139</td><td>183</td><td>218</td><td>261</td></tr>
-      </table></div>
-      <p>Déterminer la droite de régression et estimer la température pour \(U = 200\) mV.</p>
+    <div class="box example"><p class="box-title">Exemple 1 — étalonnage</p>
+      <p>Un capteur donne : (0 ; 2), (20 ; 41), (40 ; 79), (60 ; 122) (température en °C, tension en mV). Droite des moindres carrés ? Tension à 50 °C ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(\bar\theta = 40\), \(\bar U = 180{,}6\). \(\text{cov}(\theta, U) = 8\,812 - 40 \times 180{,}6 = 1\,588\) et \(V(\theta) = 2\,400 - 1\,600 = 800\),
-          donc \(a = 1{,}985\) et \(b = 180{,}6 - 1{,}985 \times 40 = 101{,}2\) : \(U \approx 1{,}985\,\theta + 101{,}2\) avec \(r \approx 0{,}999\).</p>
-        <p>\(200 = 1{,}985\,\theta + 101{,}2 \iff \theta \approx 49{,}8\) °C (interpolation : on reste dans la plage mesurée, donc fiable).</p>
+        <p>\(\bar x = 30\), \(\bar y = 61\) ; \(\mathrm{cov} = 995\), \(V(x) = 500\) : \(a = 1{,}99\) et \(b = 61 - 59{,}7 = 1{,}3\).</p>
+        <p>\(U(50) = 1{,}99 \times 50 + 1{,}3 \approx 100{,}8\) mV (interpolation).</p>
       </details>
     </div>
   </section>
 
   <section>
     <h2>3. Changement de variable</h2>
-    <div class="box method"><p class="box-title">Linéariser une croissance exponentielle</p>
-      <p>Si le nuage \((x_i\,;y_i)\) a une allure exponentielle, on pose \(z = \ln y\). Si \((x_i\,;z_i)\) est bien aligné, \(z = ax + b\) donne
-        \(y = e^{ax + b} = e^{b}\,e^{ax}\). C'est pour cela qu'on utilise du papier semi-logarithmique.</p>
+    <div class="box method"><p class="box-title">Quand le nuage n'est pas allongé selon une droite</p>
+      <p>On transforme une des variables pour se ramener à un ajustement affine :</p>
+      <ul>
+        <li>croissance ou décroissance exponentielle \(y = k\,e^{cx}\) : on pose \(z = \ln y\), alors \(z = \ln k + c\,x\) est affine en \(x\) ;</li>
+        <li>loi de puissance \(y = k\,x^c\) : on pose \(X = \ln x\) et \(Z = \ln y\), alors \(Z = \ln k + c\,X\) ;</li>
+        <li>autres cas : \(z = y^2\), \(z = \dfrac1y\), \(X = x^2\)… selon la forme suggérée par la physique.</li>
+      </ul>
+      <p>On ajuste \(z\) en fonction de \(x\) par les moindres carrés, puis on revient à \(y\) (par exemple \(y = e^z\)).</p>
     </div>
-    <div class="box example"><p class="box-title">Exemple 2 — nombre de connexions</p>
-      <p>Un ajustement donne \(z = \ln y \approx 0{,}35x + 2{,}1\). Exprimer \(y\) en fonction de \(x\) et prévoir \(y\) pour \(x = 10\).</p>
+    <div class="box example"><p class="box-title">Exemple 2 — décharge</p>
+      <p>Pour une décharge de condensateur, on trouve \(\ln u = -0{,}5\,t + 2{,}3\) (\(u\) en V, \(t\) en s). Exprimer \(u(t)\) et en déduire \(\tau\).</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(y = e^{2{,}1}e^{0{,}35x} \approx 8{,}17\,e^{0{,}35x}\). Pour \(x = 10\) : \(y \approx 8{,}17 \times e^{3{,}5} \approx 270\).</p>
+        <p>\(u = e^{2{,}3}e^{-0{,}5t} \approx 10\,e^{-0{,}5t}\) : tension initiale ≈ 10 V et \(\tau = \dfrac{1}{0{,}5} = 2\) s.</p>
       </details>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(G(\bar x\,;\,\bar y)\) ; \(V(x) = \frac1n\sum(x_i - \bar x)^2\) ; \(\mathrm{cov} = \frac1n\sum(x_i - \bar x)(y_i - \bar y)\).</li>
+        <li>Moindres carrés : \(a = \dfrac{\mathrm{cov}(x,y)}{V(x)}\), \(b = \bar y - a\bar x\) ; \(r = \dfrac{\mathrm{cov}}{\sigma_x\sigma_y}\), bon si \(|r|\) proche de 1.</li>
+        <li>Exponentielle : \(z = \ln y\) ; puissance : \(\ln y\) en fonction de \(\ln x\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-reg">
       <p class="widget-title">Construis ton nuage</p>
       <p class="hint">Clique sur le graphique pour ajouter des points (clic sur un point existant pour l'enlever). La droite des moindres carrés et \(r\) se recalculent en direct.
@@ -98,7 +114,7 @@
   </section>
 
   <section>
-    <h2>5. En prépa</h2>
+    <h2>6. En prépa</h2>
     <div class="box prepa-note"><p class="box-title">Ce qui t'attend</p>
       <ul>
         <li>En physique, la <b>régression linéaire</b> devient un outil de TP quotidien (Python : <code>numpy.polyfit</code>), avec incertitudes-types et analyse des résidus.</li>
