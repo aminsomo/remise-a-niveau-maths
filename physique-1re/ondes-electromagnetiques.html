@@ -18,21 +18,31 @@
   <header class="chapter-head">
     <p class="kicker">Physique-chimie 1re · Ondes et informations</p>
     <h1>Ondes électromagnétiques</h1>
-    <p class="lead">Ondes radio, micro-ondes, infrarouge, lumière visible, ultraviolet, rayons X et gamma : c'est la même onde électromagnétique,
-      à des fréquences différentes. Plus la fréquence est élevée, plus chaque photon transporte d'énergie — et plus le rayonnement peut être dangereux.</p>
+    <p class="lead">Ondes radio, micro-ondes, infrarouge, lumière visible, ultraviolet, rayons X et gamma : c'est le même type d'onde, l'onde électromagnétique, à des fréquences différentes.
+      Plus la fréquence est grande, plus chaque « grain » de lumière (le photon) transporte d'énergie, et plus le rayonnement peut être dangereux.</p>
     <p class="prereq">Prérequis : <a href="ondes.html">\(\lambda = v/f\)</a>, notation scientifique.</p>
   </header>
 
   <section>
     <h2>1. Le spectre électromagnétique</h2>
     <div class="box prop"><p class="box-title">Célérité dans le vide</p>
-      <p>Toutes les ondes électromagnétiques se propagent dans le vide (et quasiment dans l'air) à la même célérité :
-        \[c = 3{,}00 \times 10^8\ \mathrm{m\,s^{-1}}, \qquad \lambda = \frac{c}{f}.\]</p>
+      <p>Toutes les ondes électromagnétiques se propagent dans le vide (et presque aussi vite dans l'air) à la même célérité, la « vitesse de la lumière » :
+        \[c = 3{,}00 \times 10^8\ \mathrm{m\,s^{-1}}, \qquad \lambda = \frac{c}{f}.\]
+        Dans un milieu transparent (eau, verre), elles vont moins vite : \(v = \dfrac{c}{n}\), où \(n\) est l'indice de réfraction.</p>
     </div>
-    <div class="box def"><p class="box-title">Domaines, par fréquence croissante (longueur d'onde décroissante)</p>
-      <p><b>radio</b> (dont micro-ondes) → <b>infrarouge</b> → <b>visible</b> → <b>ultraviolet</b> → <b>rayons X</b> → <b>rayons gamma</b>.
-        L'œil humain perçoit les longueurs d'onde d'environ <b>400 nm</b> (violet) à <b>800 nm</b> (rouge).
-        Les limites exactes entre domaines ne sont pas à connaître.</p>
+    <div class="box def"><p class="box-title">Les domaines, du moins au plus énergétique</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th>domaine</th><th>longueur d'onde (ordre de grandeur)</th><th>exemples d'usage</th></tr></thead>
+        <tbody>
+          <tr><td>ondes radio (dont micro-ondes)</td><td>du km au mm</td><td>radio, TV, Wi-Fi, téléphone, four à micro-ondes, radar</td></tr>
+          <tr><td>infrarouge (IR)</td><td>800 nm à 1 mm</td><td>télécommande, caméra thermique, chauffage</td></tr>
+          <tr><td>visible</td><td>400 nm (violet) à 800 nm (rouge)</td><td>vision, éclairage</td></tr>
+          <tr><td>ultraviolet (UV)</td><td>10 nm à 400 nm</td><td>bronzage, stérilisation, lampes de détection</td></tr>
+          <tr><td>rayons X</td><td>de 10 nm à 10 pm</td><td>radiographie, contrôle des bagages</td></tr>
+          <tr><td>rayons gamma (γ)</td><td>moins de 10 pm</td><td>radioactivité, radiothérapie</td></tr>
+        </tbody>
+      </table></div>
+      <p>Les limites exactes entre domaines ne sont pas à connaître ; il faut savoir les <b>ranger</b> par fréquence, longueur d'onde ou énergie croissante.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1 — four à micro-ondes</p>
       <p>Un four fonctionne à 2,45 GHz. Longueur d'onde ? Domaine ?</p>
@@ -43,17 +53,17 @@
   </section>
 
   <section>
-    <h2>2. Énergie et fréquence</h2>
+    <h2>2. Énergie et fréquence : le photon</h2>
     <div class="box prop"><p class="box-title">Relation de Planck-Einstein</p>
-      <p>La lumière est aussi constituée de <b>photons</b>. L'énergie d'un photon est proportionnelle à la fréquence :
-        \[E = h\,f = \frac{h\,c}{\lambda}, \qquad h = 6{,}63 \times 10^{-34}\ \mathrm{J\,s}.\]
-        On utilise souvent l'électronvolt : \(1\ \mathrm{eV} = 1{,}60 \times 10^{-19}\) J.</p>
+      <p>La lumière se comporte aussi comme un flux de « grains d'énergie », les <b>photons</b>. L'énergie d'un photon est proportionnelle à la fréquence :
+        \[E = h\,f = \frac{h\,c}{\lambda}, \qquad h = 6{,}63 \times 10^{-34}\ \mathrm{J\,s} \ (\text{constante de Planck}).\]
+        Comme ces énergies sont minuscules, on utilise souvent l'électronvolt : \(1\ \mathrm{eV} = 1{,}60 \times 10^{-19}\) J.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 2 — photon rouge et photon UV</p>
       <p>Énergie d'un photon de 650 nm ? d'un photon de 250 nm ?</p>
       <details class="solution"><summary>Solution</summary>
         <p>\(E = \dfrac{6{,}63 \times 10^{-34} \times 3{,}00 \times 10^8}{650 \times 10^{-9}} \approx 3{,}06 \times 10^{-19}\) J ≈ 1,91 eV.</p>
-        <p>À 250 nm : \(\approx 7{,}96 \times 10^{-19}\) J ≈ 4,97 eV, assez pour casser des molécules (ADN) : les UV-C sont germicides et dangereux.</p>
+        <p>À 250 nm : \(\approx 7{,}96 \times 10^{-19}\) J ≈ 4,97 eV, assez pour casser des molécules comme l'ADN : les UV-C détruisent les microbes… et abîment la peau.</p>
       </details>
     </div>
   </section>
@@ -61,27 +71,39 @@
   <section>
     <h2>3. Laser, LED et risques</h2>
     <div class="box def"><p class="box-title">Caractéristiques d'un laser</p>
-      <p>Sur une documentation, on relève la <b>longueur d'onde</b> (couleur, domaine), la <b>puissance</b> et la <b>directivité</b> (divergence du faisceau, en mrad).
-        Usages : télémétrie (mesure de distance par aller-retour d'une impulsion), transmission par fibre optique, découpe, chirurgie.
+      <p>Sur une fiche technique, on relève la <b>longueur d'onde</b> (donc la couleur et le domaine), la <b>puissance</b> et la <b>directivité</b> (divergence du faisceau, en mrad).
+        Usages : télémétrie (on mesure une distance par l'aller-retour d'une impulsion), transmission par fibre optique, découpe, chirurgie.
         Voir aussi <a href="lumiere-energie.html">Énergie transportée par la lumière</a>.</p>
     </div>
     <div class="box warning"><p class="box-title">Risques et précautions</p>
       <ul>
-        <li><b>UV</b> : coups de soleil, cancers de la peau, lésions oculaires → crème solaire, lunettes filtrantes.</li>
-        <li><b>Rayons X et gamma</b> : ionisants → exposition limitée et contrôlée (dosimètres), écrans de plomb.</li>
-        <li><b>Laser</b> : ne jamais viser l'œil, lunettes adaptées à la longueur d'onde ; <b>LED</b> très lumineuses (lumière bleue) : ne pas fixer la source.</li>
-        <li>Cage de Faraday : une enveloppe conductrice protège des ondes radio (four à micro-ondes, salles blindées).</li>
+        <li><b>UV</b> : coups de soleil, cancers de la peau, lésions des yeux → crème solaire, lunettes filtrantes, éviter les heures les plus ensoleillées.</li>
+        <li><b>Rayons X et gamma</b> : rayonnements <b>ionisants</b> (ils arrachent des électrons aux atomes) → expositions limitées et contrôlées (dosimètres), écrans de plomb.</li>
+        <li><b>Laser</b> : ne jamais viser l'œil, lunettes adaptées à la longueur d'onde ; <b>LED</b> très lumineuses (riches en bleu) : ne pas fixer la source.</li>
+        <li>Ondes radio : une enveloppe métallique (<b>cage de Faraday</b>) les arrête — c'est la grille de la porte du four à micro-ondes.</li>
       </ul>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(c = 3{,}00 \times 10^8\) m/s ; \(\lambda = \dfrac{c}{f}\) ; visible : 400 – 800 nm.</li>
+        <li>Ordre croissant de fréquence et d'énergie : radio, IR, visible, UV, X, γ.</li>
+        <li>\(E = hf = \dfrac{hc}{\lambda}\), \(h = 6{,}63 \times 10^{-34}\) J·s ; \(1\ \mathrm{eV} = 1{,}60 \times 10^{-19}\) J.</li>
+        <li>Plus \(f\) est grande, plus le rayonnement est dangereux (UV, X, γ).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-spec">
       <p class="widget-title">Se déplacer dans le spectre</p>
       <p class="hint">Le curseur règle \(\log_{10}\lambda\) : chaque cran multiplie la longueur d'onde par 10. Dans le visible, la couleur s'affiche.</p>
       <div class="controls">
-        <label>\(\log_{10}(\lambda\ \text{en m})\) <input type="range" data-k="l" min="-12" max="3" step="0.02" value="-6.3"> <output data-show="l" data-digits="2"></output></label>
+        <label>\(\log_{10}(\lambda\ \text{en m})\) <input type="range" data-k="l" min="-16" max="6" step="0.02" value="-6.3"> <output data-show="l" data-digits="2"></output></label>
       </div>
       <canvas class="plot short"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -130,7 +152,7 @@
 <script>
 window.addEventListener('DOMContentLoaded', function () {
   var R = Course.rand, P = Course.pick, A = Course.approx;
-  var DOM = [[-12, -11, 'γ'], [-11, -8, 'X'], [-8, -6.4, 'UV'], [-6.4, -6.1, 'vis.'], [-6.1, -3, 'IR'], [-3, 3, 'radio']];
+  var DOM = [[-16, -11, 'γ'], [-11, -8, 'X'], [-8, -6.4, 'UV'], [-6.4, -6.1, 'vis.'], [-6.1, -3, 'IR'], [-3, 6, 'radio']];
   function rgb(nm) { // couleur approchée d'une longueur d'onde visible
     var r = 0, g = 0, b = 0;
     if (nm < 440) { r = (440 - nm) / 60; b = 1; } else if (nm < 490) { g = (nm - 440) / 50; b = 1; } else if (nm < 510) { g = 1; b = (510 - nm) / 20; }
@@ -153,11 +175,11 @@ window.addEventListener('DOMContentLoaded', function () {
       g.text(-6.25, 1.25, 'visible', '--text', { align: 'center' });
       g.seg(v.l, -0.25, v.l, 1.4, '--ko', { width: 2.5 });
       var SUP = { '-': '⁻', 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹' };
-      var ticks = g.w < 520 ? [-12, -6, 0] : [-12, -9, -6, -3, 0, 3];
+      var ticks = g.w < 520 ? [-15, -9, -3, 3] : [-15, -12, -9, -6, -3, 0, 3, 6];
       ticks.forEach(function (t) { var e = String(t).split('').map(function (ch) { return SUP[ch]; }).join('');
-        g.text(t, -0.45, '10' + e + ' m', '--muted', { align: t === -12 ? 'left' : t === 3 ? 'right' : 'center', size: 12 }); });
+        g.text(t, -0.45, '10' + e + ' m', '--muted', { align: 'center', size: 12 }); });
     };
-    G.redraw({ xmin: -12, xmax: 3, ymin: -0.7, ymax: 1.5 });
+    G.redraw({ xmin: -16, xmax: 6, ymin: -0.7, ymax: 1.5 });
     var lamTxt = nm < 1e3 ? Course.fmt(nm, 2) + ' nm' : lam < 1 ? Course.fmt(lam * 1000, 3) + ' mm' : Course.fmt(lam, 3) + ' m';
     out.textContent = 'λ = ' + lamTxt + '   domaine : ' + (dom[2] === 'vis.' ? 'visible' : dom[2]) +
       '\nf = c / λ = ' + f.toExponential(2).replace('.', ',').replace('e+', ' × 10^').replace('e-', ' × 10^-') + ' Hz' +

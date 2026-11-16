@@ -18,25 +18,30 @@
   <header class="chapter-head">
     <p class="kicker">Physique-chimie 1re · Énergie</p>
     <h1>Énergie électrique</h1>
-    <p class="lead">Lire un chronogramme, distinguer valeur moyenne et valeur efficace, appliquer les lois de Kirchhoff et la loi d'Ohm,
-      calculer puissance et énergie : les outils de base de tout système électrique, du chargeur de téléphone à la ligne haute tension.</p>
+    <p class="lead">Lire un chronogramme, distinguer valeur moyenne et valeur efficace, utiliser les lois des nœuds et des mailles et la loi d'Ohm, calculer une puissance et une énergie :
+      ce sont les outils de base de tout système électrique, du chargeur de téléphone à la ligne haute tension.</p>
     <p class="prereq">Prérequis : <a href="energie-enjeux.html">puissance et énergie</a>.</p>
   </header>
 
   <section>
     <h2>1. Circuit, conventions, mesures</h2>
-    <div class="box def"><p class="box-title">Tension et intensité</p>
-      <p>L'<b>intensité</b> \(i\) (en ampères, A) est le débit de charges ; elle se mesure avec un <b>ampèremètre en série</b>.
-        La <b>tension</b> \(u_{AB} = v_A - v_B\) (en volts, V) se mesure avec un <b>voltmètre en dérivation</b>. On les algébrise en choisissant un sens (flèches).</p>
+    <div class="box def"><p class="box-title">Intensité et tension</p>
+      <ul>
+        <li>L'<b>intensité</b> \(i\) (en ampères, A) mesure le débit de charges électriques dans un fil. Elle se mesure avec un <b>ampèremètre</b> branché <b>en série</b> (dans le circuit, sur le chemin du courant).</li>
+        <li>La <b>tension</b> \(u_{AB} = v_A - v_B\) (en volts, V) est une différence de « niveau électrique » entre deux points. Elle se mesure avec un <b>voltmètre</b> branché <b>en dérivation</b> (aux bornes du dipôle).</li>
+        <li>On les représente par des flèches et on choisit un sens : elles sont alors <b>algébriques</b> (positives ou négatives).</li>
+      </ul>
     </div>
     <div class="box def"><p class="box-title">Conventions générateur et récepteur</p>
-      <p>En <b>convention récepteur</b>, les flèches de \(u\) et \(i\) sont en sens opposés ; en <b>convention générateur</b>, dans le même sens.
-        Avec la convention récepteur, la puissance reçue \(p = u \times i\) est positive si le dipôle se comporte en récepteur, négative s'il se comporte en générateur.</p>
+      <p>En <b>convention récepteur</b>, les flèches de \(u\) et de \(i\) sont en sens opposés ; en <b>convention générateur</b>, dans le même sens.
+        Avec la convention récepteur, la puissance \(p = u \times i\) est <b>reçue</b> par le dipôle : si \(p > 0\), il se comporte en récepteur (il consomme) ; si \(p &lt; 0\), il se comporte en générateur (il fournit).
+        Une batterie, par exemple, est récepteur quand on la charge et générateur quand elle alimente un appareil.</p>
     </div>
     <div class="box prop"><p class="box-title">Lois de Kirchhoff</p>
       <ul>
-        <li><b>Loi des nœuds</b> : la somme des intensités qui arrivent à un nœud est égale à la somme de celles qui en partent.</li>
-        <li><b>Loi des mailles</b> : en parcourant une maille dans un sens, la somme algébrique des tensions est nulle.</li>
+        <li><b>Loi des nœuds</b> : la somme des intensités qui arrivent à un nœud est égale à la somme de celles qui en repartent (les charges ne s'accumulent pas).</li>
+        <li><b>Loi des mailles</b> : en faisant le tour d'une maille (une boucle fermée) dans un sens choisi, la somme algébrique des tensions est nulle.
+          Conséquences : en série les tensions s'ajoutent ; en dérivation, deux dipôles ont la même tension.</li>
       </ul>
     </div>
   </section>
@@ -45,12 +50,13 @@
     <h2>2. Grandeurs variables : moyenne et efficace</h2>
     <div class="box def"><p class="box-title">Valeurs caractéristiques d'une grandeur périodique</p>
       <ul>
-        <li><b>Valeur instantanée</b> \(u(t)\) ; période \(T\), fréquence \(f = 1/T\) ; valeurs maximale et minimale.</li>
-        <li><b>Valeur moyenne</b> \(\langle u\rangle\) (ou \(U_{\text{moy}}\)) : la <b>composante continue</b>. \(u - \langle u\rangle\) est la <b>composante alternative</b>.
-          Sur un chronogramme, c'est la hauteur qui égalise les aires au-dessus et en dessous.</li>
-        <li><b>Valeur efficace</b> \(U\) : la tension continue qui produirait <b>le même effet Joule</b> dans une résistance. Pour une sinusoïde d'amplitude \(U_{\max}\) : \(U = \dfrac{U_{\max}}{\sqrt2}\).</li>
+        <li>La <b>valeur instantanée</b> \(u(t)\) est la valeur à un instant donné ; la <b>période</b> \(T\) est la durée d'un motif et la <b>fréquence</b> \(f = \dfrac1T\) (Hz) ; on relève aussi les valeurs maximale et minimale.</li>
+        <li>La <b>valeur moyenne</b> \(\langle u\rangle\) (ou \(U_{\text{moy}}\)) est la <b>composante continue</b>. Sur un chronogramme, c'est la hauteur qui égalise les aires au-dessus et en dessous.
+          Ce qui reste, \(u - \langle u\rangle\), est la <b>composante alternative</b> (de moyenne nulle).</li>
+        <li>La <b>valeur efficace</b> \(U\) (ou \(U_{\text{eff}}\)) est la tension continue qui produirait <b>le même échauffement</b> (effet Joule) dans une résistance.
+          Pour une sinusoïde d'amplitude \(U_{\max}\) et de moyenne nulle : \(U = \dfrac{U_{\max}}{\sqrt2}\). La tension du secteur : 230 V efficaces, 325 V d'amplitude.</li>
       </ul>
-      <p>Au multimètre : position DC pour la valeur moyenne, position AC+DC (TRMS) pour la valeur efficace.</p>
+      <p>Au multimètre : position DC (ou « = ») pour la valeur moyenne ; position AC+DC (appareil TRMS) pour la valeur efficace.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1 — tension créneau</p>
       <p>Une tension vaut 12 V pendant 3 ms puis 0 V pendant 1 ms, périodiquement. Fréquence, valeur moyenne, valeur efficace ?</p>
@@ -63,35 +69,53 @@
 
   <section>
     <h2>3. Loi d'Ohm, effet Joule, puissance</h2>
-    <div class="box prop"><p class="box-title">Relations</p>
+    <div class="box prop"><p class="box-title">Le résistor</p>
       <ul>
-        <li>Loi d'Ohm (résistor, convention récepteur) : \(u = R\,i\) (\(R\) en ohms, Ω).</li>
-        <li>Puissance reçue par un dipôle en continu : \(P = U \times I\) ; pour un résistor : \(P = R I^2 = \dfrac{U^2}{R}\) (<b>effet Joule</b> : tout est converti en chaleur).</li>
-        <li>Énergie sur une durée \(\Delta t\) : \(E = P \times \Delta t\).</li>
+        <li><b>Loi d'Ohm</b> (convention récepteur) : \(u = R\,i\), avec \(R\) la résistance en ohms (Ω). Elle n'est valable que dans un certain domaine : si le résistor chauffe trop, \(R\) change.</li>
+        <li>Résistances en <b>série</b> : \(R_{\text{éq}} = R_1 + R_2\). En <b>dérivation</b> : \(\dfrac{1}{R_{\text{éq}}} = \dfrac{1}{R_1} + \dfrac{1}{R_2}\).</li>
+        <li><b>Effet Joule</b> : toute l'énergie reçue par un résistor est convertie en chaleur. Puissance : \(P = U I = R I^2 = \dfrac{U^2}{R}\).</li>
       </ul>
+    </div>
+    <div class="box prop"><p class="box-title">Puissance et énergie électriques</p>
+      <p>En continu, un dipôle reçoit la puissance \(P = U \times I\). Sur une durée \(\Delta t\) : \(E = P \times \Delta t\).
+        Un générateur réel (pile, batterie) se modélise par \(U = E - rI\) (\(E\) : tension à vide, \(r\) : résistance interne) : il fournit \(EI\), en perd \(rI^2\) en chaleur, et donne \(UI\) au circuit.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 2 — pertes en ligne</p>
       <p>Une ligne de résistance 2 Ω transporte 10 kW. Pertes Joule si la tension est 400 V ? et 20 000 V ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>À 400 V : \(I = 10\,000/400 = 25\) A, pertes \(2 \times 25^2 = 1\,250\) W (12,5 %).</p>
-        <p>À 20 000 V : \(I = 0{,}5\) A, pertes \(2 \times 0{,}25 = 0{,}5\) W. C'est pourquoi on transporte l'électricité sous haute tension.</p>
+        <p>À 400 V : \(I = 10\,000/400 = 25\) A, pertes \(2 \times 25^2 = 1\,250\) W (12,5 % de la puissance !).</p>
+        <p>À 20 000 V : \(I = 0{,}5\) A, pertes \(2 \times 0{,}5^2 = 0{,}5\) W. C'est pour cela qu'on transporte l'électricité sous très haute tension.</p>
       </details>
     </div>
     <div class="box warning"><p class="box-title">Sécurité électrique</p>
-      <p>Le danger vient du courant qui traverse le corps. Disjoncteur (surintensités), différentiel 30 mA (fuites vers la terre, protège les personnes), prise de terre, double isolation.
-        En TP : on câble et modifie un montage hors tension.</p>
+      <p>Le danger vient du courant qui traverse le corps (quelques dizaines de mA suffisent). Protections : le disjoncteur (coupe en cas de surintensité),
+        le différentiel 30 mA (coupe en cas de fuite vers la terre : il protège les personnes), la prise de terre, la double isolation.
+        En TP : on câble et on modifie un montage hors tension, et on vérifie le calibre des appareils.</p>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Ampèremètre en série, voltmètre en dérivation. Convention récepteur : \(p = ui > 0\) ⇔ récepteur.</li>
+        <li>Nœuds : \(\sum I_{\text{entrants}} = \sum I_{\text{sortants}}\) ; mailles : \(\sum U = 0\).</li>
+        <li>\(u = Ri\) ; série \(R_1 + R_2\) ; dérivation \(\dfrac{1}{R} = \dfrac{1}{R_1} + \dfrac{1}{R_2}\).</li>
+        <li>\(P = UI = RI^2 = \dfrac{U^2}{R}\) ; \(E = P\Delta t\) ; générateur réel \(U = E - rI\).</li>
+        <li>Sinusoïde : \(U = \dfrac{U_{\max}}{\sqrt2}\) ; \(\langle u\rangle\) = composante continue.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-sig">
       <p class="widget-title">Chronogramme : valeur moyenne et valeur efficace</p>
       <p class="hint">Ajoute une composante continue, change la forme du signal : compare la ligne de la moyenne (orange) et celle de la valeur efficace (violette).</p>
       <div class="controls">
         <label>forme <select data-k="sh"><option value="sin">sinusoïde</option><option value="sq">créneau</option><option value="tri">triangle</option></select></label>
-        <label>amplitude (V) <input type="range" data-k="A" min="0" max="10" step="0.5" value="6"> <output data-show="A"></output></label>
-        <label>composante continue (V) <input type="range" data-k="c" min="-6" max="6" step="0.5" value="0"> <output data-show="c"></output></label>
+        <label>amplitude (V) <input type="range" data-k="A" min="0" max="50" step="0.5" value="6"> <output data-show="A"></output></label>
+        <label>composante continue (V) <input type="range" data-k="c" min="-30" max="30" step="0.5" value="0"> <output data-show="c"></output></label>
         <label>rapport cyclique <input type="range" data-k="a" min="0.1" max="0.9" step="0.05" value="0.5"> <output data-show="a" data-digits="2"></output></label>
       </div>
       <canvas class="plot"></canvas>
@@ -162,7 +186,8 @@ window.addEventListener('DOMContentLoaded', function () {
       g.text(24.6, moy, '⟨u⟩', '--c4', { align: 'right', baseline: 'bottom', bold: true });
       g.text(24.6, eff, 'U', '--c3', { align: 'right', baseline: 'bottom', bold: true });
     };
-    G.redraw({ xmin: 0, xmax: 25, ymin: -12, ymax: 12 });
+    var Y0 = Math.max(12, (Math.abs(v.c) + v.A) * 1.2);
+    G.redraw({ xmin: 0, xmax: 25, ymin: -Y0, ymax: Y0 });
     out.textContent = 'période T = 10 ms   f = 100 Hz\nvaleur moyenne ⟨u⟩ = ' + Course.fmt(moy, 2) + ' V   valeur efficace U = ' + Course.fmt(eff, 2) + ' V' +
       '\nUmax = ' + Course.fmt(v.c + v.A, 2) + ' V   Umin = ' + Course.fmt(v.sh === 'sin' ? v.c - v.A : v.c, 2) + ' V';
   });

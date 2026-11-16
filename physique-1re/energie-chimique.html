@@ -18,27 +18,35 @@
   <header class="chapter-head">
     <p class="kicker">Physique-chimie 1re · Énergie</p>
     <h1>Énergie chimique : combustions</h1>
-    <p class="lead">Brûler un combustible libère l'énergie stockée dans ses liaisons chimiques. On compare les combustibles par leur
-      <b>pouvoir calorifique</b>, on mesure l'énergie libérée, et on apprend à se protéger des dangers des combustions.</p>
+    <p class="lead">Quand on brûle un combustible, on libère l'énergie stockée dans ses liaisons chimiques. On compare les combustibles grâce à leur <b>pouvoir calorifique</b>,
+      on mesure l'énergie libérée en TP, et on apprend à se protéger des dangers des combustions.</p>
     <p class="prereq">Prérequis : <a href="energie-enjeux.html">l'énergie et ses enjeux</a>. L'écriture des équations est dans <a href="combustions.html">Réactions de combustion</a>.</p>
   </header>
 
   <section>
     <h2>1. La combustion, une conversion d'énergie</h2>
-    <div class="box def"><p class="box-title">Triangle du feu</p>
-      <p>Une combustion nécessite trois éléments : un <b>combustible</b> (bois, gaz, essence, éthanol…), un <b>comburant</b> (le dioxygène de l'air)
-        et une <b>énergie d'activation</b> (flamme, étincelle, chaleur). Supprimer l'un des trois arrête le feu.</p>
+    <div class="box def"><p class="box-title">Le triangle du feu</p>
+      <p>Une combustion a besoin de trois choses à la fois :</p>
+      <ul>
+        <li>un <b>combustible</b> : ce qui brûle (bois, gaz, essence, éthanol…) ;</li>
+        <li>un <b>comburant</b> : ce qui permet de brûler, en général le dioxygène \(\mathrm{O_2}\) de l'air ;</li>
+        <li>une <b>énergie d'activation</b> : l'énergie qui déclenche la réaction (flamme, étincelle, chaleur).</li>
+      </ul>
+      <p>Si on supprime l'un des trois, le feu s'arrête : c'est le principe de tous les moyens d'extinction.</p>
     </div>
     <div class="box prop"><p class="box-title">Une transformation exothermique</p>
-      <p>Une combustion libère de l'énergie thermique vers l'extérieur : elle est <b>exothermique</b>, ce qui correspond à une <b>diminution de l'énergie du système chimique</b>.
-        La combustion <b>complète</b> d'un hydrocarbure ou d'un alcool produit du <b>dioxyde de carbone</b> et de l'<b>eau</b>.</p>
+      <p>Une combustion <b>libère</b> de l'énergie thermique vers l'extérieur : on dit qu'elle est <b>exothermique</b>. Cela correspond à une <b>diminution de l'énergie</b> stockée dans le système chimique
+        (les produits contiennent moins d'énergie chimique que les réactifs). Une transformation qui absorbe de l'énergie est dite <b>endothermique</b> (exemple : la fonte de la glace).</p>
+      <p>La combustion <b>complète</b> d'un hydrocarbure ou d'un alcool produit du <b>dioxyde de carbone</b> \(\mathrm{CO_2}\) et de l'<b>eau</b> \(\mathrm{H_2O}\).
+        Quand l'air manque, elle est <b>incomplète</b> et produit aussi du monoxyde de carbone \(\mathrm{CO}\) et des suies (carbone).</p>
     </div>
   </section>
 
   <section>
     <h2>2. Pouvoir calorifique</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>Le <b>pouvoir calorifique</b> \(PC\) d'un combustible est l'énergie libérée par la combustion complète d'un kilogramme (ou d'un litre, d'un m³) de combustible.
+      <p>Le <b>pouvoir calorifique</b> \(PC\) d'un combustible est l'énergie libérée par la combustion complète d'<b>un kilogramme</b> de ce combustible (pouvoir calorifique massique, en J/kg ou MJ/kg).
+        Pour les gaz, on donne aussi un pouvoir calorifique par m³ ; pour les carburants, par litre. On a alors :
         \[Q = m \times PC \qquad (Q \text{ en J},\ m \text{ en kg},\ PC \text{ en J/kg}).\]</p>
     </div>
     <div class="table-scroll"><table>
@@ -52,18 +60,22 @@
         <p>Énergie utile : \(0{,}40 \times 2{,}07 \times 10^7 = 8{,}28 \times 10^6\) J. Masse d'eau : \(\dfrac{8{,}28 \times 10^6}{4\,180 \times 80} \approx 24{,}8\) kg, soit environ 25 L.</p>
       </details>
     </div>
+    <div class="box prop"><p class="box-title">Combustibles et émissions de CO₂</p>
+      <p>Pour une même énergie libérée, les combustibles ne rejettent pas la même masse de \(\mathrm{CO_2}\) : environ 0,20 kg de CO₂ par kWh pour le gaz naturel, 0,27 kg pour l'essence, 0,34 kg pour le charbon.
+        Le dihydrogène, lui, ne rejette que de l'eau (mais sa production peut émettre du CO₂). Les biocarburants rejettent du CO₂ que les plantes avaient absorbé en poussant.</p>
+    </div>
   </section>
 
   <section>
     <h2>3. Mesurer l'énergie libérée</h2>
     <div class="box method"><p class="box-title">Protocole (calorimétrie simple)</p>
       <ol>
-        <li>Peser la lampe à alcool (ou le brûleur) avant et après : on obtient la masse \(m\) de combustible brûlé.</li>
-        <li>Chauffer une masse \(m_e\) d'eau dans une canette ; relever \(\theta_i\) et \(\theta_f\).</li>
-        <li>Énergie reçue par l'eau : \(Q_e = m_e\,c_e\,(\theta_f - \theta_i)\) avec \(c_e = 4\,180\ \mathrm{J\,kg^{-1}\,{}^\circ C^{-1}}\).</li>
+        <li>Peser la lampe à alcool avant et après : on obtient la masse \(m\) de combustible brûlé.</li>
+        <li>Chauffer une masse \(m_e\) d'eau dans une canette ; relever les températures initiale \(\theta_i\) et finale \(\theta_f\).</li>
+        <li>Énergie reçue par l'eau : \(Q_e = m_e\,c_e\,(\theta_f - \theta_i)\), avec \(c_e = 4\,180\ \mathrm{J\,kg^{-1}\,{}^\circ C^{-1}}\) (voir <a href="energie-interne.html">énergie interne</a>).</li>
         <li>\(PC_{\text{exp}} = \dfrac{Q_e}{m}\), à comparer à la valeur de référence (écart normalisé, voir <a href="mesures-incertitudes.html">Mesures et incertitudes</a>).</li>
       </ol>
-      <p>La valeur trouvée est presque toujours <b>trop faible</b> : une grande partie de l'énergie chauffe l'air et la canette (erreur systématique).</p>
+      <p>La valeur trouvée est presque toujours <b>trop faible</b> : une grande partie de l'énergie chauffe l'air et la canette. C'est une erreur systématique, qu'on réduit en isolant le montage.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 2</p>
       <p>On brûle 1,2 g d'éthanol ; 200 g d'eau passent de 18 °C à 38 °C. Pouvoir calorifique expérimental ?</p>
@@ -77,20 +89,32 @@
     <h2>4. Dangers et prévention</h2>
     <div class="box warning"><p class="box-title">Risques liés aux combustions</p>
       <ul>
-        <li><b>Monoxyde de carbone</b> CO (combustion incomplète, manque d'air) : gaz incolore, inodore, mortel. Prévention : aération, entretien des chaudières, détecteur de CO.</li>
-        <li><b>Incendie, explosion</b> : stockage des combustibles à l'écart, détecteurs de fumée, extincteurs adaptés (on retire un côté du triangle du feu).</li>
-        <li><b>Brûlures</b>, fumées toxiques. En TP : lunettes, cheveux attachés, pas de flamme près des solvants.</li>
+        <li><b>Monoxyde de carbone</b> CO (combustion incomplète, manque d'air) : gaz incolore, inodore et mortel. Prévention : aérer, faire entretenir chaudières et poêles, installer un détecteur de CO.</li>
+        <li><b>Incendie, explosion</b> : stocker les combustibles à l'écart des sources de chaleur, détecteurs de fumée, extincteurs. Sur un feu d'huile ou électrique, <b>jamais d'eau</b> : on étouffe (couvercle, extincteur à CO₂ ou à poudre).</li>
+        <li><b>Brûlures</b>, fumées toxiques. En TP : lunettes, cheveux attachés, pas de flamme près des solvants, respect des pictogrammes (flamme = inflammable).</li>
       </ul>
     </div>
   </section>
 
   <section>
-    <h2>5. Manipuler</h2>
+    <h2>5. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Triangle du feu : combustible + comburant + énergie d'activation.</li>
+        <li>Combustion exothermique : énergie du système chimique qui diminue ; complète → CO₂ + H₂O ; incomplète → aussi CO et C.</li>
+        <li>\(Q = m \times PC\) ; calorimétrie : \(Q_e = m_e c_e \Delta\theta\), \(PC_{\text{exp}} = Q_e / m\).</li>
+        <li>Danger principal : le CO, inodore et mortel.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. Manipuler</h2>
     <div class="widget" id="w-pc">
       <p class="widget-title">Comparer les combustibles</p>
       <p class="hint">Pour une même masse brûlée, compare l'énergie libérée. Le dihydrogène libère le plus d'énergie par kilogramme… mais il est très léger et difficile à stocker.</p>
       <div class="controls">
-        <label>masse brûlée (kg) <input type="range" data-k="m" min="0.1" max="10" step="0.1" value="1"> <output data-show="m"></output></label>
+        <label>masse brûlée (kg) <input type="range" data-k="m" min="0.1" max="1000" step="0.1" value="1"> <output data-show="m"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="readout" aria-live="polite"></div>

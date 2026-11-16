@@ -18,23 +18,29 @@
   <header class="chapter-head">
     <p class="kicker">Physique-chimie 1re · Énergie</p>
     <h1>Énergie transportée par la lumière</h1>
-    <p class="lead">La lumière transporte de l'énergie : assez pour alimenter une maison avec des panneaux photovoltaïques, ou pour découper
-      du métal avec un laser. On quantifie cette énergie avec l'irradiance, on calcule le rendement d'un panneau et on évalue les risques d'un laser.</p>
+    <p class="lead">La lumière transporte de l'énergie : assez pour alimenter une maison avec des panneaux photovoltaïques, ou pour découper du métal avec un laser.
+      On mesure cette énergie avec l'irradiance, on calcule le rendement d'un panneau et on évalue les risques d'un laser.</p>
     <p class="prereq">Prérequis : <a href="energie-enjeux.html">puissance, énergie, rendement</a>.</p>
   </header>
 
   <section>
     <h2>1. Irradiance et puissance reçue</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>L'<b>irradiance</b> (ou éclairement énergétique) \(E\) est la puissance lumineuse reçue par unité de surface, en \(\mathrm{W\,m^{-2}}\).
-        Pour une surface \(S\) éclairée uniformément et perpendiculairement :
+      <p>L'<b>irradiance</b> (ou éclairement énergétique) \(E\) est la puissance lumineuse reçue <b>par mètre carré</b> de surface, en \(\mathrm{W\,m^{-2}}\).
+        Pour une surface \(S\) éclairée uniformément et de face (perpendiculairement aux rayons) :
         \[P_{\text{reçue}} = E \times S.\]
-        Elle se mesure avec un pyranomètre ou un solarimètre. Ordre de grandeur : au sol, en plein soleil, \(E \approx 1\,000\ \mathrm{W\,m^{-2}}\).</p>
+        Elle se mesure avec un <b>pyranomètre</b> ou un <b>solarimètre</b>.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Ordres de grandeur et inclinaison</p>
+      <ul>
+        <li>Hors atmosphère, le Soleil apporte environ \(1\,360\ \mathrm{W\,m^{-2}}\) ; au sol, par beau temps à midi, environ \(1\,000\ \mathrm{W\,m^{-2}}\) ; par temps couvert, 100 à 300.</li>
+        <li>Si les rayons arrivent en biais (angle \(\theta\) avec la perpendiculaire au panneau), la puissance reçue est réduite : \(P = E \times S \times \cos\theta\). D'où l'intérêt d'orienter et d'incliner les panneaux.</li>
+      </ul>
     </div>
     <div class="box example"><p class="box-title">Exemple 1</p>
-      <p>Quelle puissance lumineuse reçoit un toit de 20 m² sous une irradiance de 800 W/m² ?</p>
+      <p>Quelle puissance lumineuse reçoit un toit de 20 m² sous une irradiance de 800 W/m² ? Et si les rayons arrivent avec un angle de 60° ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(P = 800 \times 20 = 16\,000\) W \(= 16\) kW.</p>
+        <p>\(P = 800 \times 20 = 16\,000\) W \(= 16\) kW. Avec 60° : \(16\,000 \times \cos 60^\circ = 8\) kW, deux fois moins.</p>
       </details>
     </div>
   </section>
@@ -42,18 +48,19 @@
   <section>
     <h2>2. Conversion photovoltaïque</h2>
     <div class="box prop"><p class="box-title">Bilan et rendement d'un panneau</p>
-      <p>Un panneau photovoltaïque convertit l'énergie lumineuse en énergie électrique (le reste est perdu en chaleur ou réfléchi) :
+      <p>Un panneau photovoltaïque convertit une partie de l'énergie lumineuse en énergie électrique ; le reste est perdu (chaleur, lumière réfléchie) :
         \[\eta = \frac{P_{\text{électrique}}}{P_{\text{lumineuse}}} = \frac{U \times I}{E \times S}.\]
-        Les panneaux du commerce ont un rendement de l'ordre de 15 à 22 %.</p>
+        Les panneaux du commerce ont un rendement de l'ordre de 15 à 22 %. Un panneau chaud a un rendement plus faible.</p>
     </div>
     <div class="box method"><p class="box-title">Mesurer le rendement (TP)</p>
-      <p>On éclaire le panneau, on mesure \(E\) au solarimètre, puis on relève \(U\) et \(I\) pour différentes résistances de charge : la puissance électrique \(P = UI\) passe par un <b>maximum</b>.
-        Le rendement se calcule au point de puissance maximale.</p>
+      <p>On éclaire le panneau, on mesure \(E\) au solarimètre, puis on relève \(U\) et \(I\) en branchant différentes résistances de charge.
+        On trace la caractéristique \(I(U)\) et la puissance \(P = UI\) : elle passe par un <b>maximum</b> (point de puissance maximale). C'est en ce point qu'on calcule le rendement,
+        et c'est là qu'un régulateur fait travailler le panneau.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 2 — installation domestique</p>
-      <p>12 panneaux de 1,7 m², rendement 20 %, irradiance moyenne de 600 W/m² pendant 5 h par jour. Énergie électrique produite par jour ?</p>
+      <p>12 panneaux de 1,7 m², rendement 20 %, irradiance moyenne de 600 W/m² pendant 5 h par jour. Énergie électrique produite par jour ? par an ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(P_{\text{élec}} = 0{,}20 \times 600 \times 12 \times 1{,}7 \approx 2\,450\) W ; \(E = 2{,}45\ \mathrm{kW} \times 5\ \mathrm{h} \approx 12{,}2\) kWh par jour.</p>
+        <p>\(P_{\text{élec}} = 0{,}20 \times 600 \times 12 \times 1{,}7 \approx 2\,450\) W ; \(E = 2{,}45\ \mathrm{kW} \times 5\ \mathrm{h} \approx 12{,}2\) kWh par jour, soit environ 4 500 kWh par an (la consommation électrique d'un foyer).</p>
       </details>
     </div>
   </section>
@@ -61,31 +68,42 @@
   <section>
     <h2>3. Le rayonnement laser</h2>
     <div class="box def"><p class="box-title">Caractéristiques</p>
-      <p>Un laser émet une lumière <b>monochromatique</b> (une seule longueur d'onde) et <b>directive</b> : toute la puissance est concentrée sur un petit spot.
-        Son irradiance vaut \(E = \dfrac{P}{S}\) avec \(S = \pi r^2\) l'aire du faisceau.</p>
+      <p>Un laser émet une lumière <b>monochromatique</b> (une seule longueur d'onde, donc une seule couleur) et très <b>directive</b> : toute la puissance est concentrée dans un faisceau étroit.
+        Son irradiance vaut \(E = \dfrac{P}{S}\), avec \(S = \pi r^2\) l'aire de la tache lumineuse.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 3 — pointeur laser</p>
       <p>Un pointeur de 5 mW a un faisceau de 1 mm de diamètre. Irradiance ? Comparer au Soleil.</p>
       <details class="solution"><summary>Solution</summary>
         <p>\(S = \pi \times (0{,}5 \times 10^{-3})^2 \approx 7{,}85 \times 10^{-7}\) m² ; \(E = \dfrac{5 \times 10^{-3}}{7{,}85 \times 10^{-7}} \approx 6\,400\ \mathrm{W\,m^{-2}}\),
-          plus de 6 fois le Soleil. Et l'œil focalise encore ce faisceau sur la rétine : <b>danger</b>.</p>
+          plus de 6 fois le Soleil. Et l'œil concentre encore ce faisceau sur la rétine : <b>danger</b>.</p>
       </details>
     </div>
     <div class="box warning"><p class="box-title">Protection</p>
-      <p>Les lasers sont classés de 1 (sans danger) à 4 (danger pour l'œil et la peau, risque d'incendie). Ne jamais regarder le faisceau ni sa réflexion,
-        porter des lunettes adaptées à la longueur d'onde, travailler faisceau à hauteur de table. Usages : découpe et soudure industrielles, chirurgie, télémétrie.</p>
+      <p>Les lasers sont classés de 1 (sans danger) à 4 (dangereux pour l'œil et la peau, risque d'incendie). Règles : ne jamais regarder le faisceau ni sa réflexion (attention aux bijoux, montres, vitres),
+        porter des lunettes adaptées à la longueur d'onde, garder le faisceau à hauteur de table. Usages : découpe et soudure industrielles, chirurgie, télémétrie, lecture optique.</p>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Irradiance \(E\) en \(\mathrm{W\,m^{-2}}\) ; \(P = E \times S\) (de face), \(P = ES\cos\theta\) (en biais) ; Soleil au sol ≈ 1 000 W/m².</li>
+        <li>Rendement d'un panneau : \(\eta = \dfrac{UI}{ES}\) (15 à 22 %) ; énergie : \(E = P \times \Delta t\).</li>
+        <li>Laser : \(E = \dfrac{P}{\pi r^2}\) ; classes 1 à 4 ; jamais dans l'œil.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-pv">
       <p class="widget-title">Production d'un panneau photovoltaïque au fil d'une journée</p>
       <p class="hint">L'irradiance suit la hauteur du Soleil ; l'aire sous la courbe de puissance électrique est l'énergie produite dans la journée.</p>
       <div class="controls">
-        <label>surface (m²) <input type="range" data-k="S" min="1" max="40" step="1" value="10"> <output data-show="S"></output></label>
-        <label>rendement (%) <input type="range" data-k="eta" min="5" max="30" step="1" value="20"> <output data-show="eta"></output></label>
-        <label>irradiance max (W/m²) <input type="range" data-k="E" min="200" max="1100" step="50" value="900"> <output data-show="E"></output></label>
+        <label>surface (m²) <input type="range" data-k="S" min="0.1" max="1000" step="0.1" value="10"> <output data-show="S"></output></label>
+        <label>rendement (%) <input type="range" data-k="eta" min="1" max="45" step="1" value="20"> <output data-show="eta"></output></label>
+        <label>irradiance max (W/m²) <input type="range" data-k="E" min="50" max="1400" step="10" value="900"> <output data-show="E"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="readout" aria-live="polite"></div>

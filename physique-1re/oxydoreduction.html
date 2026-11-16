@@ -18,8 +18,8 @@
   <header class="chapter-head">
     <p class="kicker">Physique-chimie 1re · Matière et matériaux</p>
     <h1>Réactions d'oxydoréduction</h1>
-    <p class="lead">La rouille, une pile, une pile à combustible, la galvanisation d'une tôle : à chaque fois, des électrons passent d'une espèce à une autre.
-      On apprend à identifier oxydants et réducteurs, à écrire les demi-équations et l'équation d'oxydoréduction, et à analyser la corrosion.</p>
+    <p class="lead">La rouille, une pile, une pile à combustible, la tôle galvanisée d'un hangar : à chaque fois, des électrons passent d'une espèce chimique à une autre.
+      Tu vas apprendre à repérer qui donne et qui reçoit les électrons, à écrire les demi-équations et l'équation complète, et à comprendre comment on protège les métaux de la corrosion.</p>
     <p class="prereq">Prérequis : <a href="matiere-materiaux.html">atomes et ions</a>, ajustement d'équations.</p>
   </header>
 
@@ -27,9 +27,10 @@
     <h2>1. Oxydants, réducteurs, couples</h2>
     <div class="box def"><p class="box-title">Définitions</p>
       <ul>
-        <li>Un <b>oxydant</b> est une espèce capable de <b>capter</b> un ou plusieurs électrons ; un <b>réducteur</b> peut en <b>céder</b>.</li>
-        <li>Une <b>oxydation</b> est une perte d'électrons ; une <b>réduction</b> est un gain d'électrons. (Moyen mnémotechnique : « l'oxydant se réduit ».)</li>
-        <li>Un <b>couple oxydant/réducteur</b> Ox/Red est relié par une <b>demi-équation électronique</b> : \(\mathrm{Ox} + n\,e^- = \mathrm{Red}\).</li>
+        <li>Un <b>oxydant</b> est une espèce capable de <b>capter</b> un ou plusieurs électrons ; un <b>réducteur</b> est une espèce capable d'en <b>céder</b>.</li>
+        <li>Une <b>oxydation</b> est une <b>perte</b> d'électrons ; une <b>réduction</b> est un <b>gain</b> d'électrons. (Moyen mnémotechnique : « le réducteur s'oxyde, l'oxydant se réduit ».)</li>
+        <li>Un oxydant et un réducteur liés par un échange d'électrons forment un <b>couple oxydant/réducteur</b>, noté Ox/Red (l'oxydant toujours en premier).
+          On passe de l'un à l'autre par une <b>demi-équation électronique</b> : \(\mathrm{Ox} + n\,e^- = \mathrm{Red}\).</li>
       </ul>
     </div>
     <div class="table-scroll"><table>
@@ -37,6 +38,7 @@
       <tbody>
         <tr><td>\(\mathrm{Cu^{2+}/Cu}\)</td><td>\(\mathrm{Cu^{2+}} + \mathrm{2\,e^-} = \mathrm{Cu}\)</td></tr>
         <tr><td>\(\mathrm{Fe^{2+}/Fe}\)</td><td>\(\mathrm{Fe^{2+}} + \mathrm{2\,e^-} = \mathrm{Fe}\)</td></tr>
+        <tr><td>\(\mathrm{Fe^{3+}/Fe^{2+}}\)</td><td>\(\mathrm{Fe^{3+}} + \mathrm{e^-} = \mathrm{Fe^{2+}}\)</td></tr>
         <tr><td>\(\mathrm{Zn^{2+}/Zn}\)</td><td>\(\mathrm{Zn^{2+}} + \mathrm{2\,e^-} = \mathrm{Zn}\)</td></tr>
         <tr><td>\(\mathrm{Ag^{+}/Ag}\)</td><td>\(\mathrm{Ag^{+}} + \mathrm{e^-} = \mathrm{Ag}\)</td></tr>
         <tr><td>\(\mathrm{Al^{3+}/Al}\)</td><td>\(\mathrm{Al^{3+}} + \mathrm{3\,e^-} = \mathrm{Al}\)</td></tr>
@@ -44,21 +46,30 @@
         <tr><td>\(\mathrm{O_2/H_2O}\)</td><td>\(\mathrm{O_2} + \mathrm{4\,H^+} + \mathrm{4\,e^-} = \mathrm{2\,H_2O}\)</td></tr>
       </tbody>
     </table></div>
+    <div class="box method"><p class="box-title">Écrire une demi-équation (couple donné, en milieu acide)</p>
+      <ol>
+        <li>Écrire Ox à gauche, Red à droite ; équilibrer l'élément principal.</li>
+        <li>Équilibrer les atomes O en ajoutant des molécules d'eau \(\mathrm{H_2O}\).</li>
+        <li>Équilibrer les atomes H en ajoutant des ions \(\mathrm{H^+}\).</li>
+        <li>Équilibrer les charges en ajoutant des électrons \(e^-\) du côté de l'oxydant.</li>
+      </ol>
+      <p>Ex. pour \(\mathrm{MnO_4^-/Mn^{2+}}\) : \(\mathrm{MnO_4^-} + \mathrm{8\,H^+} + \mathrm{5\,e^-} = \mathrm{Mn^{2+}} + \mathrm{4\,H_2O}\) (charges : \(-1 + 8 - 5 = +2\) à gauche, \(+2\) à droite).</p>
+    </div>
   </section>
 
   <section>
     <h2>2. Écrire une équation d'oxydoréduction</h2>
     <div class="box method"><p class="box-title">Méthode</p>
       <ol>
-        <li>Écrire la demi-équation de chaque couple, dans le sens où il réagit (l'oxydant d'un couple réagit avec le réducteur de l'autre).</li>
-        <li>Multiplier les demi-équations pour que le <b>nombre d'électrons</b> cédés soit égal au nombre captés.</li>
-        <li>Additionner : les électrons disparaissent du bilan.</li>
+        <li>Écrire la demi-équation de chaque couple dans le sens où il réagit : l'oxydant d'un couple réagit avec le réducteur de l'autre.</li>
+        <li>Multiplier les demi-équations pour que le <b>nombre d'électrons cédés</b> soit égal au <b>nombre d'électrons captés</b> (on prend le plus petit multiple commun).</li>
+        <li>Additionner : les électrons disparaissent de l'équation (ils ne sont jamais libres en solution).</li>
       </ol>
     </div>
     <div class="box example"><p class="box-title">Exemple 1 — lame de zinc dans du sulfate de cuivre</p>
       <p>Une lame de zinc plonge dans une solution bleue d'ions \(\mathrm{Cu^{2+}}\) : un dépôt rouge de cuivre apparaît et la solution se décolore. Équation ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(\mathrm{Zn} = \mathrm{Zn^{2+}} + \mathrm{2\,e^-}\) (oxydation) et \(\mathrm{Cu^{2+}} + \mathrm{2\,e^-} = \mathrm{Cu}\) (réduction).</p>
+        <p>\(\mathrm{Zn} = \mathrm{Zn^{2+}} + \mathrm{2\,e^-}\) (oxydation du zinc) et \(\mathrm{Cu^{2+}} + \mathrm{2\,e^-} = \mathrm{Cu}\) (réduction des ions cuivre).</p>
         <p>Bilan : \(\mathrm{Zn} + \mathrm{Cu^{2+}} \longrightarrow \mathrm{Zn^{2+}} + \mathrm{Cu}\).</p>
       </details>
     </div>
@@ -68,26 +79,43 @@
         <p>\(\mathrm{Al} = \mathrm{Al^{3+}} + \mathrm{3\,e^-}\) (× 1) et \(\mathrm{Ag^+} + \mathrm{e^-} = \mathrm{Ag}\) (× 3) : \(\mathrm{Al} + \mathrm{3\,Ag^+} \longrightarrow \mathrm{Al^{3+}} + \mathrm{3\,Ag}\).</p>
       </details>
     </div>
+    <div class="box prop"><p class="box-title">Piles et pile à combustible</p>
+      <p>Dans une <b>pile</b>, l'oxydation et la réduction ont lieu dans deux compartiments séparés : les électrons passent par le circuit extérieur et créent un courant.
+        Dans une <b>pile à combustible</b>, le dihydrogène est oxydé (\(\mathrm{H_2} = \mathrm{2\,H^+} + \mathrm{2\,e^-}\)) et le dioxygène réduit (\(\mathrm{O_2} + \mathrm{4\,H^+} + \mathrm{4\,e^-} = \mathrm{2\,H_2O}\)) :
+        bilan \(\mathrm{2\,H_2} + \mathrm{O_2} \to \mathrm{2\,H_2O}\), seul rejet : de l'eau.</p>
+    </div>
   </section>
 
   <section>
     <h2>3. Corrosion des matériaux</h2>
     <div class="box prop"><p class="box-title">Une oxydation des métaux</p>
-      <p>La <b>corrosion</b> d'un métal est son oxydation par le milieu (dioxygène de l'air, eau, ions). Pour le fer : \(\mathrm{Fe} = \mathrm{Fe^{2+}} + \mathrm{2\,e^-}\), les électrons étant captés par le dioxygène dissous ;
-        les ions fer forment ensuite la rouille (oxydes et hydroxydes de fer), poreuse, qui n'arrête pas l'attaque.</p>
+      <p>La <b>corrosion</b> d'un métal est son oxydation par son environnement (dioxygène de l'air, eau, sel, acides). Pour le fer : \(\mathrm{Fe} = \mathrm{Fe^{2+}} + \mathrm{2\,e^-}\), les électrons étant captés par le dioxygène dissous dans l'eau.
+        Les ions fer forment ensuite la rouille (oxydes et hydroxydes de fer). Elle est poreuse et se détache : elle n'arrête pas l'attaque. L'eau salée accélère beaucoup la corrosion.</p>
     </div>
-    <div class="box method"><p class="box-title">Se protéger de la corrosion</p>
+    <div class="box method"><p class="box-title">Protéger un métal</p>
       <ul>
-        <li>Revêtement isolant : peinture, vernis, plastique.</li>
-        <li><b>Galvanisation</b> : couche de zinc sur l'acier ; le zinc, plus réducteur, s'oxyde à la place du fer.</li>
-        <li><b>Anode sacrificielle</b> : bloc de zinc ou de magnésium fixé sur une coque de bateau ou une canalisation, qui se corrode à la place de la structure.</li>
-        <li>Alliages inoxydables (acier inox au chrome).</li>
+        <li><b>Revêtement</b> isolant : peinture, vernis, plastique, qui empêche le contact avec l'air et l'eau.</li>
+        <li><b>Galvanisation</b> : une couche de zinc sur l'acier ; le zinc, plus réducteur que le fer, s'oxyde à sa place (et forme une couche protectrice).</li>
+        <li><b>Anode sacrificielle</b> : un bloc de zinc ou de magnésium fixé sur une coque de bateau ou une canalisation, qui se corrode à la place de la structure et qu'on remplace régulièrement.</li>
+        <li><b>Alliages inoxydables</b> : l'acier inox contient du chrome, qui forme une fine couche d'oxyde protectrice.</li>
       </ul>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Oxydant : capte des électrons (il est réduit) ; réducteur : en cède (il est oxydé). Couple Ox/Red : \(\mathrm{Ox} + n\,e^- = \mathrm{Red}\).</li>
+        <li>Demi-équation en milieu acide : élément, puis O avec H₂O, puis H avec H⁺, puis charges avec e⁻.</li>
+        <li>Équation : même nombre d'électrons cédés et captés, puis on additionne.</li>
+        <li>Corrosion = oxydation du métal ; protections : revêtement, galvanisation, anode sacrificielle, inox.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-redox">
       <p class="widget-title">Construire une équation d'oxydoréduction</p>
       <p class="hint">Choisis le réducteur (qui cède les électrons) et l'oxydant (qui les capte). Les flèches montrent le transfert d'électrons ; les coefficients assurent qu'aucun électron ne reste.</p>

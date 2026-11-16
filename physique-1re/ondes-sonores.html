@@ -19,30 +19,33 @@
     <p class="kicker">Physique-chimie 1re · Ondes et informations</p>
     <h1>Ondes sonores et ultrasonores</h1>
     <p class="lead">Radar de recul, sonar, échographie : on mesure des distances grâce à l'écho d'un son ou d'un ultrason. On relie aussi ce qu'on entend
-      (hauteur, intensité) aux grandeurs physiques de l'onde (fréquence, amplitude, puissance).</p>
+      (un son grave ou aigu, faible ou fort) aux grandeurs physiques de l'onde (fréquence, amplitude, puissance).</p>
     <p class="prereq">Prérequis : <a href="ondes.html">introduction à la notion d'onde</a>.</p>
   </header>
 
   <section>
     <h2>1. Propagation du son</h2>
-    <div class="box prop"><p class="box-title">Un milieu matériel est obligatoire</p>
-      <p>Le son et les ultrasons sont des ondes <b>mécaniques longitudinales</b> : ils ne se propagent pas dans le vide.
-        Leur célérité dépend du milieu : elle est plus grande dans les liquides et les solides que dans les gaz.</p>
+    <div class="box prop"><p class="box-title">Il faut un milieu matériel</p>
+      <p>Le son et les ultrasons sont des ondes <b>mécaniques longitudinales</b> : une succession de compressions et de dilatations du milieu.
+        Ils <b>ne se propagent pas dans le vide</b> (dans l'espace, aucun son ne se transmet).
+        Leur célérité dépend du milieu : elle est plus grande dans les liquides et les solides que dans les gaz. Dans l'air, elle augmente un peu avec la température.</p>
     </div>
     <div class="table-scroll"><table>
       <thead><tr><th>milieu</th><th>air (20 °C)</th><th>eau</th><th>acier</th></tr></thead>
       <tbody><tr><th>célérité (m/s)</th><td>≈ 340</td><td>≈ 1 500</td><td>≈ 5 000 à 6 000</td></tr></tbody>
     </table></div>
     <div class="box prop"><p class="box-title">Domaines de fréquences</p>
-      <p>L'oreille humaine perçoit les sons de <b>20 Hz à 20 kHz</b> environ. En dessous : infrasons ; au-dessus : <b>ultrasons</b> (chauves-souris, échographie, nettoyage, sonar).</p>
+      <p>L'oreille humaine perçoit les sons de <b>20 Hz à 20 kHz</b> environ (cette limite haute baisse avec l'âge). En dessous : les <b>infrasons</b> (éléphants, séismes) ;
+        au-dessus : les <b>ultrasons</b> (chauves-souris, dauphins, échographie, nettoyage, sonar).</p>
     </div>
   </section>
 
   <section>
     <h2>2. Mesurer une distance par écho</h2>
     <div class="box method"><p class="box-title">Principe</p>
-      <p>Un émetteur envoie une salve ; elle se <b>réfléchit</b> sur l'obstacle et revient au récepteur après une durée \(\Delta t\). L'onde a fait l'<b>aller-retour</b> :
-        \[2d = v \times \Delta t \qquad \Longrightarrow \qquad d = \frac{v \times \Delta t}{2}.\]</p>
+      <p>Un émetteur envoie une courte salve ; elle se <b>réfléchit</b> sur l'obstacle et revient au récepteur après une durée \(\Delta t\). L'onde a fait l'<b>aller-retour</b> :
+        \[2d = v \times \Delta t \qquad \Longrightarrow \qquad d = \frac{v \times \Delta t}{2}.\]
+        On mesure \(\Delta t\) à l'oscilloscope ou avec une interface d'acquisition, entre le début de la salve émise et le début de la salve reçue.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1 — sonar</p>
       <p>Un sonar reçoit l'écho du fond marin 0,40 s après l'émission (\(v = 1\,500\) m/s). Profondeur ?</p>
@@ -51,10 +54,14 @@
       </details>
     </div>
     <div class="box example"><p class="box-title">Exemple 2 — orage</p>
-      <p>On entend le tonnerre 6 s après l'éclair. À quelle distance est l'orage ?</p>
+      <p>On entend le tonnerre 6 s après avoir vu l'éclair. À quelle distance est l'orage ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>La lumière arrive quasi instantanément ; le son met 6 s : \(d = 340 \times 6 \approx 2\) km (pas d'aller-retour ici).</p>
+        <p>La lumière arrive presque instantanément ; le son met 6 s : \(d = 340 \times 6 \approx 2\) km (pas d'aller-retour ici).</p>
       </details>
+    </div>
+    <div class="box prop"><p class="box-title">Échographie</p>
+      <p>En médecine, une sonde envoie des ultrasons (quelques MHz) dans le corps ; ils se réfléchissent à chaque changement de tissu. Les retards des échos donnent les profondeurs, et l'ordinateur reconstruit une image.
+        Plus la fréquence est grande, plus la longueur d'onde est petite et plus l'image est fine.</p>
     </div>
   </section>
 
@@ -62,13 +69,14 @@
     <h2>3. Ce que l'on perçoit</h2>
     <div class="box prop"><p class="box-title">Hauteur et intensité</p>
       <ul>
-        <li>La <b>hauteur</b> d'un son (grave ou aigu) est liée à sa <b>fréquence</b> : plus \(f\) est grande, plus le son est aigu (la₃ : 440 Hz).</li>
-        <li>L'<b>intensité</b> perçue (fort ou faible) est liée à l'<b>amplitude</b> de l'onde.</li>
+        <li>La <b>hauteur</b> d'un son (grave ou aigu) est liée à sa <b>fréquence</b> : plus \(f\) est grande, plus le son est aigu. Le la du diapason vaut 440 Hz ; une octave au-dessus, 880 Hz.</li>
+        <li>L'<b>intensité</b> perçue (son faible ou fort) est liée à l'<b>amplitude</b> de l'onde.</li>
+        <li>Deux instruments jouant la même note n'ont pas la même forme de signal : c'est le <b>timbre</b>.</li>
       </ul>
     </div>
     <div class="box def"><p class="box-title">Intensité et puissance acoustiques</p>
-      <p>L'<b>intensité acoustique</b> \(I\) est la puissance sonore reçue par unité de surface (W/m²) : \(I = \dfrac{P}{S}\).
-        Pour une source qui émet uniformément dans toutes les directions, la puissance se répartit sur une sphère de rayon \(r\) :
+      <p>L'<b>intensité acoustique</b> \(I\) est la puissance sonore reçue par mètre carré (W/m²) : \(I = \dfrac{P}{S}\).
+        Pour une source qui émet uniformément dans toutes les directions, la puissance se répartit sur une sphère de rayon \(r\) (surface \(4\pi r^2\)) :
         \[I = \frac{P}{4\pi r^2}.\]
         Doubler la distance divise donc l'intensité par 4.</p>
     </div>
@@ -81,13 +89,25 @@
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>Son : onde mécanique longitudinale ; pas dans le vide ; air ≈ 340 m/s, eau ≈ 1 500 m/s, acier ≈ 5 000 m/s.</li>
+        <li>Audible : 20 Hz – 20 kHz ; au-delà : ultrasons.</li>
+        <li>Écho : \(d = \dfrac{v\Delta t}{2}\).</li>
+        <li>Hauteur ↔ fréquence ; intensité ↔ amplitude ; \(I = \dfrac{P}{S} = \dfrac{P}{4\pi r^2}\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-echo">
       <p class="widget-title">Mesure d'une distance par écho</p>
       <p class="hint">La salve émise (bleu) revient après un aller-retour (rose). Change le milieu : pour la même distance, le retard change.</p>
       <div class="controls">
         <label>milieu <select data-k="v"><option value="340" selected>air (340 m/s)</option><option value="1500">eau (1 500 m/s)</option><option value="5900">acier (5 900 m/s)</option></select></label>
-        <label>distance (m) <input type="range" data-k="d" min="0.2" max="10" step="0.1" value="1.7"> <output data-show="d"></output></label>
+        <label>distance (m) <input type="range" data-k="d" min="0.05" max="1000" step="0.05" value="1.7"> <output data-show="d"></output></label>
       </div>
       <canvas class="plot short"></canvas>
       <div class="readout" aria-live="polite"></div>

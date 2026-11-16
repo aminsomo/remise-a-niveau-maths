@@ -18,40 +18,48 @@
   <header class="chapter-head">
     <p class="kicker">Physique-chimie 1re · Énergie</p>
     <h1>Énergie interne et transferts thermiques</h1>
-    <p class="lead">Pourquoi faut-il tant d'énergie pour faire bouillir de l'eau ? Comment un ballon d'eau chaude stocke-t-il l'énergie ?
-      On relie la température à l'agitation microscopique et on calcule les énergies échangées lors d'un échauffement ou d'un changement d'état.</p>
-    <p class="prereq">Prérequis : <a href="energie-enjeux.html">conservation de l'énergie</a>.</p>
+    <p class="lead">Pourquoi faut-il autant d'énergie pour faire bouillir de l'eau ? Comment un ballon d'eau chaude stocke-t-il l'énergie, et comment une maison la perd-elle ?
+      On relie la température à l'agitation des particules, on calcule l'énergie échangée quand un corps chauffe ou change d'état, et on étudie les trois façons de transférer la chaleur.</p>
+    <p class="prereq">Prérequis : <a href="energie-enjeux.html">conservation de l'énergie, puissance</a>.</p>
   </header>
 
   <section>
     <h2>1. Température et énergie interne</h2>
     <div class="box def"><p class="box-title">Température</p>
-      <p>La <b>température</b> traduit l'agitation des constituants microscopiques (atomes, molécules) : plus ils s'agitent, plus la température est élevée.
-        Deux échelles : le degré Celsius (°C) et le kelvin (K), unité SI : \[T(\mathrm{K}) = \theta({}^\circ\mathrm{C}) + 273{,}15.\]
-        Le zéro absolu (0 K) correspond à l'absence d'agitation. Une <b>variation</b> de 1 °C est égale à une variation de 1 K.</p>
+      <p>La <b>température</b> traduit l'agitation des particules microscopiques (atomes, molécules) : plus elles s'agitent, plus la température est élevée.
+        Deux échelles : le degré Celsius (°C) et le kelvin (K), l'unité du SI :
+        \[T(\mathrm{K}) = \theta({}^\circ\mathrm{C}) + 273{,}15.\]
+        Le zéro absolu (0 K, soit −273,15 °C) correspond à l'absence totale d'agitation : on ne peut pas descendre plus bas. Une <b>variation</b> de 1 °C est égale à une variation de 1 K.</p>
+    </div>
+    <div class="box def"><p class="box-title">Énergie interne</p>
+      <p>L'<b>énergie interne</b> \(U\) d'un corps est l'énergie stockée à l'échelle microscopique (agitation des particules et liaisons entre elles). Elle augmente quand le corps chauffe ou fond.</p>
     </div>
     <div class="box warning"><p class="box-title">Chaleur ≠ température</p>
-      <p>Dans le langage courant, « chaleur » est ambigu. En physique, la chaleur (ou transfert thermique \(Q\)) est un <b>échange d'énergie</b> entre deux systèmes, pas une forme d'énergie stockée.
-        Ce qui est stocké, c'est l'<b>énergie interne</b> \(U\).</p>
+      <p>Dans la vie courante, « chaleur » est un mot flou. En physique, la <b>chaleur</b> (ou transfert thermique \(Q\)) désigne un <b>échange d'énergie</b> entre deux corps, pas une énergie qu'un corps « contient ».
+        Un objet chaud n'a pas « de la chaleur » : il a une énergie interne élevée.</p>
     </div>
   </section>
 
   <section>
     <h2>2. Capacité thermique et changements d'état</h2>
-    <div class="box prop"><p class="box-title">Variation de température (solide ou liquide)</p>
-      <p>\[\Delta U = m\,c\,(\theta_f - \theta_i)\]
-        \(c\) est la <b>capacité thermique massique</b> (J·kg⁻¹·°C⁻¹) : l'énergie à fournir pour élever 1 kg de 1 °C.
-        Eau : \(c = 4\,180\) ; aluminium : 900 ; fer : 450 ; béton ≈ 900.</p>
+    <div class="box prop"><p class="box-title">Quand la température change (solide ou liquide)</p>
+      <p>\[\Delta U = Q = m\,c\,(\theta_f - \theta_i) = m\,c\,\Delta\theta\]
+        \(c\) est la <b>capacité thermique massique</b> (en \(\mathrm{J\,kg^{-1}\,{}^\circ C^{-1}}\)) : l'énergie qu'il faut fournir pour élever 1 kg de 1 °C.
+        Eau : \(c = 4\,180\) (très grande, d'où son usage pour stocker la chaleur) ; aluminium : 900 ; béton ≈ 900 ; fer : 450 ; cuivre : 385. Si \(\Delta\theta &lt; 0\), le corps cède de l'énergie.</p>
     </div>
-    <div class="box prop"><p class="box-title">Changement d'état</p>
-      <p>Pendant un changement d'état (fusion, vaporisation…), la température reste <b>constante</b> mais il faut échanger l'énergie
+    <div class="box def"><p class="box-title">Les changements d'état</p>
+      <p>Solide → liquide : <b>fusion</b> ; liquide → solide : <b>solidification</b> ; liquide → gaz : <b>vaporisation</b> ; gaz → liquide : <b>liquéfaction</b> (ou condensation liquide) ;
+        solide → gaz : <b>sublimation</b> ; gaz → solide : <b>condensation</b> (solide). Fusion, vaporisation et sublimation <b>absorbent</b> de l'énergie ; les transformations inverses en <b>libèrent</b>.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Énergie de changement d'état</p>
+      <p>Pendant un changement d'état d'un corps pur, la température reste <b>constante</b> (un « palier »), mais il faut échanger l'énergie
         \[Q = m\,L\]
         où \(L\) est l'<b>énergie massique de changement d'état</b> (J/kg). Eau : \(L_{\text{fusion}} = 334\) kJ/kg, \(L_{\text{vaporisation}} = 2\,257\) kJ/kg.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1 — ballon d'eau chaude</p>
       <p>Un ballon de 200 L chauffe l'eau de 15 °C à 60 °C. Énergie nécessaire ? Durée avec une résistance de 2,2 kW ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(\Delta U = 200 \times 4\,180 \times 45 \approx 3{,}76 \times 10^7\) J \(\approx 10{,}5\) kWh.</p>
+        <p>\(\Delta U = 200 \times 4\,180 \times 45 \approx 3{,}76 \times 10^7\) J \(\approx 10{,}5\) kWh (1 L d'eau ≈ 1 kg).</p>
         <p>\(\Delta t = \dfrac{3{,}76 \times 10^7}{2\,200} \approx 1{,}71 \times 10^4\) s, soit environ 4 h 45 min.</p>
       </details>
     </div>
@@ -59,16 +67,21 @@
 
   <section>
     <h2>3. Transferts thermiques</h2>
-    <div class="box prop"><p class="box-title">Sens du transfert</p>
-      <p>Un transfert thermique se fait spontanément du corps <b>chaud</b> vers le corps <b>froid</b>, jusqu'à l'équilibre thermique (même température).
-        Si le système est isolé, l'énergie cédée par l'un est reçue par l'autre : \(Q_{\text{cédée}} + Q_{\text{reçue}} = 0\).</p>
+    <div class="box prop"><p class="box-title">Sens du transfert et équilibre</p>
+      <p>Un transfert thermique se fait <b>spontanément du corps chaud vers le corps froid</b>, jusqu'à ce qu'ils aient la même température : c'est l'<b>équilibre thermique</b>.
+        Si l'ensemble est isolé (pas d'échange avec l'extérieur), l'énergie cédée par l'un est reçue par l'autre : \(Q_{\text{cédée}} + Q_{\text{reçue}} = 0\).</p>
     </div>
     <div class="box def"><p class="box-title">Trois modes de transfert</p>
       <ul>
-        <li><b>Conduction</b> : de proche en proche dans la matière, sans déplacement global (casserole, mur).</li>
-        <li><b>Convection</b> : par déplacement d'un fluide (radiateur, chauffage par l'air, eau d'une casserole).</li>
-        <li><b>Rayonnement</b> : par ondes électromagnétiques, même dans le vide (Soleil, four solaire d'Odeillo, infrarouge).</li>
+        <li><b>Conduction</b> : de proche en proche dans la matière, sans que la matière se déplace (la poignée d'une casserole, un mur). Les métaux conduisent bien, l'air et la laine de verre mal (isolants).</li>
+        <li><b>Convection</b> : grâce au déplacement d'un fluide (l'air chaud qui monte au-dessus d'un radiateur, l'eau qui circule dans une casserole).</li>
+        <li><b>Rayonnement</b> : par des ondes électromagnétiques (infrarouge surtout), même dans le vide (le Soleil, un feu de cheminée, le four solaire d'Odeillo).</li>
       </ul>
+    </div>
+    <div class="box prop"><p class="box-title">Régime stationnaire et résistance thermique</p>
+      <p>Quand les températures ne changent plus (régime <b>stationnaire</b>), une paroi laisse passer un flux thermique (une puissance) constant :
+        \[\Phi = \frac{\theta_{\text{int}} - \theta_{\text{ext}}}{R_{\text{th}}}, \qquad R_{\text{th}} = \frac{e}{\lambda S}\]
+        (\(\Phi\) en W, \(R_{\text{th}}\) résistance thermique en K/W, \(e\) épaisseur, \(\lambda\) conductivité thermique du matériau, \(S\) surface). Bien isoler, c'est augmenter \(R_{\text{th}}\).</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 2 — température d'équilibre</p>
       <p>On mélange 2 kg d'eau à 80 °C et 3 kg d'eau à 20 °C (sans pertes). Température finale ?</p>
@@ -79,13 +92,25 @@
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(T(\mathrm{K}) = \theta({}^\circ\mathrm{C}) + 273{,}15\).</li>
+        <li>\(Q = mc\Delta\theta\) (\(c_{\text{eau}} = 4\,180\ \mathrm{J\,kg^{-1}\,K^{-1}}\)) ; changement d'état : \(Q = mL\), à température constante.</li>
+        <li>Transfert du chaud vers le froid ; système isolé : \(\sum Q = 0\).</li>
+        <li>Conduction, convection, rayonnement ; régime stationnaire : \(\Phi = \dfrac{\Delta\theta}{R_{\text{th}}}\), \(R_{\text{th}} = \dfrac{e}{\lambda S}\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-heat">
       <p class="widget-title">Chauffer 1 kg de glace à −20 °C jusqu'à la vapeur</p>
       <p class="hint">Les paliers sont les changements d'état : la température ne bouge pas, mais l'énergie continue d'entrer. Le palier d'ébullition est près de 7 fois plus long que celui de fusion.</p>
       <div class="controls">
-        <label>puissance de chauffe (kW) <input type="range" data-k="P" min="0.5" max="5" step="0.5" value="2"> <output data-show="P"></output></label>
-        <label>masse (kg) <input type="range" data-k="m" min="0.2" max="3" step="0.1" value="1"> <output data-show="m"></output></label>
+        <label>puissance de chauffe (kW) <input type="range" data-k="P" min="0.1" max="20" step="0.1" value="2"> <output data-show="P"></output></label>
+        <label>masse (kg) <input type="range" data-k="m" min="0.1" max="50" step="0.1" value="1"> <output data-show="m"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="readout" aria-live="polite"></div>

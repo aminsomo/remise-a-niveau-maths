@@ -18,22 +18,27 @@
   <header class="chapter-head">
     <p class="kicker">Physique-chimie 1re · Énergie mécanique · Fluides</p>
     <h1>Pression et statique des fluides</h1>
-    <p class="lead">Pourquoi un barrage est-il plus épais à sa base ? Pourquoi les oreilles font-elles mal en plongée ? La pression dans un fluide
-      au repos augmente avec la profondeur, selon une loi très simple : le principe fondamental de l'hydrostatique.</p>
+    <p class="lead">Pourquoi un barrage est-il plus épais en bas qu'en haut ? Pourquoi a-t-on mal aux oreilles au fond d'une piscine ?
+      Dans un liquide au repos, la pression augmente avec la profondeur, selon une loi très simple : le principe fondamental de l'hydrostatique.</p>
     <p class="prereq">Prérequis : <a href="energie-mecanique.html">forces et poids</a>.</p>
   </header>
 
   <section>
     <h2>1. Pression et force pressante</h2>
     <div class="box def"><p class="box-title">Définition</p>
-      <p>Un fluide exerce sur une surface une <b>force pressante</b> perpendiculaire à cette surface. La <b>pression moyenne</b> est
+      <p>Un fluide (liquide ou gaz) appuie sur toutes les surfaces qu'il touche : il exerce une <b>force pressante</b>, toujours perpendiculaire à la surface.
+        La <b>pression</b> est cette force répartie sur la surface :
         \[p = \frac{F}{S} \qquad (p \text{ en pascals Pa},\ F \text{ en N},\ S \text{ en m}^2).\]
-        \(1\ \mathrm{bar} = 10^5\) Pa ; \(1\ \mathrm{hPa} = 100\) Pa. La pression atmosphérique moyenne vaut \(p_{\text{atm}} \approx 1{,}013 \times 10^5\) Pa ≈ 1 bar.</p>
+        Pour une même force, plus la surface est petite, plus la pression est grande.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Unités et valeurs</p>
+      <p>\(1\ \mathrm{Pa} = 1\ \mathrm{N/m^2}\) (très petit) ; \(1\ \mathrm{hPa} = 100\) Pa ; \(1\ \mathrm{bar} = 10^5\) Pa.
+        La pression atmosphérique moyenne au niveau de la mer vaut \(p_{\text{atm}} \approx 1{,}013 \times 10^5\) Pa \(= 1\,013\) hPa ≈ 1 bar. Un pneu de voiture : environ 2,2 bar de plus que l'atmosphère.</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 1 — talon aiguille ou raquette ?</p>
       <p>Une personne de 60 kg repose sur un talon de 1 cm², puis sur des raquettes de 0,25 m². Pression exercée sur le sol ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(F = mg \approx 589\) N. Talon : \(p = \dfrac{589}{10^{-4}} \approx 5{,}9 \times 10^6\) Pa (59 bar !). Raquettes : \(p = \dfrac{589}{0{,}25} \approx 2\,400\) Pa.</p>
+        <p>\(F = mg \approx 589\) N. Talon : \(p = \dfrac{589}{10^{-4}} \approx 5{,}9 \times 10^6\) Pa (59 bar !). Raquettes : \(p = \dfrac{589}{0{,}25} \approx 2\,400\) Pa : on ne s'enfonce pas dans la neige.</p>
       </details>
     </div>
   </section>
@@ -41,16 +46,22 @@
   <section>
     <h2>2. Principe fondamental de l'hydrostatique</h2>
     <div class="box prop"><p class="box-title">Énoncé</p>
-      <p>Dans un fluide <b>incompressible</b> de masse volumique \(\rho\), au repos, pour deux points A et B d'altitudes \(z_A\) et \(z_B\) (axe vertical vers le haut) :
+      <p>Dans un fluide <b>incompressible</b> (son volume ne change pas quand on appuie, c'est le cas des liquides) de masse volumique \(\rho\) (kg/m³), au repos,
+        pour deux points A et B d'altitudes \(z_A\) et \(z_B\) (axe vertical vers le haut) :
         \[p_B - p_A = \rho\,g\,(z_A - z_B).\]
-        Avec la profondeur \(h\) sous la surface libre : \(p = p_{\text{atm}} + \rho g h\).</p>
+        Plus B est bas, plus sa pression est grande. Avec la profondeur \(h\) sous la surface libre (en contact avec l'air) : \(p = p_{\text{atm}} + \rho g h\).</p>
       <ul>
-        <li>La pression ne dépend que de la profondeur, pas de la forme du récipient.</li>
-        <li>Deux points à la même profondeur dans le même fluide ont la même pression (surfaces isobares horizontales).</li>
+        <li>La pression ne dépend que de la profondeur, pas de la forme du récipient ni de la quantité de liquide.</li>
+        <li>Deux points à la même profondeur dans le même liquide ont la même pression : les surfaces de même pression sont horizontales.
+          Conséquence : dans des <b>vases communicants</b>, un même liquide est au même niveau partout.</li>
       </ul>
     </div>
     <div class="box def"><p class="box-title">Pression absolue, pression relative</p>
-      <p>La <b>pression absolue</b> se compte depuis le vide ; la <b>pression relative</b> (ou manométrique) est \(p - p_{\text{atm}}\) : c'est ce qu'affiche un manomètre de pneu.</p>
+      <p>La <b>pression absolue</b> est comptée à partir du vide ; la <b>pression relative</b> (ou manométrique) est \(p - p_{\text{atm}}\) : c'est ce qu'affiche un manomètre de pneu ou un profondimètre.</p>
+    </div>
+    <div class="box prop"><p class="box-title">Transmission des pressions (principe de Pascal)</p>
+      <p>Un liquide incompressible transmet intégralement une variation de pression. Dans un vérin ou un frein hydraulique, on appuie avec une petite force sur un petit piston :
+        \(\dfrac{F_1}{S_1} = \dfrac{F_2}{S_2}\), donc la force sur le grand piston est multipliée par \(\dfrac{S_2}{S_1}\).</p>
     </div>
     <div class="box example"><p class="box-title">Exemple 2 — plongée</p>
       <p>Pression absolue à 20 m de profondeur en mer (\(\rho = 1\,025\ \mathrm{kg\,m^{-3}}\)) ?</p>
@@ -61,7 +72,7 @@
     <div class="box example"><p class="box-title">Exemple 3 — château d'eau</p>
       <p>Le niveau d'eau d'un château d'eau est 35 m au-dessus d'un robinet. Pression relative au robinet ?</p>
       <details class="solution"><summary>Solution</summary>
-        <p>\(\Delta p = 1\,000 \times 9{,}81 \times 35 \approx 3{,}43 \times 10^5\) Pa ≈ 3,4 bar.</p>
+        <p>\(\Delta p = 1\,000 \times 9{,}81 \times 35 \approx 3{,}43 \times 10^5\) Pa ≈ 3,4 bar : c'est la hauteur d'eau qui crée la pression au robinet.</p>
       </details>
     </div>
   </section>
@@ -69,20 +80,31 @@
   <section>
     <h2>3. Mesurer une pression</h2>
     <div class="box method"><p class="box-title">Capteurs et précautions</p>
-      <p>Manomètre (pression relative), baromètre (pression atmosphérique), capteur de pression électronique relié à une interface.
-        En TP, on vérifie la loi \(p(h)\) en enfonçant une sonde dans une éprouvette : les points \((h\,;\,p)\) doivent s'aligner avec une pente \(\rho g\).
+      <p>Manomètre (pression relative), baromètre (pression atmosphérique), capteur électronique relié à une interface.
+        En TP, on vérifie la loi \(p(h)\) en enfonçant une sonde dans une éprouvette : les points \((h\,;\,p)\) doivent s'aligner, avec une pente égale à \(\rho g\).
         Sources d'erreur : lecture de la profondeur, bulles d'air dans le tuyau, température.</p>
     </div>
   </section>
 
   <section>
-    <h2>4. Manipuler</h2>
+    <h2>4. L'essentiel à retenir</h2>
+    <div class="box prop"><p class="box-title">Formulaire</p>
+      <ul>
+        <li>\(p = \dfrac{F}{S}\) ; \(1\ \mathrm{bar} = 10^5\ \mathrm{Pa}\) ; \(p_{\text{atm}} \approx 1{,}013 \times 10^5\ \mathrm{Pa}\).</li>
+        <li>\(p_B - p_A = \rho g (z_A - z_B)\) ; \(p = p_{\text{atm}} + \rho g h\) ; environ +1 bar tous les 10 m d'eau.</li>
+        <li>Pression relative = \(p - p_{\text{atm}}\) ; vases communicants : même niveau ; Pascal : \(\dfrac{F_1}{S_1} = \dfrac{F_2}{S_2}\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Manipuler</h2>
     <div class="widget" id="w-hydro">
       <p class="widget-title">Pression en fonction de la profondeur</p>
       <p class="hint">La droite est d'autant plus pentue que le liquide est dense. Elle part de la pression atmosphérique en surface.</p>
       <div class="controls">
         <label>liquide <select data-k="f"><option value="1000">eau douce</option><option value="1025">eau de mer</option><option value="850">huile</option><option value="13600">mercure</option></select></label>
-        <label>profondeur (m) <input type="range" data-k="h" min="0" max="40" step="0.5" value="10"> <output data-show="h"></output></label>
+        <label>profondeur (m) <input type="range" data-k="h" min="0" max="11000" step="1" value="10"> <output data-show="h"></output></label>
       </div>
       <canvas class="plot"></canvas>
       <div class="readout" aria-live="polite"></div>
@@ -135,14 +157,14 @@ window.addEventListener('DOMContentLoaded', function () {
   var G = Course.plot(w.querySelector('canvas'), { xlabel: 'h (m)', ylabel: 'p (bar)' });
   Course.onInput(w, function (v) {
     var rho = parseFloat(v.f), p = function (h) { return (101300 + rho * 9.81 * h) / 1e5; };
-    var top = p(40) * 1.08;
+    var H = Math.max(40, v.h * 1.2), top = p(H) * 1.08;
     G.draw = function (g) {
-      g.fn(p, '--c1', { from: 0, to: 40 });
+      g.fn(p, '--c1', { from: 0, to: H });
       g.seg(v.h, 0, v.h, p(v.h), '--c4', { dash: [4, 3], width: 1.2 });
       g.seg(0, p(v.h), v.h, p(v.h), '--c4', { dash: [4, 3], width: 1.2 });
       g.point(v.h, p(v.h), '--c2');
     };
-    G.redraw({ xmin: -1, xmax: 41, ymin: -top * 0.04, ymax: top });
+    G.redraw({ xmin: -H * 0.03, xmax: H * 1.03, ymin: -top * 0.04, ymax: top });
     out.textContent = 'ρ = ' + rho + ' kg/m³   à ' + Course.fmt(v.h, 1) + ' m : p = ' + Course.fmt(p(v.h) * 1e5, 0) + ' Pa = ' + Course.fmt(p(v.h), 3) + ' bar (absolue)' +
       '\npression relative : ' + Course.fmt(p(v.h) - 1.013, 3) + ' bar';
   });
