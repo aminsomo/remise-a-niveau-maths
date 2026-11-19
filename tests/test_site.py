@@ -34,6 +34,12 @@ def chapter_entries():
             yield s, c, ROOT / s["id"] / f"{c['slug']}.html"
 
 
+def is_six_steps(tree):
+    """Chapitre refondu en 6 étapes (main.chapter.v2) : l'évaluation remplace le quiz."""
+    main = tree.find("main", cls="chapter")
+    return main is not None and "v2" in main.attrs.get("class", "").split()
+
+
 def course_api():
     m = re.search(r"window\.Course\s*=\s*\{(.*?)\};", APP_JS.read_text(encoding="utf-8"), re.S)
     return set(re.findall(r"(\w+)\s*:", m.group(1)))
@@ -102,7 +108,8 @@ class LevelTests(unittest.TestCase):
             for path in sorted((ROOT / sid).glob("*.html")):
                 with self.subTest(page=f"{sid}/{path.name}"):
                     src = path.read_text(encoding="utf-8")
-                    self.assertIn("Course.drill(", src, "un entraînement auto-généré (avec calculatrice) par chapitre")
+                    self.assertTrue("Course.drill(" in src or "Course.trainer(" in src,
+                                    "un entraînement auto-généré (avec calculatrice) par chapitre")
                     self.assertIn('class="plot', src, "au moins un graphique manipulable (plein écran)")
 
 
@@ -186,6 +193,8 @@ class ChapterStructureTests(unittest.TestCase):
                 continue
             with self.subTest(chapter=f"{s['id']}/{c['slug']}"):
                 tree = parse(path.read_text(encoding="utf-8")).root
+                if is_six_steps(tree):
+                    continue  # l'évaluation sur 20 remplace le quiz (voir SixStepsTests)
                 quiz = tree.find(cls="quiz")
                 self.assertIsNotNone(quiz, "pas de quiz")
                 qs = list(quiz.find_all(cls="q"))
@@ -217,6 +226,70 @@ class ChapterStructureTests(unittest.TestCase):
                         self.assertTrue(u.path in ("/results",) or u.path.startswith(("/watch", "/@", "/playlist")), href)
 
 
+class SixStepsTests(unittest.TestCase):
+    """Structure obligatoire (README) : Cours → Exemples → Manipuler → Entraînement → Évaluation → Validation."""
+    STEPS = ["cours", "exemples", "manipuler", "entrainement", "evaluation", "validation"]
+
+    def six_step_chapters(self):
+        for s, c, path in chapter_entries():
+            if path.exists():
+                tree = parse(path.read_text(encoding="utf-8")).root
+                if is_six_steps(tree):
+                    yield f"{s['id']}/{c['slug']}", path, tree
+
+    def test_au_moins_le_premier_chapitre_de_physique(self):
+        keys = [k for k, _, _ in self.six_step_chapters()]
+        self.assertIn("physique-1re/energie-enjeux", keys)
+
+    def test_six_etapes_dans_l_ordre(self):
+        for key, path, tree in self.six_step_chapters():
+            with self.subTest(chapter=key):
+                steps = [n for n in tree.iter() if n.tag == "section" and "step" in n.attrs.get("class", "").split()]
+                self.assertEqual([n.attrs.get("id") for n in steps], self.STEPS)
+                for n in steps:
+                    self.assertIsNotNone(n.find("h2"), f"titre h2 manquant dans #{n.attrs.get('id')}")
+
+    def test_contenu_de_chaque_etape(self):
+        for key, path, tree in self.six_step_chapters():
+            with self.subTest(chapter=key):
+                sec = {n.attrs["id"]: n for n in tree.iter() if n.tag == "section" and n.attrs.get("id") in self.STEPS}
+                # 1-2 : cartes en grille bento à 2 colonnes, définitions et exemples avec solution dépliable
+                self.assertIsNotNone(sec["cours"].find(cls="bento"))
+                self.assertGreaterEqual(len(list(sec["cours"].find_all(cls="box"))), 6)
+                self.assertGreaterEqual(len(list(sec["exemples"].find_all(cls="example"))), 3)
+                self.assertGreaterEqual(len(list(sec["exemples"].find_all("details", cls="solution"))), 3)
+                # 3 : graphiques reliés aux formules, légende, curseurs colorés, préréglages, indicateurs
+                widgets = list(sec["manipuler"].find_all(cls="widget"))
+                self.assertGreaterEqual(len(widgets), 1)
+                for w in widgets:
+                    self.assertIsNotNone(w.find("canvas", cls="plot"), "graphique")
+                    self.assertIsNotNone(w.find(cls="legend"), "mini-légende")
+                    self.assertIsNotNone(w.find(cls="presets"), "préréglages")
+                    self.assertIsNotNone(w.find(cls="kpis"), "cartes d'indicateurs")
+                    self.assertGreaterEqual(len(list(w.find_all(cls="slider"))), 1)
+                # 4-6 : entraînement avec brouillon intégré, évaluation, validation
+                self.assertIsNotNone(sec["entrainement"].find(id="w-drill"))
+                self.assertIsNotNone(sec["entrainement"].find(cls="workspace-host"))
+                self.assertIsNotNone(sec["evaluation"].find(id="exam"))
+                self.assertIsNotNone(sec["evaluation"].find(cls="workspace-host"))
+                self.assertIsNotNone(sec["validation"].find(id="validation-card"))
+                scripts = "\n".join(parse(path.read_text(encoding="utf-8")).scripts)
+                for api in ("Course.trainer(", "Course.exam(", "Course.validation(", "Course.presets(", "Course.kpis("):
+                    self.assertIn(api, scripts)
+
+    def test_formules_avec_couleurs_des_grandeurs(self):
+        for key, path, tree in self.six_step_chapters():
+            with self.subTest(chapter=key):
+                src = path.read_text(encoding="utf-8")
+                self.assertRegex(src, r"\\Q[A-Za-z]+", "les grandeurs sont colorées par les macros \\QE, \\QP…")
+
+    def test_pas_de_quiz_ni_d_encadre_en_prepa(self):
+        for key, path, tree in self.six_step_chapters():
+            with self.subTest(chapter=key):
+                self.assertIsNone(tree.find(cls="quiz"), "l'évaluation remplace le quiz")
+                self.assertIsNone(tree.find(cls="kicker"), "pas de surtitre au-dessus du h1")
+
+
 class ScriptTests(unittest.TestCase):
     def test_pages_use_existing_course_api(self):
         api = course_api()
@@ -238,6 +311,8 @@ class ScriptTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which("node"), "node absent : vérification syntaxique JS ignorée")
     def test_javascript_syntax(self):
         sources = [(f, f.read_text(encoding="utf-8")) for f in (ROOT / "assets").glob("*.js")]
+        sources += [(f, f.read_text(encoding="utf-8")) for s, c, f in chapter_entries() if f.with_suffix(".js").exists()
+                    for f in [f.with_suffix(".js")]]
         for p in html_files():
             for i, s in enumerate(parse(p.read_text(encoding="utf-8")).scripts):
                 sources.append((Path(f"{p.name}#script{i}"), s))
@@ -260,7 +335,12 @@ class EngineWiringTests(unittest.TestCase):
                 tree = parse(p.read_text(encoding="utf-8")).root
                 srcs = [n.attrs.get("src", "") for n in tree.iter() if n.tag == "script" and n.attrs.get("src")]
                 local = [Path(urlparse(x).path).name for x in srcs if not x.startswith("http")]
-                self.assertEqual(local, self.ORDER, "scripts locaux attendus dans cet ordre : " + ", ".join(self.ORDER))
+                # après le moteur commun, un chapitre peut charger sa propre banque de questions (<slug>.js)
+                extra = local[len(self.ORDER):]
+                self.assertEqual(local[:len(self.ORDER)], self.ORDER, "scripts locaux attendus dans cet ordre : " + ", ".join(self.ORDER))
+                self.assertIn(extra, ([], [p.stem + ".js"]), "seul script propre autorisé : <slug>.js, après brouillon.js")
+                if extra:
+                    self.assertTrue((p.parent / extra[0]).exists(), extra[0])
                 for n in tree.iter():
                     if n.tag == "script" and n.attrs.get("src") and not n.attrs["src"].startswith("http"):
                         self.assertIn("defer", n.attrs, f"{n.attrs['src']} doit être en defer")

@@ -142,20 +142,28 @@ window.COURSE = /* BEGIN-JSON */ {
       "desc": "Partie physique-chimie de la spécialité « physique-chimie et mathématiques » STI2D : énergie, matière et matériaux, ondes et informations.",
       "chapters": [
         {
+          "slug": "energie-enjeux",
+          "title": "L'énergie et ses enjeux",
+          "summary": "Formes et sources d'énergie, chaînes énergétiques, rendement, E = P × Δt.",
+          "tags": [
+            "énergie",
+            "essentiel"
+          ]
+        },
+        {
+          "slug": "energie-interne",
+          "title": "Énergie interne et transferts thermiques",
+          "summary": "Température, capacité thermique, changements d'état, modes de transfert.",
+          "tags": [
+            "énergie"
+          ]
+        },
+        {
           "slug": "mesures-incertitudes",
           "title": "Mesures et incertitudes",
           "summary": "Unités SI, chiffres significatifs, erreurs, incertitude-type, écart normalisé.",
           "tags": [
             "méthode",
-            "essentiel"
-          ]
-        },
-        {
-          "slug": "energie-enjeux",
-          "title": "L'énergie et ses enjeux",
-          "summary": "Formes et sources, chaînes énergétiques, rendement, E = P × Δt.",
-          "tags": [
-            "énergie",
             "essentiel"
           ]
         },
@@ -174,14 +182,6 @@ window.COURSE = /* BEGIN-JSON */ {
           "tags": [
             "énergie",
             "essentiel"
-          ]
-        },
-        {
-          "slug": "energie-interne",
-          "title": "Énergie interne et transferts thermiques",
-          "summary": "Température, capacité thermique, changements d'état, modes de transfert.",
-          "tags": [
-            "énergie"
           ]
         },
         {

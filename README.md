@@ -15,6 +15,110 @@ mathématiques ») et arriver en **classe préparatoire** (TSI, PTSI…) sans la
 Chaque chapitre contient : cours, exemples rédigés, animations manipulables, exercices
 auto-générés, quiz corrigé et liens vers des vidéos en français.
 
+## Refonte en cours : feuille de route et règles
+
+Cette section fait foi pour la refonte. Toute nouvelle version de chapitre la respecte.
+
+### Feuille de route : Physique-chimie 1re STI2D (15 chapitres)
+
+Chaque chapitre est réécrit et amélioré à partir des PDF de cours et d'exercices fournis.
+
+- [ ] 1. L'énergie et ses enjeux (PDF de cours et d'exercices fournis)
+- [ ] 2. Énergie interne
+- [ ] 3. Énergie chimique
+- [ ] 4. Équation de réaction et molécules
+- [ ] 5. Électricité régime continu
+- [ ] 6. Électricité régime variable
+- [ ] 7. Puissance électrique
+- [ ] 8. Solution aqueuse
+- [ ] 9. Oxydoréduction et piles
+- [ ] 10. Notion d'onde
+- [ ] 11. Ondes sonores
+- [ ] 12. Ondes électromagnétiques
+- [ ] 13. Cinématique
+- [ ] 14. Forces
+- [ ] 15. Travaux des forces et énergie mécanique
+
+### Méthode de travail
+
+- Les chapitres se font **un par un**. On ne passe pas au suivant tant que le précédent n'a pas
+  été testé et confirmé.
+- Une case de la feuille de route ci-dessus est cochée seulement après cette validation.
+- Chaque chapitre passe par une pull request, relue sur le site affiché, avant toute fusion.
+
+### Direction visuelle, mise en page et interactivité
+
+- **Esthétique générale (style Linear / Raycast)** : refonte complète vers un mode sombre
+  d'outil d'ingénieur, sobre et soigné. Fond anthracite profond `#0B0D12` (pas un noir plat),
+  bordures nettes de `1px` semi-transparentes, halos radiaux discrets, typographie géométrique
+  et nette, beaucoup d'espace. Les styles partagés restent dans `assets/style.css` et
+  `assets/core.js`.
+- **Grille « bento » aérée à 2 colonnes** (pas une longue pile verticale monotone) :
+  - Conteneur principal élargi sur ordinateur (`max-width` de `1200px` à `1280px`). Les cartes
+    de cours et d'exemples sont rangées dans une **grille CSS responsive à 2 colonnes**
+    (`1 | 2` sur la première ligne, `3 | 4` sur la deuxième…) avec des espacements généreux
+    (`24px`). La page reste aérée, facile à parcourir, et on ne s'y perd pas.
+  - L'ordre de lecture reste clair (en-têtes ou pastilles numérotés sur les cartes). Seuls les
+    éléments larges prennent toute la largeur (`grid-column: 1 / -1`) : grands tableaux de
+    données, graphiques de *Manipuler*, écrans partagés d'*Entraînement* et d'*Évaluation*.
+  - Passage propre à 1 colonne sur mobile et petits écrans.
+- **Codes couleur et cartes** : on garde le code couleur sémantique existant (cyan pour les
+  actions principales et notions clés, violet pour les définitions et formules, ambre/orange
+  pour les exemples, vert pour les méthodes et protocoles). Bordure gauche colorée + fond
+  légèrement teinté (3 à 5 % d'opacité), en-têtes en pastille, boutons `Solution` cliquables
+  sur toute la largeur. Les couleurs citées dans le texte et les légendes sont **exactement**
+  celles des graphiques.
+- **Interactivité et ludification (style Duolingo)** : l'entraînement et la progression doivent
+  être tactiles, gratifiants et motivants : boutons qui s'enfoncent avec un léger relief,
+  compteur de série visible, barres de progression claires, micro-animations et retours fluides
+  sur les bonnes et les mauvaises réponses.
+
+### Structure obligatoire en 6 étapes
+
+Elle s'applique à **tous** les chapitres, toutes matières et tous niveaux (maths et physique,
+1re et Terminale), dans cet ordre exact :
+
+1. **Cours** : explication complète et bien structurée de chaque notion, avec toutes les
+   formules associées (dans la grille bento à 2 colonnes quand c'est pertinent). Même
+   vocabulaire technique, mêmes définitions et mêmes notations que les PDF de cours fournis.
+   Formules, variables, exposants et unités rendus proprement avec KaTeX.
+2. **Exemples concrets** : exemples résolus pas à pas (inspirés des PDF d'exercices) pour
+   comprendre comment les notions et les formules s'utilisent en pratique.
+3. **Manipuler** : graphiques interactifs dont les variables sont **toujours** liées
+   directement aux formules du cours (par exemple l'énergie en fonction du temps, dont la pente
+   est la puissance).
+   - Axes nommés avec unités et mini-légende claire.
+   - Cartes d'indicateurs (KPI) réactives plutôt que des blocs de texte en police
+     monospace (avec pastilles de statut colorées quand c'est utile).
+   - 2 ou 3 boutons de préréglages pédagogiques sous les curseurs.
+   - Même code couleur entre formules, curseurs et graphiques.
+4. **Entraînement** : exercices paramétrés inspirés des PDF d'exercices (valeurs aléatoires
+   propres, consigne adaptée au type exact de question, retour pédagogique sur les erreurs
+   fréquentes avant d'afficher la solution complète).
+   - **Espace de travail partagé (`Brouillon / Calc`)** : la feuille noire de brouillon et une
+     calculatrice compacte côte à côte, en écran partagé.
+   - **Aiguillage des symboles** : un petit sélecteur choisit où s'insèrent les symboles
+     mathématiques : `{ Utiliser les symboles sur la feuille / calculatrice }`.
+   - **Calculatrice d'entraînement** : les symboles avancés (intégrales définies $\int_a^b$,
+     dérivées, primitives) peuvent être calculés directement par la calculatrice (si l'élève
+     le choisit). Sur la feuille noire, ils restent une simple écriture, jamais évaluée.
+5. **Évaluation (sur 20 points)** :
+   - **Déblocage** : verrouillée tant que l'élève n'a pas obtenu une **série d'au moins 5 bonnes
+     réponses consécutives** en *Entraînement* (progression enregistrée dans `localStorage`).
+   - **Espace de travail en mode examen** : écran partagé brouillon + calculatrice, mais la
+     calculatrice est en **mode examen** : seules les fonctions d'une calculatrice standard
+     marchent (pas de calcul automatique de dérivées, primitives ou intégrales : l'élève les
+     calcule à la main, contrairement à l'*Entraînement*).
+6. **Validation et progression** :
+   - **Note ≥ 15/20** : le chapitre est validé, l'élève peut passer au chapitre suivant.
+   - **Note < 15/20** : le chapitre n'est pas validé. L'évaluation se reverrouille, et l'élève
+     doit revenir à l'*Entraînement* et refaire une **nouvelle série de 5** pour retenter.
+
+### Contrôle qualité en fin de chapitre
+
+- Tests Playwright : zéro erreur dans la console, affichage propre sur ordinateur et mobile.
+- `/impeccable critique` puis `/impeccable polish` si besoin, avant de demander la relecture.
+
 ## Utilisation
 
 Ouvrir `index.html` dans un navigateur (double-clic suffit), ou servir le dossier :
@@ -86,6 +190,10 @@ sequenceDiagram
 
 ### Anatomie d'un chapitre
 
+> Les chapitres refondus suivent la structure en 6 étapes décrite plus haut (`main.chapter.v2`,
+> sections `#cours`, `#exemples`, `#manipuler`, `#entrainement`, `#evaluation`, `#validation`).
+> Le schéma ci-dessous décrit les chapitres pas encore refondus.
+
 ```mermaid
 flowchart LR
     H["En-tête<br/>kicker · h1 · objectifs · prérequis"] --> C["Cours<br/>encadrés définition,<br/>propriété, méthode"]
@@ -104,7 +212,15 @@ flowchart LR
 | `Course.plot(canvas, vue, dessin)` | repère (grille, axes, graduations, π) + primitives `fn`, `param`, `point`, `seg`, `arrow`, `area`, `poly`, `circle`, `text` ; redessin automatique (redimensionnement, thème) |
 | `Course.onInput(racine, maj)` | lit tous les champs `[data-k]` d'un widget, met à jour les `<output data-show>` et appelle `maj(valeurs)` |
 | `Course.drill(racine, générateur)` | exercice infini : le générateur renvoie `{q ou html, answer, tol, explain}` ; saisie tolérante (`3/4`, `2,5`, `ln(2)`, `pi`) |
-| `Course.fmt`, `parseNum`, `tex`, `renderMath`, `rand`, `pick`, `el`, `color`, `icon` | utilitaires |
+| `Course.trainer(racine, générateur, { workspace })` | entraînement des chapitres en 6 étapes : série de bonnes réponses du premier coup, jauge « série de 5 », QCM ou saisie avec unité, erreurs fréquentes (`traps`) expliquées avant la solution |
+| `Course.exam(racine, { build, workspace, trainWorkspace })` | évaluation sur 20, verrouillée jusqu'à la série de 5, calculatrice en mode examen, correction détaillée ; < 15/20 la reverrouille |
+| `Course.validation(racine)` | état du chapitre (validé ou non) et passage au chapitre suivant |
+| `Course.presets(hôte, liste)`, `Course.kpis(hôte, définitions)` | préréglages des curseurs et cartes d'indicateurs réactives des widgets « Manipuler » |
+| `Course.progress()`, `setProgress`, `onProgress` | progression du chapitre (`localStorage`, clé `progress:<chapitre>`) |
+| `Course.fmt`, `parseNum`, `tex`, `renderMath`, `rand`, `pick`, `el`, `color`, `icon`, `esc` | utilitaires |
+
+Formules en couleur : les macros KaTeX `\QE`, `\QEr`, `\QEu`, `\QEp`, `\QP`, `\Qt`, `\Qeta` (et `\q{classe}{…}`)
+donnent à chaque grandeur la couleur `--q-*` utilisée par ses curseurs, ses cartes et ses courbes.
 
 Automatique, sans rien écrire dans les pages :
 
@@ -124,7 +240,10 @@ Automatique, sans rien écrire dans les pages :
 - **Mobile** : menu des matières repliable, sommaire repliable, formules larges découpées ou
   défilantes, tableaux défilants, cibles tactiles de 44 px, zones sûres de l'encoche.
 
-`assets/core.js` regroupe les fonctions pures (sans DOM), testées unitairement : évaluateur
+`assets/core.js` contient aussi le calcul formel de la calculatrice d'entraînement (`calcLatex` :
+dérivées `d/dx`, primitives `∫ … dx` avec `+ C`, valeur en un point `|_{x=a}`), refusé en mode
+examen (`{ exam: true }`), et les règles de progression (`GATE`, `progressAnswer`, `progressExam`).
+Il regroupe les fonctions pures (sans DOM), testées unitairement : évaluateur
 d'expressions sûr (`evaluate`, sans `eval`), évaluateur LaTeX (`compileLatex`, `evaluateLatex`,
 `simpson`), `parseNum`, `fmt`, `fmtCalc`, graduations (`tickStep`, `decimalsFor`),
 `insertSnippet`, `splitTopLevel`.
@@ -162,6 +281,11 @@ npm run test:e2e                            # navigateur : ordinateur, Android, 
 
 Les tests de bout en bout vérifient sur chaque appareil émulé : aucune page ne déborde
 horizontalement, menu mobile, plein écran des graphiques, brouillon, calculatrice, stylo.
+
+Pour les chapitres en 6 étapes, ils vérifient aussi l'ordre des étapes, le contenu de chacune, la banque
+de questions (`tests/js/chapitre-*.test.js` : réponses finies, pièges jamais confondus avec la bonne
+réponse, évaluation sur 20) et tout le parcours dans le navigateur (`tests/e2e/chapitre-6-etapes.spec.js` :
+série de 5, copie ratée qui reverrouille, copie réussie qui valide, mode examen, zéro erreur console).
 
 Ils vérifient : manifeste ↔ fichiers, HTML bien formé, liens locaux, ancres, délimiteurs de
 formules équilibrés, structure de chaque chapitre (définitions, ≥ 2 exemples, ≥ 1 widget,
