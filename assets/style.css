@@ -55,6 +55,15 @@
   --q-Eu: #22ad7c;           /* énergie utile */
   --q-Ep: #e46a39;           /* énergie perdue */
   --q-eta: #9085e9;          /* rendement η */
+  /* chapitre 2 (énergie interne) : teintes reprises de la palette validée, jamais deux voisines
+     sur un même graphique (vérifié au validateur : séparation daltonisme et vision normale) */
+  --q-T: #e46a39;            /* température T */
+  --q-c: #22ad7c;            /* capacité thermique massique c */
+  --q-L: #9085e9;            /* énergie massique de changement d'état L */
+  --q-m: #e0638f;            /* masse m (formules et curseurs, jamais une courbe) */
+  --q-w: #22ad7c;            /* calorimétrie : l'eau */
+  --q-s: #4f95ec;            /* calorimétrie : le solide */
+  --q-k: #9aa1b2;            /* calorimétrie : le calorimètre (neutre) */
 
   /* noms historiques (pages non encore refondues) */
   --accent-2: var(--rose);
@@ -112,6 +121,13 @@
   --q-Eu: #0e8a5f;
   --q-Ep: #c24a17;
   --q-eta: #6250d6;
+  --q-T: #c24a17;
+  --q-c: #0e8a5f;
+  --q-L: #6250d6;
+  --q-m: #c2336a;
+  --q-w: #0e8a5f;
+  --q-s: #2a78d6;
+  --q-k: #4e5566;
   --plot-grid: rgba(13, 18, 30, .07);
   --plot-axis: #6b7080;
   --shadow: 0 1px 2px rgba(13, 18, 30, .05), 0 10px 30px -18px rgba(13, 18, 30, .25);
@@ -287,6 +303,13 @@ section > p, section > ul, section > ol { max-width: 72ch; }
 .q-Eu { color: var(--q-Eu); }
 .q-Ep { color: var(--q-Ep); }
 .q-eta { color: var(--q-eta); }
+.q-T { color: var(--q-T); }
+.q-c { color: var(--q-c); }
+.q-L { color: var(--q-L); }
+.q-m { color: var(--q-m); }
+.q-w { color: var(--q-w); }
+.q-s { color: var(--q-s); }
+.q-k { color: var(--q-k); }
 
 /* bouton « Solution » : toute la largeur, cliquable */
 details.solution { margin-top: 1rem; border-top: 0; padding-top: 0; }
@@ -360,7 +383,7 @@ tr:first-child th:last-child { border-top-right-radius: 8px; }
 .widget.has-fs > .widget-title, .widget.has-fs > h3 { padding-right: 3rem; }
 .fs-btn { position: absolute; top: .75rem; right: .75rem; z-index: 2; }
 .widget > h3, .widget > .widget-title { margin: 0 0 .3rem; font-size: 1.08rem; font-weight: 600; letter-spacing: -.01em; }
-.widget .hint { color: var(--muted); font-size: .92rem; margin: 0 0 1rem; }
+.widget .hint { color: var(--muted); font-size: .92rem; margin: 0 0 1rem; max-width: 36em; } /* ≈ 80 caractères par ligne */
 .controls { display: flex; flex-wrap: wrap; gap: .8rem 1.5rem; margin: .75rem 0; align-items: center; }
 .controls label { display: flex; align-items: center; gap: .55rem; font-size: .92rem; min-width: 0; }
 .controls input[type="range"] { width: 170px; accent-color: var(--tone, var(--accent)); }
@@ -616,7 +639,7 @@ main.chapter.v2 { padding-top: 2.25rem; }
   border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
 }
 .step-head h2 { margin: 0; padding: 0; border: 0; font-size: clamp(1.45rem, 3.6vw, 1.85rem); letter-spacing: -.025em; line-height: 1.2; }
-.step-head p { margin: .3rem 0 0; color: var(--muted); max-width: 68ch; }
+.step-head p { margin: .3rem 0 0; color: var(--muted); max-width: 38em; } /* ≈ 80 caractères par ligne (le ch de Geist est large) */
 .part-title {
   display: flex; align-items: baseline; gap: .6rem; margin: 2.25rem 0 1rem; font-size: 1.08rem; font-weight: 600; letter-spacing: -.01em;
 }
@@ -635,7 +658,7 @@ main.chapter.v2 { padding-top: 2.25rem; }
   text-align: center; text-indent: 0; font-size: .72rem; font-weight: 650; color: var(--bg); background: var(--tone); font-variant-numeric: tabular-nums;
 }
 .v2 .box .box-title { padding: .22rem .8rem .22rem 2.02rem; text-indent: -1.8rem; border-radius: 14px; }
-.v2 .box p { max-width: 42rem; }
+.v2 .box p, .v2 .box .steps-list > li { max-width: 46rem; }
 .kv { display: grid; grid-template-columns: auto 1fr; gap: .35rem 1rem; margin: .75rem 0; font-size: .95rem; }
 .kv dt { color: var(--muted); }
 .kv dd { margin: 0; font-variant-numeric: tabular-nums; }
@@ -696,6 +719,47 @@ main.chapter.v2 { padding-top: 2.25rem; }
 .chain.is-vertical .chain-link .lbl { grid-column: 2; text-align: left; white-space: normal; font-size: .8rem; }
 .chain.is-vertical .chain-loss { left: calc(100% + .5rem); top: 50%; transform: translateY(-50%); white-space: normal; width: max-content; max-width: var(--loss-max, 9rem); }
 .chain.is-vertical .chain-loss span { padding-top: 0; }
+
+/* figures du cours (SVG en ligne, couleurs des grandeurs) */
+.fig-wrap { margin: .9rem 0 .6rem; }
+.fig { display: block; width: 100%; max-width: 26rem; height: auto; margin-inline: auto; font-family: var(--font); }
+
+/* sens du transfert thermique : corps chaud → corps froid */
+.heat-flow { display: flex; align-items: center; gap: .5rem; margin: .9rem 0; }
+.hf-body {
+  flex: 1 1 0; min-width: 0; display: grid; place-items: center; text-align: center; padding: .55rem .5rem; border-radius: var(--radius-sm);
+  font-size: .88rem; font-weight: 600; line-height: 1.3; background: var(--surface-2); border: 1px solid var(--line-3);
+}
+.hf-body small { display: block; font-weight: 500; font-size: .8rem; color: var(--muted); }
+.hf-body.hot { border-color: color-mix(in srgb, var(--q-T) 55%, transparent); background: color-mix(in srgb, var(--q-T) 9%, var(--surface-2)); }
+.hf-arrow { position: relative; flex: 0 1 5.5rem; min-width: 3rem; padding-bottom: 14px; text-align: center; font-size: .85rem; }
+.hf-arrow::after { content: ""; position: absolute; left: 0; right: 9px; bottom: 4px; height: 4px; border-radius: 2px; background: var(--q-E); }
+.hf-arrow::before { content: ""; position: absolute; right: 0; bottom: -1px; width: 11px; height: 14px; background: var(--q-E); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+
+/* trois modes de transfert */
+/* trois colonnes séparées par un filet (pas de carte dans la carte) ; empilées sur téléphone */
+.modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: .75rem; }
+.mode { padding: .15rem 1.25rem; }
+.mode:first-child { padding-left: 0; }
+.mode:last-child { padding-right: 0; }
+.mode + .mode { border-left: 1px solid var(--line-2); }
+@media (max-width: 860px) {
+  .modes { grid-template-columns: minmax(0, 1fr); }
+  .mode { padding: .9rem 0; }
+  .mode:first-child { padding-top: .25rem; }
+  .mode + .mode { border-left: 0; border-top: 1px solid var(--line-2); }
+}
+.mode p { margin: .35rem 0 0; }
+.mode .note { margin-top: .5rem; }
+.mode-title { display: flex; align-items: center; gap: .5rem; margin: 0 !important; font-weight: 650; }
+.mode-title svg { flex: none; width: 22px; height: 22px; color: var(--violet); }
+
+/* signe de ΔU */
+.sign-list { list-style: none; padding: 0; margin: .6rem 0; display: grid; gap: .55rem; }
+.sign-list li { display: flex; align-items: flex-start; gap: .6rem; }
+.sign-ico { flex: none; display: grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 8px; color: var(--q-E); background: color-mix(in srgb, var(--q-E) 13%, transparent); }
+.sign-ico svg { width: 17px; height: 17px; }
+.sign-list li.down .sign-ico { color: var(--muted); background: var(--surface-3); }
 
 /* vidéo du cours */
 .video-links { display: grid; gap: .5rem; margin: .75rem 0 0; padding: 0; list-style: none; }

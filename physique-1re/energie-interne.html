@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Énergie interne et transferts thermiques · STI2D → Prépa</title>
+<title>Énergie interne · STI2D → Prépa</title>
+<meta name="description" content="Physique-chimie 1re STI2D, chapitre 2 : température et agitation thermique, kelvin, transferts thermiques, énergie interne ΔU = m·c·ΔT, changements d'état Q = m·L, calorimétrie. Cours, exemples, graphiques à manipuler, entraînement et évaluation sur 20.">
+<link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -12,184 +14,747 @@
 <script defer src="../assets/chapters.js"></script>
 <script defer src="../assets/app.js"></script>
 <script defer src="../assets/brouillon.js"></script>
+<script defer src="energie-interne.js"></script>
 </head>
 <body data-root="../" data-chapter="physique-1re/energie-interne">
-<main class="chapter">
+<main class="chapter v2">
   <header class="chapter-head">
-    <p class="kicker">Physique-chimie 1re · Énergie</p>
-    <h1>Énergie interne et transferts thermiques</h1>
-    <p class="lead">Pourquoi faut-il autant d'énergie pour faire bouillir de l'eau ? Comment un ballon d'eau chaude stocke-t-il l'énergie, et comment une maison la perd-elle ?
-      On relie la température à l'agitation des particules, on calcule l'énergie échangée quand un corps chauffe ou change d'état, et on étudie les trois façons de transférer la chaleur.</p>
-    <p class="prereq">Prérequis : <a href="energie-enjeux.html">conservation de l'énergie, puissance</a>.</p>
+    <h1>Énergie interne</h1>
+    <p class="lead">Chauffer de l’eau, refroidir du lait, faire fondre un métal : à chaque fois, l’énergie stockée dans la matière change, sans que rien ne bouge à notre échelle.
+      Dans ce chapitre : la température et l’agitation thermique, les transferts thermiques, puis l’énergie échangée quand un corps chauffe, \(\QU = \Qm \times \Qc \times \QdT\), ou change d’état, \(\QQ = \Qm \times \QL\).</p>
+    <ul class="meta">
+      <li>Physique-chimie · 1re STI2D</li>
+      <li>Chapitre 2</li>
+      <li>6 étapes : cours, exemples, manipulation, entraînement, évaluation, validation</li>
+    </ul>
   </header>
 
-  <section>
-    <h2>1. Température et énergie interne</h2>
-    <div class="box def"><p class="box-title">Température</p>
-      <p>La <b>température</b> traduit l'agitation des particules microscopiques (atomes, molécules) : plus elles s'agitent, plus la température est élevée.
-        Deux échelles : le degré Celsius (°C) et le kelvin (K), l'unité du SI :
-        \[T(\mathrm{K}) = \theta({}^\circ\mathrm{C}) + 273{,}15.\]
-        Le zéro absolu (0 K, soit −273,15 °C) correspond à l'absence totale d'agitation : on ne peut pas descendre plus bas. Une <b>variation</b> de 1 °C est égale à une variation de 1 K.</p>
-    </div>
-    <div class="box def"><p class="box-title">Énergie interne</p>
-      <p>L'<b>énergie interne</b> \(U\) d'un corps est l'énergie stockée à l'échelle microscopique (agitation des particules et liaisons entre elles). Elle augmente quand le corps chauffe ou fond.</p>
-    </div>
-    <div class="box warning"><p class="box-title">Chaleur ≠ température</p>
-      <p>Dans la vie courante, « chaleur » est un mot flou. En physique, la <b>chaleur</b> (ou transfert thermique \(Q\)) désigne un <b>échange d'énergie</b> entre deux corps, pas une énergie qu'un corps « contient ».
-        Un objet chaud n'a pas « de la chaleur » : il a une énergie interne élevée.</p>
-    </div>
-  </section>
-
-  <section>
-    <h2>2. Capacité thermique et changements d'état</h2>
-    <div class="box prop"><p class="box-title">Quand la température change (solide ou liquide)</p>
-      <p>\[\Delta U = Q = m\,c\,(\theta_f - \theta_i) = m\,c\,\Delta\theta\]
-        \(c\) est la <b>capacité thermique massique</b> (en \(\mathrm{J\,kg^{-1}\,{}^\circ C^{-1}}\)) : l'énergie qu'il faut fournir pour élever 1 kg de 1 °C.
-        Eau : \(c = 4\,180\) (très grande, d'où son usage pour stocker la chaleur) ; aluminium : 900 ; béton ≈ 900 ; fer : 450 ; cuivre : 385. Si \(\Delta\theta &lt; 0\), le corps cède de l'énergie.</p>
-    </div>
-    <div class="box def"><p class="box-title">Les changements d'état</p>
-      <p>Solide → liquide : <b>fusion</b> ; liquide → solide : <b>solidification</b> ; liquide → gaz : <b>vaporisation</b> ; gaz → liquide : <b>liquéfaction</b> (ou condensation liquide) ;
-        solide → gaz : <b>sublimation</b> ; gaz → solide : <b>condensation</b> (solide). Fusion, vaporisation et sublimation <b>absorbent</b> de l'énergie ; les transformations inverses en <b>libèrent</b>.</p>
-    </div>
-    <div class="box prop"><p class="box-title">Énergie de changement d'état</p>
-      <p>Pendant un changement d'état d'un corps pur, la température reste <b>constante</b> (un « palier »), mais il faut échanger l'énergie
-        \[Q = m\,L\]
-        où \(L\) est l'<b>énergie massique de changement d'état</b> (J/kg). Eau : \(L_{\text{fusion}} = 334\) kJ/kg, \(L_{\text{vaporisation}} = 2\,257\) kJ/kg.</p>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 1 — ballon d'eau chaude</p>
-      <p>Un ballon de 200 L chauffe l'eau de 15 °C à 60 °C. Énergie nécessaire ? Durée avec une résistance de 2,2 kW ?</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>\(\Delta U = 200 \times 4\,180 \times 45 \approx 3{,}76 \times 10^7\) J \(\approx 10{,}5\) kWh (1 L d'eau ≈ 1 kg).</p>
-        <p>\(\Delta t = \dfrac{3{,}76 \times 10^7}{2\,200} \approx 1{,}71 \times 10^4\) s, soit environ 4 h 45 min.</p>
-      </details>
-    </div>
-  </section>
-
-  <section>
-    <h2>3. Transferts thermiques</h2>
-    <div class="box prop"><p class="box-title">Sens du transfert et équilibre</p>
-      <p>Un transfert thermique se fait <b>spontanément du corps chaud vers le corps froid</b>, jusqu'à ce qu'ils aient la même température : c'est l'<b>équilibre thermique</b>.
-        Si l'ensemble est isolé (pas d'échange avec l'extérieur), l'énergie cédée par l'un est reçue par l'autre : \(Q_{\text{cédée}} + Q_{\text{reçue}} = 0\).</p>
-    </div>
-    <div class="box def"><p class="box-title">Trois modes de transfert</p>
-      <ul>
-        <li><b>Conduction</b> : de proche en proche dans la matière, sans que la matière se déplace (la poignée d'une casserole, un mur). Les métaux conduisent bien, l'air et la laine de verre mal (isolants).</li>
-        <li><b>Convection</b> : grâce au déplacement d'un fluide (l'air chaud qui monte au-dessus d'un radiateur, l'eau qui circule dans une casserole).</li>
-        <li><b>Rayonnement</b> : par des ondes électromagnétiques (infrarouge surtout), même dans le vide (le Soleil, un feu de cheminée, le four solaire d'Odeillo).</li>
-      </ul>
-    </div>
-    <div class="box prop"><p class="box-title">Régime stationnaire et résistance thermique</p>
-      <p>Quand les températures ne changent plus (régime <b>stationnaire</b>), une paroi laisse passer un flux thermique (une puissance) constant :
-        \[\Phi = \frac{\theta_{\text{int}} - \theta_{\text{ext}}}{R_{\text{th}}}, \qquad R_{\text{th}} = \frac{e}{\lambda S}\]
-        (\(\Phi\) en W, \(R_{\text{th}}\) résistance thermique en K/W, \(e\) épaisseur, \(\lambda\) conductivité thermique du matériau, \(S\) surface). Bien isoler, c'est augmenter \(R_{\text{th}}\).</p>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 2 — température d'équilibre</p>
-      <p>On mélange 2 kg d'eau à 80 °C et 3 kg d'eau à 20 °C (sans pertes). Température finale ?</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>\(2c(\theta_f - 80) + 3c(\theta_f - 20) = 0 \iff 5\theta_f = 160 + 60 \iff \theta_f = 44\) °C.</p>
-      </details>
-    </div>
-  </section>
-
-  <section>
-    <h2>4. L'essentiel à retenir</h2>
-    <div class="box prop"><p class="box-title">Formulaire</p>
-      <ul>
-        <li>\(T(\mathrm{K}) = \theta({}^\circ\mathrm{C}) + 273{,}15\).</li>
-        <li>\(Q = mc\Delta\theta\) (\(c_{\text{eau}} = 4\,180\ \mathrm{J\,kg^{-1}\,K^{-1}}\)) ; changement d'état : \(Q = mL\), à température constante.</li>
-        <li>Transfert du chaud vers le froid ; système isolé : \(\sum Q = 0\).</li>
-        <li>Conduction, convection, rayonnement ; régime stationnaire : \(\Phi = \dfrac{\Delta\theta}{R_{\text{th}}}\), \(R_{\text{th}} = \dfrac{e}{\lambda S}\).</li>
-      </ul>
-    </div>
-  </section>
-
-  <section>
-    <h2>5. Manipuler</h2>
-    <div class="widget" id="w-heat">
-      <p class="widget-title">Chauffer 1 kg de glace à −20 °C jusqu'à la vapeur</p>
-      <p class="hint">Les paliers sont les changements d'état : la température ne bouge pas, mais l'énergie continue d'entrer. Le palier d'ébullition est près de 7 fois plus long que celui de fusion.</p>
-      <div class="controls">
-        <label>puissance de chauffe (kW) <input type="range" data-k="P" min="0.1" max="20" step="0.1" value="2"> <output data-show="P"></output></label>
-        <label>masse (kg) <input type="range" data-k="m" min="0.1" max="50" step="0.1" value="1"> <output data-show="m"></output></label>
+  <!-- ===================================================== 1. COURS -->
+  <section class="step" id="cours">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">1</span>
+      <div>
+        <h2>Cours</h2>
+        <p>Les définitions et les formules du chapitre, dans l’ordre du cours. Les cartes se lisent de gauche à droite, puis ligne par ligne.</p>
       </div>
-      <canvas class="plot"></canvas>
-      <div class="readout" aria-live="polite"></div>
+    </header>
+
+    <h3 class="part-title"><span class="roman">I.</span> La température</h3>
+    <div class="bento">
+      <article class="box def" id="c-agitation">
+        <p class="box-title">Agitation thermique</p>
+        <p>Quand la température d’un corps augmente, le mouvement des molécules ou des ions qui le constituent augmente : on parle d’<b>agitation thermique</b>.</p>
+        <figure class="fig-wrap"><svg class="fig" viewBox="0 0 320 152" role="img" aria-labelledby="fig-agit-t"><title id="fig-agit-t">Particules d’un corps froid : petites flèches, faible agitation. Particules d’un corps chaud : grandes flèches, forte agitation.</title><rect x="8" y="6" width="144" height="110" rx="10" style="fill:var(--surface-2);stroke:var(--line-3)"/><path d="M43.1 29.9L49.7 33.1" style="stroke:var(--q-T)" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M49.7 33.1L44.7 33.1L46.6 29.2z" style="fill:var(--q-T)"/><circle cx="37.3" cy="27.0" r="6" style="fill:var(--muted)"/><path d="M31.7 60.3L25.5 60.0" style="stroke:var(--q-T)" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M25.5 60.0L30.1 58.1L29.9 62.4z" style="fill:var(--q-T)"/><circle cx="38.1" cy="60.6" r="6" style="fill:var(--muted)"/><path d="M41.6 97.3L46.8 100.6" style="stroke:var(--q-T)" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M46.8 100.6L41.8 100.0L44.2 96.4z" style="fill:var(--q-T)"/><circle cx="36.1" cy="93.8" r="6" style="fill:var(--muted)"/><path d="M80.8 35.3L81.8 41.5" style="stroke:var(--q-T)" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M81.8 41.5L78.9 37.4L83.2 36.7z" style="fill:var(--q-T)"/><circle cx="79.7" cy="28.9" r="6" style="fill:var(--muted)"/><path d="M75.3 66.2L69.6 70.5" style="stroke:var(--q-T)" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M69.6 70.5L71.9 66.1L74.5 69.5z" style="fill:var(--q-T)"/><circle cx="80.5" cy="62.3" r="6" style="fill:var(--muted)"/><path d="M80.3 99.0L78.4 106.5" style="stroke:var(--q-T)" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M78.4 106.5L77.4 101.6L81.6 102.7z" style="fill:var(--q-T)"/><circle cx="81.9" cy="92.7" r="6" style="fill:var(--muted)"/><path d="M123.2 21.0L125.9 14.9" style="stroke:var(--q-T)" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M125.9 14.9L126.0 19.9L122.1 18.2z" style="fill:var(--q-T)"/><circle cx="120.6" cy="26.9" r="6" style="fill:var(--muted)"/><path d="M116.2 65.9L111.1 71.1" style="stroke:var(--q-T)" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M111.1 71.1L112.7 66.4L115.8 69.4z" style="fill:var(--q-T)"/><circle cx="120.7" cy="61.2" r="6" style="fill:var(--muted)"/><path d="M124.0 99.0L125.6 104.9" style="stroke:var(--q-T)" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M125.6 104.9L122.3 101.2L126.5 100.0z" style="fill:var(--q-T)"/><circle cx="122.2" cy="92.8" r="6" style="fill:var(--muted)"/><text x="80" y="136" text-anchor="middle" style="fill:var(--text)" font-size="13" font-weight="600">Corps froid</text><text x="80" y="150" text-anchor="middle" style="fill:var(--muted)" font-size="11.5">faible agitation</text><rect x="168" y="6" width="144" height="110" rx="10" style="fill:var(--surface-2);stroke:var(--line-3)"/><path d="M195.7 23.8L179.4 14.1" style="stroke:var(--q-T)" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M179.4 14.1L185.4 14.6L182.7 19.1z" style="fill:var(--q-T)"/><circle cx="201.2" cy="27.1" r="6" style="fill:var(--muted)"/><path d="M195.1 52.3L188.3 31.6" style="stroke:var(--q-T)" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M188.3 31.6L192.4 36.0L187.5 37.6z" style="fill:var(--q-T)"/><circle cx="197.2" cy="58.5" r="6" style="fill:var(--muted)"/><path d="M198.0 90.3L212.3 76.1" style="stroke:var(--q-T)" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M212.3 76.1L210.3 81.8L206.6 78.1z" style="fill:var(--q-T)"/><circle cx="193.4" cy="94.9" r="6" style="fill:var(--muted)"/><path d="M248.9 29.7L265.8 45.2" style="stroke:var(--q-T)" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M265.8 45.2L260.0 43.5L263.6 39.6z" style="fill:var(--q-T)"/><circle cx="244.1" cy="25.3" r="6" style="fill:var(--muted)"/><path d="M232.0 64.7L214.2 65.9" style="stroke:var(--q-T)" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M214.2 65.9L219.4 63.0L219.7 68.2z" style="fill:var(--q-T)"/><circle cx="238.5" cy="64.2" r="6" style="fill:var(--muted)"/><path d="M225.9 93.2L206.5 83.7" style="stroke:var(--q-T)" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M206.5 83.7L212.5 83.7L210.2 88.4z" style="fill:var(--q-T)"/><circle cx="231.7" cy="96.1" r="6" style="fill:var(--muted)"/><path d="M283.1 22.5L264.5 12.3" style="stroke:var(--q-T)" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M264.5 12.3L270.5 12.7L268.0 17.2z" style="fill:var(--q-T)"/><circle cx="288.8" cy="25.7" r="6" style="fill:var(--muted)"/><path d="M274.8 66.3L252.4 70.0" style="stroke:var(--q-T)" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M252.4 70.0L257.3 66.6L258.2 71.7z" style="fill:var(--q-T)"/><circle cx="281.2" cy="65.3" r="6" style="fill:var(--muted)"/><path d="M281.0 83.3L268.3 66.3" style="stroke:var(--q-T)" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M268.3 66.3L273.6 69.1L269.4 72.2z" style="fill:var(--q-T)"/><circle cx="285.0" cy="88.5" r="6" style="fill:var(--muted)"/><text x="240" y="136" text-anchor="middle" style="fill:var(--text)" font-size="13" font-weight="600">Corps chaud</text><text x="240" y="150" text-anchor="middle" style="fill:var(--muted)" font-size="11.5">forte agitation</text></svg></figure>
+        <p class="note">Les flèches représentent la vitesse des particules : plus le corps est chaud, plus elles s’agitent.</p>
+      </article>
+
+      <article class="box prop" id="c-unites">
+        <p class="box-title">Les unités de température</p>
+        <p>Dans le système international (SI), l’unité de température est le <b>kelvin</b> (symbole K). Les unités usuelles sont le <b>degré Celsius</b> (°C) et, dans les pays anglo-saxons, le degré Fahrenheit (°F).</p>
+        <div class="formula">\[\QT({}^{\circ}\mathrm{C}) = \QT(\mathrm{K}) - 273 \qquad \QT(\mathrm{K}) = \QT({}^{\circ}\mathrm{C}) + 273\]</div>
+        <p>Exemples : \(\QT = 293\ \mathrm{K}\) donne \(293 - 273 = 20\ {}^{\circ}\mathrm{C}\) ; \(\QT = 40\ {}^{\circ}\mathrm{C}\) donne \(40 + 273 = 313\ \mathrm{K}\).</p>
+        <p class="note">La valeur exacte est 273,15 ; on arrondit à 273 dans les exercices. Le <b>zéro absolu</b>, 0 K = −273 °C, est la température la plus basse possible : plus aucune agitation.</p>
+      </article>
+
+      <article class="box prop" id="c-reperes">
+        <p class="box-title">Quelques repères de température</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Repère</th><th>\(\QT\) en °C</th><th>\(\QT\) en K</th></tr></thead>
+          <tbody>
+            <tr><td>Zéro absolu</td><td>−273</td><td>0</td></tr>
+            <tr><td>Azote liquide</td><td>−196</td><td>77</td></tr>
+            <tr><td>Fusion de la glace</td><td>0</td><td>273</td></tr>
+            <tr><td>Pièce chauffée</td><td>20</td><td>293</td></tr>
+            <tr><td>Corps humain</td><td>37</td><td>310</td></tr>
+            <tr><td>Ébullition de l’eau</td><td>100</td><td>373</td></tr>
+            <tr><td>Surface du Soleil</td><td>≈ 5 500</td><td>≈ 5 800</td></tr>
+          </tbody>
+        </table></div>
+        <p class="note">Une <b>variation</b> de température a la même valeur dans les deux unités : passer de 20 °C à 37 °C, c’est passer de 293 K à 310 K, soit 17 °C = 17 K de plus.</p>
+      </article>
+
+      <article class="box method" id="c-mesure">
+        <p class="box-title">Mesurer la température</p>
+        <p>On utilise un <b>thermomètre</b>. Il en existe de différents types :</p>
+        <ul class="steps-list">
+          <li><b>à dilatation de liquide</b> : le liquide (alcool coloré) se dilate et monte dans un tube gradué ;</li>
+          <li><b>à infrarouge</b> : il mesure à distance le rayonnement émis par le corps ;</li>
+          <li><b>électrique</b> : la résistance d’un fil de platine varie avec la température (sonde de thermomètre numérique).</li>
+        </ul>
+      </article>
     </div>
-    <div class="widget" id="w-drill">
-      <p class="widget-title">Entraînement : énergie thermique</p>
-      <p class="hint">3 chiffres significatifs, dans l'unité demandée.</p>
+
+    <h3 class="part-title"><span class="roman">II.</span> Transfert thermique</h3>
+    <div class="bento">
+      <article class="box prop" id="c-sens">
+        <p class="box-title">Sens d’un transfert thermique</p>
+        <p>Le <b>transfert thermique</b> est un transfert d’énergie qui s’effectue spontanément <b>du corps le plus chaud vers le corps le plus froid</b>.</p>
+        <div class="heat-flow" role="img" aria-label="Le corps chaud cède de l’énergie au corps froid : le transfert thermique Q va du chaud vers le froid.">
+          <span class="hf-body hot">Corps chaud<small>\(\QT_1\) élevée</small></span>
+          <span class="hf-arrow"><span>\(\QQ\)</span></span>
+          <span class="hf-body cold">Corps froid<small>\(\QT_2 &lt; \QT_1\)</small></span>
+        </div>
+        <p class="note">Le contraire n’arrive jamais tout seul : un réfrigérateur refroidit les aliments, mais en consommant de l’énergie électrique.</p>
+      </article>
+
+      <article class="box prop" id="c-equilibre">
+        <p class="box-title">Équilibre thermique</p>
+        <p>Le transfert dure tant que les températures sont différentes. Il s’arrête quand les corps ont atteint la <b>même température</b> : la température d’équilibre \(\QTeq\).</p>
+        <p>Si l’ensemble est <b>isolé</b> (aucun échange avec l’extérieur, comme dans un calorimètre), l’énergie cédée par le corps chaud est entièrement reçue par le corps froid :</p>
+        <div class="formula">\[\QU_{\text{chaud}} + \QU_{\text{froid}} = 0\]</div>
+      </article>
+
+      <article class="box def wide" id="c-modes">
+        <p class="box-title">Les trois modes de transfert thermique</p>
+        <div class="modes">
+          <div class="mode">
+            <p class="mode-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="12" width="18" height="6" rx="1.5"/><path d="M5 7h12M14 4l3 3-3 3"/></svg>Conduction thermique</p>
+            <p>L’agitation thermique se transmet de proche en proche <b>sans déplacement de matière</b>. C’est le seul mode de transfert dans les solides.</p>
+            <p class="note">La poignée métallique d’une casserole chauffe.</p>
+          </div>
+          <div class="mode">
+            <p class="mode-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 14a7 7 0 0 1 12-6.3"/><path d="M17.5 3.5v4.4h-4.4"/><path d="M19 10a7 7 0 0 1-12 6.3"/><path d="M6.5 20.5v-4.4h4.4"/></svg>Convection</p>
+            <p>L’agitation thermique se transmet <b>avec déplacement de matière</b>, au sein d’un gaz ou d’un liquide.</p>
+            <p class="note">L’air chauffé par un radiateur monte et réchauffe la pièce.</p>
+          </div>
+          <div class="mode">
+            <p class="mode-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6.5" cy="12" r="3"/><path d="M12.5 7.5c1.6 2.5 1.6 6.5 0 9M16.5 5c2.6 4 2.6 10 0 14M20.5 3.5c3 5 3 12 0 17"/></svg>Rayonnement</p>
+            <p>Tout corps chaud émet une <b>onde électromagnétique</b> (un rayonnement), qui se propage même dans le vide.</p>
+            <p class="note">Le Soleil chauffe la Terre à travers le vide de l’espace.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <h3 class="part-title"><span class="roman">III.</span> Énergie interne et échauffement d’un système</h3>
+    <div class="bento">
+      <article class="box def" id="c-energie-interne">
+        <p class="box-title">Définition de l’énergie interne</p>
+        <p>On appelle <b>énergie interne</b>, notée \(U\), l’énergie microscopique des particules qui constituent le système.</p>
+        <p>Cette énergie est due aux <b>interactions entre particules</b> et à l’<b>énergie cinétique</b> de ces particules (leur agitation thermique).</p>
+        <p class="note">On ne calcule jamais \(U\) lui-même, seulement sa variation \(\QU\) quand le système échange de l’énergie.</p>
+      </article>
+
+      <article class="box prop" id="c-delta-u">
+        <p class="box-title">Énergie interne et variation de température</p>
+        <p>Toute augmentation ou baisse de la température d’un solide ou d’un liquide entraîne l’augmentation ou la baisse de son énergie interne. La variation d’énergie interne (notée \(\QU\) ou \(\QQ\)) se calcule ainsi :</p>
+        <div class="formula">\[\QU = \QQ = \Qm \times \Qc \times (\QTf - \QTi)\]<p class="formula-units">\(\QU\) et \(\QQ\) en joules (J) · \(\Qm\) en kg · \(\Qc\) en \(\mathrm{J\cdot kg^{-1}\cdot {}^{\circ}C^{-1}}\) · \(\QT\) en °C</p></div>
+        <p class="note">On écrit aussi \(\QU = \Qm \times \Qc \times \QdT\) avec \(\QdT = \QTf - \QTi\).</p>
+      </article>
+
+      <article class="box prop" id="c-signe">
+        <p class="box-title">Le signe de \(\QU\)</p>
+        <ul class="sign-list">
+          <li class="up"><span class="sign-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l6-6 4 4 6-6M14 9h6v6"/></svg></span><span>Si \(\QTf &gt; \QTi\), alors \(\QU &gt; 0\) : le système a <b>gagné</b> de l’énergie.</span></li>
+          <li class="down"><span class="sign-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l6 6 4-4 6 6M14 15h6V9"/></svg></span><span>Si \(\QTf &lt; \QTi\), alors \(\QU &lt; 0\) : le système a <b>perdu</b> de l’énergie.</span></li>
+        </ul>
+        <p class="note">Le signe vient tout seul si l’on calcule toujours \(\QTf - \QTi\), dans cet ordre.</p>
+      </article>
+
+      <article class="box def" id="c-capacite">
+        <p class="box-title">Capacité thermique massique \(\Qc\)</p>
+        <p>Pour l’eau, \(\Qc = 4\,180\ \mathrm{J\cdot kg^{-1}\cdot {}^{\circ}C^{-1}}\) : c’est l’énergie, en joules, qu’il faut apporter à <b>1 kg</b> d’eau pour augmenter sa température de <b>1 °C</b>.</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Matériau</th><th>\(\Qc\) (\(\mathrm{J\cdot kg^{-1}\cdot {}^{\circ}C^{-1}}\))</th></tr></thead>
+          <tbody>
+            <tr><td>Eau liquide</td><td>4 180</td></tr>
+            <tr><td>Lait</td><td>3 800</td></tr>
+            <tr><td>Éthanol</td><td>2 424</td></tr>
+            <tr><td>Glace</td><td>2 100</td></tr>
+            <tr><td>Vapeur d’eau</td><td>1 850</td></tr>
+            <tr><td>Aluminium</td><td>894,5</td></tr>
+            <tr><td>Zinc</td><td>389,0</td></tr>
+            <tr><td>Mercure</td><td>138</td></tr>
+            <tr><td>Plomb</td><td>125,4</td></tr>
+          </tbody>
+        </table></div>
+        <p class="note">L’eau a une très grande capacité thermique : elle stocke beaucoup d’énergie, d’où son usage dans les radiateurs et pour refroidir les centrales.</p>
+      </article>
+
+      <article class="box method" id="c-methode-du">
+        <p class="box-title">Méthode : calculer \(\QU\) ou retourner la formule</p>
+        <ol class="steps-list">
+          <li>Masse en <b>kilogrammes</b> : \(309\ \mathrm{g} = 0{,}309\ \mathrm{kg}\) ; pour l’eau, \(1\ \mathrm{L} \approx 1\ \mathrm{kg}\).</li>
+          <li>Variation de température : \(\QdT = \QTf - \QTi\), <b>dans cet ordre</b> (elle peut être négative).</li>
+          <li>\(\QU = \Qm \times \Qc \times \QdT\), puis on interprète le signe.</li>
+          <li>Pour une autre grandeur : \(\Qm = \dfrac{\QQ}{\Qc \times \QdT}\), \(\Qc = \dfrac{\QQ}{\Qm \times \QdT}\), \(\QdT = \dfrac{\QQ}{\Qm \times \Qc}\), puis \(\QTf = \QTi + \QdT\).</li>
+        </ol>
+      </article>
+
+      <article class="box prop" id="c-delta-t">
+        <p class="box-title">°C ou K dans \(\QdT\) ?</p>
+        <p>Une <b>différence</b> de températures a la même valeur en °C et en K, car on ajoute 273 aux deux températures :</p>
+        <div class="formula">\[(70 + 273) - (20 + 273) = 70 - 20 = 50\]</div>
+        <p>C’est pourquoi \(\Qc\) s’écrit indifféremment en \(\mathrm{J\cdot kg^{-1}\cdot {}^{\circ}C^{-1}}\) ou en \(\mathrm{J\cdot kg^{-1}\cdot K^{-1}}\).</p>
+        <p class="trap"><b>Piège.</b> Ne convertis jamais <b>une seule</b> des deux températures en kelvins : \(343 - 20\) n’a aucun sens.</p>
+      </article>
+    </div>
+
+    <h3 class="part-title"><span class="roman">IV.</span> Énergie massique de changement d’état</h3>
+    <div class="bento">
+      <article class="box def" id="c-etats">
+        <p class="box-title">Les changements d’état</p>
+        <p>Les trois états de la matière sont : <b>solide</b>, <b>liquide</b> et <b>gaz</b>. La matière peut passer de façon réversible d’un état à un autre : on parle de <b>changement d’état</b>.</p>
+        <figure class="fig-wrap"><svg class="fig" viewBox="0 0 340 254" role="img" aria-labelledby="fig-etats-t"><title id="fig-etats-t">Les six changements d’état : fusion (solide vers liquide), solidification (liquide vers solide), vaporisation (liquide vers gaz), liquéfaction (gaz vers liquide), sublimation (solide vers gaz), condensation (gaz vers solide).</title><path d="M109.0 193.0L229.0 193.0" style="stroke:var(--q-E)" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M231.0 193.0L222.7 196.0L222.7 190.0z" style="fill:var(--q-E)"/><text x="170" y="184" text-anchor="middle" style="fill:var(--text)" font-size="12" font-weight="600">fusion</text><path d="M231.0 207.0L111.0 207.0" style="stroke:var(--muted)" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-dasharray="5 4"/><path d="M109.0 207.0L117.3 204.0L117.3 210.0z" style="fill:var(--muted)"/><text x="170" y="228" text-anchor="middle" style="fill:var(--text)" font-size="12" font-weight="500">solidification</text><path d="M85.5 162.3L139.8 83.4" style="stroke:var(--q-E)" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M141.0 81.8L138.8 90.4L133.8 86.9z" style="fill:var(--q-E)"/><text x="103.4" y="115.2" text-anchor="middle" dominant-baseline="central" transform="rotate(-55.4 103.4 115.2)" style="fill:var(--text)" font-size="12" font-weight="600">sublimation</text><path d="M152.5 89.7L98.2 168.6" style="stroke:var(--muted)" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-dasharray="5 4"/><path d="M97.0 170.2L99.2 161.6L104.2 165.1z" style="fill:var(--muted)"/><text x="134.6" y="136.8" text-anchor="middle" dominant-baseline="central" transform="rotate(-55.4 134.6 136.8)" style="fill:var(--text)" font-size="12" font-weight="500">condensation</text><path d="M254.5 162.3L200.2 83.4" style="stroke:var(--q-E)" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M199.0 81.8L206.2 86.9L201.2 90.4z" style="fill:var(--q-E)"/><text x="236.6" y="115.2" text-anchor="middle" dominant-baseline="central" transform="rotate(55.4 236.6 115.2)" style="fill:var(--text)" font-size="12" font-weight="600">vaporisation</text><path d="M187.5 89.7L241.8 168.6" style="stroke:var(--muted)" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-dasharray="5 4"/><path d="M243.0 170.2L235.8 165.1L240.8 161.6z" style="fill:var(--muted)"/><text x="205.4" y="136.8" text-anchor="middle" dominant-baseline="central" transform="rotate(55.4 205.4 136.8)" style="fill:var(--text)" font-size="12" font-weight="500">liquéfaction</text><circle cx="170" cy="52" r="36" style="fill:var(--surface-2);stroke:var(--line-3)" stroke-width="1.5"/><text x="170" y="56.5" text-anchor="middle" style="fill:var(--text)" font-size="13" font-weight="650">Gazeux</text><circle cx="68" cy="200" r="36" style="fill:var(--surface-2);stroke:var(--line-3)" stroke-width="1.5"/><text x="68" y="204.5" text-anchor="middle" style="fill:var(--text)" font-size="13" font-weight="650">Solide</text><circle cx="272" cy="200" r="36" style="fill:var(--surface-2);stroke:var(--line-3)" stroke-width="1.5"/><text x="272" y="204.5" text-anchor="middle" style="fill:var(--text)" font-size="13" font-weight="650">Liquide</text></svg></figure>
+        <ul class="legend">
+          <li><i style="background: var(--q-E)"></i><span>le corps reçoit de l’énergie (\(\QQ &gt; 0\))</span></li>
+          <li><i class="dash" style="color: var(--muted)"></i><span>le corps cède de l’énergie (\(\QQ &lt; 0\))</span></li>
+        </ul>
+        <p>Lors d’un changement d’état, des liaisons entre particules sont formées ou rompues, mais l’agitation thermique n’augmente pas. <b>Un changement d’état se fait à température constante.</b></p>
+      </article>
+
+      <article class="box prop" id="c-chgt">
+        <p class="box-title">Énergie échangée lors d’un changement d’état</p>
+        <p>Un changement d’état s’effectue sous l’effet d’un échange d’énergie, noté \(\QQ\). Il se calcule :</p>
+        <div class="formula">\[\QQ = \Qm \times \QL\]<p class="formula-units">\(\QQ\) en joules (J) · \(\Qm\) : masse du corps qui change d’état, en kg · \(\QL\) en \(\mathrm{J\cdot kg^{-1}}\)</p></div>
+        <p>\(\QL\) est l’<b>énergie massique de changement d’état</b>, caractéristique du corps.</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Corps</th><th>Changement d’état</th><th>\(\QL\) (\(\mathrm{kJ\cdot kg^{-1}}\))</th></tr></thead>
+          <tbody>
+            <tr><td>Eau</td><td>fusion (0 °C)</td><td>334</td></tr>
+            <tr><td>Eau</td><td>vaporisation (100 °C)</td><td>2 260</td></tr>
+            <tr><td>Aluminium</td><td>fusion (660 °C)</td><td>397</td></tr>
+            <tr><td>Heptadécane</td><td>fusion (22 °C)</td><td>213</td></tr>
+          </tbody>
+        </table></div>
+        <p class="note">Fusion, vaporisation, sublimation : le corps reçoit \(\QQ = \Qm \times \QL &gt; 0\). Transformations inverses : il cède la même énergie, \(\QQ = -\Qm \times \QL\). Attention : \(1\ \mathrm{kJ\cdot kg^{-1}} = 1\,000\ \mathrm{J\cdot kg^{-1}}\).</p>
+      </article>
+
+      <article class="box method" id="c-methode-etapes">
+        <p class="box-title">Méthode : chauffer et changer d’état</p>
+        <p>Quand la température traverse un changement d’état, on découpe en étapes et on additionne les énergies :</p>
+        <ol class="steps-list">
+          <li>Chauffer le solide jusqu’à la fusion : \(\QQ_1 = \Qm \times \Qc_{\text{solide}} \times \QdT\).</li>
+          <li>Faire fondre, à température constante : \(\QQ_2 = \Qm \times \QL_{\text{fus}}\).</li>
+          <li>Chauffer le liquide : \(\QQ_3 = \Qm \times \Qc_{\text{liquide}} \times \QdT\).</li>
+          <li>Total : \(\QQ = \QQ_1 + \QQ_2 + \QQ_3\). Pour un refroidissement, chaque terme est négatif.</li>
+        </ol>
+        <p class="note">Les paliers à température constante se voient sur la courbe d’échauffement (étape 3, Manipuler).</p>
+      </article>
+
+      <article class="box method" id="c-methode-calo">
+        <p class="box-title">Méthode : le calorimètre</p>
+        <p>Un calorimètre est un récipient isolé : l’eau, le calorimètre et le corps étudié échangent de l’énergie entre eux, mais pas avec l’extérieur.</p>
+        <ol class="steps-list">
+          <li>Chaque corps passe de sa température initiale à la même température finale \(\QTeq\).</li>
+          <li>Calculer chaque variation : \(\QU_{\text{eau}}\), \(\QU_{\text{cal}}\), \(\QU_{\text{solide}}\).</li>
+          <li>Système isolé : \(\QU_{\text{eau}} + \QU_{\text{cal}} + \QU_{\text{solide}} = 0\).</li>
+          <li>En déduire l’inconnue : \(\Qc\) du solide, son \(\QL\), ou \(\QTeq\).</li>
+        </ol>
+      </article>
+
+      <aside class="box def wide" id="videos">
+        <p class="box-title">Les vidéos du cours</p>
+        <ul class="video-links">
+          <li><a href="https://www.youtube.com/results?search_query=temp%C3%A9rature+agitation+thermique+kelvin+physique+1re"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>Température et agitation thermique<small>Partie I du cours · recherche YouTube</small></span></a></li>
+          <li><a href="https://www.youtube.com/results?search_query=conduction+convection+rayonnement+transfert+thermique"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>Conduction, convection, rayonnement<small>Partie II du cours · recherche YouTube</small></span></a></li>
+          <li><a href="https://www.youtube.com/results?search_query=%C3%A9nergie+interne+capacit%C3%A9+thermique+massique+Q%3Dmc%CE%94T"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>Énergie interne et capacité thermique massique<small>Partie III du cours · recherche YouTube</small></span></a></li>
+          <li><a href="https://www.youtube.com/results?search_query=%C3%A9nergie+massique+changement+d%27%C3%A9tat+Q%3DmL+calorim%C3%A8tre"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>Changements d’état et calorimétrie<small>Partie IV du cours · recherche YouTube</small></span></a></li>
+        </ul>
+      </aside>
     </div>
   </section>
 
-  <section>
-    <h2>Quiz</h2>
-    <div class="quiz">
-      <div class="q" data-answer="2">
-        <p>\(25\) °C correspond à :</p>
-        <ol class="choices"><li>248,15 K</li><li>25 K</li><li>298,15 K</li><li>−248,15 K</li></ol>
-        <p class="explain">\(25 + 273{,}15\).</p>
+  <!-- ===================================================== 2. EXEMPLES -->
+  <section class="step" id="exemples">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">2</span>
+      <div>
+        <h2>Exemples concrets</h2>
+        <p>Des exercices du même type que ceux de la fiche, résolus pas à pas. Cherche d’abord sur une feuille, puis ouvre la solution.</p>
       </div>
-      <div class="q" data-answer="0">
-        <p>Pendant que de l'eau bout sous pression atmosphérique, sa température :</p>
-        <ol class="choices"><li>reste à 100 °C</li><li>augmente</li><li>diminue</li><li>oscille</li></ol>
-        <p class="explain">Palier de changement d'état : l'énergie sert à vaporiser.</p>
+    </header>
+    <div class="bento">
+      <article class="box example">
+        <p class="box-title">Convertir des températures</p>
+        <p>a) Convertis en kelvins : 25 °C (une pièce), −18 °C (un congélateur), −196 °C (l’azote liquide), 1 500 °C (de l’acier en fusion).</p>
+        <p>b) Convertis en °C : 310 K, 4 K (l’hélium liquide), 5 800 K (la surface du Soleil).</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>°C → K, on ajoute 273 : \(25 + 273 = 298\ \mathrm{K}\) ; \(-18 + 273 = 255\ \mathrm{K}\) ; \(-196 + 273 = 77\ \mathrm{K}\) ; \(1\,500 + 273 = 1\,773\ \mathrm{K}\).</li>
+              <li>K → °C, on retire 273 : \(310 - 273 = 37\ {}^{\circ}\mathrm{C}\) ; \(4 - 273 = -269\ {}^{\circ}\mathrm{C}\) ; \(5\,800 - 273 = 5\,527\ {}^{\circ}\mathrm{C}\).</li>
+              <li>Vérification : une température en kelvins n’est jamais négative (le minimum est 0 K).</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example">
+        <p class="box-title">Chauffer de l’eau dans une bouilloire</p>
+        <p>Une bouilloire de puissance \(\QP = 2\,000\ \mathrm{W}\) chauffe \(1{,}5\ \mathrm{L}\) d’eau (\(\Qm = 1{,}5\ \mathrm{kg}\)) de \(20\ {}^{\circ}\mathrm{C}\) à \(100\ {}^{\circ}\mathrm{C}\). Donnée : \(\Qc_{\text{eau}} = 4\,180\ \mathrm{J\cdot kg^{-1}\cdot {}^{\circ}C^{-1}}\).</p>
+        <p>1) Calcule la variation d’énergie interne de l’eau. 2) Si toute l’énergie électrique chauffe l’eau, combien de temps faut-il ?</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>\(\QdT = \QTf - \QTi = 100 - 20 = 80\ {}^{\circ}\mathrm{C}\).</li>
+              <li>\(\QU = \Qm \times \Qc \times \QdT = 1{,}5 \times 4\,180 \times 80 = 501\,600\ \mathrm{J} \approx 5{,}02 \times 10^{5}\ \mathrm{J}\). \(\QU &gt; 0\) : l’eau gagne de l’énergie.</li>
+              <li>Chapitre 1 : \(\QQ = \QP \times \Qt\), donc \(\Qt = \dfrac{\QQ}{\QP} = \dfrac{501\,600}{2\,000} \approx 251\ \mathrm{s}\), soit environ 4 min 11 s.</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example">
+        <p class="box-title">Refroidir du lait : le signe de \(\QQ\)</p>
+        <p>Un biberon contient \(250\ \mathrm{g}\) de lait chauffé à \(60\ {}^{\circ}\mathrm{C}\). On le laisse refroidir jusqu’à \(37\ {}^{\circ}\mathrm{C}\). Donnée : \(\Qc_{\text{lait}} = 3\,800\ \mathrm{J\cdot kg^{-1}\cdot {}^{\circ}C^{-1}}\).</p>
+        <p>Calcule l’énergie \(\QQ\) échangée par le lait. Quel est son signe ?</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>Masse en kg : \(\Qm = 250\ \mathrm{g} = 0{,}250\ \mathrm{kg}\).</li>
+              <li>\(\QdT = \QTf - \QTi = 37 - 60 = -23\ {}^{\circ}\mathrm{C}\).</li>
+              <li>\(\QQ = \Qm \times \Qc \times \QdT = 0{,}250 \times 3\,800 \times (-23) = -21\,850\ \mathrm{J} \approx -2{,}19 \times 10^{4}\ \mathrm{J}\).</li>
+              <li>\(\QQ &lt; 0\) : le lait <b>perd</b> de l’énergie. Elle part vers l’air de la pièce, plus froid (du chaud vers le froid).</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example">
+        <p class="box-title">Chauffer puis faire fondre un métal</p>
+        <p>Un lingot d’aluminium de \(2{,}5\ \mathrm{kg}\) est chauffé de \(20\ {}^{\circ}\mathrm{C}\) jusqu’à sa température de fusion, \(660\ {}^{\circ}\mathrm{C}\), puis fondu entièrement.</p>
+        <p class="note">Données : \(\Qc = 894{,}5\ \mathrm{J\cdot kg^{-1}\cdot {}^{\circ}C^{-1}}\) ; \(\QL_{\text{fus}} = 397\ \mathrm{kJ\cdot kg^{-1}}\).</p>
+        <p>Calcule l’énergie pour le chauffer, puis pour le faire fondre, puis l’énergie totale.</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>Chauffage : \(\QQ_1 = \Qm \times \Qc \times \QdT = 2{,}5 \times 894{,}5 \times (660 - 20) = 1\,431\,200\ \mathrm{J} \approx 1{,}43 \times 10^{6}\ \mathrm{J}\).</li>
+              <li>Fusion, à 660 °C constants : \(\QQ_2 = \Qm \times \QL_{\text{fus}} = 2{,}5 \times 397\,000 = 992\,500\ \mathrm{J} \approx 9{,}93 \times 10^{5}\ \mathrm{J}\).</li>
+              <li>Total : \(\QQ = \QQ_1 + \QQ_2 = 2\,423\,700\ \mathrm{J} \approx 2{,}42 \times 10^{6}\ \mathrm{J}\).</li>
+            </ol>
+            <p class="trap"><b>Point de vigilance.</b> \(\QL\) est donnée en kJ/kg : on la convertit en J/kg (× 1 000) avant de calculer en joules.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example wide">
+        <p class="box-title">Centrale nucléaire : refroidir la vapeur avec l’eau d’une rivière</p>
+        <p>Dans le circuit secondaire d’une centrale, la vapeur d’eau à \(120\ {}^{\circ}\mathrm{C}\) doit être refroidie jusqu’à de l’eau liquide à \(50\ {}^{\circ}\mathrm{C}\). On utilise l’eau d’une rivière, à \(15\ {}^{\circ}\mathrm{C}\). On étudie \(1\ \mathrm{kg}\) de vapeur, et on suppose que l’eau de la rivière finit elle aussi à \(50\ {}^{\circ}\mathrm{C}\).</p>
+        <p class="note">Données : \(\QL_{\text{vap}} = 2\,260\ \mathrm{kJ\cdot kg^{-1}}\) ; \(\Qc_{\text{vapeur}} = 1\,850\ \mathrm{J\cdot kg^{-1}\cdot K^{-1}}\) ; \(\Qc_{\text{eau}} = 4\,180\ \mathrm{J\cdot kg^{-1}\cdot K^{-1}}\).</p>
+        <ol class="steps-list" style="--tone: var(--amber)">
+          <li>Calcule l’énergie échangée par 1 kg de vapeur pour passer de 120 °C à de l’eau liquide à 50 °C.</li>
+          <li>Exprime l’énergie reçue par une masse \(\Qm\) d’eau de rivière, en fonction de \(\Qm\).</li>
+          <li>En déduis la masse \(\Qm\) d’eau de rivière nécessaire.</li>
+        </ol>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>Trois étapes. Vapeur de 120 à 100 °C : \(\QQ_1 = 1 \times 1\,850 \times (100 - 120) = -37\,000\ \mathrm{J}\). Liquéfaction à 100 °C : \(\QQ_2 = -1 \times 2\,260\,000 = -2\,260\,000\ \mathrm{J}\). Eau liquide de 100 à 50 °C : \(\QQ_3 = 1 \times 4\,180 \times (50 - 100) = -209\,000\ \mathrm{J}\).</li>
+              <li>Total : \(\QQ = \QQ_1 + \QQ_2 + \QQ_3 = -2\,506\,000\ \mathrm{J} \approx -2{,}51 \times 10^{6}\ \mathrm{J}\) : la vapeur cède cette énergie. La liquéfaction en fournit à elle seule 90 %.</li>
+              <li>Eau de la rivière, de 15 à 50 °C : \(\QQ' = \Qm \times 4\,180 \times (50 - 15) = 146\,300\,\Qm\) (en J, avec \(\Qm\) en kg).</li>
+              <li>Échange sans pertes : \(\QQ' + \QQ = 0\), donc \(\Qm = \dfrac{2\,506\,000}{146\,300} \approx 17{,}1\ \mathrm{kg}\) d’eau de rivière par kilogramme de vapeur.</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example">
+        <p class="box-title">Calorimètre : capacité thermique de l’aluminium</p>
+        <p>Un calorimètre (\(400\ \mathrm{g}\), \(\Qc_{\text{cal}} = 748\ \mathrm{J\cdot kg^{-1}\cdot {}^{\circ}C^{-1}}\)) contient \(200\ \mathrm{g}\) d’eau à \(20\ {}^{\circ}\mathrm{C}\). On y plonge un solide en aluminium de \(100\ \mathrm{g}\) à \(88\ {}^{\circ}\mathrm{C}\). La température d’équilibre est \(\QTeq = 25\ {}^{\circ}\mathrm{C}\).</p>
+        <p>Calcule \(\QU_{\text{eau}}\), \(\QU_{\text{cal}}\), puis \(\QU_{\text{alu}}\) et la capacité thermique massique de l’aluminium.</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>\(\QU_{\text{eau}} = 0{,}200 \times 4\,180 \times (25 - 20) = 4\,180\ \mathrm{J}\).</li>
+              <li>\(\QU_{\text{cal}} = 0{,}400 \times 748 \times (25 - 20) = 1\,496\ \mathrm{J}\) (le calorimètre était à la température de l’eau).</li>
+              <li>Calorimètre isolé : \(\QU_{\text{eau}} + \QU_{\text{cal}} + \QU_{\text{alu}} = 0\), donc \(\QU_{\text{alu}} = -(4\,180 + 1\,496) = -5\,676\ \mathrm{J}\).</li>
+              <li>\(\Qc_{\text{alu}} = \dfrac{\QU_{\text{alu}}}{\Qm \times (\QTeq - \QTi)} = \dfrac{-5\,676}{0{,}100 \times (25 - 88)} \approx 901\ \mathrm{J\cdot kg^{-1}\cdot {}^{\circ}C^{-1}}\).</li>
+              <li>Valeur du cours : 894,5. Écart relatif : \(\dfrac{901 - 894{,}5}{894{,}5} \approx 0{,}7\ \%\) : la mesure est cohérente.</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example">
+        <p class="box-title">Calorimètre : énergie de fusion de l’heptadécane</p>
+        <p>Un calorimètre (\(500\ \mathrm{g}\), \(\Qc_{\text{cal}} = 750\)) contient \(200\ \mathrm{g}\) d’eau à \(45{,}0\ {}^{\circ}\mathrm{C}\). On ajoute \(100\ \mathrm{g}\) d’heptadécane solide à sa température de fusion (22 °C). Il fond entièrement ; l’eau finit à \(27{,}0\ {}^{\circ}\mathrm{C}\).</p>
+        <p>Calcule \(\QL_{\text{fus}}\) de l’heptadécane et compare-la à la valeur de référence, \(213\ \mathrm{kJ\cdot kg^{-1}}\).</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>\(\QU_{\text{eau}} = 0{,}200 \times 4\,180 \times (27{,}0 - 45{,}0) = -15\,048\ \mathrm{J}\) ; \(\QU_{\text{cal}} = 0{,}500 \times 750 \times (-18{,}0) = -6\,750\ \mathrm{J}\).</li>
+              <li>Système isolé : \(\QU_{\text{hept}} = -(\QU_{\text{eau}} + \QU_{\text{cal}}) = 21\,798\ \mathrm{J}\) (positif : l’heptadécane reçoit l’énergie qui le fait fondre).</li>
+              <li>\(\QL_{\text{fus}} = \dfrac{\QU_{\text{hept}}}{\Qm} = \dfrac{21\,798}{0{,}100} \approx 2{,}18 \times 10^{5}\ \mathrm{J\cdot kg^{-1}} = 218\ \mathrm{kJ\cdot kg^{-1}}\).</li>
+              <li>Écart avec la référence : \(\dfrac{218 - 213}{213} \approx 2\ \%\) : le résultat est cohérent.</li>
+            </ol>
+            <p class="trap"><b>Pourquoi un petit écart ?</b> Le calorimètre n’est jamais parfaitement isolé : l’eau à 45 °C cède aussi un peu d’énergie à l’air de la pièce. Et on a négligé l’échauffement de l’heptadécane liquide de 22 °C à 27 °C. Dans les deux cas, on attribue à la fusion une énergie un peu trop grande.</p>
+          </div>
+        </details>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================================================== 3. MANIPULER -->
+  <section class="step" id="manipuler">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">3</span>
+      <div>
+        <h2>Manipuler</h2>
+        <p>Bouge les curseurs et prédis le résultat avant de regarder. Chaque couleur est celle de la grandeur dans les formules.</p>
       </div>
-      <div class="q" data-answer="3">
-        <p>Le Soleil chauffe la Terre par :</p>
-        <ol class="choices"><li>conduction</li><li>convection</li><li>contact</li><li>rayonnement</li></ol>
-        <p class="explain">Seul le rayonnement traverse le vide.</p>
+    </header>
+    <div class="bento">
+      <div class="widget" id="w-du">
+        <p class="widget-title">L’énergie interne en fonction de la température finale : \(\QU = \Qm \times \Qc \times (\QTf - \QTi)\)</p>
+        <p class="hint">\(\QU\) est une droite de la température finale : elle s’annule en \(\QTi\) et a pour pente \(\Qm \times \Qc\). À droite de \(\QTi\) le système gagne de l’énergie, à gauche il en perd.</p>
+        <div class="lab">
+          <div class="lab-stage">
+            <canvas class="plot tall" aria-label="Graphique de la variation d’énergie interne en fonction de la température finale"></canvas>
+            <ul class="legend">
+              <li><i style="background: var(--q-E)"></i><span>\(\QU\)</span></li>
+              <li><i class="dash" style="color: var(--muted)"></i><span>eau (\(\Qc = 4\,180\)), même masse</span></li>
+              <li><i style="background: var(--q-c)"></i><span>pente = \(\Qm \times \Qc\)</span></li>
+              <li><i style="background: var(--q-T)"></i><span>\(\QdT\)</span></li>
+            </ul>
+          </div>
+          <div class="lab-side">
+            <div class="lab-formula">\(\QU = \Qm \times \Qc \times (\QTf - \QTi)\)</div>
+            <div class="sliders">
+              <div class="slider" style="--tone: var(--q-m)">
+                <div class="slider-top"><label class="name" for="sl-m">Masse \(\Qm\)</label><span><output data-show="m" for="sl-m" data-digits="1"></output> kg</span></div>
+                <input id="sl-m" type="range" data-k="m" min="0.1" max="10" step="0.1" value="3">
+              </div>
+              <div class="slider" style="--tone: var(--q-c)">
+                <div class="slider-top"><label class="name" for="sl-c">Capacité \(\Qc\)</label><span><output data-show="c" for="sl-c" data-digits="1"></output> J·kg⁻¹·°C⁻¹</span></div>
+                <input id="sl-c" type="range" data-k="c" min="100" max="4500" step="0.5" value="4180">
+              </div>
+              <div class="slider" style="--tone: var(--q-T)">
+                <div class="slider-top"><label class="name" for="sl-Ti">Température initiale \(\QTi\)</label><span><output data-show="Ti" for="sl-Ti" data-digits="0"></output> °C</span></div>
+                <input id="sl-Ti" type="range" data-k="Ti" min="-30" max="250" step="1" value="20">
+              </div>
+              <div class="slider" style="--tone: var(--q-T)">
+                <div class="slider-top"><label class="name" for="sl-Tf">Température finale \(\QTf\)</label><span><output data-show="Tf" for="sl-Tf" data-digits="0"></output> °C</span></div>
+                <input id="sl-Tf" type="range" data-k="Tf" min="-30" max="250" step="1" value="90">
+              </div>
+            </div>
+            <div>
+              <p class="presets-label">Préréglages</p>
+              <div class="presets"></div>
+            </div>
+            <div class="kpis"></div>
+          </div>
+        </div>
       </div>
-      <div class="q" data-answer="1">
-        <p>Énergie pour chauffer 1 kg d'aluminium (\(c = 900\)) de 10 °C :</p>
-        <ol class="choices"><li>90 J</li><li>9 000 J</li><li>41 800 J</li><li>900 J</li></ol>
-        <p class="explain">\(1 \times 900 \times 10\).</p>
+
+      <div class="widget" id="w-chauffe">
+        <p class="widget-title">Courbe d’échauffement de l’eau : les paliers de changement d’état</p>
+        <p class="hint">De la glace sort du congélateur à −20 °C et reçoit de l’énergie. Pendant la fusion et l’ébullition, l’énergie continue d’entrer mais la température ne bouge plus : ce sont les paliers. Le palier d’ébullition est près de 7 fois plus long que celui de fusion.</p>
+        <div class="lab">
+          <div class="lab-stage">
+            <canvas class="plot tall" aria-label="Graphique de la température de l’eau en fonction de l’énergie reçue"></canvas>
+            <ul class="legend">
+              <li><i style="background: var(--q-c)"></i><span>chauffage : \(\QQ = \Qm \times \Qc \times \QdT\)</span></li>
+              <li><i style="background: var(--q-L)"></i><span>changement d’état : \(\QQ = \Qm \times \QL\)</span></li>
+              <li><i style="background: var(--q-T)"></i><span>température \(\QT\) atteinte</span></li>
+            </ul>
+          </div>
+          <div class="lab-side">
+            <div class="lab-formula">\(\QQ = \Qm \times \Qc \times \QdT \quad \text{ou} \quad \QQ = \Qm \times \QL\)</div>
+            <div class="sliders">
+              <div class="slider" style="--tone: var(--q-m)">
+                <div class="slider-top"><label class="name" for="sl-mh">Masse \(\Qm\)</label><span><output data-show="m" for="sl-mh" data-digits="1"></output> kg</span></div>
+                <input id="sl-mh" type="range" data-k="m" min="0.1" max="2" step="0.1" value="1">
+              </div>
+              <div class="slider" style="--tone: var(--q-E)">
+                <div class="slider-top"><label class="name" for="sl-Q">Énergie reçue \(\QQ\)</label><span><output data-show="Q" for="sl-Q" data-digits="0"></output> kJ</span></div>
+                <input id="sl-Q" type="range" data-k="Q" min="0" max="3147" step="1" value="209">
+              </div>
+            </div>
+            <div>
+              <p class="presets-label">Préréglages</p>
+              <div class="presets"></div>
+            </div>
+            <div class="kpis"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget" id="w-calo">
+        <p class="widget-title">Calorimètre : \(\q{w}{\Delta U_{\text{eau}}} + \q{k}{\Delta U_{\text{cal}}} + \q{s}{\Delta U_{\text{solide}}} = 0\)</p>
+        <p class="hint">Chaque rectangle a pour largeur \(\Qm \times \Qc\) et pour hauteur la variation de température : son <b>aire</b> est l’énergie échangée. À l’équilibre, l’aire cédée par le corps chaud est égale à l’aire reçue par les corps froids.</p>
+        <div class="lab">
+          <div class="lab-stage">
+            <canvas class="plot tall" aria-label="Graphique des températures du calorimètre : chaque corps est un rectangle dont l’aire est l’énergie échangée"></canvas>
+            <ul class="legend">
+              <li><i class="area" style="background: var(--q-w)"></i><span>eau</span></li>
+              <li><i class="area" style="background: var(--q-k)"></i><span>calorimètre</span></li>
+              <li><i class="area" style="background: var(--q-s)"></i><span>solide</span></li>
+              <li><i class="dash" style="color: var(--q-T)"></i><span>\(\QTeq\)</span></li>
+            </ul>
+          </div>
+          <div class="lab-side">
+            <div class="lab-formula">\(\q{w}{\Delta U_{\text{eau}}} + \q{k}{\Delta U_{\text{cal}}} + \q{s}{\Delta U_{\text{solide}}} = 0\)</div>
+            <div class="sliders">
+              <div class="slider" style="--tone: var(--q-w)">
+                <div class="slider-top"><label class="name" for="sl-m1">Masse d’eau</label><span><output data-show="m1" for="sl-m1" data-digits="0"></output> g</span></div>
+                <input id="sl-m1" type="range" data-k="m1" min="50" max="500" step="10" value="200">
+              </div>
+              <div class="slider" style="--tone: var(--q-w)">
+                <div class="slider-top"><label class="name" for="sl-T1">Température de l’eau</label><span><output data-show="T1" for="sl-T1" data-digits="0"></output> °C</span></div>
+                <input id="sl-T1" type="range" data-k="T1" min="0" max="90" step="1" value="20">
+              </div>
+              <div class="slider" style="--tone: var(--q-s)">
+                <div class="slider-top"><label class="name" for="sl-m2">Masse du solide</label><span><output data-show="m2" for="sl-m2" data-digits="0"></output> g</span></div>
+                <input id="sl-m2" type="range" data-k="m2" min="20" max="500" step="10" value="100">
+              </div>
+              <div class="slider" style="--tone: var(--q-s)">
+                <div class="slider-top"><label class="name" for="sl-T2">Température du solide</label><span><output data-show="T2" for="sl-T2" data-digits="0"></output> °C</span></div>
+                <input id="sl-T2" type="range" data-k="T2" min="0" max="150" step="1" value="88">
+              </div>
+              <div class="slider" style="--tone: var(--q-s)">
+                <div class="slider-top"><label class="name" for="sl-c2">Capacité \(\Qc\) du solide</label><span><output data-show="c2" for="sl-c2" data-digits="1"></output> J·kg⁻¹·°C⁻¹</span></div>
+                <input id="sl-c2" type="range" data-k="c2" min="100" max="4500" step="0.5" value="901">
+              </div>
+            </div>
+            <p class="note">Calorimètre : 400 g, \(\Qc_{\text{cal}} = 748\ \mathrm{J\cdot kg^{-1}\cdot {}^{\circ}C^{-1}}\), au départ à la température de l’eau.</p>
+            <div>
+              <p class="presets-label">Préréglages</p>
+              <div class="presets"></div>
+            </div>
+            <div class="kpis"></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="videos">
-    <h2>Pour aller plus loin en vidéo</h2>
-    <ul class="videos">
-      <li><a href="https://www.youtube.com/results?search_query=capacite+thermique+massique+Q%3Dmc+delta+theta">Capacité thermique massique<small>Recherche YouTube</small></a></li>
-      <li><a href="https://www.youtube.com/results?search_query=energie+massique+changement+d%27etat+palier">Changements d'état et paliers<small>Recherche YouTube</small></a></li>
-      <li><a href="https://www.youtube.com/results?search_query=conduction+convection+rayonnement+explication">Conduction, convection, rayonnement<small>Recherche YouTube</small></a></li>
-    </ul>
+  <!-- ===================================================== 4. ENTRAÎNEMENT -->
+  <section class="step" id="entrainement">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">4</span>
+      <div>
+        <h2>Entraînement</h2>
+        <p>Des questions qui se renouvellent à l’infini. Réussis <b>5 réponses de suite du premier coup</b> pour débloquer l’évaluation. Le brouillon et la calculatrice restent à portée de main pendant que tu réponds.</p>
+      </div>
+    </header>
+    <div class="bento work">
+      <div class="widget" id="w-drill"></div>
+      <div class="workspace-host" id="ws-train"></div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 5. ÉVALUATION -->
+  <section class="step" id="evaluation">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">5</span>
+      <div>
+        <h2>Évaluation</h2>
+        <p>Une copie sur 20 points, corrigée à la fin, sans limite de temps. La calculatrice passe en mode examen : seulement les calculs d’une calculatrice standard.</p>
+      </div>
+    </header>
+    <div class="bento work">
+      <div class="widget exam-card" id="exam"></div>
+      <div class="workspace-host" id="ws-exam"></div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 6. VALIDATION -->
+  <section class="step" id="validation">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">6</span>
+      <div>
+        <h2>Validation</h2>
+        <p>Au moins 15/20 : le chapitre est validé et le suivant s’ouvre. En dessous : retour à l’entraînement pour une nouvelle série de 5.</p>
+      </div>
+    </header>
+    <div class="widget valid-card" id="validation-card"></div>
   </section>
 </main>
 <script>
 window.addEventListener('DOMContentLoaded', function () {
-  var R = Course.rand, P = Course.pick, A = Course.approx;
-  var w = document.getElementById('w-heat'), out = w.querySelector('.readout');
-  var G = Course.plot(w.querySelector('canvas'), { xlabel: 't (min)', ylabel: 'θ (°C)' });
-  Course.onInput(w, function (v) {
-    var Pw = v.P * 1000, m = v.m;
-    // durées (s) de chaque étape : glace −20→0, fusion, eau 0→100, vaporisation, vapeur 100→120
-    var steps = [m * 2100 * 20, m * 334000, m * 4180 * 100, m * 2257000, m * 2010 * 20].map(function (E) { return E / Pw / 60; });
-    var t = [0]; steps.forEach(function (d, i) { t.push(t[i] + d); });
-    var pts = [[t[0], -20], [t[1], 0], [t[2], 0], [t[3], 100], [t[4], 100], [t[5], 120]];
-    G.draw = function (g) {
-      g.poly(pts, '--c1', { width: 2.5 });
-      g.text((t[1] + t[2]) / 2, 8, 'fusion', '--c3', { align: 'center' });
-      g.text((t[3] + t[4]) / 2, 108, 'ébullition', '--c3', { align: 'center' });
+  var C = window.CourseCore, Bank = window.ChapterBank.make();
+  /** Nombre à la française avec un vrai signe moins (−). */
+  function num(x, sig) { return C.fmtNum(x, sig).replace('-', '−'); }
+  /** Énergie en J, kJ ou MJ selon sa taille. */
+  function energy(J) {
+    var a = Math.abs(J);
+    return a >= 1e6 ? { value: num(J / 1e6), unit: 'MJ' } : a >= 1e4 ? { value: num(J / 1e3), unit: 'kJ' } : { value: num(Math.round(J * 1000) / 1000 || 0), unit: 'J' };
+  }
+  function signBadge(U, gain, lose) {
+    if (Math.abs(U) < 1e-9) return { cls: 'info', text: 'Pas de variation' };
+    return U > 0 ? { cls: 'info', icon: 'trendUp', text: gain } : { cls: 'info', icon: 'trendDown', text: lose };
+  }
+
+  /* ---------- Manipuler 1 : ΔU = m × c × (T_final − T_initial) ---------- */
+  var MATS = [['plomb', 129], ['mercure', 138], ['zinc', 389], ['aluminium', 894.5], ['vapeur d’eau', 1850], ['glace', 2100], ['éthanol', 2424], ['lait', 3800], ['eau', 4180]];
+  var wU = document.getElementById('w-du');
+  var GU = Course.plot(wU.querySelector('canvas'), { xmin: 0, xmax: 100, ymin: -1, ymax: 1, xlabel: 'T final (°C)', ylabel: 'ΔU (kJ)' });
+  var kpiU = Course.kpis(wU.querySelector('.kpis'), [
+    { id: 'dT', label: '<span>Variation \\(\\QdT\\)</span>', tone: '--q-T' },
+    { id: 'U', label: '<span>Énergie \\(\\QU\\)</span>', tone: '--q-E' },
+    { id: 'mc', label: '<span>\\(\\Qm \\times \\Qc\\) : énergie pour 1 °C</span>', tone: '--q-c' },
+    { id: 'mat', label: '<span>Matériau proche de \\(\\Qc\\)</span>', tone: '--q-c' }
+  ]);
+  Course.presets(wU.querySelector('.presets'), [
+    { label: 'Eau · 3 kg · 20 → 90 °C', values: { m: 3, c: 4180, Ti: 20, Tf: 90 } },
+    { label: 'Lait · 0,3 kg · 70 → 37 °C', values: { m: 0.3, c: 3800, Ti: 70, Tf: 37 } },
+    { label: 'Aluminium · 3 kg · 20 → 90 °C', values: { m: 3, c: 894.5, Ti: 20, Tf: 90 } }
+  ]);
+  Course.onInput(wU, function (v) {
+    var mc = v.m * v.c, dT = v.Tf - v.Ti, U = mc * dT;
+    var lo = Math.min(v.Ti, v.Tf), hi = Math.max(v.Ti, v.Tf), pad = Math.max(10, (hi - lo) * 0.3);
+    var x0 = lo - pad, x1 = hi + pad;
+    var big = Math.max(Math.abs(mc * (x0 - v.Ti)), Math.abs(mc * (x1 - v.Ti)));
+    var f = big >= 5e6 ? 1e-6 : 1e-3;
+    var ya = mc * (x0 - v.Ti) * f, yb = mc * (x1 - v.Ti) * f, ymin = Math.min(ya, 0), ymax = Math.max(yb, 0), span = ymax - ymin || 1;
+    GU.view.ylabel = f === 1e-6 ? 'ΔU (MJ)' : 'ΔU (kJ)';
+    GU.draw = function (g) {
+      if (Math.abs(v.c - 4180) > 1) g.fn(function (x) { return v.m * 4180 * (x - v.Ti) * f; }, '--muted', { dash: [6, 5], width: 1.5, from: x0, to: x1 });
+      g.fn(function (x) { return mc * (x - v.Ti) * f; }, '--q-E', { width: 2.6, from: x0, to: x1 });
+      // triangle de pente : pour une hausse de b °C, ΔU augmente de m × c × b
+      var b = (x1 - x0) >= 60 ? 10 : (x1 - x0) >= 25 ? 5 : 1, xs = x0 + (x1 - x0) * 0.62, ys = mc * (xs - v.Ti) * f, ye = mc * (xs + b - v.Ti) * f;
+      g.seg(xs, ys, xs + b, ys, '--q-c', { width: 1.6 });
+      g.seg(xs + b, ys, xs + b, ye, '--q-c', { width: 2.2 });
+      g.text(xs + b, (ys + ye) / 2, 'pente = m × c', '--q-c', { bold: true, halo: true, dx: 8, size: 12.5 });
+      g.text(xs + b / 2, ys, '+' + b + ' °C', '--muted', { align: 'center', baseline: 'top', dy: 4, size: 12, halo: true });
+      // ΔT sur l'axe, puis le point (T_final ; ΔU)
+      if (dT) g.arrow(v.Ti, 0, v.Tf, 0, '--q-T', null, { width: 2.6 });
+      g.point(v.Ti, 0, '--q-T', null, { r: 4.5 });
+      g.text(v.Ti, 0, 'T initial', '--q-T', { align: 'right', baseline: 'bottom', dx: -6, dy: -6, bold: true, halo: true, size: 12.5 });
+      g.seg(v.Tf, 0, v.Tf, U * f, '--q-E', { dash: [4, 4], width: 1.2 });
+      g.point(v.Tf, U * f, '--q-E', null, { r: 6 });
     };
-    G.redraw({ xmin: 0, xmax: t[5] * 1.03, ymin: -30, ymax: 135 });
-    out.textContent = 'fusion : ' + Course.fmt(steps[1], 1) + ' min   chauffage de l’eau : ' + Course.fmt(steps[2], 1) + ' min   vaporisation : ' + Course.fmt(steps[3], 1) + ' min' +
-      '\nénergie totale : ' + Course.fmt(t[5] * 60 * Pw / 1e6, 2) + ' MJ = ' + Course.fmt(t[5] * 60 * Pw / 3.6e6, 2) + ' kWh';
+    GU.redraw({ xmin: x0, xmax: x1, ymin: ymin - span * 0.1, ymax: ymax + span * 0.1 });
+    var near = MATS.reduce(function (a, b) { return Math.abs(Math.log(b[1] / v.c)) < Math.abs(Math.log(a[1] / v.c)) ? b : a; });
+    var E = energy(U);
+    kpiU({
+      dT: { value: (dT > 0 ? '+' : '') + num(dT, 4), unit: '°C', sub: '= ' + (dT > 0 ? '+' : '') + num(dT, 4) + ' K' },
+      U: { value: E.value, unit: E.unit, badge: signBadge(U, 'ΔU > 0 : le système gagne de l’énergie', 'ΔU < 0 : le système perd de l’énergie') },
+      mc: { value: C.fmtNum(mc, 4), unit: 'J/°C' },
+      mat: { value: near[0], sub: 'c = ' + C.fmtNum(near[1], 4) + ' J·kg⁻¹·°C⁻¹' }
+    });
   });
 
-  Course.drill('#w-drill', function () {
-    var k = R(0, 4), T = function (q) { return String(q).replace('.', '{,}'); };
-    var mats = [['eau', 4180], ['aluminium', 900], ['fer', 450], ['cuivre', 385]];
-    if (k === 0) { var mt = P(mats), m = R(1, 50) / 10, d = R(5, 80), Q = m * mt[1] * d;
-      return { html: '<p>Énergie (J) pour chauffer \\(' + T(m) + '\\) kg de ' + mt[0] + ' (\\(c = ' + mt[1] + '\\)) de ' + d + ' °C ?</p>', answer: Q, tol: A(Q, true), explain: '\\(Q = mc\\Delta\\theta\\).' }; }
-    if (k === 1) { var th = R(-50, 150); return { html: '<p>Convertis ' + th + ' °C en kelvins.</p>', answer: th + 273.15, tol: A(th + 273.15, true), explain: '\\(T = \\theta + 273{,}15\\).' }; }
-    if (k === 2) { var mg = R(1, 20) / 10, ch = P([['faire fondre', 334], ['vaporiser', 2257]]), Q2 = mg * ch[1] * 1000;
-      return { html: '<p>Énergie (J) pour ' + ch[0] + ' \\(' + T(mg) + '\\) kg d\'eau (\\(L = ' + ch[1] + '\\) kJ/kg) ?</p>', answer: Q2, tol: A(Q2, true), explain: '\\(Q = mL\\), avec \\(L\\) en J/kg.' }; }
-    if (k === 3) { var m1 = R(1, 5), t1 = R(50, 90), m2 = R(1, 5), t2 = R(5, 30), tf = (m1 * t1 + m2 * t2) / (m1 + m2);
-      return { html: '<p>On mélange ' + m1 + ' kg d\'eau à ' + t1 + ' °C et ' + m2 + ' kg d\'eau à ' + t2 + ' °C, sans pertes. Température finale (°C) ?</p>', answer: tf, tol: A(tf, true), explain: '\\(m_1c(\\theta_f - \\theta_1) + m_2c(\\theta_f - \\theta_2) = 0\\).' }; }
-    var V = R(50, 300), dT = R(20, 50), Pk = P([1.5, 2, 2.2, 3]), tH = V * 4180 * dT / (Pk * 1000) / 3600;
-    return { html: '<p>Un ballon de ' + V + ' L d\'eau est chauffé de ' + dT + ' °C par une résistance de \\(' + T(Pk) + '\\) kW. Durée (en heures) ?</p>', answer: tH, tol: A(tH, true), explain: '\\(\\Delta t = mc\\Delta\\theta / P\\), puis conversion en heures.' };
+  /* ---------- Manipuler 2 : courbe d'échauffement de l'eau (paliers) ---------- */
+  var wH = document.getElementById('w-chauffe'), qIn = wH.querySelector('[data-k="Q"]');
+  var T0 = -20, TMAX = 150;
+  function stages(mk) { // énergies (J) des cinq étapes, de la glace à −20 °C à la vapeur à 150 °C
+    return [mk * 2100 * (0 - T0), mk * 334e3, mk * 4180 * 100, mk * 2260e3, mk * 1850 * (TMAX - 100)];
+  }
+  function qMax(mk) { return Math.ceil(stages(mk).reduce(function (s, x) { return s + x; }, 0) / 1000); }
+  function setMax(mk) {
+    qIn.max = qMax(mk);
+    if (parseFloat(qIn.value) > qMax(mk)) qIn.value = qMax(mk);
+    qIn.style.setProperty('--pct', (parseFloat(qIn.value) / qMax(mk) * 100).toFixed(2) + '%');
+  }
+  var GH = Course.plot(wH.querySelector('canvas'), { xmin: 0, xmax: 1, ymin: -35, ymax: 165, xlabel: 'Q reçue (kJ)', ylabel: 'T (°C)' });
+  var kpiH = Course.kpis(wH.querySelector('.kpis'), [
+    { id: 'T', label: '<span>Température \\(\\QT\\)</span>', tone: '--q-T' },
+    { id: 'state', label: 'État de l’eau', tone: '--q-T' },
+    { id: 'sens', label: '<span>Pour chauffer : \\(\\Qm \\times \\Qc \\times \\QdT\\)</span>', tone: '--q-c' },
+    { id: 'lat', label: '<span>Pour changer d’état : \\(\\Qm \\times \\QL\\)</span>', tone: '--q-L' }
+  ]);
+  Course.presets(wH.querySelector('.presets'), [
+    { label: 'Glace qui fond · 1 kg', values: { m: 1, Q: 209 } },
+    { label: 'Eau qui bout · 1 kg', values: { m: 1, Q: 1924 } },
+    { label: 'Vapeur à 120 °C · 0,5 kg', values: { m: 0.5, Q: 1546 } }
+  ], function (p) { setMax(p.values.m); qIn.value = p.values.Q; });
+  var NAMES = ['glace', 'fusion', 'eau liquide', 'ébullition', 'vapeur'];
+  Course.onInput(wH, function (v) {
+    setMax(v.m);
+    var mk = v.m, st = stages(mk), QJ = Math.min(v.Q, qMax(mk)) * 1000, X = [0], k;
+    for (k = 0; k < 5; k++) X.push(X[k] + st[k] / 1000);
+    var Y = [T0, 0, 0, 100, 100, TMAX], seg = 4;
+    for (k = 0; k < 5; k++) if (QJ / 1000 <= X[k + 1] + 1e-9) { seg = k; break; }
+    var into = QJ - X[seg] * 1000, frac = st[seg] ? Math.min(1, into / st[seg]) : 0;
+    var T = Y[seg] + (Y[seg + 1] - Y[seg]) * frac;
+    var sens = 0, lat = 0;
+    for (k = 0; k < 5; k++) {
+      var part = k < seg ? st[k] : k === seg ? into : 0;
+      if (k === 1 || k === 3) lat += part; else sens += part;
+    }
+    var Xq = QJ / 1000;
+    GH.draw = function (g) {
+      // la courbe entière en pointillés, puis le chemin parcouru en couleur
+      g.poly(X.map(function (x, i) { return [x, Y[i]]; }), '--muted', { width: 1.2 });
+      for (var i = 0; i < 5; i++) {
+        if (Xq <= X[i]) break;
+        var xe = Math.min(Xq, X[i + 1]), ye = Y[i] + (Y[i + 1] - Y[i]) * (xe - X[i]) / ((X[i + 1] - X[i]) || 1);
+        g.seg(X[i], Y[i], xe, ye, i === 1 || i === 3 ? '--q-L' : '--q-c', { width: 3.4 });
+      }
+      g.text(X[1], 0, 'fusion', '--q-L', { align: 'left', baseline: 'bottom', dx: 2, dy: -8, bold: true, halo: true, size: 12.5 });
+      g.text((X[3] + X[4]) / 2, 100, 'ébullition', '--q-L', { align: 'center', baseline: 'bottom', dy: -8, bold: true, halo: true, size: 12.5 });
+      g.text((X[2] + X[3]) / 2, 50, 'eau liquide', '--muted', { align: 'left', dx: 10, halo: true, size: 12 });
+      g.text(X[0], T0, 'glace', '--muted', { align: 'left', baseline: 'top', dx: 6, dy: 4, halo: true, size: 12 });
+      g.text(X[4], 125, 'vapeur', '--muted', { align: 'right', dx: -8, halo: true, size: 12 });
+      g.seg(0, T, Xq, T, '--q-T', { dash: [4, 4], width: 1.3 });
+      g.seg(Xq, -35, Xq, T, '--muted', { dash: [4, 4], width: 1.1 });
+      g.point(Xq, T, '--q-T', null, { r: 6.5 });
+    };
+    GH.redraw({ xmin: -X[5] * 0.09, xmax: X[5] * 1.03, ymin: -35, ymax: 165 });
+    var state = seg === 1 ? { value: 'En fusion', badge: { cls: 'info', text: C.fmt(frac * 100, 0) + ' % de la glace a fondu' } }
+      : seg === 3 ? { value: 'En ébullition', badge: { cls: 'info', text: C.fmt(frac * 100, 0) + ' % de l’eau vaporisée' } }
+      : { value: NAMES[seg].charAt(0).toUpperCase() + NAMES[seg].slice(1), sub: seg === 0 ? 'solide' : seg === 2 ? 'liquide' : 'gaz' };
+    var es = energy(sens), el = energy(lat);
+    kpiH({
+      T: { value: C.fmt(T, 1).replace('-', '−'), unit: '°C', sub: '= ' + C.fmt(T + 273, 1) + ' K' + (seg === 1 || seg === 3 ? ' · palier' : '') },
+      state: state,
+      sens: { value: es.value, unit: es.unit },
+      lat: { value: el.value, unit: el.unit, sub: lat ? C.fmt(lat / (QJ || 1) * 100, 0) + ' % de l’énergie reçue' : 'aucun changement d’état' }
+    });
   });
+
+  /* ---------- Manipuler 3 : calorimètre, ΣΔU = 0 ---------- */
+  var wK = document.getElementById('w-calo'), MCAL = 0.4, CCAL = 748;
+  var GK = Course.plot(wK.querySelector('canvas'), { xmin: 0, xmax: 1, ymin: 0, ymax: 100, xlabel: 'm × c (J/°C)', ylabel: 'T (°C)', positive: true });
+  var kpiK = Course.kpis(wK.querySelector('.kpis'), [
+    { id: 'Teq', label: '<span>Température d’équilibre \\(\\QTeq\\)</span>', tone: '--q-T' },
+    { id: 'Ue', label: '<span>\\(\\q{w}{\\Delta U_{\\text{eau}}}\\)</span>', tone: '--q-w' },
+    { id: 'Uk', label: '<span>\\(\\q{k}{\\Delta U_{\\text{cal}}}\\)</span>', tone: '--q-k' },
+    { id: 'Us', label: '<span>\\(\\q{s}{\\Delta U_{\\text{solide}}}\\)</span>', tone: '--q-s' },
+    { id: 'sum', label: 'Somme des trois', tone: '--accent' }
+  ]);
+  Course.presets(wK.querySelector('.presets'), [
+    { label: 'Aluminium à 88 °C (exemple)', values: { m1: 200, T1: 20, m2: 100, T2: 88, c2: 901 } },
+    { label: 'Plomb : petite capacité', values: { m1: 200, T1: 20, m2: 100, T2: 88, c2: 129 } },
+    { label: 'Zinc · 500 g à 150 °C', values: { m1: 200, T1: 20, m2: 500, T2: 150, c2: 389 } }
+  ]);
+  Course.onInput(wK, function (v) {
+    var K1 = v.m1 / 1000 * 4180, Kc = MCAL * CCAL, K2 = v.m2 / 1000 * v.c2;
+    var Teq = ((K1 + Kc) * v.T1 + K2 * v.T2) / (K1 + Kc + K2);
+    var Ue = K1 * (Teq - v.T1), Uk = Kc * (Teq - v.T1), Us = K2 * (Teq - v.T2);
+    var gap = (K1 + Kc + K2) * 0.07, xs = K1 + Kc + gap, W = xs + K2;
+    var lo = Math.min(v.T1, v.T2), hi = Math.max(v.T1, v.T2), pad = Math.max(6, (hi - lo) * 0.22);
+    function rect(xa, xb, ta, tb, col) {
+      g0.poly([[xa, ta], [xb, ta], [xb, tb], [xa, tb]], col, { close: true, fill: true, alpha: 0.28, width: 1.6 });
+    }
+    var g0;
+    function label(x, tInit, txt, U, col) {
+      var below = tInit <= Teq;
+      g0.text(x, tInit, txt, col, { align: 'center', baseline: below ? 'top' : 'bottom', dy: below ? 6 : -6, bold: true, halo: true, size: 12.5 });
+      g0.text(x, tInit, (U > 0 ? '+' : '') + energy(U).value + ' ' + energy(U).unit, '--muted', { align: 'center', baseline: below ? 'top' : 'bottom', dy: below ? 22 : -22, halo: true, size: 12 });
+    }
+    GK.draw = function (g) {
+      g0 = g;
+      rect(0, K1, v.T1, Teq, '--q-w');
+      rect(K1, K1 + Kc, v.T1, Teq, '--q-k');
+      rect(xs, W, v.T2, Teq, '--q-s');
+      g.seg(0, Teq, W, Teq, '--q-T', { dash: [6, 4], width: 2 });
+      g.text(0, Teq, 'T éq = ' + C.fmt(Teq, 1) + ' °C', '--q-T', { align: 'left', baseline: v.T1 <= Teq ? 'bottom' : 'top', dy: v.T1 <= Teq ? -6 : 6, dx: 6, bold: true, halo: true, size: 12.5 });
+      label(K1 / 2, v.T1, 'eau', Ue, '--q-w');
+      label(K1 + Kc / 2, v.T1, 'calorimètre', Uk, '--q-k');
+      // le solide : étiquette à gauche de son rectangle, à mi-hauteur (zone toujours libre, loin des boutons de zoom)
+      var ym = (v.T2 + Teq) / 2;
+      g.text(xs, ym, 'solide', '--q-s', { align: 'right', baseline: 'bottom', dx: -8, dy: -2, bold: true, halo: true, size: 12.5 });
+      g.text(xs, ym, (Us > 0 ? '+' : '') + energy(Us).value + ' ' + energy(Us).unit, '--muted', { align: 'right', baseline: 'top', dx: -8, dy: 2, halo: true, size: 12 });
+    };
+    GK.redraw({ xmin: -W * 0.12, xmax: W * 1.03, ymin: lo - pad * 1.6, ymax: hi + pad * 1.6 });
+    var e1 = energy(Ue), e2 = energy(Uk), e3 = energy(Us), sum = Math.round(Ue + Uk + Us);
+    kpiK({
+      Teq: { value: C.fmt(Teq, 1), unit: '°C', sub: '= ' + C.fmt(Teq + 273, 1) + ' K' },
+      Ue: { value: (Ue > 0 ? '+' : '') + e1.value, unit: e1.unit, badge: signBadge(Ue, 'reçoit de l’énergie', 'cède de l’énergie') },
+      Uk: { value: (Uk > 0 ? '+' : '') + e2.value, unit: e2.unit, badge: signBadge(Uk, 'reçoit de l’énergie', 'cède de l’énergie') },
+      Us: { value: (Us > 0 ? '+' : '') + e3.value, unit: e3.unit, badge: signBadge(Us, 'reçoit de l’énergie', 'cède de l’énergie') },
+      sum: { value: C.fmtNum(Math.abs(sum) < 1 ? 0 : sum), unit: 'J', badge: { cls: 'good', icon: 'check', text: 'Système isolé : la somme est nulle' } }
+    });
+  });
+
+  /* ---------- Entraînement, évaluation, validation ---------- */
+  var train = document.getElementById('ws-train');
+  Course.trainer('#w-drill', Bank.training, { workspace: train });
+  Course.exam('#exam', { build: Bank.exam, count: window.ChapterBank.EXAM_QUESTIONS, workspace: document.getElementById('ws-exam'), trainWorkspace: train });
+  Course.validation('#validation-card');
 });
 </script>
 </body>
