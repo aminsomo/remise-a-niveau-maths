@@ -27,6 +27,24 @@
         ],
         "createdAt": "2026-11-19T17:02:37.861Z",
         "reason": "User's brief (README, Direction visuelle) explicitly requires left colored accent borders on course cards; the CLI attributes the .box CSS to the page"
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "files": [
+          "physique-1re/energie-interne.html"
+        ],
+        "createdAt": "2026-11-19T21:06:41.053Z",
+        "reason": "Project typeface: Geist self-hosted in assets/fonts since chapter 1 (commit e63e329), part of the README visual direction"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "physique-1re/energie-interne.html"
+        ],
+        "createdAt": "2026-11-19T21:06:41.059Z",
+        "reason": "False positive of the static scan: flagged .widget containers (#w-drill, #exam, #validation-card) are empty in source and filled by app.js; rendered-page detect at 1366x900 and 390x844 reports no cramped padding"
       }
     ]
   }
