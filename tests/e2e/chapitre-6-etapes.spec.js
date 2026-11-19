@@ -1,22 +1,29 @@
-// Chapitre en 6 étapes (physique-1re/energie-enjeux) : parcours complet, brouillon intégré,
-// calculatrice d'entraînement / d'examen, aucune erreur dans la console.
+// Chapitres en 6 étapes (physique-1re/energie-enjeux, physique-1re/energie-interne) : parcours complet,
+// widgets « Manipuler », brouillon intégré, calculatrice d'entraînement / d'examen, aucune erreur dans la console.
 const { test, expect } = require('@playwright/test');
 const fs = require('fs');
 const path = require('path');
 
 const URL = 'physique-1re/energie-enjeux.html';
 const KEY = 'progress:physique-1re/energie-enjeux';
+// chapitres refondus : même parcours (série de 5, évaluation sur 20, validation)
+const CHAPTERS = [
+  { url: URL, key: 'physique-1re/energie-enjeux', widget: '#w-energie', next: /energie-interne\.html$/ },
+  { url: 'physique-1re/energie-interne.html', key: 'physique-1re/energie-interne', widget: '#w-du', next: /mesures-incertitudes\.html$/ }
+];
+const SIX_STEPS = CHAPTERS.map((c) => c.url);
 const ROOT = path.resolve(__dirname, '..', '..');
 const manifest = JSON.parse(/\/\* BEGIN-JSON \*\/([\s\S]*)\/\* END-JSON \*\//
   .exec(fs.readFileSync(path.join(ROOT, 'assets', 'chapters.js'), 'utf8'))[1]);
 const PAGES = ['index.html'].concat(...manifest.subjects.map((s) => s.chapters.map((c) => `${s.id}/${c.slug}.html`)));
 
-async function open(page, url = URL) {
+async function openPage(page, url = URL) {
   await page.goto(url);
   await page.waitForFunction(() => window.Course && document.querySelector('.topbar'));
   await page.evaluate(() => document.fonts && document.fonts.ready);
 }
-const progress = (page) => page.evaluate((k) => JSON.parse(localStorage.getItem(k) || '{}'), KEY);
+const open = (page, url = URL) => openPage(page, url);
+const progress = (page, key = KEY) => page.evaluate((k) => JSON.parse(localStorage.getItem(k) || '{}'), key);
 const typed = (x) => String(Number(x.toPrecision(4))).replace('.', ',');
 
 /** Répond juste à la question d'entraînement en cours, puis passe à la suivante. */
@@ -41,7 +48,9 @@ async function fillExam(page, ok) {
   }
 }
 
-test.describe('chapitre en 6 étapes', () => {
+for (const ch of CHAPTERS) test.describe(`chapitre en 6 étapes : ${ch.key}`, () => {
+  const KEY = 'progress:' + ch.key;
+  const open = (page, url = ch.url) => openPage(page, url);
   test('structure : six étapes dans l’ordre, grille bento à 2 colonnes sur ordinateur, 1 sur téléphone', async ({ page }) => {
     await open(page);
     const ids = await page.locator('main section.step').evaluateAll((s) => s.map((x) => x.id));
@@ -51,7 +60,7 @@ test.describe('chapitre en 6 étapes', () => {
     const width = page.viewportSize().width;
     expect(cols).toBe(width > 860 ? 2 : 1);
     // les éléments larges prennent toute la ligne
-    const w = await page.locator('#w-energie').boundingBox(), g = await page.locator('#manipuler .bento').boundingBox();
+    const w = await page.locator(ch.widget).boundingBox(), g = await page.locator('#manipuler .bento').boundingBox();
     expect(Math.abs(w.width - g.width)).toBeLessThan(2);
     // conteneur élargi sur ordinateur (1200–1280 px)
     if (width >= 1366) {
@@ -59,34 +68,6 @@ test.describe('chapitre en 6 étapes', () => {
       expect(main.width).toBeGreaterThan(1150);
       expect(main.width).toBeLessThanOrEqual(1280);
     }
-  });
-
-  test('couleurs : la grandeur a la même couleur dans la formule, le curseur et le graphique', async ({ page }) => {
-    await open(page);
-    const c = await page.evaluate(() => {
-      const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-      const rgb = (hex) => { const n = parseInt(hex.slice(1), 16); return `rgb(${n >> 16}, ${(n >> 8) & 255}, ${n & 255})`; };
-      const formulaP = getComputedStyle(document.querySelector('#w-energie .lab-formula .q-P')).color;
-      const sliderTone = getComputedStyle(document.querySelector('#w-energie .slider')).getPropertyValue('--tone').trim();
-      return { qP: rgb(css('--q-P')), formulaP, slider: sliderTone, plot: window.Course.color('--q-P') };
-    });
-    expect(c.formulaP).toBe(c.qP);
-    expect(c.slider.toLowerCase()).toBe(await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--q-P').trim().toLowerCase()));
-    expect(c.plot.toLowerCase()).toBe(await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--q-P').trim().toLowerCase()));
-  });
-
-  test('manipuler : préréglages et cartes d’indicateurs réactives', async ({ page }) => {
-    await open(page);
-    const w = page.locator('#w-energie');
-    await w.locator('.preset', { hasText: 'Four' }).click();
-    await expect(w.locator('.preset', { hasText: 'Four' })).toHaveAttribute('aria-pressed', 'true');
-    await expect(w.locator('.kpi').nth(1).locator('.kpi-value')).toContainText('3,3'); // 2,2 kW × 1,5 h
-    await expect(w.locator('.dt-out')).toHaveText('1 h 30 min');
-    const c = page.locator('#w-chaine');
-    await c.locator('.preset', { hasText: 'électrique' }).click();
-    await expect(c.locator('.live-chain')).toContainText('Moteur électrique');
-    await expect(c.locator('.badge.good').first()).toBeVisible();
-    await expect(c.locator('.kpi').first().locator('.kpi-value')).toContainText('45'); // 0,9 × 50 kWh
   });
 
   test('parcours : série de 5 → évaluation ; < 15/20 reverrouille ; ≥ 15/20 valide', async ({ page, isMobile }) => {
@@ -101,13 +82,13 @@ test.describe('chapitre en 6 étapes', () => {
 
     // une erreur casse la série
     for (let i = 0; i < 3; i++) await answerRight(page);
-    expect((await progress(page)).streak).toBe(3);
+    expect((await progress(page, KEY)).streak).toBe(3);
     // passer une question coûte la série : il faut confirmer
     await page.locator('#w-drill .drill-new').click();
     await expect(page.locator('#w-drill .drill-new')).toContainText('série repart à 0');
-    expect((await progress(page)).streak).toBe(3);
+    expect((await progress(page, KEY)).streak).toBe(3);
     await page.locator('#w-drill .drill-new').click();
-    expect((await progress(page)).streak).toBe(0);
+    expect((await progress(page, KEY)).streak).toBe(0);
     for (let i = 0; i < 4; i++) await answerRight(page);
     // 5e bonne réponse : le déblocage est le bouton principal
     const cur = await page.evaluate(() => { const c = document.querySelector('#w-drill').courseDrill.current(); return { mcq: !!c.choices, a: c.answer }; });
@@ -133,7 +114,7 @@ test.describe('chapitre en 6 étapes', () => {
     await expect(page.locator('#exam .score.fail')).toBeVisible();
     await expect(page.locator('#exam .score.fail .review a').first()).toHaveAttribute('href', /^#c-/); // notions à revoir
     await expect(page.locator('#exam .score')).toBeFocused();
-    let st = await progress(page);
+    let st = await progress(page, KEY);
     expect(st.unlocked).toBe(false);
     expect(st.lastScore).toBeLessThan(15);
     await expect(page.locator('.steps a[data-step="evaluation"]')).toHaveClass(/is-locked/);
@@ -145,11 +126,11 @@ test.describe('chapitre en 6 étapes', () => {
     await fillExam(page, true);
     await page.locator('#exam .btn', { hasText: 'Rendre ma copie' }).click();
     await expect(page.locator('#exam .score.pass .score-num')).toContainText('20');
-    st = await progress(page);
+    st = await progress(page, KEY);
     expect(st.validated).toBe(true);
-    expect(await page.evaluate(() => localStorage.getItem('done:physique-1re/energie-enjeux'))).toBe('1');
+    expect(await page.evaluate((k) => localStorage.getItem('done:' + k), ch.key)).toBe('1');
     await expect(page.locator('#validation-card.is-valid h3')).toHaveText('Chapitre validé');
-    await expect(page.locator('#validation-card a.btn', { hasText: 'Chapitre suivant' })).toHaveAttribute('href', /energie-interne\.html$/);
+    await expect(page.locator('#validation-card a.btn', { hasText: 'Chapitre suivant' })).toHaveAttribute('href', ch.next);
     // l'accueil marque le chapitre comme terminé
     await open(page, 'index.html');
     await expect(page.locator('#physique-1re .card.done')).toHaveCount(1);
@@ -203,19 +184,12 @@ test.describe('chapitre en 6 étapes', () => {
     await expect(page.locator('#w-drill .drill-new')).toBeHidden(); // un seul « Question suivante »
   });
 
-  test('chaînes énergétiques : rien n’est rogné, le convertisseur est un ovale', async ({ page }) => {
-    await open(page);
-    const r = await page.locator('.chain').evaluateAll((chains) => chains.map((c) => ({ over: c.scrollWidth - c.clientWidth, radius: getComputedStyle(c.querySelector('.chain-conv')).borderTopLeftRadius })));
-    for (const x of r) expect(x.over).toBeLessThanOrEqual(1);
-    expect(r[0].radius).toContain('%');
-  });
-
   test('entraînement : une erreur fréquente est expliquée avant la solution', async ({ page }) => {
     await open(page);
     await page.evaluate(() => { const r = document.querySelector('#w-drill'); for (let i = 0; i < 50 && !(r.courseDrill.current().traps || []).length; i++) r.courseDrill.next(); });
     const trap = await page.evaluate(() => {
       const c = document.querySelector('#w-drill').courseDrill.current();
-      const t = c.traps.find((x) => Math.abs(x.value - c.answer) > c.answer * 0.02);
+      const t = c.traps.find((x) => Math.abs(x.value - c.answer) > Math.abs(c.answer) * 0.02);
       return t.value;
     });
     await page.locator('#w-drill .answer input').fill(typed(trap));
@@ -226,6 +200,122 @@ test.describe('chapitre en 6 étapes', () => {
     await page.locator('#w-drill .drill-check').click();
     await expect(page.locator('#w-drill .verdict.ko')).toBeVisible();
     await expect(page.locator('#w-drill .solution-panel')).toBeVisible();
+  });
+});
+
+/* ---------- Chapitre 1 : widgets propres au chapitre ---------- */
+test.describe('chapitre 1 : L’énergie et ses enjeux', () => {
+  test('couleurs : la grandeur a la même couleur dans la formule, le curseur et le graphique', async ({ page }) => {
+    await open(page);
+    const c = await page.evaluate(() => {
+      const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+      const rgb = (hex) => { const n = parseInt(hex.slice(1), 16); return `rgb(${n >> 16}, ${(n >> 8) & 255}, ${n & 255})`; };
+      const formulaP = getComputedStyle(document.querySelector('#w-energie .lab-formula .q-P')).color;
+      const sliderTone = getComputedStyle(document.querySelector('#w-energie .slider')).getPropertyValue('--tone').trim();
+      return { qP: rgb(css('--q-P')), formulaP, slider: sliderTone, plot: window.Course.color('--q-P') };
+    });
+    expect(c.formulaP).toBe(c.qP);
+    expect(c.slider.toLowerCase()).toBe(await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--q-P').trim().toLowerCase()));
+    expect(c.plot.toLowerCase()).toBe(await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--q-P').trim().toLowerCase()));
+  });
+
+  test('manipuler : préréglages et cartes d’indicateurs réactives', async ({ page }) => {
+    await open(page);
+    const w = page.locator('#w-energie');
+    await w.locator('.preset', { hasText: 'Four' }).click();
+    await expect(w.locator('.preset', { hasText: 'Four' })).toHaveAttribute('aria-pressed', 'true');
+    await expect(w.locator('.kpi').nth(1).locator('.kpi-value')).toContainText('3,3'); // 2,2 kW × 1,5 h
+    await expect(w.locator('.dt-out')).toHaveText('1 h 30 min');
+    const c = page.locator('#w-chaine');
+    await c.locator('.preset', { hasText: 'électrique' }).click();
+    await expect(c.locator('.live-chain')).toContainText('Moteur électrique');
+    await expect(c.locator('.badge.good').first()).toBeVisible();
+    await expect(c.locator('.kpi').first().locator('.kpi-value')).toContainText('45'); // 0,9 × 50 kWh
+  });
+
+  test('chaînes énergétiques : rien n’est rogné, le convertisseur est un ovale', async ({ page }) => {
+    await open(page);
+    const r = await page.locator('.chain').evaluateAll((chains) => chains.map((c) => ({ over: c.scrollWidth - c.clientWidth, radius: getComputedStyle(c.querySelector('.chain-conv')).borderTopLeftRadius })));
+    for (const x of r) expect(x.over).toBeLessThanOrEqual(1);
+    expect(r[0].radius).toContain('%');
+  });
+
+});
+
+/* ---------- Chapitre 2 : énergie interne ---------- */
+test.describe('chapitre 2 : énergie interne', () => {
+  const URL2 = 'physique-1re/energie-interne.html';
+  test('couleurs : T, c et m ont la même couleur dans la formule, le curseur et le graphique', async ({ page }) => {
+    await open(page, URL2);
+    const r = await page.evaluate(() => {
+      const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim().toLowerCase();
+      const rgb = (hex) => { const n = parseInt(hex.slice(1), 16); return `rgb(${n >> 16}, ${(n >> 8) & 255}, ${n & 255})`; };
+      const w = document.querySelector('#w-du');
+      return ['T', 'c', 'm'].map((q) => ({
+        q, want: css('--q-' + q), rgb: rgb(css('--q-' + q)),
+        formula: getComputedStyle(w.querySelector('.lab-formula .q-' + q)).color,
+        slider: getComputedStyle(w.querySelector(`.slider[style*="--q-${q})"]`)).getPropertyValue('--tone').trim().toLowerCase(),
+        plot: window.Course.color('--q-' + q).toLowerCase()
+      }));
+    });
+    for (const x of r) {
+      expect(x.formula, x.q).toBe(x.rgb);
+      expect(x.slider, x.q).toBe(x.want);
+      expect(x.plot, x.q).toBe(x.want);
+    }
+  });
+
+  test('manipuler : ΔU = m·c·ΔT, signe de ΔU et matériau le plus proche', async ({ page }) => {
+    await open(page, URL2);
+    const w = page.locator('#w-du');
+    await w.locator('.preset', { hasText: 'Lait' }).click();
+    await expect(w.locator('.preset', { hasText: 'Lait' })).toHaveAttribute('aria-pressed', 'true');
+    await expect(w.locator('.kpi').nth(0).locator('.kpi-value')).toContainText('−33'); // ΔT = 37 − 70 (vrai signe moins)
+    await expect(w.locator('.kpi').nth(1).locator('.kpi-value')).toContainText('37,6'); // 0,3 × 3 800 × (−33) J = −37,6 kJ
+    await expect(w.locator('.kpi').nth(1).locator('.kpi-sub')).toContainText('perd');
+    await expect(w.locator('.kpi').nth(3).locator('.kpi-value')).toHaveText('lait');
+    await w.locator('.preset', { hasText: 'Eau' }).click();
+    await expect(w.locator('.kpi').nth(1).locator('.kpi-value')).toContainText('878'); // exercice 2.1 : 877 800 J
+    await expect(w.locator('.kpi').nth(1).locator('.kpi-sub')).toContainText('gagne');
+  });
+
+  test('manipuler : paliers de changement d’état à température constante', async ({ page }) => {
+    await open(page, URL2);
+    const w = page.locator('#w-chauffe');
+    await w.locator('.preset', { hasText: 'Glace qui fond' }).click();
+    await expect(w.locator('.kpi').nth(0).locator('.kpi-value')).toContainText(/^0\s*°C/);
+    await expect(w.locator('.kpi').nth(1).locator('.kpi-value')).toHaveText('En fusion');
+    await expect(w.locator('.kpi').nth(1).locator('.kpi-sub')).toContainText('% de la glace a fondu');
+    await w.locator('.preset', { hasText: 'Eau qui bout' }).click();
+    await expect(w.locator('.kpi').nth(0).locator('.kpi-value')).toContainText('100');
+    await expect(w.locator('.kpi').nth(1).locator('.kpi-value')).toHaveText('En ébullition');
+    // le curseur d'énergie s'adapte à la masse : 0,5 kg demande moitié moins d'énergie
+    await w.locator('.preset', { hasText: '0,5 kg' }).click();
+    expect(Number(await w.locator('[data-k="Q"]').getAttribute('max'))).toBe(1574);
+    await expect(w.locator('.kpi').nth(1).locator('.kpi-value')).toHaveText('Vapeur');
+    await expect(w.locator('.kpi').nth(0).locator('.kpi-value')).toContainText('120');
+  });
+
+  test('manipuler : calorimètre isolé, la somme des ΔU est nulle', async ({ page }) => {
+    await open(page, URL2);
+    const w = page.locator('#w-calo');
+    for (const p of ['Aluminium', 'Plomb', 'Zinc']) {
+      await w.locator('.preset', { hasText: p }).click();
+      await expect(w.locator('.kpi').nth(4).locator('.kpi-value')).toHaveText(/^0\s*J$/);
+      await expect(w.locator('.kpi').nth(4).locator('.badge.good')).toBeVisible();
+    }
+    await w.locator('.preset', { hasText: 'Aluminium' }).click();
+    await expect(w.locator('.kpi').nth(0).locator('.kpi-value')).toContainText('25'); // exemple de la page : 25 °C
+    await expect(w.locator('.kpi').nth(3).locator('.kpi-sub')).toContainText('cède');
+  });
+
+  test('cours : figures lisibles, rien ne déborde des cartes', async ({ page }) => {
+    await open(page, URL2);
+    const r = await page.locator('#cours .fig').evaluateAll((f) => f.map((x) => ({ w: x.getBoundingClientRect().width, card: x.closest('.box').getBoundingClientRect().width })));
+    expect(r.length).toBe(2);
+    for (const x of r) { expect(x.w).toBeGreaterThan(240); expect(x.w).toBeLessThanOrEqual(x.card); }
+    const over = await page.locator('#cours .box, #exemples .box').evaluateAll((b) => b.filter((x) => x.scrollWidth > x.clientWidth + 1).length);
+    expect(over).toBe(0);
   });
 });
 
@@ -338,7 +428,7 @@ test.describe('aucune erreur dans la console', () => {
   for (const url of PAGES) {
     test(url, async ({ page }) => {
       const errors = [];
-      page.on('console', (m) => { if (m.type() === 'error' || (url === URL && m.type() === 'warning')) errors.push(`${m.type()}: ${m.text()}`); });
+      page.on('console', (m) => { if (m.type() === 'error' || (SIX_STEPS.includes(url) && m.type() === 'warning')) errors.push(`${m.type()}: ${m.text()}`); });
       page.on('pageerror', (e) => errors.push(e.message));
       await open(page, url);
       await page.waitForTimeout(300);

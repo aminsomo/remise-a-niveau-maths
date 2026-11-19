@@ -71,6 +71,8 @@
     unlock: '<rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 6.6-1.6"/>',
     award: '<circle cx="12" cy="9" r="5.5"/><path d="M8.7 13.4L7.5 21l4.5-2.4 4.5 2.4-1.2-7.6"/>',
     arrowRight: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    trendUp: '<path d="M4 17l6-6 4 4 6-6M14 9h6v6"/>',
+    trendDown: '<path d="M4 7l6 6 4-4 6 6M14 15h6V9"/>',
     retry: '<path d="M4 12a8 8 0 1 0 2.4-5.7M4 4.5V9h4.5"/>',
     alert: '<path d="M12 3.5l9 16H3z"/><path d="M12 10v4M12 17h.01"/>',
     bulb: '<path d="M9.5 18h5M10.5 21h3"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3z"/>',
@@ -108,7 +110,13 @@
     '\\QEu': '\\htmlClass{q-Eu}{E_{\\text{utile}}}', '\\QEp': '\\htmlClass{q-Ep}{E_{\\text{perdue}}}',
     '\\QP': '\\htmlClass{q-P}{P}', '\\Qt': '\\htmlClass{q-t}{\\Delta t}', '\\Qeta': '\\htmlClass{q-eta}{\\eta}',
     '\\QPr': '\\htmlClass{q-E}{P_{\\text{reçue}}}', '\\QPu': '\\htmlClass{q-Eu}{P_{\\text{utile}}}',
-    '\\QPp': '\\htmlClass{q-Ep}{P_{\\text{perdue}}}', '\\q': '\\htmlClass{q-#1}{#2}'
+    '\\QPp': '\\htmlClass{q-Ep}{P_{\\text{perdue}}}', '\\q': '\\htmlClass{q-#1}{#2}',
+    // chapitre 2 : énergie interne (ΔU et Q sont des énergies : même couleur que E)
+    '\\QU': '\\htmlClass{q-E}{\\Delta U}', '\\QQ': '\\htmlClass{q-E}{Q}',
+    '\\QT': '\\htmlClass{q-T}{T}', '\\QdT': '\\htmlClass{q-T}{\\Delta T}',
+    '\\QTi': '\\htmlClass{q-T}{T_{\\text{initial}}}', '\\QTf': '\\htmlClass{q-T}{T_{\\text{final}}}',
+    '\\QTeq': '\\htmlClass{q-T}{T_{\\text{éq}}}',
+    '\\Qm': '\\htmlClass{q-m}{m}', '\\Qc': '\\htmlClass{q-c}{c}', '\\QL': '\\htmlClass{q-L}{L}'
   };
   function katexOptions(extra) {
     return Object.assign({

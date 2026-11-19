@@ -237,9 +237,20 @@ class SixStepsTests(unittest.TestCase):
                 if is_six_steps(tree):
                     yield f"{s['id']}/{c['slug']}", path, tree
 
-    def test_au_moins_le_premier_chapitre_de_physique(self):
+    def test_chapitres_de_physique_refondus(self):
         keys = [k for k, _, _ in self.six_step_chapters()]
-        self.assertIn("physique-1re/energie-enjeux", keys)
+        for key in ("physique-1re/energie-enjeux", "physique-1re/energie-interne"):
+            self.assertIn(key, keys)
+
+    def test_banque_de_questions_chargee_par_la_page(self):
+        """Chaque chapitre refondu charge sa banque <slug>.js, testée unitairement (tests/js/chapitre-*.test.js)."""
+        tests_js = "\n".join(p.read_text(encoding="utf-8") for p in (ROOT / "tests" / "js").glob("chapitre-*.test.js"))
+        for key, path, tree in self.six_step_chapters():
+            with self.subTest(chapter=key):
+                bank = path.with_suffix(".js")
+                self.assertTrue(bank.exists(), f"{bank.name} manquant")
+                self.assertIn(f'src="{bank.name}"', path.read_text(encoding="utf-8"))
+                self.assertIn(f"{path.parent.name}/{bank.name}", tests_js, f"{bank.name} sans tests unitaires")
 
     def test_six_etapes_dans_l_ordre(self):
         for key, path, tree in self.six_step_chapters():

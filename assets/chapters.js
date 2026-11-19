@@ -152,8 +152,8 @@ window.COURSE = /* BEGIN-JSON */ {
         },
         {
           "slug": "energie-interne",
-          "title": "Énergie interne et transferts thermiques",
-          "summary": "Température, capacité thermique, changements d'état, modes de transfert.",
+          "title": "Énergie interne",
+          "summary": "Température et kelvin, transferts thermiques, ΔU = m·c·ΔT, changements d'état Q = m·L, calorimètre.",
           "tags": [
             "énergie"
           ]
