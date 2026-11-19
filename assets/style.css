@@ -64,6 +64,11 @@
   --q-w: #22ad7c;            /* calorimétrie : l'eau */
   --q-s: #4f95ec;            /* calorimétrie : le solide */
   --q-k: #9aa1b2;            /* calorimétrie : le calorimètre (neutre) */
+  /* chapitre 3 (énergie chimique) : PC partage un graphique avec E (bleu/ambre validé) ;
+     ρ et V ne servent qu'aux formules et aux curseurs, jamais à une courbe */
+  --q-PC: #c98500;           /* pouvoir calorifique PC */
+  --q-rho: #9085e9;          /* masse volumique ρ, densité d */
+  --q-V: #22ad7c;            /* volume V */
 
   /* noms historiques (pages non encore refondues) */
   --accent-2: var(--rose);
@@ -128,6 +133,9 @@
   --q-w: #0e8a5f;
   --q-s: #2a78d6;
   --q-k: #4e5566;
+  --q-PC: #9a6400;
+  --q-rho: #6250d6;
+  --q-V: #0e8a5f;
   --plot-grid: rgba(13, 18, 30, .07);
   --plot-axis: #6b7080;
   --shadow: 0 1px 2px rgba(13, 18, 30, .05), 0 10px 30px -18px rgba(13, 18, 30, .25);
@@ -310,6 +318,9 @@ section > p, section > ul, section > ol { max-width: 72ch; }
 .q-w { color: var(--q-w); }
 .q-s { color: var(--q-s); }
 .q-k { color: var(--q-k); }
+.q-PC { color: var(--q-PC); }
+.q-rho { color: var(--q-rho); }
+.q-V { color: var(--q-V); }
 
 /* bouton « Solution » : toute la largeur, cliquable */
 details.solution { margin-top: 1rem; border-top: 0; padding-top: 0; }
@@ -659,6 +670,7 @@ main.chapter.v2 { padding-top: 2.25rem; }
 }
 .v2 .box .box-title { padding: .22rem .8rem .22rem 2.02rem; text-indent: -1.8rem; border-radius: 14px; }
 .v2 .box p, .v2 .box .steps-list > li { max-width: 46rem; }
+.v2 .box p.measure { max-width: 38rem; } /* long paragraphe d'une carte pleine largeur : ≈ 80 caractères par ligne */
 .kv { display: grid; grid-template-columns: auto 1fr; gap: .35rem 1rem; margin: .75rem 0; font-size: .95rem; }
 .kv dt { color: var(--muted); }
 .kv dd { margin: 0; font-variant-numeric: tabular-nums; }
@@ -760,6 +772,31 @@ main.chapter.v2 { padding-top: 2.25rem; }
 .sign-ico { flex: none; display: grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 8px; color: var(--q-E); background: color-mix(in srgb, var(--q-E) 13%, transparent); }
 .sign-ico svg { width: 17px; height: 17px; }
 .sign-list li.down .sign-ico { color: var(--muted); background: var(--surface-3); }
+
+/* interrupteur à deux positions d'un widget « Manipuler » (boutons-bascules aria-pressed) */
+.seg { display: flex; gap: 3px; padding: 3px; border-radius: 11px; background: var(--surface-2); border: 1px solid var(--line-2); }
+.seg button {
+  flex: 1 1 0; min-width: 0; min-height: 2.3rem; padding: .3rem .7rem; border: 0; border-radius: 8px; cursor: pointer;
+  font: inherit; font-size: .86rem; font-weight: 600; color: var(--muted); background: transparent;
+  transition: background-color .15s, color .15s;
+}
+.seg button:hover { color: var(--text); }
+.seg button[aria-pressed="true"] { color: var(--text); background: var(--surface-3); box-shadow: inset 0 0 0 1px var(--line-3), 0 1px 0 rgba(0, 0, 0, .25); }
+.seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+@media (pointer: coarse) { .seg button { min-height: 2.75rem; } }
+
+/* combustion complète / incomplète côte à côte (cartes du cours) */
+.compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin: .75rem 0; }
+.compare > div { padding: .1rem 1rem; }
+.compare > div:first-child { padding-left: 0; }
+.compare > div + div { border-left: 1px solid var(--line-2); padding-right: 0; }
+.compare p { margin: .3rem 0 0; }
+.compare .mode-title { font-size: .95rem; }
+@media (max-width: 480px) {
+  .compare { grid-template-columns: minmax(0, 1fr); }
+  .compare > div { padding: .6rem 0; }
+  .compare > div + div { border-left: 0; border-top: 1px solid var(--line-2); }
+}
 
 /* vidéo du cours */
 .video-links { display: grid; gap: .5rem; margin: .75rem 0 0; padding: 0; list-style: none; }
