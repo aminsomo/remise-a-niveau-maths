@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>L'énergie et ses enjeux · STI2D → Prépa</title>
+<meta name="description" content="Physique-chimie 1re STI2D, chapitre 1 : formes et sources d'énergie, chaînes énergétiques, rendement, puissance et loi E = P × Δt. Cours, exemples, graphiques à manipuler, entraînement et évaluation sur 20.">
+<link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -12,198 +14,537 @@
 <script defer src="../assets/chapters.js"></script>
 <script defer src="../assets/app.js"></script>
 <script defer src="../assets/brouillon.js"></script>
+<script defer src="energie-enjeux.js"></script>
 </head>
 <body data-root="../" data-chapter="physique-1re/energie-enjeux">
-<main class="chapter">
+<main class="chapter v2">
   <header class="chapter-head">
-    <p class="kicker">Physique-chimie 1re · Énergie</p>
     <h1>L'énergie et ses enjeux</h1>
-    <p class="lead">Chauffer, éclairer, se déplacer, communiquer : tout utilise de l'énergie. Elle se transforme d'une forme à une autre, mais ne se crée jamais et ne disparaît jamais.
-      Savoir dessiner une chaîne énergétique et calculer un rendement, c'est la base de toute la partie « Énergie » du programme.</p>
-    <p class="prereq">Prérequis : <a href="mesures-incertitudes.html">unités et notation scientifique</a>.</p>
+    <p class="lead">Chauffer, éclairer, se déplacer : tout utilise de l’énergie. Elle passe d’une forme à une autre dans des convertisseurs, sans jamais disparaître.
+      Dans ce chapitre : les formes et les sources d’énergie, la chaîne énergétique, le rendement, puis la relation entre énergie et puissance, \(E = P \times \Delta t\).</p>
+    <ul class="meta">
+      <li>Physique-chimie · 1re STI2D</li>
+      <li>Chapitre 1</li>
+      <li>6 étapes : cours, exemples, manipulation, entraînement, évaluation, validation</li>
+    </ul>
   </header>
 
-  <section>
-    <h2>1. Formes et sources d'énergie</h2>
-    <div class="box def"><p class="box-title">Formes d'énergie</p>
-      <p>L'énergie peut être stockée ou transportée sous différentes <b>formes</b> : <b>cinétique</b> (liée au mouvement), <b>potentielle</b> (liée à la position ou à la déformation),
-        <b>thermique</b> ou <b>interne</b> (agitation des particules), <b>chimique</b> (stockée dans les liaisons entre atomes), <b>électrique</b>, <b>rayonnante</b> (lumière) et <b>nucléaire</b>.</p>
-    </div>
-    <div class="box def"><p class="box-title">Unités</p>
-      <p>L'unité SI est le <b>joule</b> (J). On utilise aussi le <b>wattheure</b> et le <b>kilowattheure</b> : \(1\ \mathrm{Wh} = 3\,600\ \mathrm{J}\) et \(1\ \mathrm{kWh} = 3{,}6 \times 10^6\ \mathrm{J}\).
-        Pour les grandes quantités, on rencontre la tonne équivalent pétrole : \(1\ \mathrm{tep} \approx 4{,}2 \times 10^{10}\ \mathrm{J} \approx 11\,600\ \mathrm{kWh}\).</p>
-    </div>
-    <div class="box def"><p class="box-title">Sources d'énergie</p>
-      <p>Une <b>source</b> (ou ressource) est ce qui fournit l'énergie : pétrole, gaz, charbon, uranium (<b>non renouvelables</b>) ; Soleil, vent, cours d'eau, biomasse, géothermie (<b>renouvelables</b>).
-        Une ressource est dite renouvelable si elle se reconstitue naturellement assez vite à l'échelle d'une vie humaine. Ne pas confondre la <b>source</b> (le vent) et la <b>forme</b> (énergie cinétique de l'air).</p>
-    </div>
-    <div class="box prop"><p class="box-title">Transporter et stocker l'énergie</p>
-      <ul>
-        <li>Transport : rayonnement électromagnétique, lignes électriques, circuits de fluides (eau chaude, gaz, carburant), liaisons mécaniques (arbre, courroie, engrenages).</li>
-        <li>Stockage : batteries (chimique), réservoirs d'eau en hauteur (potentielle), volants d'inertie (cinétique), ballons d'eau chaude (thermique), supercondensateurs (électrique).</li>
-      </ul>
-    </div>
-  </section>
-
-  <section>
-    <h2>2. Conversions et chaînes énergétiques</h2>
-    <div class="box def"><p class="box-title">Convertisseur</p>
-      <p>Un <b>convertisseur</b> transforme une forme d'énergie en une autre. Les grandes conversions :</p>
-      <ul>
-        <li><b>thermodynamique</b> : thermique → mécanique (moteur thermique, turbine de centrale) ;</li>
-        <li><b>électromécanique</b> : électrique ↔ mécanique (moteur électrique, alternateur, éolienne) ;</li>
-        <li><b>photoélectrique</b> : lumière → électrique (panneau photovoltaïque) ;</li>
-        <li><b>électrochimique</b> : chimique ↔ électrique (pile, batterie, électrolyseur).</li>
-      </ul>
-    </div>
-    <div class="box method"><p class="box-title">Dessiner une chaîne énergétique</p>
-      <p>Réservoirs ou sources dans des ovales, convertisseurs dans des rectangles, transferts sur des flèches légendées par la forme d'énergie.
-        Exemple : <i>vent</i> → [éolienne] → électrique → [moteur] → mécanique, avec à chaque convertisseur une flèche de <b>pertes</b> (le plus souvent de l'énergie thermique).</p>
-    </div>
-    <div class="box prop"><p class="box-title">Conservation de l'énergie et rendement</p>
-      <p>L'énergie se <b>conserve</b> : ce qui entre dans un convertisseur ressort, en partie utile et en partie perdue :
-        \(E_{\text{reçue}} = E_{\text{utile}} + E_{\text{pertes}}\). Le <b>rendement</b> mesure la part utile :
-        \[\eta = \frac{E_{\text{utile}}}{E_{\text{reçue}}} = \frac{P_{\text{utile}}}{P_{\text{reçue}}}, \qquad 0 \leq \eta &lt; 1 \ (\text{souvent donné en \%}).\]
-        Pour une chaîne de convertisseurs, le rendement global est le <b>produit</b> des rendements : \(\eta = \eta_1 \times \eta_2 \times \dots\)</p>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 1 — véhicule électrique</p>
-      <p>Chargeur 92 %, batterie 90 %, moteur 88 %. Rendement global ? Énergie utile pour 50 kWh prélevés au réseau ?</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>\(\eta = 0{,}92 \times 0{,}90 \times 0{,}88 \approx 0{,}729\) ; \(E_u = 0{,}729 \times 50 \approx 36{,}4\) kWh. Le reste (13,6 kWh) est perdu, surtout en chaleur.</p>
-      </details>
-    </div>
-  </section>
-
-  <section>
-    <h2>3. Puissance et énergie</h2>
-    <div class="box prop"><p class="box-title">Relation fondamentale</p>
-      <p>La <b>puissance</b> mesure la vitesse à laquelle l'énergie est transférée ou convertie. Son unité est le <b>watt</b> (W) : \(1\ \mathrm{W} = 1\ \mathrm{J/s}\).
-        \[E = P \times \Delta t \qquad (\mathrm{J} = \mathrm{W} \times \mathrm{s} \quad \text{ou} \quad \mathrm{kWh} = \mathrm{kW} \times \mathrm{h}).\]
-        La <b>puissance moyenne</b> sur une durée est \(P = \dfrac{E}{\Delta t}\). La <b>puissance instantanée</b> est la limite de la puissance moyenne sur une durée de plus en plus courte :
-        \(p(t) = \dfrac{\mathrm{d}E}{\mathrm{d}t}\) (voir <a href="../maths-1re/nombre-derive.html">nombre dérivé</a>).</p>
-    </div>
-    <div class="box prop"><p class="box-title">Ordres de grandeur</p>
-      <div class="table-scroll"><table>
-        <tbody>
-          <tr><td>LED</td><td>quelques W</td><td>ordinateur portable</td><td>≈ 50 W</td></tr>
-          <tr><td>humain au repos</td><td>≈ 100 W</td><td>four, radiateur</td><td>1 à 3 kW</td></tr>
-          <tr><td>voiture (moteur)</td><td>50 à 150 kW</td><td>TGV</td><td>≈ 10 MW</td></tr>
-          <tr><td>éolienne terrestre</td><td>2 à 3 MW</td><td>réacteur nucléaire</td><td>≈ 1 GW (électrique)</td></tr>
-        </tbody>
-      </table></div>
-      <p>Un foyer français consomme environ 4 500 kWh d'électricité par an (hors chauffage électrique).</p>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 2 — facture</p>
-      <p>Un radiateur de 1,5 kW fonctionne 6 h par jour pendant 30 jours, à 0,25 € le kWh. Énergie et coût ?</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>\(E = 1{,}5 \times 6 \times 30 = 270\) kWh \(= 9{,}72 \times 10^8\) J ; coût : \(270 \times 0{,}25 = 67{,}50\) €.</p>
-      </details>
-    </div>
-  </section>
-
-  <section>
-    <h2>4. L'essentiel à retenir</h2>
-    <div class="box prop"><p class="box-title">Formulaire</p>
-      <ul>
-        <li>\(1\ \mathrm{kWh} = 3{,}6 \times 10^6\ \mathrm{J}\) ; \(1\ \mathrm{W} = 1\ \mathrm{J/s}\).</li>
-        <li>\(E = P \times \Delta t\) ; \(P_{\text{moy}} = \dfrac{E}{\Delta t}\) ; \(p(t) = \dfrac{\mathrm{d}E}{\mathrm{d}t}\).</li>
-        <li>Conservation : \(E_{\text{reçue}} = E_{\text{utile}} + E_{\text{pertes}}\) ; rendement \(\eta = \dfrac{E_u}{E_r} = \dfrac{P_u}{P_r}\) ; chaîne : \(\eta = \eta_1\eta_2\dots\)</li>
-        <li>Conversions : thermodynamique, électromécanique, photoélectrique, électrochimique.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section>
-    <h2>5. Manipuler</h2>
-    <div class="widget" id="w-chain">
-      <p class="widget-title">Chaîne de trois convertisseurs</p>
-      <p class="hint">Chaque barre montre l'énergie qui reste après un convertisseur ; la partie rose est perdue. Le rendement global est un produit : il chute vite.</p>
-      <div class="controls">
-        <label>\(\eta_1\) (%) <input type="range" data-k="e1" min="1" max="100" step="1" value="92"> <output data-show="e1"></output></label>
-        <label>\(\eta_2\) (%) <input type="range" data-k="e2" min="1" max="100" step="1" value="90"> <output data-show="e2"></output></label>
-        <label>\(\eta_3\) (%) <input type="range" data-k="e3" min="1" max="100" step="1" value="88"> <output data-show="e3"></output></label>
-        <label>énergie reçue (kWh) <input type="range" data-k="E" min="1" max="10000" step="1" value="50"> <output data-show="E"></output></label>
+  <!-- ===================================================== 1. COURS -->
+  <section class="step" id="cours">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">1</span>
+      <div>
+        <h2>Cours</h2>
+        <p>Les définitions et les formules du chapitre, dans l’ordre du cours. Les cartes se lisent de gauche à droite, puis ligne par ligne.</p>
       </div>
-      <canvas class="plot short"></canvas>
-      <div class="readout" aria-live="polite"></div>
+    </header>
+
+    <h3 class="part-title"><span class="roman">I.</span> Les différentes formes d’énergie</h3>
+    <div class="bento">
+      <article class="box def" id="c-energie">
+        <p class="box-title">Définition de l’énergie</p>
+        <p>L’énergie est définie comme la <b>capacité d’un système à engendrer un mouvement ou élever une température</b>, produire de la chaleur ou de l’électricité.</p>
+        <p>L’énergie est notée <b>\(E\)</b>. Dans le système international, <b>l’unité de l’énergie est le joule</b>, noté <b>J</b>.</p>
+      </article>
+
+      <article class="box prop" id="c-unites">
+        <p class="box-title">Autres unités d’énergie</p>
+        <p>Le <b>kilowattheure</b> (kWh) :</p>
+        <div class="formula">\[1\ \mathrm{kWh} = 3\,600\,000\ \mathrm{J} = 3{,}6 \times 10^{6}\ \mathrm{J}\]</div>
+        <p>La <b>tonne équivalent pétrole</b> (tep) : énergie fournie par la combustion d’une tonne de pétrole.</p>
+        <div class="formula">\[1\ \mathrm{tep} = 11\,600\ \mathrm{kWh}\]</div>
+        <p class="note">Dans les exercices on rencontre aussi le wattheure : \(1\ \mathrm{Wh} = 3\,600\ \mathrm{J}\).</p>
+      </article>
+
+      <article class="box def" id="c-formes">
+        <p class="box-title">Les formes d’énergie</p>
+        <p>Une même énergie peut prendre plusieurs <b>formes</b> :</p>
+        <ul class="chips" aria-label="Formes d’énergie">
+          <li>thermique</li><li>rayonnement</li><li>électrique</li><li>mécanique</li><li>chimique</li><li>nucléaire</li>
+        </ul>
+        <p class="note">Exemples : un carburant stocke de l’énergie <b>chimique</b>, une voiture en mouvement possède de l’énergie <b>mécanique</b>, la lumière du Soleil transporte de l’énergie par <b>rayonnement</b>.</p>
+      </article>
+
+      <article class="box def" id="c-sources">
+        <p class="box-title">Sources renouvelables ou non</p>
+        <p>Une source d’énergie est qualifiée de <b>renouvelable</b> si son renouvellement naturel est rapide <b>à l’échelle de temps d’une vie humaine</b>.</p>
+        <p class="note">Sources d’énergie renouvelables :</p>
+        <ul class="chips renew"><li>hydraulique</li><li>solaire</li><li>éolien</li><li>géothermique</li><li>biomasse</li></ul>
+        <p class="note">Sources d’énergie non renouvelables :</p>
+        <ul class="chips fossil"><li>fossile (pétrole, gaz, charbon)</li><li>nucléaire</li></ul>
+      </article>
     </div>
-    <div class="widget" id="w-drill">
-      <p class="widget-title">Entraînement : énergie, puissance, rendement</p>
-      <p class="hint">3 chiffres significatifs ; rendement en décimal (ex. 0,85).</p>
+
+    <h3 class="part-title"><span class="roman">II.</span> Chaînes énergétiques et conversions d’énergie</h3>
+    <div class="bento">
+      <article class="box def wide" id="c-chaine">
+        <p class="box-title">Chaîne énergétique</p>
+        <p>Les sources d’énergie peuvent être stockées dans des <b>réservoirs d’énergie</b>, puis passer d’une forme à une autre grâce à un <b>convertisseur d’énergie</b>.
+          Une <b>chaîne énergétique</b> représente les formes et les transferts d’énergie mis en jeu dans un système utilisant un ou plusieurs convertisseurs.</p>
+        <div class="chain" role="img" aria-label="Schéma : la source d’énergie transfère l’énergie reçue (forme d’énergie 1) au convertisseur, qui fournit l’énergie utile (forme d’énergie 2) ; le reste part en pertes thermiques (énergie perdue).">
+          <div class="chain-node chain-src">Source<br>d’énergie</div>
+          <div class="chain-link" style="--c: var(--q-E)"><span class="lbl"><b>Forme d’énergie 1</b></span><span class="arrow"></span><span class="lbl">\(\QEr\)</span></div>
+          <div class="chain-node chain-conv">Convertisseur
+            <div class="chain-loss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5l13 13M18 10v8h-8"/></svg><span>\(\QEp\) : pertes thermiques</span></div>
+          </div>
+          <div class="chain-link" style="--c: var(--q-Eu)"><span class="lbl"><b>Forme d’énergie 2</b></span><span class="arrow"></span><span class="lbl">\(\QEu\)</span></div>
+        </div>
+        <p class="note">Même convention que le cours : la source d’énergie dans un rectangle, le convertisseur dans un ovale, une flèche par transfert d’énergie, légendée par sa forme.</p>
+      </article>
+
+      <article class="box prop" id="c-conservation">
+        <p class="box-title">Conservation de l’énergie</p>
+        <p>L’énergie ne se crée pas et ne disparaît pas : ce qui entre dans le convertisseur ressort, en partie utile et en partie perdue.</p>
+        <div class="formula">\[\QEr = \QEu + \QEp\]</div>
+        <p class="note">Les pertes sont le plus souvent des <b>pertes thermiques</b> (le convertisseur chauffe).</p>
+      </article>
+
+      <article class="box prop" id="c-rendement">
+        <p class="box-title">Rendement</p>
+        <p>Le rendement \(\Qeta\) (lettre grecque « êta ») d’une chaîne énergétique se calcule à l’aide de l’expression :</p>
+        <div class="formula">\[\Qeta = \frac{\QEu}{\QEr}\]</div>
+        <p>Le rendement <b>n’a pas d’unité</b>. Il est <b>inférieur à 1</b>. Il peut s’exprimer en % (\(\Qeta = 0{,}30 = 30\ \%\)).</p>
+        <p class="note">Certains énoncés le notent \(r\) : c’est la même grandeur.</p>
+      </article>
+
+      <article class="box method" id="c-methode-chaine">
+        <p class="box-title">Méthode : dessiner une chaîne énergétique</p>
+        <ol class="steps-list">
+          <li>Repérer la <b>source d’énergie</b> (rectangle).</li>
+          <li>Placer chaque <b>convertisseur</b> dans un ovale, dans l’ordre du trajet de l’énergie.</li>
+          <li>Relier par des flèches légendées par la <b>forme d’énergie</b> transférée.</li>
+          <li>Ajouter à chaque convertisseur une flèche de <b>pertes thermiques</b>.</li>
+        </ol>
+      </article>
+
+      <article class="box method" id="c-methode-rendement">
+        <p class="box-title">Méthode : calculer avec un rendement</p>
+        <ol class="steps-list">
+          <li>Écrire \(\Qeta\) en nombre décimal : \(35\ \% = 0{,}35\).</li>
+          <li>Énergie utile : \(\QEu = \Qeta \times \QEr\) (plus petite que \(\QEr\)).</li>
+          <li>Énergie reçue : \(\QEr = \dfrac{\QEu}{\Qeta}\) (plus grande que \(\QEu\)).</li>
+          <li>Énergie perdue : \(\QEp = \QEr - \QEu\).</li>
+        </ol>
+      </article>
+    </div>
+
+    <h3 class="part-title"><span class="roman">III.</span> Puissance et énergie</h3>
+    <div class="bento">
+      <article class="box def" id="c-puissance">
+        <p class="box-title">Définition de la puissance</p>
+        <p>La puissance \(\QP\) d’un système caractérise la <b>vitesse de production ou d’échange d’énergie</b>. Son unité est le <b>watt</b> (W).</p>
+        <p>Il y a aussi conservation de toutes les formes de puissance : le rendement s’écrit de la même façon avec les puissances.</p>
+        <div class="formula">\[\QPr = \QPu + \QPp \qquad \Qeta = \frac{\QPu}{\QPr}\]</div>
+      </article>
+
+      <article class="box prop" id="c-joule">
+        <p class="box-title">Relation entre l’énergie et la puissance (loi de Joule)</p>
+        <p>Si pendant une durée \(\Qt\), un système consomme en permanence la puissance constante \(\QP\), alors il reçoit l’énergie \(\QE\) :</p>
+        <div class="formula">\[\QE = \QP \times \Qt\]<p class="formula-units">\(\QE\) en joules (J) · \(\QP\) en watts (W) · \(\Qt\) en secondes (s)</p></div>
+        <p class="note">Remarque : si \(\QP\) est en W et \(\Qt\) en heures, alors \(\QE\) est en <b>Wh</b> ; si \(\QP\) est en kW et \(\Qt\) en heures, alors \(\QE\) est en <b>kWh</b>.</p>
+      </article>
+
+      <article class="box method" id="c-methode-unites">
+        <p class="box-title">Méthode : retourner la formule, choisir les unités</p>
+        <div class="formula">\[\QP = \frac{\QE}{\Qt} \qquad \Qt = \frac{\QE}{\QP}\]</div>
+        <div class="table-scroll"><table>
+          <thead><tr><th>\(\QE\)</th><th>\(\QP\)</th><th>\(\Qt\)</th></tr></thead>
+          <tbody>
+            <tr><td>J</td><td>W</td><td>s</td></tr>
+            <tr><td>Wh</td><td>W</td><td>h</td></tr>
+            <tr><td>kWh</td><td>kW</td><td>h</td></tr>
+          </tbody>
+        </table></div>
+        <p class="note">Conversions : 1 min = 60 s · 1 h = 3 600 s · 1 j = 24 h = 86 400 s · m = \(10^{-3}\), k = \(10^{3}\), M = \(10^{6}\), G = \(10^{9}\). Attention : 27 min = \(\frac{27}{60}\) h = 0,45 h (et non 0,27 h).</p>
+      </article>
+
+      <article class="box prop" id="c-ordres">
+        <p class="box-title">Quelques ordres de grandeur</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Appareil</th><th>Puissance consommée</th></tr></thead>
+          <tbody>
+            <tr><td>Réfrigérateur</td><td>150 W</td></tr>
+            <tr><td>Micro-ondes</td><td>700 W</td></tr>
+            <tr><td>Four électrique</td><td>2 200 W</td></tr>
+            <tr><td>Machine à laver</td><td>3 000 W</td></tr>
+            <tr><td>TV / ordinateur</td><td>100 W</td></tr>
+            <tr><td>Ampoule</td><td>40 W</td></tr>
+          </tbody>
+        </table></div>
+      </article>
+
+      <aside class="box def wide" id="videos">
+        <p class="box-title">Les vidéos du cours</p>
+        <ul class="video-links">
+          <li><a href="https://www.youtube.com/watch?v=-ntrzT2T8sY"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>Les différentes formes d’énergie<small>Partie I du cours · YouTube</small></span></a></li>
+          <li><a href="https://www.youtube.com/watch?v=kRI7ATCTucM"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>Chaînes énergétiques et conversions d’énergie<small>Partie II du cours · YouTube</small></span></a></li>
+        </ul>
+      </aside>
     </div>
   </section>
 
-  <section>
-    <h2>Quiz</h2>
-    <div class="quiz">
-      <div class="q" data-answer="2">
-        <p>1 kWh vaut :</p>
-        <ol class="choices"><li>1 000 J</li><li>3 600 J</li><li>3,6 MJ</li><li>60 kJ</li></ol>
-        <p class="explain">\(1\,000\ \mathrm{W} \times 3\,600\ \mathrm{s} = 3{,}6 \times 10^6\) J.</p>
+  <!-- ===================================================== 2. EXEMPLES -->
+  <section class="step" id="exemples">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">2</span>
+      <div>
+        <h2>Exemples concrets</h2>
+        <p>Des exercices du même type que ceux de la fiche, résolus pas à pas. Cherche d’abord sur une feuille, puis ouvre la solution.</p>
       </div>
-      <div class="q" data-answer="0">
-        <p>Un panneau photovoltaïque réalise une conversion :</p>
-        <ol class="choices"><li>photoélectrique</li><li>électromécanique</li><li>électrochimique</li><li>thermodynamique</li></ol>
-        <p class="explain">Lumière → électricité.</p>
+    </header>
+    <div class="bento">
+      <article class="box example">
+        <p class="box-title">Une énergie en joules et en kWh</p>
+        <p>Un four à micro-ondes de puissance \(\QP = 700\ \mathrm{W}\) fonctionne pendant \(\Qt = 12\ \mathrm{min}\).
+          Calcule l’énergie \(\QE\) qu’il consomme, en joules puis en kWh.</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>En joules, la durée doit être en secondes : \(\Qt = 12 \times 60 = 720\ \mathrm{s}\).</li>
+              <li>\(\QE = \QP \times \Qt = 700 \times 720 = 504\,000\ \mathrm{J} = 5{,}04 \times 10^{5}\ \mathrm{J}\).</li>
+              <li>En kWh : \(\QP = 0{,}7\ \mathrm{kW}\) et \(\Qt = \frac{12}{60} = 0{,}2\ \mathrm{h}\), donc \(\QE = 0{,}7 \times 0{,}2 = 0{,}14\ \mathrm{kWh}\).</li>
+              <li>Vérification : \(0{,}14 \times 3{,}6 \times 10^{6} = 5{,}04 \times 10^{5}\ \mathrm{J}\).</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example">
+        <p class="box-title">Retrouver une puissance, puis une durée</p>
+        <p>a) Une installation consomme \(\QE = 18\ \mathrm{kWh}\) en \(\Qt = 24\ \mathrm{min}\). Calcule sa puissance \(\QP\).</p>
+        <p>b) Un moteur de \(\QP = 40\ \mathrm{kW}\) fournit \(\QE = 650 \times 10^{6}\ \mathrm{J}\). Calcule \(\Qt\) en secondes, puis sous la forme … h … min … s.</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>a) E en kWh, donc Δt en heures : \(\Qt = \frac{24}{60} = 0{,}4\ \mathrm{h}\) (et pas 0,24 h). \(\QP = \dfrac{\QE}{\Qt} = \dfrac{18}{0{,}4} = 45\ \mathrm{kW}\).</li>
+              <li>b) Unités SI : \(\QP = 40\,000\ \mathrm{W}\). \(\Qt = \dfrac{\QE}{\QP} = \dfrac{650 \times 10^{6}}{40\,000} = 16\,250\ \mathrm{s}\).</li>
+              <li>\(16\,250\ \mathrm{s} = 4 \times 3\,600 + 1\,850\) ; \(1\,850 = 30 \times 60 + 50\). Donc \(\Qt = 4\ \mathrm{h}\ 30\ \mathrm{min}\ 50\ \mathrm{s}\).</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example">
+        <p class="box-title">Compléter un tableau d’appareils</p>
+        <p>Complète le tableau (\(\QE = \QP \times \Qt\), avec \(1\ \mathrm{Wh} = 3\,600\ \mathrm{J}\)).</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Appareil</th><th>\(\QP\)</th><th>\(\Qt\)</th><th>\(\QE\) (Wh)</th><th>\(\QE\) (J)</th></tr></thead>
+          <tbody>
+            <tr><td>Réfrigérateur</td><td>150 W</td><td>3 h</td><td>?</td><td>?</td></tr>
+            <tr><td>Télévision</td><td>100 W</td><td>?</td><td>250</td><td>?</td></tr>
+            <tr><td>Radiateur</td><td>?</td><td>15 min</td><td>?</td><td>\(1{,}35 \times 10^{6}\)</td></tr>
+          </tbody>
+        </table></div>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>Réfrigérateur : \(\QE = 150 \times 3 = 450\ \mathrm{Wh}\) ; \(450 \times 3\,600 = 1{,}62 \times 10^{6}\ \mathrm{J}\).</li>
+              <li>Télévision : \(\Qt = \dfrac{\QE}{\QP} = \dfrac{250}{100} = 2{,}5\ \mathrm{h}\) (2 h 30 min) ; \(250 \times 3\,600 = 9{,}0 \times 10^{5}\ \mathrm{J}\).</li>
+              <li>Radiateur : \(\Qt = 15 \times 60 = 900\ \mathrm{s}\), donc \(\QP = \dfrac{1{,}35 \times 10^{6}}{900} = 1\,500\ \mathrm{W}\) ; \(\QE = \dfrac{1{,}35 \times 10^{6}}{3\,600} = 375\ \mathrm{Wh}\).</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example">
+        <p class="box-title">Moteur thermique : chaîne et rendement</p>
+        <p>Un moteur diesel délivre une puissance mécanique \(\QPu = 90\ \mathrm{kW}\) avec un rendement \(\Qeta = 35\ \%\). La voiture roule \(1\ \mathrm{h}\ 30\ \mathrm{min}\).</p>
+        <div class="chain" role="img" aria-label="Gazole, énergie chimique reçue, moteur, énergie mécanique utile, pertes thermiques.">
+          <div class="chain-node chain-src">Gazole</div>
+          <div class="chain-link" style="--c: var(--q-E)"><span class="lbl"><b>chimique</b></span><span class="arrow"></span><span class="lbl">\(\QEr\)</span></div>
+          <div class="chain-node chain-conv">Moteur
+            <div class="chain-loss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5l13 13M18 10v8h-8"/></svg><span>thermique</span></div>
+          </div>
+          <div class="chain-link" style="--c: var(--q-Eu)"><span class="lbl"><b>mécanique</b></span><span class="arrow"></span><span class="lbl">\(\QEu\)</span></div>
+        </div>
+        <p>Calcule l’énergie mécanique (en kWh, puis en J), l’énergie reçue et l’énergie thermique dissipée.</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>\(\QEu = \QPu \times \Qt = 90 \times 1{,}5 = 135\ \mathrm{kWh}\) ; en joules : \(135 \times 3{,}6 \times 10^{6} = 4{,}86 \times 10^{8}\ \mathrm{J}\).</li>
+              <li>\(\QEr = \dfrac{\QEu}{\Qeta} = \dfrac{135}{0{,}35} \approx 386\ \mathrm{kWh}\) (énergie chimique du gazole).</li>
+              <li>\(\QEp = \QEr - \QEu \approx 386 - 135 = 251\ \mathrm{kWh}\) : près des deux tiers de l’énergie du carburant chauffent le moteur et l’air.</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example wide">
+        <p class="box-title">Lampe solaire : trois convertisseurs à la suite</p>
+        <p>Des cellules photovoltaïques chargent une batterie, qui alimente ensuite une ampoule. Les cellules reçoivent une puissance \(\QPr = 8\ \mathrm{W}\) et ont un rendement \(\Qeta = 25\ \%\). On charge pendant 7 h au soleil.</p>
+        <div class="chain" role="img" aria-label="Soleil, rayonnement, cellules photovoltaïques, électrique, batterie, électrique, ampoule, rayonnement ; chaque convertisseur a des pertes thermiques.">
+          <div class="chain-node chain-src">Soleil</div>
+          <div class="chain-link" style="--c: var(--q-E)"><span class="lbl"><b>rayonnement</b></span><span class="arrow"></span><span class="lbl">8 W</span></div>
+          <div class="chain-node chain-conv">Cellules PV
+            <div class="chain-loss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5l13 13M18 10v8h-8"/></svg><span>thermique</span></div>
+          </div>
+          <div class="chain-link" style="--c: var(--q-Eu)"><span class="lbl"><b>électrique</b></span><span class="arrow"></span><span class="lbl">2 W</span></div>
+          <div class="chain-node chain-conv">Batterie
+            <div class="chain-loss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5l13 13M18 10v8h-8"/></svg><span>thermique</span></div>
+          </div>
+          <div class="chain-link" style="--c: var(--q-Eu)"><span class="lbl"><b>électrique</b></span><span class="arrow"></span><span class="lbl">9,8 Wh</span></div>
+          <div class="chain-node chain-conv">Ampoule
+            <div class="chain-loss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5l13 13M18 10v8h-8"/></svg><span>thermique</span></div>
+          </div>
+          <div class="chain-link" style="--c: var(--q-Eu)"><span class="lbl"><b>rayonnement</b></span><span class="arrow"></span><span class="lbl">lumière</span></div>
+        </div>
+        <ol class="steps-list" style="--tone: var(--amber)">
+          <li>Calcule la puissance fournie par les cellules à la batterie.</li>
+          <li>Calcule l’énergie reçue par la batterie en Wh, puis en joules.</li>
+          <li>L’ampoule reçoit au maximum 9,8 Wh. Calcule le rendement de la batterie et l’énergie qu’elle perd.</li>
+          <li>L’ampoule consomme une puissance électrique de 2 W. Combien de temps peut-elle éclairer ?</li>
+        </ol>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>\(\QPu = \Qeta \times \QPr = 0{,}25 \times 8 = 2\ \mathrm{W}\).</li>
+              <li>\(\QE = \QP \times \Qt = 2 \times 7 = 14\ \mathrm{Wh}\) ; \(14 \times 3\,600 = 50\,400\ \mathrm{J}\).</li>
+              <li>\(\Qeta_{\text{batterie}} = \dfrac{9{,}8}{14} = 0{,}70 = 70\ \%\) ; \(\QEp = 14 - 9{,}8 = 4{,}2\ \mathrm{Wh}\) (pertes thermiques).</li>
+              <li>\(\Qt = \dfrac{\QE}{\QP} = \dfrac{9{,}8\ \mathrm{Wh}}{2\ \mathrm{W}} = 4{,}9\ \mathrm{h}\), soit 4 h 54 min. L’énergie (9,8 Wh) et la puissance (2 W) sont toutes deux <b>électriques et reçues par l’ampoule</b> : on les divise directement.</li>
+            </ol>
+            <p class="trap"><b>Point de vigilance.</b> Si l’énoncé donne aussi le rendement de l’ampoule, il sert à calculer l’énergie <b>lumineuse</b> émise (\(\QEu = \Qeta \times \QEr\)), pas la durée : la durée se calcule avec une énergie et une puissance du même côté du convertisseur.</p>
+          </div>
+        </details>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================================================== 3. MANIPULER -->
+  <section class="step" id="manipuler">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">3</span>
+      <div>
+        <h2>Manipuler</h2>
+        <p>Bouge les curseurs et prédis le résultat avant de regarder. Chaque couleur est celle de la grandeur dans les formules.</p>
       </div>
-      <div class="q" data-answer="3">
-        <p>Deux convertisseurs de rendements 0,8 et 0,5 en série ont un rendement global de :</p>
-        <ol class="choices"><li>1,3</li><li>0,65</li><li>0,3</li><li>0,4</li></ol>
-        <p class="explain">Produit : \(0{,}8 \times 0{,}5 = 0{,}4\).</p>
+    </header>
+    <div class="bento">
+      <div class="widget" id="w-energie">
+        <p class="widget-title">L’énergie en fonction du temps : \(\QE = \QP \times \Qt\)</p>
+        <p class="hint">À puissance constante, l’énergie reçue augmente proportionnellement à la durée : la droite a pour pente la puissance.</p>
+        <div class="lab">
+          <div class="lab-stage">
+            <canvas class="plot tall" aria-label="Graphique de l’énergie en fonction de la durée"></canvas>
+            <ul class="legend">
+              <li><i style="background: var(--q-E)"></i>\(\QE = \QP \times \Qt\)</li>
+              <li><i class="dash" style="color: var(--muted)"></i>référence 1 000 W</li>
+              <li><i style="background: var(--q-P)"></i>pente = \(\QP\)</li>
+              <li><i style="background: var(--q-t)"></i>durée \(\Qt\)</li>
+            </ul>
+          </div>
+          <div class="lab-side">
+            <div class="lab-formula">\(\QE = \QP \times \Qt\)</div>
+            <div class="sliders">
+              <div class="slider" style="--tone: var(--q-P)">
+                <div class="slider-top"><label class="name" for="sl-P">Puissance \(\QP\)</label><span><output data-show="P" for="sl-P"></output> W</span></div>
+                <input id="sl-P" type="range" data-k="P" min="10" max="3000" step="10" value="700">
+              </div>
+              <div class="slider" style="--tone: var(--q-t)">
+                <div class="slider-top"><label class="name" for="sl-t">Durée \(\Qt\)</label><output class="dt-out" for="sl-t"></output></div>
+                <input id="sl-t" type="range" data-k="t" min="0" max="480" step="1" value="12">
+              </div>
+            </div>
+            <div>
+              <p class="presets-label">Préréglages</p>
+              <div class="presets"></div>
+            </div>
+            <div class="kpis"></div>
+          </div>
+        </div>
       </div>
-      <div class="q" data-answer="1">
-        <p>Laquelle de ces ressources n'est <b>pas</b> renouvelable ?</p>
-        <ol class="choices"><li>le vent</li><li>le gaz naturel</li><li>la biomasse</li><li>le rayonnement solaire</li></ol>
-        <p class="explain">Le gaz s'est formé en millions d'années.</p>
+
+      <div class="widget" id="w-chaine">
+        <p class="widget-title">Chaîne énergétique et rendement : \(\QEr = \QEu + \QEp\)</p>
+        <p class="hint">L’énergie reçue se partage entre énergie utile et énergie perdue. Plus le rendement est faible, plus la part perdue est grande.</p>
+        <div class="lab">
+          <div class="lab-stage">
+            <div class="chain vals live-chain" aria-live="polite"></div>
+            <canvas class="plot" aria-label="Graphique de l’énergie utile et de l’énergie perdue en fonction de l’énergie reçue"></canvas>
+            <ul class="legend">
+              <li><i style="background: var(--q-E)"></i>\(\QEr\)</li>
+              <li><i style="background: var(--q-Eu)"></i>\(\QEu = \Qeta \times \QEr\)</li>
+              <li><i class="area" style="background: var(--q-Ep)"></i>\(\QEp\)</li>
+            </ul>
+          </div>
+          <div class="lab-side">
+            <div class="lab-formula">\(\Qeta = \dfrac{\QEu}{\QEr}\)</div>
+            <div class="sliders">
+              <div class="slider" style="--tone: var(--q-E)">
+                <div class="slider-top"><label class="name" for="sl-Er">Énergie reçue \(\QEr\)</label><span><output data-show="Er" for="sl-Er" data-digits="0"></output> kWh</span></div>
+                <input id="sl-Er" type="range" data-k="Er" min="1" max="1000" step="1" value="733">
+              </div>
+              <div class="slider" style="--tone: var(--q-eta)">
+                <div class="slider-top"><label class="name" for="sl-eta">Rendement \(\Qeta\)</label><span><output data-show="eta" for="sl-eta" data-digits="0"></output> %</span></div>
+                <input id="sl-eta" type="range" data-k="eta" min="1" max="99" step="1" value="30">
+              </div>
+            </div>
+            <div>
+              <p class="presets-label">Préréglages</p>
+              <div class="presets"></div>
+            </div>
+            <div class="kpis"></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="videos">
-    <h2>Pour aller plus loin en vidéo</h2>
-    <ul class="videos">
-      <li><a href="https://www.youtube.com/results?search_query=chaine+energetique+rendement+premiere+STI2D">Chaîne énergétique et rendement<small>Recherche YouTube</small></a></li>
-      <li><a href="https://www.youtube.com/results?search_query=puissance+energie+kWh+joule+physique+lycee">Puissance, énergie, kWh<small>Recherche YouTube</small></a></li>
-      <li><a href="https://www.lumni.fr/lycee">Ressources vidéo du lycée — Lumni<small>lumni.fr</small></a></li>
-    </ul>
+  <!-- ===================================================== 4. ENTRAÎNEMENT -->
+  <section class="step" id="entrainement">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">4</span>
+      <div>
+        <h2>Entraînement</h2>
+        <p>Des questions qui se renouvellent à l’infini. Réussis <b>5 réponses de suite du premier coup</b> pour débloquer l’évaluation. Le brouillon et la calculatrice restent à portée de main pendant que tu réponds.</p>
+      </div>
+    </header>
+    <div class="bento work">
+      <div class="widget" id="w-drill"></div>
+      <div class="workspace-host" id="ws-train"></div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 5. ÉVALUATION -->
+  <section class="step" id="evaluation">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">5</span>
+      <div>
+        <h2>Évaluation</h2>
+        <p>Une copie sur 20 points, corrigée à la fin, sans limite de temps. La calculatrice passe en mode examen : seulement les calculs d’une calculatrice standard.</p>
+      </div>
+    </header>
+    <div class="bento work">
+      <div class="widget exam-card" id="exam"></div>
+      <div class="workspace-host" id="ws-exam"></div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 6. VALIDATION -->
+  <section class="step" id="validation">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">6</span>
+      <div>
+        <h2>Validation</h2>
+        <p>Au moins 15/20 : le chapitre est validé et le suivant s’ouvre. En dessous : retour à l’entraînement pour une nouvelle série de 5.</p>
+      </div>
+    </header>
+    <div class="widget valid-card" id="validation-card"></div>
   </section>
 </main>
 <script>
 window.addEventListener('DOMContentLoaded', function () {
-  var R = Course.rand, P = Course.pick, A = Course.approx;
-  var w = document.getElementById('w-chain'), out = w.querySelector('.readout');
-  var G = Course.plot(w.querySelector('canvas'), { grid: false, axes: false });
-  Course.onInput(w, function (v) {
-    var e = [v.e1 / 100, v.e2 / 100, v.e3 / 100], E = [v.E], names = ['reçue', 'après 1', 'après 2', 'utile'];
-    e.forEach(function (x, i) { E.push(E[i] * x); });
-    G.draw = function (g) {
-      E.forEach(function (val, i) {
-        var x = i * 1.4;
-        g.poly([[x, 0], [x, val], [x + 0.9, val], [x + 0.9, 0]], i === 3 ? '--ok' : '--c1', { close: true, fill: true, alpha: 0.45 });
-        if (i > 0) g.poly([[x, val], [x, E[i - 1]], [x + 0.9, E[i - 1]], [x + 0.9, val]], '--c2', { close: true, fill: true, alpha: 0.25 });
-        g.text(x + 0.45, val + v.E * 0.05, Course.fmt(val, 1), '--text', { align: 'center', bold: true });
-        g.text(x + 0.45, -v.E * 0.08, names[i], '--muted', { align: 'center' });
-      });
+  var C = window.CourseCore, Bank = window.ChapterBank.make();
+
+  /* ---------- Manipuler 1 : E = P × Δt ---------- */
+  var APPS = [['réfrigérateur', 150], ['micro-ondes', 700], ['four électrique', 2200], ['machine à laver', 3000], ['TV / ordinateur', 100], ['ampoule', 40]];
+  var wE = document.getElementById('w-energie');
+  var GE = Course.plot(wE.querySelector('canvas'), { xmin: 0, xmax: 1, ymin: 0, ymax: 1, xlabel: 'Δt (h)', ylabel: 'E (Wh)', positive: true });
+  var kpiE = Course.kpis(wE.querySelector('.kpis'), [
+    { id: 'J', label: 'Énergie \\(\\QE\\) en joules', tone: '--q-E' },
+    { id: 'kWh', label: 'Énergie \\(\\QE\\) en kWh', tone: '--q-E' },
+    { id: 's', label: 'Durée \\(\\Qt\\) en secondes', tone: '--q-t' },
+    { id: 'P', label: 'Puissance \\(\\QP\\)', tone: '--q-P' }
+  ]);
+  Course.presets(wE.querySelector('.presets'), [
+    { label: 'Ampoule · 40 W · 5 h', values: { P: 40, t: 300 } },
+    { label: 'Micro-ondes · 700 W · 12 min', values: { P: 700, t: 12 } },
+    { label: 'Four · 2 200 W · 1 h 30', values: { P: 2200, t: 90 } }
+  ]);
+  var dtOut = wE.querySelector('.dt-out');
+  Course.onInput(wE, function (v) {
+    var P = v.P, th = v.t / 60, ts = v.t * 60, Ewh = P * th, Pref = 1000;
+    dtOut.textContent = C.fmtDuration(ts);
+    var xmax = Math.max(1, Math.ceil(th * 1.25 * 2) / 2);
+    var top = Math.max(P, Pref) * xmax * 1.1, kilo = top >= 1500, f = kilo ? 1 / 1000 : 1;
+    var ymax = top * f;
+    GE.view.ylabel = kilo ? 'E (kWh)' : 'E (Wh)';
+    GE.draw = function (g) {
+      g.fn(function (t) { return Pref * t * f; }, '--muted', { dash: [6, 5], width: 1.5, from: 0, to: xmax });
+      g.fn(function (t) { return P * t * f; }, '--q-E', { width: 2.6, from: 0, to: xmax });
+      // triangle de pente : pour 1 h (ou un quart de la fenêtre), l'énergie augmente de P × 1 h
+      var b = Math.min(1, xmax / 4), t0 = xmax * 0.12, y0 = P * t0 * f, y1 = P * (t0 + b) * f;
+      g.seg(t0, y0, t0 + b, y0, '--q-P', { width: 1.6 });
+      g.seg(t0 + b, y0, t0 + b, y1, '--q-P', { width: 2.2 });
+      g.text(t0 + b, (y0 + y1) / 2, 'pente = P', '--q-P', { bold: true, halo: true, dx: 8, size: 12.5 });
+      g.text(t0 + b / 2, y0, b === 1 ? '1 h' : Math.round(b * 60) + ' min', '--muted', { align: 'center', baseline: 'top', dy: 4, size: 12, halo: true });
+      if (th > 0) {
+        g.seg(th, 0, th, Ewh * f, '--q-t', { dash: [4, 4], width: 1.6 });
+        g.seg(0, Ewh * f, th, Ewh * f, '--q-E', { dash: [4, 4], width: 1.2 });
+      }
+      g.point(th, Ewh * f, '--q-E', null, { r: 6 });
+      // étiquette de la référence au milieu de sa droite, loin des boutons de zoom
+      var xr = Pref * xmax * 0.55 * f < ymax * 0.9 ? xmax * 0.55 : ymax * 0.8 / (Pref * f);
+      g.text(xr, Pref * xr * f, 'réf. 1 000 W', '--muted', { align: 'right', baseline: 'bottom', dx: -6, dy: -4, size: 12, halo: true });
     };
-    G.redraw({ xmin: -0.3, xmax: 5.2, ymin: -v.E * 0.16, ymax: v.E * 1.15 });
-    var eta = e[0] * e[1] * e[2];
-    out.textContent = 'η global = ' + e.map(function (x) { return Course.fmt(x, 2); }).join(' × ') + ' = ' + Course.fmt(eta, 3) +
-      '\nénergie utile : ' + Course.fmt(E[3], 2) + ' kWh   pertes : ' + Course.fmt(v.E - E[3], 2) + ' kWh (' + Course.fmt((1 - eta) * 100, 1) + ' %)';
+    GE.redraw({ xmin: -xmax * 0.13, xmax: xmax * 1.02, ymin: -ymax * 0.09, ymax: ymax });
+    var near = APPS.reduce(function (a, b) { return Math.abs(Math.log(b[1] / P)) < Math.abs(Math.log(a[1] / P)) ? b : a; });
+    kpiE({
+      J: { value: C.fmtNum(P * ts), unit: 'J' },
+      kWh: { value: C.fmtNum(Ewh / 1000), unit: 'kWh', sub: '= ' + C.fmtNum(Ewh) + ' Wh' },
+      s: { value: C.fmtNum(ts, 4), unit: 's', sub: '= ' + C.fmtDuration(ts) },
+      P: { value: C.fmtNum(P, 4), unit: 'W', badge: { cls: 'info', text: '≈ ' + near[0] + ' (' + C.fmtNum(near[1], 4) + ' W)' } }
+    });
   });
 
-  Course.drill('#w-drill', function () {
-    var k = R(0, 4), T = function (q) { return String(q).replace('.', '{,}'); };
-    if (k === 0) { var Pk = P([0.5, 1.2, 2, 2.5, 3]), h = R(1, 10), d = R(1, 30), E = Pk * h * d;
-      return { html: '<p>Un appareil de \\(' + T(Pk) + '\\) kW fonctionne ' + h + ' h par jour pendant ' + d + ' jours. Énergie consommée (kWh) ?</p>', answer: E, tol: A(E, true), explain: '\\(E = P \\times \\Delta t\\).' }; }
-    if (k === 1) { var kwh = R(2, 500), J = kwh * 3.6e6;
-      return { html: '<p>Convertis ' + kwh + ' kWh en joules.</p>', answer: J, tol: A(J, true), explain: '\\(1\\ \\mathrm{kWh} = 3{,}6 \\times 10^6\\ \\mathrm{J}\\).' }; }
-    if (k === 2) { var Pr = R(5, 50) * 100, eta = R(50, 98) / 100, Pu = Pr * eta;
-      return { html: '<p>Un moteur reçoit \\(' + Pr + '\\) W et fournit \\(' + T(Math.round(Pu)) + '\\) W de puissance mécanique. Rendement ?</p>', answer: Math.round(Pu) / Pr, tol: A(Math.round(Pu) / Pr, true), explain: '\\(\\eta = P_u / P_r\\).' }; }
-    if (k === 3) { var a = R(70, 99) / 100, b = R(70, 99) / 100, et = a * b;
-      return { html: '<p>Deux convertisseurs en série, rendements \\(' + T(a) + '\\) et \\(' + T(b) + '\\). Rendement global ?</p>', answer: et, tol: A(et, true), explain: 'Produit des rendements.' }; }
-    var EJ = R(2, 90) * 1000, t = R(10, 300), Pw = EJ / t;
-    return { html: '<p>Une énergie de \\(' + EJ + '\\) J est transférée en ' + t + ' s. Puissance moyenne (W) ?</p>', answer: Pw, tol: A(Pw, true), explain: '\\(P = E / \\Delta t\\).' };
+  /* ---------- Manipuler 2 : chaîne énergétique et rendement ---------- */
+  var wC = document.getElementById('w-chaine'), chainBox = wC.querySelector('.live-chain');
+  var GC = Course.plot(wC.querySelector('canvas'), { xmin: 0, xmax: 1, ymin: 0, ymax: 1, xlabel: 'E reçue (kWh)', ylabel: 'E (kWh)', positive: true });
+  var conv = { name: 'Moteur diesel', src: 'Gazole', fin: 'chimique', fout: 'mécanique' };
+  var kpiC = Course.kpis(wC.querySelector('.kpis'), [
+    { id: 'Eu', label: 'Énergie utile \\(\\QEu\\)', tone: '--q-Eu' },
+    { id: 'Ep', label: 'Énergie perdue \\(\\QEp\\)', tone: '--q-Ep' },
+    { id: 'eta', label: 'Rendement \\(\\Qeta\\)', tone: '--q-eta' },
+    { id: 'sum', label: '\\(\\QEu + \\QEp\\)', tone: '--q-E' }
+  ]);
+  Course.presets(wC.querySelector('.presets'), [
+    { label: 'Moteur diesel · 30 %', values: { Er: 733, eta: 30 }, conv: { name: 'Moteur diesel', src: 'Gazole', fin: 'chimique', fout: 'mécanique' } },
+    { label: 'Moteur électrique · 90 %', values: { Er: 50, eta: 90 }, conv: { name: 'Moteur électrique', src: 'Batterie', fin: 'électrique', fout: 'mécanique' } },
+    { label: 'Cellule photovoltaïque · 20 %', values: { Er: 25, eta: 20 }, conv: { name: 'Cellules PV', src: 'Soleil', fin: 'rayonnement', fout: 'électrique' } }
+  ], function (p) { conv = p.conv; });
+  var LOSS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5l13 13M18 10v8h-8"/></svg>';
+  function nice(x) { var p = Math.pow(10, Math.floor(Math.log10(x))), m = x / p; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 2.5 ? 2.5 : m <= 5 ? 5 : 10) * p; }
+  Course.onInput(wC, function (v) {
+    var Er = v.Er, eta = v.eta / 100, Eu = eta * Er, Ep = Er - Eu;
+    var esc = Course.esc;
+    chainBox.innerHTML =
+      '<div class="chain-node chain-src">' + esc(conv.src) + '</div>' +
+      '<div class="chain-link" style="--c: var(--q-E); --w: 10px"><span class="lbl"><b>' + esc(conv.fin) + '</b></span><span class="arrow"></span><span class="lbl"><small>' + C.fmtNum(Er) + ' kWh</small></span></div>' +
+      '<div class="chain-node chain-conv">' + esc(conv.name) + '<div class="chain-loss">' + LOSS.replace('stroke-width="2.2"', 'stroke-width="' + (1.4 + 2.6 * (1 - eta)).toFixed(2) + '"') +
+      '<span><b>' + C.fmtNum(Ep) + ' kWh</b> perdus (pertes thermiques)</span></div></div>' +
+      '<div class="chain-link" style="--c: var(--q-Eu); --w: ' + Math.max(2, 10 * eta).toFixed(1) + 'px"><span class="lbl"><b>' + esc(conv.fout) + '</b></span><span class="arrow"></span><span class="lbl"><small>' + C.fmtNum(Eu) + ' kWh</small></span></div>';
+    Course.fitChain(chainBox);
+    var xmax = nice(Er * 1.25), ymax = xmax;
+    GC.draw = function (g) {
+      g.area(function (x) { return x; }, 0, xmax, '--q-Ep', { lower: function (x) { return eta * x; }, alpha: 0.13 });
+      g.fn(function (x) { return x; }, '--q-E', { width: 2.2, from: 0, to: xmax });
+      g.fn(function (x) { return eta * x; }, '--q-Eu', { width: 2.4, from: 0, to: xmax });
+      // barre empilée à E_reçue : utile (bas) + perdue (haut), séparées par un liseré
+      var bw = xmax * 0.028, gap = ymax * 0.006;
+      g.poly([[Er - bw, 0], [Er + bw, 0], [Er + bw, Math.max(0, Eu - gap)], [Er - bw, Math.max(0, Eu - gap)]], '--q-Eu', { close: true, fill: true, alpha: 0.95, width: 0.1 });
+      g.poly([[Er - bw, Math.min(Er, Eu + gap)], [Er + bw, Math.min(Er, Eu + gap)], [Er + bw, Er], [Er - bw, Er]], '--q-Ep', { close: true, fill: true, alpha: 0.95, width: 0.1 });
+      var left = Er > xmax * 0.62, ax = left ? Er - bw : Er + bw, al = left ? 'right' : 'left', dx = left ? -8 : 8;
+      if (Eu > ymax * 0.06) g.text(ax, Eu / 2, 'utile ' + C.fmtNum(Eu), '--q-Eu', { align: al, dx: dx, bold: true, halo: true, size: 12.5 });
+      if (Ep > ymax * 0.06) g.text(ax, Eu + Ep / 2, 'perdue ' + C.fmtNum(Ep), '--q-Ep', { align: al, dx: dx, bold: true, halo: true, size: 12.5 });
+      var xl = xmax * 0.3;
+      g.text(xl, xl, 'E reçue', '--q-E', { align: 'right', baseline: 'bottom', dx: -6, dy: -4, bold: true, halo: true, size: 12.5 });
+      g.text(xl, eta * xl, 'E utile', '--q-Eu', { align: 'left', baseline: 'top', dx: 6, dy: 4, bold: true, halo: true, size: 12.5 });
+    };
+    GC.redraw({ xmin: -xmax * 0.13, xmax: xmax * 1.02, ymin: -ymax * 0.09, ymax: ymax * 1.04 });
+    var pct = v.eta, badge = pct >= 80 ? { cls: 'good', icon: 'check', text: 'Très bon rendement' }
+      : pct >= 40 ? { cls: 'mid', icon: 'alert', text: 'Rendement moyen' } : { cls: 'bad', icon: 'alert', text: 'Beaucoup de pertes' };
+    kpiC({
+      Eu: { value: C.fmtNum(Eu), unit: 'kWh' },
+      Ep: { value: C.fmtNum(Ep), unit: 'kWh', sub: C.fmtNum(100 - pct) + ' % de l’énergie reçue' },
+      eta: { value: C.fmtNum(eta, 2), unit: '= ' + pct + ' %', badge: badge },
+      sum: { value: C.fmtNum(Eu + Ep), unit: 'kWh', badge: { cls: 'good', icon: 'check', text: '= E reçue : conservation' } }
+    });
   });
+
+  /* ---------- Entraînement, évaluation, validation ---------- */
+  var train = document.getElementById('ws-train');
+  Course.trainer('#w-drill', Bank.training, { workspace: train });
+  Course.exam('#exam', { build: Bank.exam, count: window.ChapterBank.EXAM_QUESTIONS, workspace: document.getElementById('ws-exam'), trainWorkspace: train });
+  Course.validation('#validation-card');
 });
 </script>
 </body>

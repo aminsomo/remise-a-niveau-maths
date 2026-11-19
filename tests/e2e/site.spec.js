@@ -292,13 +292,18 @@ test.describe('exercices de Première : réponses finies et arrondis acceptés',
         const bad = [];
         const roots = Array.from(document.querySelectorAll('.drill-check')).map((b) => b.closest('.widget'));
         for (const root of roots) {
-          const input = root.querySelector('.drill input'), check = root.querySelector('.drill-check'), fb = root.querySelector('.feedback');
+          const input = root.querySelector('.drill input, .answer input'), check = root.querySelector('.drill-check'), fb = root.querySelector('.feedback');
           for (let i = 0; i < 25; i++) {
             root.courseDrill.next();
             const cur = root.courseDrill.current(), a = cur.answer;
             const q = root.querySelector('.drill-q').textContent.trim();
-            if (typeof a !== 'number' || !isFinite(a)) { bad.push(`${root.id}: réponse non finie pour « ${q} »`); continue; }
             if (!q) bad.push(`${root.id}: question vide`);
+            if (cur.choices) { // QCM de l'entraînement des chapitres en 6 étapes
+              root.querySelectorAll('.choice')[a].click();
+              if (!fb.classList.contains('ok')) bad.push(`${root.id}: bon choix refusé pour « ${q} »`);
+              continue;
+            }
+            if (typeof a !== 'number' || !isFinite(a)) { bad.push(`${root.id}: réponse non finie pour « ${q} »`); continue; }
             // ce qu'un élève taperait : 3 chiffres significatifs (physique) ou arrondi au centième (maths)
             const typed = (sig || Math.abs(a) < 0.1) ? Number(a.toPrecision(3)) : Math.round(a * 100) / 100;
             input.value = String(typed).replace('.', ',');

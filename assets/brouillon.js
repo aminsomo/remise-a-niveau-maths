@@ -1,15 +1,22 @@
 /* ==========================================================================
-   Brouillon plein écran : feuille + calculatrice « comme au stylo »
-   (ouvert par le bouton calculatrice placé à côté de « Vérifier »).
+   Brouillon + calculatrice « comme au stylo »
+   - En plein écran : bouton calculatrice placé à côté de « Vérifier ».
+   - Intégré à la page (chapitres en 6 étapes) : Entraînement et Évaluation
+     (CourseSheet.mount) ; un bouton l'agrandit en plein écran.
 
-   - Interrupteur Feuille / Calculatrice en haut.
+   - Écran partagé dès que la place le permet : la feuille noire et une
+     calculatrice compacte côte à côte. Un sélecteur « Utiliser les symboles
+     sur : Feuille / Calculatrice » choisit où vont les symboles du clavier
+     (sur petit écran, il choisit aussi le volet affiché).
    - Les maths s'écrivent comme sur papier grâce à MathLive (chargé à la demande
      depuis un CDN, comme KaTeX) : une fraction a sa barre et deux cases, une
      intégrale ses deux bornes a et b, une racine son radical…
    - Feuille : une ligne = une zone mathématique ; Entrée crée une ligne, mode Stylo
-     pour écrire au doigt. Contenu conservé par chapitre (localStorage).
-   - Calculatrice : comprend fractions, racines, puissances, ∫ₐᵇ, Σ, ln, log, trigo…
-     (core.js : compileLatex) ; résultat envoyable dans la feuille ou comme réponse.
+     pour écrire au doigt. Rien n'y est jamais calculé. Contenu conservé par chapitre.
+   - Calculatrice d'entraînement : fractions, racines, puissances, ln, trigo…
+     et aussi ∫ₐᵇ, Σ, dérivées d/dx et primitives ∫ … dx (calcul formel de core.js).
+   - Calculatrice en mode examen (évaluation) : seulement les fonctions d'une
+     calculatrice standard ; intégrales, dérivées, primitives et sommes sont refusées.
    - Clavier intégré (onglets Symboles / 123 / abc) : sur téléphone et tablette,
      MathLive n'ouvre pas le clavier du système, c'est ce clavier qui sert.
    - Sans réseau (MathLive indisponible) : repli sur des champs texte simples.
@@ -25,11 +32,14 @@
   var ML_VERSION = '0.111.4';
   var ML_BASE = 'https://cdn.jsdelivr.net/npm/mathlive@' + ML_VERSION;
   var coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  var SPLIT_MIN = 640, WIDE_MIN = 1180;
 
   /* ---------- touches ---------- */
   // { l: libellé (LaTeX rendu par KaTeX, ou texte si txt), i: LaTeX inséré (#? = case, #@ = ce qui précède),
-  //   p: texte inséré en mode simple (‸ = curseur), a: nom accessible, w: touche large, c: classe }
+  //   p: texte inséré en mode simple (‸ = curseur), a: nom accessible, w: touche large, c: classe,
+  //   calc: calcul « avancé » (intégrale, dérivée, somme) refusé par la calculatrice en mode examen }
   function k(l, i, p, a, extra) { return Object.assign({ l: l, i: i, p: p === undefined ? l : p, a: a }, extra || {}); }
+  var ADV = { calc: 1 };
   var SYM = [
     ['Fractions, puissances, racines', [
       k('\\frac{a}{b}', '\\frac{#@}{#?}', '(' + K + ')/()', 'fraction'),
@@ -41,9 +51,11 @@
       k('(\\,)', '\\left(#?\\right)', '(' + K + ')', 'parenthèses'), k('|x|', '\\left|#?\\right|', '|' + K + '|', 'valeur absolue')
     ]],
     ['Analyse', [
-      k('\\int_a^b', '\\int_{#?}^{#?}#?\\,\\mathrm{d}x', '∫[a ; b] (' + K + ') dx', 'intégrale de a à b'),
-      k('\\int', '\\int #?\\,\\mathrm{d}x', '∫ (' + K + ') dx', 'intégrale'),
-      k('\\sum_{k=1}^{n}', '\\sum_{k=#?}^{#?}#?', 'Σ', 'somme de k = … à …'),
+      k('\\int_a^b', '\\int_{#?}^{#?}#?\\,\\mathrm{d}x', '∫[a ; b] (' + K + ') dx', 'intégrale de a à b', ADV),
+      k('\\int', '\\int #?\\,\\mathrm{d}x', '∫ (' + K + ') dx', 'primitive (intégrale sans bornes)', ADV),
+      k('\\frac{\\mathrm{d}}{\\mathrm{d}x}', '\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(#?\\right)', 'd/dx(' + K + ')', 'dériver par rapport à x', ADV),
+      k('f\\Big|_{x=a}', '\\left.#@\\right|_{x=#?}', '|x=' + K, 'évaluer en x = a', ADV),
+      k('\\sum_{k=1}^{n}', '\\sum_{k=#?}^{#?}#?', 'Σ', 'somme de k = … à …', ADV),
       k('\\lim_{x\\to a}', '\\lim_{x\\to#?}#?', 'lim(x→' + K + ') ', 'limite'),
       k("f'(x)", "f^{\\prime}\\left(#?\\right)", "f′(" + K + ')', 'f prime de'),
       k('\\frac{\\mathrm{d}y}{\\mathrm{d}x}', '\\frac{\\mathrm{d}#?}{\\mathrm{d}#?}', 'dy/dx', 'dérivée d sur d'),
@@ -88,13 +100,15 @@
     k('0', '0'), k(',', '{,}', ',', 'virgule'), k('\\pi', '\\pi', 'π', 'pi'), k('+', '+', '+', 'plus', { c: 'op' }), k('e', 'e', 'e', 'e'), k('\\text{Ans}', '\\operatorname{Ans}', 'Ans', 'résultat précédent')
   ];
   var ABC = ['azertyuiop', 'qsdfghjklm', 'wxcvbn'];
+  var EXAM_KEY_MSG = 'Mode examen : intégrales, dérivées, primitives et sommes se calculent à la main. Utilise la feuille pour les écrire.';
 
   /* ---------- état ---------- */
-  var root, body, qBox, modeBtns, thumb, paper, lines, ink, inkCtx, penBtns, clearBtn, calcView, calcHost, result, hist, angleBtn, useBtn, sheetBtn, enterKey;
+  var root, body, qBox, modeBtns, thumb, paper, lines, ink, inkCtx, penBtns, clearBtn, calcView, calcHost, result, hist, angleBtn, useBtn, sheetBtn, enterKey, expandBtn;
   var kbTabs, kbPanes, loadNote;
   var ctx = null, mode = store.get('sheet-mode') === 'calc' ? 'calc' : 'sheet', tool = 'text', angle = store.get('calc-angle') || 'rad';
   var ML = null, mlState = 'idle', active = null, calcField = null;
-  var ans, lastValue = null, history = [], strokes = [], drawing = null, undoState = null, undoTimer = 0;
+  var ans, lastValue = null, lastExpr = null, history = [], strokes = [], drawing = null, undoState = null, undoTimer = 0;
+  var inlineHost = null, overlay = false, examMode = false, kind = 'train', ctxByKind = {};
 
   /* ---------- chargement de MathLive ---------- */
   function loadMathLive() {
@@ -127,23 +141,27 @@
   }
 
   /* ---------- champs (MathLive ou repli texte) ---------- */
-  function makeField(kind, value) {
+  function makeField(kindF, value) {
     var f;
     if (mlState === 'ready') {
       f = document.createElement('math-field');
       f.mathVirtualKeyboardPolicy = 'manual';
       f.setAttribute('math-virtual-keyboard-policy', 'manual');
       f.smartMode = false;
-      f.className = kind === 'calc' ? 'mf calc-field' : 'mf line';
-      f.setAttribute('aria-label', kind === 'calc' ? 'Calcul à effectuer' : 'Ligne du brouillon');
+      f.className = kindF === 'calc' ? 'mf calc-field' : 'mf line';
+      f.setAttribute('aria-label', kindF === 'calc' ? 'Calcul à effectuer' : 'Ligne du brouillon');
       if (value) f.value = value;
     } else {
-      f = el(kind === 'calc' ? 'input' : 'input', { type: 'text', class: (kind === 'calc' ? 'calc-field' : 'line') + ' plain', spellcheck: 'false', autocomplete: 'off', autocapitalize: 'off',
-        'aria-label': kind === 'calc' ? 'Calcul à effectuer' : 'Ligne du brouillon' });
-      if (coarse && kind === 'calc') f.setAttribute('inputmode', 'none');
+      f = el('input', { type: 'text', class: (kindF === 'calc' ? 'calc-field' : 'line') + ' plain', spellcheck: 'false', autocomplete: 'off', autocapitalize: 'off',
+        'aria-label': kindF === 'calc' ? 'Calcul à effectuer' : 'Ligne du brouillon' });
+      if (coarse && kindF === 'calc') f.setAttribute('inputmode', 'none');
       f.value = value || '';
     }
-    f.addEventListener('focusin', function () { active = f; });
+    f.addEventListener('focusin', function () {
+      active = f;
+      // écran partagé : le volet où l'on écrit reçoit aussi les symboles du clavier
+      if (root.classList.contains('is-split')) setMode(kindF === 'calc' ? 'calc' : 'sheet', true);
+    });
     return f;
   }
   function isMath(f) { return f && f.tagName === 'MATH-FIELD'; }
@@ -197,7 +215,6 @@
   function addLine(after, value, focus) {
     var f = makeField('line', value);
     if (after && after.nextSibling) lines.insertBefore(f, after.nextSibling);
-    else if (after) lines.appendChild(f);
     else lines.appendChild(f);
     f.addEventListener('input', saveLines);
     f.addEventListener('beforeinput', function (ev) {
@@ -221,25 +238,44 @@
   }
 
   /* ---------- calculatrice ---------- */
+  function katexInto(target, latex) {
+    if (window.katex) { try { window.katex.render(latex, target, { throwOnError: false }); return; } catch (e) { /* repli */ } }
+    target.textContent = latex;
+  }
   function calcEval(commit) {
     var src = fieldValue(calcField).trim();
-    lastValue = null;
+    lastValue = null; lastExpr = null;
+    useBtn.disabled = false;
     if (!src) { result.textContent = ''; result.className = 'calc-result'; return false; }
     try {
-      var v = isMath(calcField) ? CORE.evaluateLatex(src, { angle: angle, ans: ans }) : CORE.evaluate(src, { angle: angle, ans: ans });
-      lastValue = v;
-      result.textContent = '= ' + CORE.fmtCalc(v);
-      result.className = 'calc-result ' + (commit ? 'is-done' : 'is-preview');
+      var r;
+      if (isMath(calcField)) r = CORE.calcLatex(src, { angle: angle, ans: ans, exam: examMode });
+      else r = { kind: 'number', value: CORE.evaluate(src, { angle: angle, ans: ans }) };
+      var state = commit ? ' is-done' : ' is-preview';
+      if (r.kind === 'expr') {
+        lastExpr = r.latex;
+        result.className = 'calc-result is-expr' + state;
+        result.textContent = '';
+        katexInto(result, '=' + r.latex);
+        useBtn.disabled = true;
+        useBtn.title = 'Le résultat est une expression : écris-la dans la feuille';
+      } else {
+        lastValue = r.value;
+        result.textContent = '= ' + CORE.fmtCalc(r.value);
+        result.className = 'calc-result' + state;
+        useBtn.title = '';
+      }
       if (commit) {
-        ans = v;
-        history.unshift({ src: src, v: v, math: isMath(calcField) });
+        if (r.kind === 'number') ans = r.value;
+        history.unshift({ src: src, v: r.kind === 'number' ? r.value : null, latex: r.kind === 'expr' ? r.latex : null, math: isMath(calcField) });
         history = history.slice(0, 8);
         renderHistory();
       }
       return true;
     } catch (e) {
-      result.textContent = commit ? (e.message || 'Erreur') : '';
-      result.className = 'calc-result' + (commit ? ' is-error' : '');
+      var exam = /^Mode examen/.test(e.message || '');
+      result.textContent = commit || exam ? (e.message || 'Erreur') : '';
+      result.className = 'calc-result' + (commit || exam ? ' is-error' : '') + (exam ? ' is-exam' : '');
       return false;
     }
   }
@@ -248,9 +284,11 @@
     history.forEach(function (h) {
       var b = el('button', { type: 'button', title: 'Reprendre ce calcul' });
       var expr = el('span', { class: 'h-expr' });
-      if (h.math && window.katex) { try { window.katex.render(h.src, expr, { throwOnError: false }); } catch (e) { expr.textContent = h.src; } } else expr.textContent = h.src;
+      if (h.math && window.katex) katexInto(expr, h.src); else expr.textContent = h.src;
       b.appendChild(expr);
-      b.appendChild(el('b', { text: '= ' + CORE.fmtCalc(h.v) }));
+      var out = el('b');
+      if (h.latex) katexInto(out, '=' + h.latex); else out.textContent = '= ' + CORE.fmtCalc(h.v);
+      b.appendChild(out);
       b.addEventListener('click', function () {
         if (isMath(calcField)) calcField.setValue(h.src); else calcField.value = h.src;
         calcEval(false); if (!coarse) calcField.focus();
@@ -264,16 +302,20 @@
   function answerText(v) { return String(parseFloat(v.toPrecision(12))).replace('.', ','); }
   function useAsAnswer() {
     if (!ctx || !ctx.input) return;
-    if (lastValue === null && !calcEval(true)) return;
-    ctx.input.value = answerText(lastValue);
+    if (lastValue === null && lastExpr === null) calcEval(true);
+    if (lastValue === null) return;
     var input = ctx.input;
-    closeSheet();
+    input.value = answerText(lastValue);
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    if (overlay) closeSheet();
     input.focus();
   }
   function toSheet() {
-    if (lastValue === null && !calcEval(true)) return;
+    if (lastValue === null && lastExpr === null && !calcEval(true)) return;
+    if (lastValue === null && lastExpr === null) return;
     var src = fieldValue(calcField);
-    var line = isMath(calcField) ? src + '=' + resultLatex(lastValue) : src + ' = ' + CORE.fmtCalc(lastValue);
+    var res = lastExpr !== null ? lastExpr : null;
+    var line = isMath(calcField) ? src + '=' + (res !== null ? res : resultLatex(lastValue)) : src + ' = ' + CORE.fmtCalc(lastValue);
     var last = lines.lastChild;
     if (last && !fieldValue(last)) { if (isMath(last)) last.setValue(line); else last.value = line; }
     else addLine(last, line, false);
@@ -354,8 +396,8 @@
   /* ---------- construction ---------- */
   function btn(cls, html, attrs) { var b = el('button', Object.assign({ type: 'button', class: cls }, attrs || {})); b.innerHTML = html; return b; }
   function keyButton(key, cls) {
-    var b = el('button', { type: 'button', class: 'key ' + (cls || '') + (key.c ? ' key-' + key.c : '') });
-    if (key.a) { b.setAttribute('aria-label', key.a); b.title = key.a; }
+    var b = el('button', { type: 'button', class: 'key ' + (cls || '') + (key.c ? ' key-' + key.c : '') + (key.calc ? ' is-calc-only' : '') });
+    if (key.a) { b.setAttribute('aria-label', key.a); b.title = key.a + (key.calc ? ' (calculé par la calculatrice d’entraînement)' : ''); }
     if (key.txt || !window.katex) b.textContent = key.txt ? key.l : key.p.replace(K, '').replace(/[()]/g, '') || key.l;
     else { try { window.katex.render(key.l, b, { throwOnError: false }); } catch (e) { b.textContent = key.l; } }
     b._key = key;
@@ -421,6 +463,11 @@
     kb.addEventListener('click', function (e) {
       var b = e.target.closest('.key'); if (!b || !b._key) return;
       if (mode === 'sheet' && tool === 'pen') setTool('text');
+      if (mode === 'calc' && examMode && b._key.calc) {
+        result.textContent = EXAM_KEY_MSG;
+        result.className = 'calc-result is-error is-exam';
+        return;
+      }
       if (!active || (mode === 'calc' && active !== calcField) || (mode === 'sheet' && active.parentNode !== lines)) active = mode === 'calc' ? calcField : lines.lastChild;
       insertKey(active, b._key);
       if (active === calcField) calcEval(false);
@@ -433,18 +480,23 @@
   }
 
   function build() {
-    root = el('div', { class: 'sheet', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'sheet-title' });
+    root = el('div', { class: 'sheet', 'aria-labelledby': 'sheet-title' });
     root.hidden = true;
 
-    /* barre du haut : titre, interrupteur Feuille / Calculatrice, fermer */
+    /* barre du haut : titre, aiguillage des symboles, mode examen, agrandir / fermer */
     var close = btn('sheet-icon sheet-close', icon('close'), { 'aria-label': 'Fermer le brouillon', title: 'Fermer (Échap)' });
     close.addEventListener('click', closeSheet);
+    expandBtn = btn('sheet-icon sheet-expand', icon('expandSheet'), { 'aria-label': 'Agrandir en plein écran', title: 'Plein écran' });
+    expandBtn.addEventListener('click', function () { openSheet(ctx); });
     modeBtns = [btn('mode-opt', 'Feuille', { role: 'radio', 'data-mode': 'sheet' }), btn('mode-opt', 'Calculatrice', { role: 'radio', 'data-mode': 'calc' })];
     thumb = el('span', { class: 'mode-thumb', 'aria-hidden': 'true' });
-    var sw = el('div', { class: 'mode-switch', role: 'radiogroup', 'aria-label': 'Mode' }, [thumb].concat(modeBtns));
+    var sw = el('div', { class: 'mode-switch', role: 'radiogroup', 'aria-label': 'Utiliser les symboles sur la feuille ou sur la calculatrice' }, [thumb].concat(modeBtns));
     modeBtns.forEach(function (b) { b.addEventListener('click', function () { setMode(b.dataset.mode); }); });
+    var route = el('div', { class: 'route' }, [el('span', { class: 'route-label', 'aria-hidden': 'true', text: 'Utiliser les symboles sur' }), sw]);
+    var flag = el('span', { class: 'exam-flag', title: 'Calculatrice standard : pas de dérivée, primitive, intégrale ni somme automatiques' });
+    flag.innerHTML = icon('lock') + 'Mode examen';
     qBox = el('div', { class: 'sheet-q', 'aria-label': 'Question en cours' });
-    root.appendChild(el('header', { class: 'sheet-bar' }, [el('h2', { id: 'sheet-title', class: 'sheet-title', text: 'Brouillon' }), sw, close, qBox]));
+    root.appendChild(el('header', { class: 'sheet-bar' }, [el('h2', { id: 'sheet-title', class: 'sheet-title', text: 'Brouillon' }), route, flag, expandBtn, close, qBox]));
 
     /* feuille */
     lines = el('div', { class: 'sheet-lines' });
@@ -455,7 +507,7 @@
     clearBtn = btn('sheet-tool', icon('trash') + '<span>Effacer</span>', { title: 'Effacer la feuille (ou le dessin en mode Stylo)' });
     clearBtn.addEventListener('click', clearOrUndo);
     var paperTools = el('div', { class: 'paper-tools' }, [el('div', { class: 'seg', role: 'group', 'aria-label': 'Outil d’écriture' }, penBtns), clearBtn]);
-    paper = el('section', { class: 'sheet-paper', 'aria-label': 'Feuille' }, [lines, ink, paperTools]);
+    paper = el('section', { class: 'sheet-paper', 'aria-label': 'Feuille' }, [el('span', { class: 'pane-label', text: 'Feuille' }), lines, ink, paperTools]);
     lines.addEventListener('click', function (e) { if (e.target === lines) { var l = lines.lastChild; if (l) { l.focus(); active = l; } } });
 
     /* calculatrice */
@@ -468,11 +520,14 @@
     sheetBtn = btn('calc-act', icon('insert') + '<span>Vers la feuille</span>');
     sheetBtn.addEventListener('click', toSheet);
     hist = el('ol', { class: 'calc-history', 'aria-label': 'Historique des calculs' });
+    var tip = el('span', { class: 'calc-tip' });
     calcView = el('section', { class: 'calc-view', 'aria-label': 'Calculatrice' }, [
-      el('div', { class: 'calc-screen' }, [el('div', { class: 'calc-flags' }, [angleBtn, el('span', { class: 'calc-tip', text: 'Écris comme sur ta copie : fractions, ∫, Σ, racines…' })]), calcHost, result]),
+      el('span', { class: 'pane-label', text: 'Calculatrice' }),
+      el('div', { class: 'calc-screen' }, [el('div', { class: 'calc-flags' }, [angleBtn, tip]), calcHost, result]),
       el('div', { class: 'calc-actions' }, [useBtn, sheetBtn]),
       hist
     ]);
+    root._tip = tip;
     loadNote = el('p', { class: 'load-note', 'aria-live': 'polite' });
 
     body = el('div', { class: 'sheet-body' }, [paper, calcView, buildKeyboard(), loadNote]);
@@ -480,16 +535,32 @@
     document.body.appendChild(root);
     setupInk();
     syncAngle();
+    syncExam();
+    setMode(mode);
 
     root.addEventListener('keydown', function (e) {
+      if (!overlay) return;
       if (e.key === 'Escape') { e.preventDefault(); closeSheet(); }
       else if (e.key === 'Tab' && !(e.target && e.target.tagName === 'MATH-FIELD')) trapFocus(e);
     });
     if (window.visualViewport) {
-      var fit = function () { if (root.hidden) return; var vv = window.visualViewport; root.style.height = vv.height + 'px'; root.style.top = vv.offsetTop + 'px'; };
+      var fit = function () { if (root.hidden || !overlay) return; var vv = window.visualViewport; root.style.height = vv.height + 'px'; root.style.top = vv.offsetTop + 'px'; };
       window.visualViewport.addEventListener('resize', fit);
       window.visualViewport.addEventListener('scroll', fit);
     }
+    // écran partagé selon la largeur réellement disponible (page ou plein écran)
+    function layout() {
+      var w = root.clientWidth;
+      if (!w) return;
+      var split = w >= SPLIT_MIN, wide = w >= WIDE_MIN;
+      if (split !== root.classList.contains('is-split') || wide !== root.classList.contains('is-wide')) {
+        root.classList.toggle('is-split', split);
+        root.classList.toggle('is-wide', wide);
+        if (mode === 'sheet') redrawInk();
+      }
+    }
+    if ('ResizeObserver' in window) new ResizeObserver(layout).observe(root);
+    root._layout = layout;
   }
   function mountFields() {
     // (re)crée les zones d'écriture une fois MathLive chargé (ou en mode simple)
@@ -508,7 +579,13 @@
     angleBtn.textContent = angle === 'rad' ? 'RAD' : 'DEG';
     angleBtn.title = angle === 'rad' ? 'Angles en radians (toucher pour passer en degrés)' : 'Angles en degrés (toucher pour passer en radians)';
   }
-  function setMode(m) {
+  function syncExam() {
+    if (examMode) root.dataset.exam = '1'; else delete root.dataset.exam;
+    root._tip.textContent = examMode ? 'Mode examen : calculatrice standard' : 'Écris comme sur ta copie : fractions, ∫, d/dx, Σ, racines…';
+  }
+  /** m : 'sheet' | 'calc' ; keepTab : ne pas changer d'onglet de clavier (aiguillage automatique). */
+  function setMode(m, keepTab) {
+    if (keepTab && m === mode) return;
     mode = m;
     store.set('sheet-mode', m);
     root.dataset.mode = m;
@@ -516,12 +593,88 @@
     enterKey.textContent = m === 'calc' ? '=' : '↵';
     enterKey.setAttribute('aria-label', m === 'calc' ? 'Calculer' : 'Nouvelle ligne');
     enterKey.title = enterKey.getAttribute('aria-label');
+    if (keepTab) return;
     selectTab(m === 'calc' ? 1 : 0);
+    if (!lines || !calcField) return;
     if (m === 'sheet') { redrawInk(); active = lines.lastChild; } else active = calcField;
-    if (!coarse && active) setTimeout(function () { active.focus(); }, 0);
+    if (!coarse && active && (overlay || document.activeElement && root.contains(document.activeElement))) setTimeout(function () { active.focus(); }, 0);
   }
 
-  /* ---------- ouverture / fermeture ---------- */
+  /* ---------- contexte (question, réponse) ---------- */
+  function applyContext() {
+    if (!root) return;
+    qBox.innerHTML = '';
+    if (ctx && ctx.question) { qBox.innerHTML = ctx.question.innerHTML; qBox.hidden = !qBox.textContent.trim(); } else qBox.hidden = true;
+    useBtn.hidden = !(ctx && ctx.input);
+  }
+  /** Contexte d'un exercice : kindC 'train' ou 'exam' ; appliqué seulement si c'est le mode en cours. */
+  function setContext(c, kindC) {
+    kindC = kindC || kind;
+    ctxByKind[kindC] = c;
+    if (kindC === kind) { ctx = c; applyContext(); }
+  }
+  function setExam(on) {
+    examMode = !!on;
+    kind = examMode ? 'exam' : 'train';
+    ctx = ctxByKind[kind] || null;
+    if (!root) return;
+    syncExam();
+    applyContext();
+    if (calcField) calcEval(false);
+  }
+
+  /* ---------- intégré à la page ---------- */
+  function ensureReady() {
+    if (root.dataset.ready) { setMode(mode); return; }
+    if (mlState === 'ready' || mlState === 'failed') { mountFields(); setMode(mode); return; }
+    root.dataset.loading = '1';
+    loadNote.textContent = 'Chargement de l’éditeur mathématique…';
+    loadMathLive().then(function () { delete root.dataset.loading; if (!root.dataset.ready) mountFields(); setMode(mode); });
+  }
+  function launcherFor(host) {
+    var l = host.querySelector(':scope > .workspace-launch');
+    if (l) return l;
+    l = el('button', { type: 'button', class: 'workspace-launch', 'aria-haspopup': 'dialog' });
+    l.innerHTML = icon('calc') + '<span><b>Brouillon et calculatrice</b><small>Feuille noire et calculatrice, en plein écran</small></span>' + '<span class="go">' + icon('arrowRight') + '</span>';
+    l.addEventListener('click', function () {
+      mount(host, { mode: host.dataset.wsMode });
+      openSheet(ctx);
+    });
+    host.insertBefore(l, host.firstChild);
+    return l;
+  }
+  /**
+   * CourseSheet.mount(hôte, { mode: 'train' | 'exam', ctx }) : place le brouillon dans la page.
+   * Un seul brouillon par page : il se déplace entre l'Entraînement et l'Évaluation.
+   */
+  function mount(host, o) {
+    o = o || {};
+    if (!root) build();
+    if (o.mode) host.dataset.wsMode = o.mode;
+    launcherFor(host);
+    if (overlay) closeSheet();
+    inlineHost = host;
+    host.appendChild(root);
+    root.classList.add('is-inline');
+    root.setAttribute('role', 'region');
+    root.removeAttribute('aria-modal');
+    root.hidden = false;
+    root.style.height = ''; root.style.top = '';
+    if (o.ctx) setContext(o.ctx, o.mode === 'exam' ? 'exam' : 'train');
+    setExam(o.mode === 'exam');
+    root._layout();
+    // chargement de MathLive quand l'espace de travail approche de l'écran
+    if (!root.dataset.ready && !root.dataset.loading) {
+      if ('IntersectionObserver' in window && mlState === 'idle') {
+        var io = new IntersectionObserver(function (en) {
+          if (en.some(function (x) { return x.isIntersecting; })) { io.disconnect(); ensureReady(); }
+        }, { rootMargin: '600px 0px' });
+        io.observe(host);
+      } else ensureReady();
+    }
+  }
+
+  /* ---------- plein écran : ouverture / fermeture ---------- */
   function trapFocus(e) {
     var f = Array.prototype.filter.call(root.querySelectorAll('button, input, math-field, [tabindex="0"]'), function (n) { return !n.disabled && n.offsetParent !== null; });
     if (!f.length) return;
@@ -531,14 +684,18 @@
   }
   function openSheet(c) {
     if (!root) build();
-    ctx = c || null;
-    qBox.innerHTML = '';
-    if (ctx && ctx.question) { qBox.innerHTML = ctx.question.innerHTML; qBox.hidden = !qBox.textContent.trim(); } else qBox.hidden = true;
-    useBtn.hidden = !(ctx && ctx.input);
+    if (c) { ctx = c; ctxByKind[kind] = c; }
+    overlay = true;
+    if (root.parentNode !== document.body) document.body.appendChild(root);
+    root.classList.remove('is-inline');
+    root.setAttribute('role', 'dialog');
+    root.setAttribute('aria-modal', 'true');
+    applyContext();
     root.hidden = false;
     root.style.height = ''; root.style.top = '';
     if (window.visualViewport) root.style.height = window.visualViewport.height + 'px';
     document.documentElement.classList.add('fs-lock');
+    root._layout();
     var go = function () {
       if (!root.dataset.ready) mountFields();
       setMode(mode);
@@ -552,16 +709,29 @@
     }
   }
   function closeSheet() {
-    if (!root || root.hidden) return;
+    if (!root || !overlay) return;
     saveLines();
-    root.hidden = true;
+    overlay = false;
     document.documentElement.classList.remove('fs-lock');
+    root.style.height = ''; root.style.top = '';
+    if (inlineHost) {
+      // retour dans la page, à sa place
+      inlineHost.appendChild(root);
+      root.classList.add('is-inline');
+      root.setAttribute('role', 'region');
+      root.removeAttribute('aria-modal');
+      root._layout();
+    } else root.hidden = true;
     if (ctx && ctx.opener && document.contains(ctx.opener)) ctx.opener.focus();
   }
 
   // Préchargement discret : dès qu'on s'approche d'un bouton calculatrice.
-  document.addEventListener('pointerover', function (e) { if (e.target.closest && e.target.closest('.drill-calc')) loadMathLive(); }, { passive: true });
-  document.addEventListener('focusin', function (e) { if (e.target.closest && e.target.closest('.drill-calc')) loadMathLive(); });
+  document.addEventListener('pointerover', function (e) { if (e.target.closest && e.target.closest('.drill-calc, .workspace-launch')) loadMathLive(); }, { passive: true });
+  document.addEventListener('focusin', function (e) { if (e.target.closest && e.target.closest('.drill-calc, .workspace-launch')) loadMathLive(); });
 
-  window.CourseSheet = { open: openSheet, close: closeSheet, load: loadMathLive };
+  window.CourseSheet = {
+    open: openSheet, close: closeSheet, load: loadMathLive,
+    mount: mount, setContext: setContext, setExam: setExam,
+    isExam: function () { return examMode; }
+  };
 })();
