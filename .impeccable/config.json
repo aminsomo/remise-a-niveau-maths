@@ -45,6 +45,24 @@
         ],
         "createdAt": "2026-11-19T21:06:41.059Z",
         "reason": "False positive of the static scan: flagged .widget containers (#w-drill, #exam, #validation-card) are empty in source and filled by app.js; rendered-page detect at 1366x900 and 390x844 reports no cramped padding"
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "files": [
+          "physique-1re/energie-chimique.html"
+        ],
+        "createdAt": "2026-11-19T22:30:00.000Z",
+        "reason": "Project typeface: Geist self-hosted in assets/fonts since chapter 1, part of the README visual direction"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "physique-1re/energie-chimique.html"
+        ],
+        "createdAt": "2026-11-19T22:30:00.000Z",
+        "reason": "False positive of the static scan: flagged .widget containers (#w-drill, #exam, #validation-card) are empty in source and filled by app.js, and .compare columns are separated by a divider; rendered-page detect reports no cramped padding"
       }
     ]
   }

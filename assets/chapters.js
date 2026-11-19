@@ -159,20 +159,20 @@ window.COURSE = /* BEGIN-JSON */ {
           ]
         },
         {
+          "slug": "energie-chimique",
+          "title": "Énergie chimique",
+          "summary": "Système chimique, transformations exo- et endothermiques, combustion, pouvoir calorifique E = m × PC, dangers.",
+          "tags": [
+            "énergie"
+          ]
+        },
+        {
           "slug": "mesures-incertitudes",
           "title": "Mesures et incertitudes",
           "summary": "Unités SI, chiffres significatifs, erreurs, incertitude-type, écart normalisé.",
           "tags": [
             "méthode",
             "essentiel"
-          ]
-        },
-        {
-          "slug": "energie-chimique",
-          "title": "Énergie chimique : combustions",
-          "summary": "Combustible, comburant, pouvoir calorifique, dangers et prévention.",
-          "tags": [
-            "énergie"
           ]
         },
         {

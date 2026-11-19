@@ -1,4 +1,4 @@
-// Chapitres en 6 étapes (physique-1re/energie-enjeux, physique-1re/energie-interne) : parcours complet,
+// Chapitres en 6 étapes (physique-1re : energie-enjeux, energie-interne, energie-chimique) : parcours complet,
 // widgets « Manipuler », brouillon intégré, calculatrice d'entraînement / d'examen, aucune erreur dans la console.
 const { test, expect } = require('@playwright/test');
 const fs = require('fs');
@@ -9,7 +9,8 @@ const KEY = 'progress:physique-1re/energie-enjeux';
 // chapitres refondus : même parcours (série de 5, évaluation sur 20, validation)
 const CHAPTERS = [
   { url: URL, key: 'physique-1re/energie-enjeux', widget: '#w-energie', next: /energie-interne\.html$/ },
-  { url: 'physique-1re/energie-interne.html', key: 'physique-1re/energie-interne', widget: '#w-du', next: /mesures-incertitudes\.html$/ }
+  { url: 'physique-1re/energie-interne.html', key: 'physique-1re/energie-interne', widget: '#w-du', next: /energie-chimique\.html$/ },
+  { url: 'physique-1re/energie-chimique.html', key: 'physique-1re/energie-chimique', widget: '#w-pc', next: /mesures-incertitudes\.html$/ }
 ];
 const SIX_STEPS = CHAPTERS.map((c) => c.url);
 const ROOT = path.resolve(__dirname, '..', '..');
@@ -311,6 +312,87 @@ test.describe('chapitre 2 : énergie interne', () => {
 
   test('cours : figures lisibles, rien ne déborde des cartes', async ({ page }) => {
     await open(page, URL2);
+    const r = await page.locator('#cours .fig').evaluateAll((f) => f.map((x) => ({ w: x.getBoundingClientRect().width, card: x.closest('.box').getBoundingClientRect().width })));
+    expect(r.length).toBe(2);
+    for (const x of r) { expect(x.w).toBeGreaterThan(240); expect(x.w).toBeLessThanOrEqual(x.card); }
+    const over = await page.locator('#cours .box, #exemples .box').evaluateAll((b) => b.filter((x) => x.scrollWidth > x.clientWidth + 1).length);
+    expect(over).toBe(0);
+  });
+});
+
+/* ---------- Chapitre 3 : énergie chimique ---------- */
+test.describe('chapitre 3 : énergie chimique', () => {
+  const URL3 = 'physique-1re/energie-chimique.html';
+  test('couleurs : E, PC et m ont la même couleur dans la formule, le curseur et le graphique', async ({ page }) => {
+    await open(page, URL3);
+    const r = await page.evaluate(() => {
+      const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim().toLowerCase();
+      const rgb = (hex) => { const n = parseInt(hex.slice(1), 16); return `rgb(${n >> 16}, ${(n >> 8) & 255}, ${n & 255})`; };
+      const w = document.querySelector('#w-pc');
+      return ['E', 'PC', 'm'].map((q) => ({
+        q, want: css('--q-' + q), rgb: rgb(css('--q-' + q)),
+        formula: getComputedStyle(w.querySelector('.lab-formula .q-' + q)).color,
+        slider: q === 'E' ? css('--q-E') : getComputedStyle(w.querySelector(`.slider[style*="--q-${q})"]`)).getPropertyValue('--tone').trim().toLowerCase(),
+        plot: window.Course.color('--q-' + q).toLowerCase()
+      }));
+    });
+    for (const x of r) {
+      expect(x.formula, x.q).toBe(x.rgb);
+      expect(x.slider, x.q).toBe(x.want);
+      expect(x.plot, x.q).toBe(x.want);
+    }
+  });
+
+  test('manipuler : E = m × PC (exercice 11), masses équivalentes', async ({ page }) => {
+    await open(page, URL3);
+    const w = page.locator('#w-pc');
+    await w.locator('.preset', { hasText: 'Butane' }).click();
+    await expect(w.locator('.preset', { hasText: 'Butane' })).toHaveAttribute('aria-pressed', 'true');
+    await expect(w.locator('.kpi').nth(0).locator('.kpi-value')).toContainText('592,8'); // 13 × 45,6
+    await expect(w.locator('.kpi').nth(1).locator('.kpi-value')).toHaveText('Butane');
+    await expect(w.locator('.kpi').nth(2).locator('.kpi-value')).toContainText('13,9'); // 592,8 / 42,7 kg d'essence
+    await w.locator('.preset', { hasText: 'Dihydrogène' }).click();
+    await expect(w.locator('.kpi').nth(0).locator('.kpi-value')).toContainText('120,5');
+    await expect(w.locator('.kpi').nth(1).locator('.kpi-value')).toHaveText('Dihydrogène');
+    await expect(w.locator('.kpi').nth(2).locator('.kpi-value')).toContainText('2,82'); // ≈ 3 fois plus que l'essence
+  });
+
+  test('manipuler : TP, le PC mesuré est trop petit à cause des pertes', async ({ page }) => {
+    await open(page, URL3);
+    const w = page.locator('#w-tp');
+    await w.locator('.preset', { hasText: 'Éthanol' }).click();
+    await expect(w.locator('.kpi').nth(2).locator('.kpi-value')).toContainText('38'); // 18 °C + 20 °C (exemple de la page)
+    await expect(w.locator('.kpi').nth(3).locator('.kpi-value')).toContainText('13,9');
+    await expect(w.locator('.kpi').nth(3).locator('.kpi-sub')).toContainText('52 %');
+    await w.locator('.preset', { hasText: 'Sans aucune perte' }).click();
+    await expect(w.locator('.kpi').nth(3).locator('.kpi-value')).toContainText('26,8');
+    await expect(w.locator('.kpi').nth(3).locator('.badge.good')).toBeVisible();
+    await w.locator('.preset', { hasText: 'l’eau bout' }).click();
+    await expect(w.locator('.kpi').nth(2).locator('.kpi-value')).toContainText('100');
+    await expect(w.locator('.kpi').nth(3).locator('.badge.mid')).toBeVisible();
+  });
+
+  test('manipuler : à masse égale le dihydrogène gagne, à volume égal le kérosène', async ({ page }) => {
+    await open(page, URL3);
+    const w = page.locator('#w-compare');
+    await w.locator('.preset', { hasText: '1 kg' }).click();
+    await expect(w.locator('.kpi').nth(0).locator('.kpi-value')).toHaveText('Dihydrogène');
+    await expect(w.locator('.seg button[data-set="kg"]')).toHaveAttribute('aria-pressed', 'true');
+    await w.locator('.preset', { hasText: '1 L' }).click();
+    await expect(w.locator('.kpi').nth(0).locator('.kpi-value')).toHaveText('Kérosène');
+    await expect(w.locator('.seg button[data-set="L"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(w.locator('.qty-unit')).toHaveText('L');
+    await expect(w.locator('.lab-formula [data-mode="L"]')).toBeVisible();
+    await expect(w.locator('.lab-formula [data-mode="kg"]')).toBeHidden();
+    // l'interrupteur repasse à masse égale et désélectionne le préréglage
+    await w.locator('.seg button[data-set="kg"]').click();
+    await expect(w.locator('.kpi').nth(0).locator('.kpi-value')).toHaveText('Dihydrogène');
+    await expect(w.locator('.preset', { hasText: '1 L' })).toHaveAttribute('aria-pressed', 'false');
+    await expect(w.locator('.qty-unit')).toHaveText('kg');
+  });
+
+  test('cours : figures lisibles, rien ne déborde des cartes', async ({ page }) => {
+    await open(page, URL3);
     const r = await page.locator('#cours .fig').evaluateAll((f) => f.map((x) => ({ w: x.getBoundingClientRect().width, card: x.closest('.box').getBoundingClientRect().width })));
     expect(r.length).toBe(2);
     for (const x of r) { expect(x.w).toBeGreaterThan(240); expect(x.w).toBeLessThanOrEqual(x.card); }

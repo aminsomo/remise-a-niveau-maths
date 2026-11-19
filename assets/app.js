@@ -116,7 +116,10 @@
     '\\QT': '\\htmlClass{q-T}{T}', '\\QdT': '\\htmlClass{q-T}{\\Delta T}',
     '\\QTi': '\\htmlClass{q-T}{T_{\\text{initial}}}', '\\QTf': '\\htmlClass{q-T}{T_{\\text{final}}}',
     '\\QTeq': '\\htmlClass{q-T}{T_{\\text{éq}}}',
-    '\\Qm': '\\htmlClass{q-m}{m}', '\\Qc': '\\htmlClass{q-c}{c}', '\\QL': '\\htmlClass{q-L}{L}'
+    '\\Qm': '\\htmlClass{q-m}{m}', '\\Qc': '\\htmlClass{q-c}{c}', '\\QL': '\\htmlClass{q-L}{L}',
+    // chapitre 3 : énergie chimique (pouvoir calorifique, masse brûlée, masse volumique, densité, volume)
+    '\\QPC': '\\htmlClass{q-PC}{\\mathit{PC}}', '\\Qdm': '\\htmlClass{q-m}{\\Delta m}',
+    '\\Qrho': '\\htmlClass{q-rho}{\\rho}', '\\Qd': '\\htmlClass{q-rho}{d}', '\\QV': '\\htmlClass{q-V}{V}'
   };
   function katexOptions(extra) {
     return Object.assign({
