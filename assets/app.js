@@ -119,7 +119,9 @@
     '\\Qm': '\\htmlClass{q-m}{m}', '\\Qc': '\\htmlClass{q-c}{c}', '\\QL': '\\htmlClass{q-L}{L}',
     // chapitre 3 : énergie chimique (pouvoir calorifique, masse brûlée, masse volumique, densité, volume)
     '\\QPC': '\\htmlClass{q-PC}{\\mathit{PC}}', '\\Qdm': '\\htmlClass{q-m}{\\Delta m}',
-    '\\Qrho': '\\htmlClass{q-rho}{\\rho}', '\\Qd': '\\htmlClass{q-rho}{d}', '\\QV': '\\htmlClass{q-V}{V}'
+    '\\Qrho': '\\htmlClass{q-rho}{\\rho}', '\\Qd': '\\htmlClass{q-rho}{d}', '\\QV': '\\htmlClass{q-V}{V}',
+    // chapitre 4 : équation de réaction (quantité de matière, masse molaire, volume molaire)
+    '\\Qn': '\\htmlClass{q-n}{n}', '\\QM': '\\htmlClass{q-M}{M}', '\\QVm': '\\htmlClass{q-V}{V_m}'
   };
   function katexOptions(extra) {
     return Object.assign({
@@ -1038,10 +1040,12 @@
     answer.addEventListener('animationend', function () { answer.classList.remove('shake'); });
     input.addEventListener('input', function () { answer.classList.remove('is-ko'); });
     var choices = el('ul', { class: 'choices-grid' });
+    // « Passer » vit dans la ligne de réponse ; pour un QCM (ligne masquée), il passe sous les choix
+    var mcqBar = el('div', { class: 'mcq-actions' });
     var verdict = el('div', { class: 'verdict-host', 'aria-live': 'polite' });
     var sol = el('div', { class: 'solution-host' });
     var fb = el('p', { class: 'feedback sr-only', 'aria-live': 'polite' });
-    root.appendChild(el('div', { class: 'trainer-body' }, [el('div', { class: 'q-type' }, [badge]), ask, qEl, answer, formats, choices, verdict, sol, fb]));
+    root.appendChild(el('div', { class: 'trainer-body' }, [el('div', { class: 'q-type' }, [badge]), ask, qEl, answer, formats, choices, mcqBar, verdict, sol, fb]));
 
     var cur = null, attempts = 0, done = false, unlockedBefore = getProgress().unlocked, skipArmed = 0;
     function refreshTop(st, bump) {
@@ -1061,6 +1065,7 @@
       fb.textContent = ''; fb.className = 'feedback sr-only';
       var mcq = !!cur.choices;
       answer.hidden = mcq; formats.hidden = mcq; choices.hidden = !mcq;
+      mcqBar.hidden = !mcq; (mcq ? mcqBar : answer).appendChild(skip);
       answer.classList.remove('shake', 'is-ko', 'is-ok');
       skip.hidden = false; disarmSkip();
       if (mcq) buildChoices();

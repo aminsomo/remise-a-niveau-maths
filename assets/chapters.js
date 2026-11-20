@@ -167,6 +167,14 @@ window.COURSE = /* BEGIN-JSON */ {
           ]
         },
         {
+          "slug": "combustions",
+          "title": "Équation de réaction et molécules",
+          "summary": "Alcanes, alcènes, alcools, équation de combustion, n = m / M et n = V / Vm, tableau d’avancement, réactif limitant.",
+          "tags": [
+            "matière"
+          ]
+        },
+        {
           "slug": "mesures-incertitudes",
           "title": "Mesures et incertitudes",
           "summary": "Unités SI, chiffres significatifs, erreurs, incertitude-type, écart normalisé.",
@@ -216,14 +224,6 @@ window.COURSE = /* BEGIN-JSON */ {
           "tags": [
             "matière",
             "essentiel"
-          ]
-        },
-        {
-          "slug": "combustions",
-          "title": "Réactions chimiques de combustion",
-          "summary": "Alcanes, alcènes, alcools, équations, réactif limitant, biocarburants.",
-          "tags": [
-            "matière"
           ]
         },
         {
