@@ -81,6 +81,24 @@
         ],
         "createdAt": "2026-11-20T00:30:00.000Z",
         "reason": "False positive of the static scan: flagged .widget containers (#w-drill, #exam, #validation-card) are empty in source and filled by app.js, and .compare columns are separated by a divider; rendered pages checked at 1366x900 and iPhone 13"
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "files": [
+          "physique-1re/electricite-continu.html"
+        ],
+        "createdAt": "2026-11-20T17:40:00.000Z",
+        "reason": "Project typeface: Geist self-hosted in assets/fonts since chapter 1, part of the README visual direction"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "physique-1re/electricite-continu.html"
+        ],
+        "createdAt": "2026-11-20T17:40:00.000Z",
+        "reason": "False positive of the static scan: flagged .widget containers (#w-drill, #exam, #validation-card) are empty in source and filled by app.js; rendered pages checked at 1366x900, iPhone 13 and iPhone SE"
       }
     ]
   }

@@ -79,7 +79,7 @@ class LevelTests(unittest.TestCase):
         "maths-1re": {"automatismes", "suites", "second-degre", "degre-3", "nombre-derive", "fonctions-derivees",
                       "trigonometrie", "produit-scalaire", "complexes", "primitives", "statistiques",
                       "probabilites", "variables-aleatoires", "algorithmique"},
-        "physique-1re": {"mesures-incertitudes", "energie-enjeux", "energie-chimique", "energie-electrique",
+        "physique-1re": {"mesures-incertitudes", "energie-enjeux", "energie-chimique", "energie-electrique", "electricite-continu",
                          "energie-interne", "energie-mecanique", "pression-hydrostatique", "lumiere-energie",
                          "matiere-materiaux", "combustions", "oxydoreduction", "ondes", "ondes-sonores",
                          "ondes-electromagnetiques"},
@@ -240,7 +240,7 @@ class SixStepsTests(unittest.TestCase):
     def test_chapitres_de_physique_refondus(self):
         keys = [k for k, _, _ in self.six_step_chapters()]
         for key in ("physique-1re/energie-enjeux", "physique-1re/energie-interne", "physique-1re/energie-chimique",
-                    "physique-1re/combustions"):
+                    "physique-1re/combustions", "physique-1re/electricite-continu"):
             self.assertIn(key, keys)
 
     def test_banque_de_questions_chargee_par_la_page(self):

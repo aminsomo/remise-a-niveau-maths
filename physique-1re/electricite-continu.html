@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Électricité en régime continu · STI2D → Prépa</title>
+<meta name="description" content="Physique-chimie 1re STI2D, chapitre 5 : tension et intensité en régime continu, flécher une tension (convention générateur et récepteur), loi des mailles, nœuds et loi des nœuds, loi d’Ohm U = R × I et calcul d’une résistance. Cours, exemples, graphiques à manipuler, entraînement et évaluation sur 20.">
+<link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+<script defer src="electricite-continu.js"></script>
+</head>
+<body data-root="../" data-chapter="physique-1re/electricite-continu">
+<main class="chapter v2">
+  <header class="chapter-head">
+    <h1>Électricité en régime continu</h1>
+    <p class="lead">Une pile, une batterie, une alimentation de laboratoire : en régime continu, tensions et intensités ne varient pas.
+      Dans ce chapitre : flécher les tensions, appliquer la loi des mailles et la loi des nœuds, puis la loi d’Ohm \(\Qu = \QR \times \QI\) pour calculer une tension, une intensité ou une résistance.</p>
+    <ul class="meta">
+      <li>Physique-chimie · 1re STI2D</li>
+      <li>Chapitre 5</li>
+      <li>6 étapes : cours, exemples, manipulation, entraînement, évaluation, validation</li>
+    </ul>
+  </header>
+
+  <!-- ===================================================== 1. COURS -->
+  <section class="step" id="cours">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">1</span>
+      <div>
+        <h2>Cours</h2>
+        <p>Les définitions et les lois du chapitre, dans l’ordre du cours. Sur tous les schémas, les tensions des récepteurs sont en orange, celle du générateur en bleu, les intensités en vert.</p>
+      </div>
+    </header>
+
+    <h3 class="part-title"><span class="roman">I.</span> Le circuit électrique en régime continu</h3>
+    <div class="bento">
+      <article class="box def" id="c-continu">
+        <p class="box-title">Tension, intensité, régime continu</p>
+        <ul class="steps-list">
+          <li>Un circuit comporte un <b>générateur</b> (pile, batterie, alimentation), qui fournit l’énergie électrique, et des <b>récepteurs</b> (lampes, résistances, moteurs), qui la reçoivent.</li>
+          <li>L’<b>intensité</b> \(\QI\) du courant se mesure en <b>ampères</b> (A) : c’est le débit des charges électriques dans un fil.</li>
+          <li>La <b>tension</b> \(\Qu\) entre deux points du circuit se mesure en <b>volts</b> (V).</li>
+          <li>En <b>régime continu</b>, tensions et intensités restent <b>constantes</b> au cours du temps.</li>
+          <li><b>Sens conventionnel du courant</b> : à l’extérieur du générateur, le courant va de la borne <b>+</b> vers la borne <b>−</b>.</li>
+        </ul>
+        <p class="note">Conversions : \(1\ \mathrm{mA} = 0{,}001\ \mathrm{A}\) (on divise par 1 000) et \(1\ \mathrm{k\Omega} = 1\,000\ \Omega\). Par exemple \(850\ \mathrm{mA} = 0{,}850\ \mathrm{A}\).</p>
+      </article>
+
+      <article class="box method" id="c-mesures">
+        <p class="box-title">Mesurer une intensité et une tension</p>
+        <ul class="steps-list">
+          <li>L’<b>ampèremètre</b> se branche <b>en série</b> : le courant le traverse. Il entre par la borne <b>mA</b> (ou A) et sort par la borne <b>COM</b>.</li>
+          <li>Le <b>voltmètre</b> se branche <b>en dérivation</b>, aux bornes du dipôle. Pour mesurer \(\q{u}{U_{AB}}\) : borne <b>V</b> au point A, borne <b>COM</b> au point B.</li>
+        </ul>
+        <figure class="fig-wrap" data-fig="mesures"></figure>
+        <p class="note">La borne COM est toujours du côté de la borne − du générateur.</p>
+      </article>
+    </div>
+
+    <h3 class="part-title"><span class="roman">II.</span> La tension électrique et la loi des mailles</h3>
+    <div class="bento">
+      <article class="box def" id="c-fleche">
+        <p class="box-title">Flécher une tension</p>
+        <ul class="steps-list">
+          <li>La tension \(\q{u}{U_{AB}}\) se représente par une <b>flèche qui pointe vers A</b>, la première lettre. On a \(\q{u}{U_{AB}} = V_A - V_B\) : c’est la différence des <b>potentiels</b> électriques des points A et B, et \(\q{u}{U_{BA}} = -\q{u}{U_{AB}}\).</li>
+          <li>Lorsque le dipôle est un <b>générateur</b>, la tension se flèche dans le <b>même sens</b> que le courant.</li>
+          <li>Si le dipôle est un <b>récepteur</b>, la tension se flèche dans le <b>sens opposé</b> au courant.</li>
+        </ul>
+        <figure class="fig-wrap" data-fig="conventions"></figure>
+      </article>
+
+      <article class="box prop" id="c-maille">
+        <p class="box-title">Loi des mailles</p>
+        <p><b>Maille</b> : boucle fermée du circuit. On lui donne toujours un <b>sens de rotation</b>.</p>
+        <div class="formula"><p>Dans une maille fléchée, la somme des tensions est <b>nulle</b>.</p></div>
+        <ol class="steps-list">
+          <li>On fait le tour de la maille dans son sens de rotation.</li>
+          <li>Une tension dont la flèche va <b>dans le sens du parcours</b> compte <b>+</b> ; une tension dont la flèche va <b>dans le sens opposé</b> compte <b>−</b>.</li>
+          <li>La somme obtenue vaut 0.</li>
+        </ol>
+        <p class="note">Pourquoi ? Le potentiel est comme une altitude : le générateur fait monter, les récepteurs font descendre. Après un tour complet, on revient au point de départ, donc les montées compensent exactement les descentes.</p>
+      </article>
+
+      <article class="box prop" id="c-maille-exemple">
+        <p class="box-title">Exemple du cours : un générateur, deux lampes, une résistance</p>
+        <figure class="fig-wrap" data-fig="coursMaille"></figure>
+        <p>On tourne dans le sens horaire. La flèche de \(\q{gen}{U_G}\) va dans le sens du parcours (+) ; celles de \(\q{u}{U_{L1}}\), \(\q{u}{U_{L2}}\) et \(\q{u}{U_R}\) vont dans le sens opposé (−) :</p>
+        <div class="formula">\[\q{gen}{U_G} - \q{u}{U_{L1}} - \q{u}{U_{L2}} - \q{u}{U_R} = 0\]\[\q{gen}{U_G} = \q{u}{U_{L1}} + \q{u}{U_{L2}} + \q{u}{U_R}\]</div>
+        <p class="note">Dans un circuit série, la tension du générateur se partage entre les récepteurs : leurs tensions s’<b>ajoutent</b>.</p>
+      </article>
+
+      <article class="box prop" id="c-derivation">
+        <p class="box-title">Dipôles en dérivation : la même tension</p>
+        <p>Deux lampes en dérivation aux bornes d’un générateur de 6 V :</p>
+        <figure class="fig-wrap" data-fig="derivation"></figure>
+        <p>La maille formée par le générateur et \(\mathrm{L_1}\) donne \(\q{gen}{U} - \q{u}{U_1} = 0\), donc \(\q{u}{U_1} = \q{gen}{U} = 6\ \mathrm{V}\). De même avec \(\mathrm{L_2}\) : \(\q{u}{U_2} = 6\ \mathrm{V}\).</p>
+        <div class="formula">\[\q{gen}{U} = \q{u}{U_1} = \q{u}{U_2}\]<p class="formula-units">des dipôles en dérivation ont la même tension</p></div>
+      </article>
+    </div>
+
+    <h3 class="part-title"><span class="roman">III.</span> L’intensité et la loi des nœuds</h3>
+    <div class="bento">
+      <article class="box def" id="c-noeud">
+        <p class="box-title">Nœud et branche</p>
+        <ul class="steps-list">
+          <li>Un <b>nœud</b> est une intersection d’<b>au moins trois fils</b> d’un circuit électrique.</li>
+          <li>Une <b>branche</b> est une portion de circuit entre deux nœuds. Ses dipôles sont en série : ils sont traversés par le même courant.</li>
+        </ul>
+        <p class="note">Dans le montage en dérivation ci-contre, N et M sont deux nœuds ; il y a trois branches : celle du générateur, celle de \(\mathrm{L_1}\) et celle de \(\mathrm{L_2}\).</p>
+      </article>
+
+      <article class="box prop" id="c-loi-noeuds">
+        <p class="box-title">Loi des nœuds</p>
+        <div class="formula"><p>La <b>somme des intensités</b> des courants qui <b>entrent</b> dans un nœud est égale à la <b>somme des intensités</b> des courants qui en <b>sortent</b>.</p></div>
+        <figure class="fig-wrap" data-fig="star"></figure>
+        <div class="formula">\[\q{I}{I_1} + \q{I}{I_2} = \q{I}{I_3} + \q{I}{I_4}\]</div>
+        <p class="note">Les charges ne s’accumulent pas dans un nœud : tout ce qui entre ressort.</p>
+      </article>
+
+      <article class="box prop" id="c-noeud-exemple">
+        <p class="box-title">Exemple du cours : le courant se partage</p>
+        <p>Le même montage : le courant \(\QI\) arrive au nœud N et se partage entre les deux lampes.</p>
+        <figure class="fig-wrap" data-fig="noeudExemple"></figure>
+        <p>Loi des nœuds en N : \(\QI = \q{I}{I_1} + \q{I}{I_2} = 0{,}20 + 0{,}30 = 0{,}50\ \mathrm{A}\). En M, les deux courants se rejoignent et repartent vers le générateur.</p>
+      </article>
+
+      <article class="box prop" id="c-serie">
+        <p class="box-title">Circuit série : la même intensité partout</p>
+        <p>Dans un circuit série (une seule boucle, sans nœud), l’intensité est la <b>même en tout point</b>. Le courant n’est pas « consommé » par les récepteurs : les deux ampèremètres indiquent la même valeur.</p>
+        <figure class="fig-wrap" data-fig="serie"></figure>
+      </article>
+    </div>
+
+    <h3 class="part-title"><span class="roman">IV.</span> La loi d’Ohm</h3>
+    <div class="bento">
+      <article class="box prop" id="c-ohm">
+        <p class="box-title">Loi d’Ohm</p>
+        <p>Pour une <b>résistance</b> fléchée en convention récepteur :</p>
+        <div class="formula">\[\Qu = \QR \times \QI\]<p class="formula-units">\(\Qu\) en volts (V), \(\QR\) en ohms (Ω), \(\QI\) en ampères (A)</p></div>
+        <figure class="fig-wrap" data-fig="ohm"></figure>
+        <p>On en tire \(\QR = \dfrac{\Qu}{\QI}\) et \(\QI = \dfrac{\Qu}{\QR}\). Le graphique de \(\Qu\) en fonction de \(\QI\) (la caractéristique) est une droite qui passe par l’origine, de pente \(\QR\).</p>
+      </article>
+
+      <article class="box method" id="c-methode">
+        <p class="box-title">Méthode : calculer une résistance dans un circuit</p>
+        <ol class="steps-list">
+          <li>Convertir : intensités en <b>ampères</b>, résistances en <b>ohms</b>.</li>
+          <li>Trouver la <b>tension</b> aux bornes de la résistance avec la <b>loi des mailles</b>.</li>
+          <li>Trouver l’<b>intensité</b> qui la traverse avec la <b>loi des nœuds</b> (en série : la même partout).</li>
+          <li>Appliquer la loi d’Ohm : \(\QR = \dfrac{\Qu}{\QI}\).</li>
+        </ol>
+        <p class="note">Exercice 4, n° 13 : la résistance est seule, donc \(\Qu = 5\ \mathrm{V}\) ; \(\QI = 5\ \mathrm{mA} = 0{,}005\ \mathrm{A}\) ; \(\QR = \dfrac{5}{0{,}005} = 1\,000\ \Omega\).</p>
+      </article>
+
+      <article class="box prop" id="c-assoc">
+        <p class="box-title">Pour aller plus loin : résistances en série</p>
+        <p>Deux résistances en série sont traversées par le même courant \(\QI\). Avec la loi des mailles : \(\Qu = \q{u}{U_1} + \q{u}{U_2} = \q{R}{R_1}\QI + \q{R}{R_2}\QI\). Elles équivalent à une seule résistance :</p>
+        <div class="formula">\[\q{R}{R_{\text{éq}}} = \q{R}{R_1} + \q{R}{R_2}\]</div>
+        <p class="note">220 Ω et 470 Ω en série équivalent à 690 Ω. En dérivation, \(\dfrac{1}{R_{\text{éq}}} = \dfrac{1}{R_1} + \dfrac{1}{R_2}\) : la résistance équivalente est plus petite que chacune des deux.</p>
+      </article>
+
+      <article class="box warning" id="c-erreurs">
+        <p class="box-title">Les erreurs fréquentes</p>
+        <ul class="steps-list">
+          <li>Garder des <b>milliampères</b> dans la loi d’Ohm : \(220 \times 6{,}9 = 1\,518\), alors que \(220\ \Omega \times 0{,}0069\ \mathrm{A} = 1{,}518\ \mathrm{V}\).</li>
+          <li>Oublier un <b>signe</b> dans la loi des mailles : regarder chaque flèche par rapport au sens de parcours.</li>
+          <li>Croire que le courant est « consommé » : en série, il est le même partout ; il ne se partage qu’à un <b>nœud</b>.</li>
+          <li>Partager la tension entre des dipôles en <b>dérivation</b> : ils ont tous la même tension.</li>
+        </ul>
+      </article>
+
+      <aside class="box def wide" id="videos">
+        <p class="box-title">Les vidéos du cours</p>
+        <ul class="video-links">
+          <li><a href="https://www.youtube.com/results?search_query=flecher+une+tension+convention+g%C3%A9n%C3%A9rateur+r%C3%A9cepteur"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>Flécher une tension : conventions générateur et récepteur<small>Partie II du cours · recherche YouTube</small></span></a></li>
+          <li><a href="https://www.youtube.com/results?search_query=loi+des+mailles+exercice+corrig%C3%A9+lyc%C3%A9e"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>La loi des mailles<small>Partie II du cours · recherche YouTube</small></span></a></li>
+          <li><a href="https://www.youtube.com/results?search_query=loi+des+n%C5%93uds+intensit%C3%A9+exercice+lyc%C3%A9e"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>La loi des nœuds<small>Partie III du cours · recherche YouTube</small></span></a></li>
+          <li><a href="https://www.youtube.com/results?search_query=loi+d%27ohm+calcul+r%C3%A9sistance+exercice"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>La loi d’Ohm et le calcul d’une résistance<small>Partie IV du cours · recherche YouTube</small></span></a></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===================================================== 2. EXEMPLES -->
+  <section class="step" id="exemples">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">2</span>
+      <div>
+        <h2>Exemples concrets</h2>
+        <p>Les exercices de la fiche, résolus pas à pas. Cherche d’abord sur une feuille, puis ouvre la solution.</p>
+      </div>
+    </header>
+    <div class="bento">
+      <article class="box example wide" id="ex-1">
+        <p class="box-title">Exercice 1 : deux mailles</p>
+        <figure class="fig-wrap" data-fig="ex1"></figure>
+        <ol class="steps-list" style="--tone: var(--amber)">
+          <li>Dans la maille ABCDA : détermine \(\q{u}{U_{AD}}\) en fonction des autres tensions de la maille, puis calcule-la avec \(\q{u}{U_{AB}} = 2\ \mathrm{V}\), \(\q{u}{U_{BC}} = 3\ \mathrm{V}\) et \(\q{u}{U_{CD}} = 4\ \mathrm{V}\).</li>
+          <li>Dans la maille ADEA : détermine \(\q{gen}{U_{ED}}\) en fonction des autres tensions de la maille, puis calcule-la avec \(\q{u}{U_{EA}} = 3\ \mathrm{V}\).</li>
+        </ol>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>Maille ABCDA, dans le sens horaire du schéma : la flèche de \(\q{u}{U_{AD}}\) va dans le sens du parcours (+), celles de \(\q{u}{U_{AB}}\), \(\q{u}{U_{BC}}\) et \(\q{u}{U_{CD}}\) dans le sens opposé (−). Donc \(\q{u}{U_{AD}} - \q{u}{U_{AB}} - \q{u}{U_{BC}} - \q{u}{U_{CD}} = 0\), soit \(\q{u}{U_{AD}} = \q{u}{U_{AB}} + \q{u}{U_{BC}} + \q{u}{U_{CD}}\).</li>
+              <li>\(\q{u}{U_{AD}} = 2 + 3 + 4 = 9\ \mathrm{V}\).</li>
+              <li>Maille ADEA, parcourue de A vers D, puis E, puis A : la flèche de \(\q{gen}{U_{ED}}\) va dans le sens du parcours (+), celles de \(\q{u}{U_{AD}}\) et de \(\q{u}{U_{EA}}\) dans le sens opposé (−). Donc \(\q{gen}{U_{ED}} - \q{u}{U_{AD}} - \q{u}{U_{EA}} = 0\), soit \(\q{gen}{U_{ED}} = \q{u}{U_{EA}} + \q{u}{U_{AD}}\).</li>
+              <li>\(\q{gen}{U_{ED}} = 3 + 9 = 12\ \mathrm{V}\) : c’est la tension du générateur.</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example wide" id="ex-2">
+        <p class="box-title">Exercice 2 : un montage en dérivation</p>
+        <p class="measure">L’ampèremètre \(\mathrm{A_1}\) indique 0,325 A et l’ampèremètre \(\mathrm{A_3}\) indique 850 mA.</p>
+        <figure class="fig-wrap" data-fig="ex2"></figure>
+        <ol class="steps-list" style="--tone: var(--amber)">
+          <li>Indique le sens conventionnel du courant électrique dans les différentes branches du circuit.</li>
+          <li>Précise l’emplacement des bornes COM des ampèremètres.</li>
+          <li>Convertis \(\q{I}{I_3}\), donné en mA, en ampères.</li>
+          <li>Quelle indication porte l’ampèremètre \(\mathrm{A_2}\)&nbsp;? Justifie.</li>
+        </ol>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <figure class="fig-wrap" data-fig="ex2sol"></figure>
+            <ol class="steps-list">
+              <li>Le courant sort par la borne + du générateur (en haut), traverse les deux branches de gauche à droite, descend à droite et revient vers la borne − par le fil du bas, en traversant \(\mathrm{A_3}\) de droite à gauche.</li>
+              <li>Le courant entre dans un ampèremètre par la borne mA et en sort par COM : la borne COM de \(\mathrm{A_1}\) et de \(\mathrm{A_2}\) est à droite (côté lampes), celle de \(\mathrm{A_3}\) à gauche (côté borne − du générateur).</li>
+              <li>\(\q{I}{I_3} = 850\ \mathrm{mA} = \dfrac{850}{1\,000}\ \mathrm{A} = 0{,}850\ \mathrm{A}\).</li>
+              <li>Le courant \(\q{I}{I_3}\) arrive au nœud de gauche et s’y partage. Loi des nœuds : \(\q{I}{I_3} = \q{I}{I_1} + \q{I}{I_2}\), donc \(\q{I}{I_2} = 0{,}850 - 0{,}325 = 0{,}525\ \mathrm{A}\). L’ampèremètre \(\mathrm{A_2}\) indique 0,525 A.</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example wide" id="ex-3">
+        <p class="box-title">Exercice 3 : nœuds et mailles dans un même montage</p>
+        <p class="measure">Données : \(\QEg = 10\ \mathrm{V}\), \(\q{u}{U_1} = 6\ \mathrm{V}\), \(\q{I}{I_1} = 0{,}1\ \mathrm{A}\) et \(\q{I}{I_2} = 30\ \mathrm{mA}\).</p>
+        <figure class="fig-wrap" data-fig="ex3"></figure>
+        <ol class="steps-list" style="--tone: var(--amber)">
+          <li>Établis l’équation du nœud C.</li>
+          <li>Déduis-en l’expression de \(\q{I}{I_3}\) en fonction de \(\q{I}{I_1}\) et \(\q{I}{I_2}\).</li>
+          <li>Calcule \(\q{I}{I_3}\).</li>
+          <li>Établis l’équation de la maille ABCFA.</li>
+          <li>Déduis-en l’expression de la tension \(\q{u}{U_2}\).</li>
+          <li>Calcule \(\q{u}{U_2}\).</li>
+          <li>Établis l’équation de la maille CDEFC.</li>
+          <li>Déduis-en l’expression de \(\q{u}{U_3}\).</li>
+          <li>Calcule \(\q{u}{U_3}\).</li>
+          <li>Vérification : établis l’équation de la maille ABDEA et montre que \(\QEg = \q{u}{U_1} + \q{u}{U_3}\).</li>
+          <li>Fais l’application numérique. La loi des mailles est-elle vérifiée ?</li>
+        </ol>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>Au nœud C, \(\q{I}{I_1}\) entre ; \(\q{I}{I_2}\) et \(\q{I}{I_3}\) sortent : \(\q{I}{I_1} = \q{I}{I_2} + \q{I}{I_3}\).</li>
+              <li>\(\q{I}{I_3} = \q{I}{I_1} - \q{I}{I_2}\).</li>
+              <li>\(\q{I}{I_2} = 30\ \mathrm{mA} = 0{,}030\ \mathrm{A}\), donc \(\q{I}{I_3} = 0{,}1 - 0{,}030 = 0{,}07\ \mathrm{A}\) (70 mA).</li>
+              <li>Maille ABCFA, de A vers B, C, F puis A : \(\QEg\) dans le sens du parcours, \(\q{u}{U_1}\) et \(\q{u}{U_2}\) dans le sens opposé : \(\QEg - \q{u}{U_1} - \q{u}{U_2} = 0\).</li>
+              <li>\(\q{u}{U_2} = \QEg - \q{u}{U_1}\).</li>
+              <li>\(\q{u}{U_2} = 10 - 6 = 4\ \mathrm{V}\).</li>
+              <li>Maille CDEFC, de C vers D, E, F puis C : \(\q{u}{U_3}\) dans le sens opposé au parcours, \(\q{u}{U_2}\) dans le sens du parcours (les fils DE et EF n’ont pas de tension) : \(\q{u}{U_2} - \q{u}{U_3} = 0\).</li>
+              <li>\(\q{u}{U_3} = \q{u}{U_2}\) : \(\mathrm{R_2}\) et \(\mathrm{R_3}\) sont en dérivation entre C et F.</li>
+              <li>\(\q{u}{U_3} = 4\ \mathrm{V}\).</li>
+              <li>Maille ABDEA, de A vers B, C, D, E puis A : \(\QEg - \q{u}{U_1} - \q{u}{U_3} = 0\), donc \(\QEg = \q{u}{U_1} + \q{u}{U_3}\).</li>
+              <li>\(\q{u}{U_1} + \q{u}{U_3} = 6 + 4 = 10\ \mathrm{V}\), c’est bien \(\QEg\) : la loi des mailles est vérifiée.</li>
+            </ol>
+            <p class="note">Pour aller plus loin, la loi d’Ohm donne les trois résistances : \(\q{R}{R_1} = \dfrac{6}{0{,}1} = 60\ \Omega\), \(\q{R}{R_2} = \dfrac{4}{0{,}030} \approx 133\ \Omega\) et \(\q{R}{R_3} = \dfrac{4}{0{,}07} \approx 57{,}1\ \Omega\).</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example" id="ex-4-13">
+        <p class="box-title">Exercice 4, n° 13 : une résistance seule</p>
+        <figure class="fig-wrap" data-fig="ex4a"></figure>
+        <p>Calcule la valeur de la résistance \(\QR\).</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>La résistance est seule avec le générateur : la loi des mailles donne \(\q{u}{U_{CD}} = 5\ \mathrm{V}\).</li>
+              <li>\(\QI = 5\ \mathrm{mA} = 0{,}005\ \mathrm{A}\).</li>
+              <li>Loi d’Ohm : \(\QR = \dfrac{\Qu}{\QI} = \dfrac{5}{0{,}005} = 1\,000\ \Omega\) (1 kΩ).</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example" id="ex-4-14">
+        <p class="box-title">Exercice 4, n° 14 : deux résistances en série</p>
+        <figure class="fig-wrap" data-fig="ex4b"></figure>
+        <p>Calcule la valeur de la résistance \(\QR\).</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>Circuit série : \(\QI = 6{,}9\ \mathrm{mA} = 0{,}0069\ \mathrm{A}\) dans les deux résistances.</li>
+              <li>Loi d’Ohm pour 220 Ω : \(\q{u}{U_{CD}} = 220 \times 0{,}0069 = 1{,}518\ \mathrm{V}\).</li>
+              <li>Loi des mailles : \(\q{u}{U_{DE}} = 5 - 1{,}518 = 3{,}482\ \mathrm{V}\).</li>
+              <li>Loi d’Ohm pour \(\QR\) : \(\QR = \dfrac{3{,}482}{0{,}0069} \approx 505\ \Omega\).</li>
+            </ol>
+            <p class="note">Autre méthode : la résistance totale vaut \(\dfrac{5}{0{,}0069} \approx 724{,}6\ \Omega\), donc \(\QR \approx 724{,}6 - 220 \approx 505\ \Omega\).</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example wide" id="ex-4-15">
+        <p class="box-title">Exercice 4, n° 15 : une résistance en dérivation</p>
+        <figure class="fig-wrap" data-fig="ex4c"></figure>
+        <p>Calcule la valeur de la résistance \(\QR\). Il faut utiliser la loi d’Ohm, la loi des mailles et la loi des nœuds.</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>Le courant \(\QI = 8\ \mathrm{mA} = 0{,}008\ \mathrm{A}\) traverse la résistance de 470 Ω du haut. Loi d’Ohm : \(\q{u}{U_{CD}} = 470 \times 0{,}008 = 3{,}76\ \mathrm{V}\).</li>
+              <li>Loi des mailles : \(\q{u}{U_{DE}} = 5 - 3{,}76 = 1{,}24\ \mathrm{V}\). C’est la tension de \(\QR\) et de la résistance de 470 Ω du bas, en dérivation.</li>
+              <li>Loi d’Ohm pour la résistance de 470 Ω du bas : \(\q{I}{I'} = \dfrac{1{,}24}{470} \approx 0{,}002\,64\ \mathrm{A}\) (2,64 mA).</li>
+              <li>Loi des nœuds en D : \(\q{I}{I_R} = \QI - \q{I}{I'} = 0{,}008 - 0{,}002\,64 \approx 0{,}005\,36\ \mathrm{A}\).</li>
+              <li>Loi d’Ohm pour \(\QR\) : \(\QR = \dfrac{1{,}24}{0{,}005\,36} \approx 231\ \Omega\).</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================================================== 3. MANIPULER -->
+  <section class="step" id="manipuler">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">3</span>
+      <div>
+        <h2>Manipuler</h2>
+        <p>Bouge les curseurs et prédis le résultat avant de regarder. Les couleurs sont celles des schémas : tension des récepteurs en orange, du générateur en bleu, intensité en vert, résistance en violet.</p>
+      </div>
+    </header>
+    <div class="bento">
+      <div class="widget" id="w-ohm">
+        <p class="widget-title">Loi d’Ohm : la caractéristique d’une résistance est une droite</p>
+        <p class="hint">Pour une résistance, \(\Qu = \QR \times \QI\) : la tension est proportionnelle à l’intensité. Le graphique de \(\Qu\) en fonction de \(\QI\) est une droite qui passe par l’origine. Plus la résistance est grande, plus la droite est raide : sa pente est \(\QR\).</p>
+        <div class="lab">
+          <div class="lab-stage">
+            <canvas class="plot tall" aria-label="Graphique de la tension U, en volts, en fonction de l’intensité I, en milliampères, pour une résistance R"></canvas>
+            <ul class="legend">
+              <li><i style="background: var(--q-R)"></i><span>caractéristique \(\Qu = \QR \times \QI\)</span></li>
+              <li><i class="dash" style="color: var(--muted)"></i><span>lecture de \(\QI\) et de \(\Qu\)</span></li>
+            </ul>
+          </div>
+          <div class="lab-side">
+            <div class="lab-formula">\(\Qu = \QR \times \QI\)</div>
+            <div class="sliders">
+              <div class="slider" style="--tone: var(--q-R)">
+                <div class="slider-top"><label class="name" for="sl-r">Résistance \(\QR\)</label><span><output data-show="r" for="sl-r" data-digits="0"></output> Ω</span></div>
+                <input id="sl-r" type="range" data-k="r" min="10" max="1200" step="10" value="1000">
+              </div>
+              <div class="slider" style="--tone: var(--q-I)">
+                <div class="slider-top"><label class="name" for="sl-i">Intensité \(\QI\)</label><span><output data-show="i" for="sl-i" data-digits="1"></output> mA</span></div>
+                <input id="sl-i" type="range" data-k="i" min="0" max="20" step="0.1" value="5">
+              </div>
+            </div>
+            <div>
+              <p class="presets-label">Préréglages</p>
+              <div class="presets"></div>
+            </div>
+            <div class="kpis"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget" id="w-maille">
+        <p class="widget-title">Loi des mailles : un tour de circuit revient au point de départ</p>
+        <p class="hint">Le générateur fait monter le potentiel de \(\QEg\) ; chaque résistance le fait redescendre de sa tension. Après un tour complet, on retrouve le potentiel de départ : \(\QEg - \q{u}{U_1} - \q{u}{U_2} - \q{u}{U_3} = 0\).</p>
+        <div class="lab">
+          <div class="lab-stage">
+            <figure class="fig-wrap circuit-live" aria-live="polite"></figure>
+            <canvas class="plot tall" aria-label="Potentiel électrique le long de la maille : il monte dans le générateur puis descend dans chaque résistance, jusqu’à revenir à 0 V"></canvas>
+            <ul class="legend">
+              <li><i class="area" style="background: var(--q-gen)"></i><span>le générateur fait monter le potentiel de \(\QEg\)</span></li>
+              <li><i class="area" style="background: var(--q-u)"></i><span>chaque résistance le fait descendre de sa tension</span></li>
+              <li><i style="background: var(--text)"></i><span>potentiel le long d’un fil (constant)</span></li>
+            </ul>
+          </div>
+          <div class="lab-side">
+            <div class="lab-formula">\(\QEg = \q{u}{U_1} + \q{u}{U_2} + \q{u}{U_3}\)</div>
+            <div class="sliders">
+              <div class="slider" style="--tone: var(--q-gen)">
+                <div class="slider-top"><label class="name" for="sl-e2">Tension du générateur \(\QEg\)</label><span><output data-show="e" for="sl-e2" data-digits="1"></output> V</span></div>
+                <input id="sl-e2" type="range" data-k="e" min="0.5" max="24" step="0.5" value="12">
+              </div>
+              <div class="slider" style="--tone: var(--q-R)">
+                <div class="slider-top"><label class="name" for="sl-r1">\(\q{R}{R_1}\)</label><span><output data-show="r1" for="sl-r1" data-digits="0"></output> Ω</span></div>
+                <input id="sl-r1" type="range" data-k="r1" min="10" max="1000" step="10" value="100">
+              </div>
+              <div class="slider" style="--tone: var(--q-R)">
+                <div class="slider-top"><label class="name" for="sl-r2">\(\q{R}{R_2}\)</label><span><output data-show="r2" for="sl-r2" data-digits="0"></output> Ω</span></div>
+                <input id="sl-r2" type="range" data-k="r2" min="10" max="1000" step="10" value="200">
+              </div>
+              <div class="slider" style="--tone: var(--q-R)">
+                <div class="slider-top"><label class="name" for="sl-r3">\(\q{R}{R_3}\)</label><span><output data-show="r3" for="sl-r3" data-digits="0"></output> Ω</span></div>
+                <input id="sl-r3" type="range" data-k="r3" min="10" max="1000" step="10" value="300">
+              </div>
+            </div>
+            <div>
+              <p class="presets-label">Préréglages</p>
+              <div class="presets"></div>
+            </div>
+            <div class="kpis"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget" id="w-noeud">
+        <p class="widget-title">Loi des nœuds : le courant se partage entre les branches</p>
+        <p class="hint">Les deux résistances sont en dérivation : elles ont la même tension \(\QEg\), donc \(\q{I1}{I_1} = \QEg / \q{I1}{R_1}\) et \(\q{I2}{I_2} = \QEg / \q{I2}{R_2}\). Au nœud N, tout ce qui entre ressort : \(\QI = \q{I1}{I_1} + \q{I2}{I_2}\).</p>
+        <div class="lab">
+          <div class="lab-stage">
+            <figure class="fig-wrap circuit-live" aria-live="polite"></figure>
+            <canvas class="plot tall" aria-label="Diagramme en barres : le courant qui entre dans le nœud N et, empilés, les deux courants qui en sortent"></canvas>
+            <ul class="legend">
+              <li><i class="area" style="background: var(--q-I)"></i><span>courant qui entre dans N : \(\QI\)</span></li>
+              <li><i class="area" style="background: var(--q-I1)"></i><span>courant de la branche 1 : \(\q{I1}{I_1}\)</span></li>
+              <li><i class="area" style="background: var(--q-I2)"></i><span>courant de la branche 2 : \(\q{I2}{I_2}\)</span></li>
+            </ul>
+          </div>
+          <div class="lab-side">
+            <div class="lab-formula">\(\QI = \q{I1}{I_1} + \q{I2}{I_2}\)</div>
+            <div class="sliders">
+              <div class="slider" style="--tone: var(--q-gen)">
+                <div class="slider-top"><label class="name" for="sl-e3">Tension du générateur \(\QEg\)</label><span><output data-show="e" for="sl-e3" data-digits="1"></output> V</span></div>
+                <input id="sl-e3" type="range" data-k="e" min="0.5" max="24" step="0.5" value="12">
+              </div>
+              <div class="slider" style="--tone: var(--q-I1)">
+                <div class="slider-top"><label class="name" for="sl-ra">\(\q{I1}{R_1}\) (branche 1)</label><span><output data-show="r1" for="sl-ra" data-digits="0"></output> Ω</span></div>
+                <input id="sl-ra" type="range" data-k="r1" min="20" max="1000" step="10" value="100">
+              </div>
+              <div class="slider" style="--tone: var(--q-I2)">
+                <div class="slider-top"><label class="name" for="sl-rb">\(\q{I2}{R_2}\) (branche 2)</label><span><output data-show="r2" for="sl-rb" data-digits="0"></output> Ω</span></div>
+                <input id="sl-rb" type="range" data-k="r2" min="20" max="1000" step="10" value="200">
+              </div>
+            </div>
+            <div>
+              <p class="presets-label">Préréglages</p>
+              <div class="presets"></div>
+            </div>
+            <div class="kpis"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 4. ENTRAÎNEMENT -->
+  <section class="step" id="entrainement">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">4</span>
+      <div>
+        <h2>Entraînement</h2>
+        <p>Des questions qui se renouvellent à l’infini. Réussis <b>5 réponses de suite du premier coup</b> pour débloquer l’évaluation. Le brouillon et la calculatrice restent à portée de main pendant que tu réponds.</p>
+      </div>
+    </header>
+    <div class="bento work">
+      <div class="widget" id="w-drill"></div>
+      <div class="workspace-host" id="ws-train"></div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 5. ÉVALUATION -->
+  <section class="step" id="evaluation">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">5</span>
+      <div>
+        <h2>Évaluation</h2>
+        <p>Une copie sur 20 points, corrigée à la fin, sans limite de temps. La calculatrice passe en mode examen : seulement les calculs d’une calculatrice standard.</p>
+      </div>
+    </header>
+    <div class="bento work">
+      <div class="widget exam-card" id="exam"></div>
+      <div class="workspace-host" id="ws-exam"></div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 6. VALIDATION -->
+  <section class="step" id="validation">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">6</span>
+      <div>
+        <h2>Validation</h2>
+        <p>Au moins 15/20 : le chapitre est validé et le suivant s’ouvre. En dessous : retour à l’entraînement pour une nouvelle série de 5.</p>
+      </div>
+    </header>
+    <div class="widget valid-card" id="validation-card"></div>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var C = window.CourseCore, CB = window.ChapterBank, Bank = CB.make(), F = CB.FIG;
+  /** Nombre à la française avec un vrai signe moins (−), 0 jamais écrit −0. */
+  function num(x, sig) { return Math.abs(x) < 1e-9 ? '0' : C.fmtNum(x, sig || 3).replace('-', '−'); }
+
+  /* ---------- schémas du cours et des exemples (dessinés par electricite-continu.js) ---------- */
+  var FIGS = {
+    mesures: function () { return F.mesures(); },
+    conventions: function () { return F.conventions(); },
+    coursMaille: function () { return F.coursMaille(); },
+    derivation: function () { return F.parallel({ t: 'L', names: ['L_1', 'L_2'], E: 'U = 6 V', u: ['U_1', 'U_2'], nodes: ['N', 'M'], label: 'Deux lampes L1 et L2 en dérivation aux bornes d’un générateur de 6 V : les flèches des tensions U, U1 et U2 sont côte à côte, de même longueur.' }); },
+    noeudExemple: function () { return F.parallel({ t: 'L', names: ['L_1', 'L_2'], i: 'I', i1: 'I_1 = 0,20 A', i2: 'I_2 = 0,30 A', nodes: ['N', 'M'], label: 'Le courant I arrive au nœud N et se partage : I1 = 0,20 A dans la lampe L1, I2 = 0,30 A dans la lampe L2.' }); },
+    star: function () { return F.star({ l: { into: true, s: 'I_1' }, a: { into: true, s: 'I_2' }, r: { into: false, s: 'I_3' }, b: { into: false, s: 'I_4' } }, 'Nœud N : les courants I1 (par la gauche) et I2 (par le haut) entrent ; I3 (vers la droite) et I4 (vers le bas) sortent.'); },
+    serie: function () { return F.loop({ recs: [{ t: 'A', idx: '1' }, { t: 'L', name: 'L_1' }, { t: 'L', name: 'L_2' }], bottom: [{ t: 'A', idx: '2' }], i: 'I', label: 'Circuit série : générateur, ampèremètre A1, lampes L1 et L2, ampèremètre A2 sur le fil du bas. Le même courant I traverse tout le circuit.' }); },
+    ohm: function () { return F.ohm(); },
+    ex1: function () { return F.ex1(); },
+    ex2: function () { return F.ex2({ a1: '0,325 A', a3: '850 mA' }); },
+    ex2sol: function () { return F.ex2({ sol: true, a1: '0,325 A', a2: '0,525 A', a3: '850 mA' }); },
+    ex3: function () { return F.ex3(); },
+    ex4a: function () { return F.ex4(13); },
+    ex4b: function () { return F.ex4(14); },
+    ex4c: function () { return F.ex4(15); }
+  };
+  document.querySelectorAll('figure[data-fig]').forEach(function (f) { f.innerHTML = FIGS[f.dataset.fig](); });
+
+  /* ---------- Manipuler 1 : loi d'Ohm, caractéristique U(I) ---------- */
+  var wO = document.getElementById('w-ohm');
+  // marge sous l'axe des abscisses : ses graduations passent dessous, même sur téléphone
+  var VO = { xmin: -0.7, xmax: 20.5, ymin: -3, ymax: 28 };
+  var GO = Course.plot(wO.querySelector('canvas'), Object.assign({ xlabel: 'I (mA)', ylabel: 'U (V)', ystep: 5, positive: true }, VO));
+  var kpiO = Course.kpis(wO.querySelector('.kpis'), [
+    { id: 'u', label: '<span>Tension \\(\\Qu = \\QR \\times \\QI\\)</span>', tone: '--q-u' },
+    { id: 'i', label: '<span>Intensité en ampères</span>', tone: '--q-I' },
+    { id: 'k', label: '<span>Pente de la droite</span>', tone: '--q-R' }
+  ]);
+  Course.presets(wO.querySelector('.presets'), [
+    { label: 'Exercice 4, n° 13 · 1 kΩ et 5 mA', values: { r: 1000, i: 5 } },
+    { label: 'n° 14 · 220 Ω et 6,9 mA', values: { r: 220, i: 6.9 } },
+    { label: 'n° 15 · 470 Ω et 8 mA', values: { r: 470, i: 8 } }
+  ]);
+  Course.onInput(wO, function (v) {
+    var R = v.r, ImA = v.i, U = R * ImA / 1000, xEnd = Math.min(20.5, 26 * 1000 / R);
+    GO.draw = function (g) {
+      g.fn(function (x) { return R * x / 1000; }, '--q-R', { width: 2.6, from: 0, to: xEnd });
+      // étiquette directe en bout de droite
+      g.text(xEnd, R * xEnd / 1000, 'R = ' + num(R, 4) + ' Ω', '--text', { align: 'right', baseline: 'top', dx: -10, dy: 6, size: 12.5, bold: true, halo: true });
+      if (ImA > 0) {
+        g.seg(ImA, 0, ImA, U, '--muted', { dash: [4, 4], width: 1.3 });
+        g.seg(0, U, ImA, U, '--muted', { dash: [4, 4], width: 1.3 });
+        g.point(ImA, U, '--q-R', null, { r: 6 });
+        // lecture à côté du point, du côté libre : sous la droite à sa droite, au-dessus à sa gauche
+        var right = ImA <= 12;
+        g.text(ImA, U, 'I = ' + num(ImA) + ' mA · U = ' + num(U) + ' V', '--text', { align: right ? 'left' : 'right', dx: right ? 10 : -10, dy: right ? 10 : -10, baseline: right ? 'top' : 'bottom', size: 12.5, bold: true, halo: true });
+      }
+    };
+    GO.redraw(VO);
+    kpiO({
+      u: { value: num(U), unit: 'V', sub: num(R, 4) + ' Ω × ' + num(ImA / 1000) + ' A' },
+      i: { value: num(ImA / 1000), unit: 'A', sub: num(ImA) + ' mA ÷ 1 000' },
+      k: { value: num(R / 1000), unit: 'V par mA', sub: 'soit ' + num(R, 4) + ' V par ampère : c’est R' }
+    });
+  });
+
+  /* ---------- Manipuler 2 : loi des mailles, potentiel le long de la boucle ---------- */
+  var wM = document.getElementById('w-maille'), figM = wM.querySelector('.circuit-live');
+  var GM = Course.plot(wM.querySelector('canvas'), { xmin: -0.2, xmax: 4.2, ymin: -2, ymax: 14, ylabel: 'potentiel (V)', xstep: 100, positive: true });
+  var kpiM = Course.kpis(wM.querySelector('.kpis'), [
+    { id: 'i', label: '<span>Intensité \\(\\QI\\), la même partout</span>', tone: '--q-I' },
+    { id: 'max', label: 'Plus grande tension', tone: '--q-u' },
+    { id: 'sum', label: '<span>Somme des tensions des résistances</span>', tone: '--q-u' },
+    { id: 'tour', label: 'Tour complet de la maille', tone: '--text' }
+  ]);
+  Course.presets(wM.querySelector('.presets'), [
+    { label: 'Cours · 12 V, 100, 200 et 300 Ω', values: { e: 12, r1: 100, r2: 200, r3: 300 } },
+    { label: 'Trois résistances égales', values: { e: 9, r1: 200, r2: 200, r3: 200 } },
+    { label: 'Une grande résistance prend presque tout', values: { e: 12, r1: 20, r2: 30, r3: 950 } }
+  ]);
+  Course.onInput(wM, function (v) {
+    var E = v.e, Rs = [v.r1, v.r2, v.r3], Rt = Rs[0] + Rs[1] + Rs[2], I = E / Rt, Us = Rs.map(function (r) { return r * I; });
+    figM.innerHTML = F.loop({
+      recs: Rs.map(function (r, k) { return { t: 'R', name: 'R_' + (k + 1), u: 'U_' + (k + 1) + ' = ' + num(Us[k]) + ' V' }; }),
+      E: 'E = ' + num(E) + ' V', i: 'I = ' + num(I * 1000) + ' mA', rot: true,
+      label: 'Circuit série : générateur de ' + num(E) + ' V et trois résistances ; U1 = ' + num(Us[0]) + ' V, U2 = ' + num(Us[1]) + ' V, U3 = ' + num(Us[2]) + ' V.'
+    });
+    var levels = [0, E, E - Us[0], E - Us[0] - Us[1], 0];
+    GM.draw = function (g) {
+      // fils : potentiel constant entre deux dipôles
+      for (var k = 0; k < 5; k++) g.seg(Math.max(0, k - 0.35), levels[k], Math.min(4, k + 0.35), levels[k], '--text', { width: 2.6 });
+      // dipôles : barre du potentiel de départ au potentiel d'arrivée
+      var names = ['G', 'R₁', 'R₂', 'R₃'];
+      for (var d = 0; d < 4; d++) {
+        var x = d + 0.5, a = levels[d], b = levels[d + 1], col = d === 0 ? '--q-gen' : '--q-u';
+        g.poly([[x - 0.15, a], [x + 0.15, a], [x + 0.15, b], [x - 0.15, b]], col, { close: true, fill: true, alpha: 0.85, width: 1.2 });
+        g.text(x + 0.15, (a + b) / 2, (d === 0 ? '+' : '−') + num(Math.abs(b - a)) + ' V', '--text', { dx: 6, size: 12.5, bold: true, halo: true });
+        g.text(x, 0, names[d], '--muted', { align: 'center', baseline: 'top', dy: 8, size: 13, bold: true, halo: true });
+      }
+    };
+    GM.redraw({ xmin: -0.2, xmax: 4.3, ymin: -E * 0.14, ymax: E * 1.18 });
+    var big = Us.indexOf(Math.max.apply(null, Us)), subs = '₁₂₃';
+    kpiM({
+      i: { value: num(I * 1000), unit: 'mA', sub: 'E ÷ (R₁ + R₂ + R₃) = ' + num(E) + ' ÷ ' + num(Rt, 4) + ' Ω' },
+      max: { value: 'U' + subs[big] + ' = ' + num(Us[big]), unit: 'V', sub: 'aux bornes de la plus grande résistance (' + num(Rs[big], 4) + ' Ω)' },
+      sum: { value: num(Us[0] + Us[1] + Us[2]), unit: 'V', sub: 'U₁ + U₂ + U₃ = ' + Us.map(function (u) { return num(u); }).join(' + ') },
+      tour: { value: '0', unit: 'V', badge: { cls: 'good', icon: 'check', text: 'E − U₁ − U₂ − U₃ = 0' } }
+    });
+  });
+
+  /* ---------- Manipuler 3 : loi des nœuds, deux branches en dérivation ---------- */
+  var wN = document.getElementById('w-noeud'), figN = wN.querySelector('.circuit-live');
+  var GN = Course.plot(wN.querySelector('canvas'), { xmin: 0, xmax: 3, ymin: -20, ymax: 200, ylabel: 'intensité (mA)', xstep: 100, positive: true });
+  var kpiN = Course.kpis(wN.querySelector('.kpis'), [
+    { id: 'i1', label: '<span>Branche 1 : \\(\\q{I1}{I_1} = \\QEg / \\q{I1}{R_1}\\)</span>', tone: '--q-I1' },
+    { id: 'i2', label: '<span>Branche 2 : \\(\\q{I2}{I_2} = \\QEg / \\q{I2}{R_2}\\)</span>', tone: '--q-I2' },
+    { id: 'i', label: '<span>Courant principal \\(\\QI\\)</span>', tone: '--q-I' },
+    { id: 'u', label: 'Tension des deux branches', tone: '--q-u' }
+  ]);
+  Course.presets(wN.querySelector('.presets'), [
+    { label: 'Deux résistances égales : moitié-moitié', values: { e: 6, r1: 120, r2: 120 } },
+    { label: 'R₂ = 2 × R₁ : deux fois moins de courant', values: { e: 12, r1: 100, r2: 200 } },
+    { label: 'La petite résistance prend presque tout', values: { e: 12, r1: 40, r2: 1000 } }
+  ]);
+  Course.onInput(wN, function (v) {
+    var E = v.e, I1 = E / v.r1 * 1000, I2 = E / v.r2 * 1000, I = I1 + I2;
+    figN.innerHTML = F.parallel({
+      t: 'R', names: ['R_1', 'R_2'], E: 'E = ' + num(E) + ' V', u: ['U_1 = ' + num(E) + ' V', 'U_2 = ' + num(E) + ' V'],
+      i: 'I = ' + num(I) + ' mA', i1: 'I_1 = ' + num(I1) + ' mA', i2: 'I_2 = ' + num(I2) + ' mA', colors: true, nodes: ['N', 'M'],
+      label: 'Deux résistances en dérivation sous ' + num(E) + ' V : I1 = ' + num(I1) + ' mA, I2 = ' + num(I2) + ' mA, I = ' + num(I) + ' mA.'
+    });
+    GN.draw = function (g) {
+      var w = 0.26;
+      g.poly([[1 - w, 0], [1 + w, 0], [1 + w, I], [1 - w, I]], '--q-I', { close: true, fill: true, alpha: 0.85, width: 1.2 });
+      g.poly([[2 - w, 0], [2 + w, 0], [2 + w, I1], [2 - w, I1]], '--q-I1', { close: true, fill: true, alpha: 0.85, width: 1.2 });
+      g.poly([[2 - w, I1], [2 + w, I1], [2 + w, I], [2 - w, I]], '--q-I2', { close: true, fill: true, alpha: 0.85, width: 1.2 });
+      g.seg(2 - w, I1, 2 + w, I1, '--bg', { width: 2 });
+      g.seg(1 + w, I, 2 - w, I, '--muted', { dash: [4, 4], width: 1.3 });
+      g.text(1, I, 'I = ' + num(I) + ' mA', '--text', { align: 'center', baseline: 'bottom', dy: -6, size: 12.5, bold: true, halo: true });
+      g.text(2 + w, I1 / 2, 'I₁ = ' + num(I1) + ' mA', '--text', { dx: 6, size: 12.5, bold: true, halo: true });
+      g.text(2 + w, I1 + I2 / 2, 'I₂ = ' + num(I2) + ' mA', '--text', { dx: 6, size: 12.5, bold: true, halo: true });
+      g.text(1, 0, 'entre dans N', '--muted', { align: 'center', baseline: 'top', dy: 8, size: 13, bold: true, halo: true });
+      g.text(2, 0, 'sort de N', '--muted', { align: 'center', baseline: 'top', dy: 8, size: 13, bold: true, halo: true });
+    };
+    GN.redraw({ xmin: 0.2, xmax: 2.95, ymin: -I * 0.14, ymax: I * 1.2 });
+    kpiN({
+      i1: { value: num(I1), unit: 'mA', sub: num(E) + ' V ÷ ' + num(v.r1, 4) + ' Ω' },
+      i2: { value: num(I2), unit: 'mA', sub: num(E) + ' V ÷ ' + num(v.r2, 4) + ' Ω' },
+      i: { value: num(I), unit: 'mA', sub: 'I₁ + I₂ = ' + num(I1) + ' + ' + num(I2) },
+      u: { value: num(E), unit: 'V', badge: { cls: 'info', text: 'U₁ = U₂ = E : en dérivation, même tension' } }
+    });
+  });
+
+  /* ---------- Entraînement, évaluation, validation ---------- */
+  var train = document.getElementById('ws-train');
+  Course.trainer('#w-drill', Bank.training, { workspace: train });
+  Course.exam('#exam', { build: Bank.exam, count: CB.EXAM_QUESTIONS, workspace: document.getElementById('ws-exam'), trainWorkspace: train });
+  Course.validation('#validation-card');
+});
+</script>
+</body>
+</html>

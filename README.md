@@ -26,8 +26,8 @@ Chaque chapitre est réécrit et amélioré à partir des PDF de cours et d'exer
 - [x] 1. L'énergie et ses enjeux (PDF de cours et d'exercices fournis)
 - [x] 2. Énergie interne (PDF de cours et d'exercices fournis)
 - [x] 3. Énergie chimique (PDF de cours et d'exercices fournis)
-- [ ] 4. Équation de réaction et molécules (PDF de cours et d'exercices fournis)
-- [ ] 5. Électricité régime continu
+- [x] 4. Équation de réaction et molécules (PDF de cours et d'exercices fournis)
+- [ ] 5. Électricité régime continu (PDF de cours et d'exercices fournis)
 - [ ] 6. Électricité régime variable
 - [ ] 7. Puissance électrique
 - [ ] 8. Solution aqueuse
@@ -221,13 +221,17 @@ flowchart LR
 
 Formules en couleur : les macros KaTeX `\QE`, `\QEr`, `\QEu`, `\QEp`, `\QP`, `\Qt`, `\Qeta` (chapitre 1),
 `\QU`, `\QQ`, `\QT`, `\QdT`, `\QTi`, `\QTf`, `\QTeq`, `\Qm`, `\Qc`, `\QL` (chapitre 2), `\QPC`, `\Qdm`, `\Qrho`, `\Qd`,
-`\QV` (chapitre 3), `\Qn`, `\QM`, `\QVm` (chapitre 4) et `\q{classe}{…}`
+`\QV` (chapitre 3), `\Qn`, `\QM`, `\QVm` (chapitre 4), `\Qu`, `\QEg`, `\QI`, `\QR` (chapitre 5) et `\q{classe}{…}`
 donnent à chaque grandeur la couleur `--q-*` utilisée par ses curseurs, ses cartes et ses courbes. Deux grandeurs
 qui partagent un graphique ont toujours des teintes validées ensemble (daltonisme et vision normale) ; la masse
 `--q-m` ne sert qu'aux formules et aux curseurs, jamais à une courbe.
 Au chapitre 4, les espèces chimiques ont aussi leur couleur (`--q-fuel`, `--q-O2`, `--q-CO2`, `--q-H2O`, via
 `\q{fuel}{…}`…) : un graphique n'en montre jamais plus de trois à la fois, seul maximum qui passe le validateur
 sur toutes les paires.
+Au chapitre 5, la tension d'un récepteur est orange (`\Qu`, ou `\q{u}{U_{AB}}`), celle du générateur bleue (`\QEg`,
+`\q{gen}{U_{ED}}`), l'intensité verte (`\QI`) et la résistance violette (`\QR`) ; les deux branches du montage en
+dérivation ont leur couleur (`--q-I1` ambre, `--q-I2` violet). Les schémas électriques sont dessinés en SVG par
+`FIG` dans `physique-1re/electricite-continu.js` (les mêmes pour le cours, les exemples, les graphiques et les questions).
 
 Automatique, sans rien écrire dans les pages :
 
