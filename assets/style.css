@@ -69,6 +69,17 @@
   --q-PC: #c98500;           /* pouvoir calorifique PC */
   --q-rho: #9085e9;          /* masse volumique ρ, densité d */
   --q-V: #22ad7c;            /* volume V */
+  /* chapitre 4 (équation de réaction) : chaque espèce a sa couleur ; un graphique n'en montre jamais
+     plus de trois ensemble (vérifié au validateur, toutes les paires, thèmes sombre et clair) :
+     combustible + O2 · CO2 + H2O · O2 + CO2 + H2O. L'avancement x reste neutre (texte). */
+  --q-fuel: #c98500;         /* combustible (alcane, alcool) */
+  --q-O2: #4f95ec;           /* dioxygène */
+  --q-CO2: #e46a39;          /* dioxyde de carbone */
+  --q-H2O: #22ad7c;          /* eau (même vert que l'eau du chapitre 2) */
+  --q-reac: #9085e9;         /* atomes côté réactifs (barres de l'ajustement) */
+  --q-prod: #e0638f;         /* atomes côté produits (validé avec --q-reac) */
+  --q-n: #9085e9;            /* quantité de matière n (formules et indicateurs, jamais une courbe) */
+  --q-M: #c98500;            /* masse molaire M (formules et indicateurs) */
 
   /* noms historiques (pages non encore refondues) */
   --accent-2: var(--rose);
@@ -136,6 +147,14 @@
   --q-PC: #9a6400;
   --q-rho: #6250d6;
   --q-V: #0e8a5f;
+  --q-fuel: #9a6400;
+  --q-O2: #2a78d6;
+  --q-CO2: #c24a17;
+  --q-H2O: #0e8a5f;
+  --q-reac: #6250d6;
+  --q-prod: #c2336a;
+  --q-n: #6250d6;
+  --q-M: #9a6400;
   --plot-grid: rgba(13, 18, 30, .07);
   --plot-axis: #6b7080;
   --shadow: 0 1px 2px rgba(13, 18, 30, .05), 0 10px 30px -18px rgba(13, 18, 30, .25);
@@ -321,6 +340,14 @@ section > p, section > ul, section > ol { max-width: 72ch; }
 .q-PC { color: var(--q-PC); }
 .q-rho { color: var(--q-rho); }
 .q-V { color: var(--q-V); }
+.q-fuel { color: var(--q-fuel); }
+.q-O2 { color: var(--q-O2); }
+.q-CO2 { color: var(--q-CO2); }
+.q-H2O { color: var(--q-H2O); }
+.q-reac { color: var(--q-reac); }
+.q-prod { color: var(--q-prod); }
+.q-n { color: var(--q-n); }
+.q-M { color: var(--q-M); }
 
 /* bouton « Solution » : toute la largeur, cliquable */
 details.solution { margin-top: 1rem; border-top: 0; padding-top: 0; }
@@ -773,17 +800,18 @@ main.chapter.v2 { padding-top: 2.25rem; }
 .sign-ico svg { width: 17px; height: 17px; }
 .sign-list li.down .sign-ico { color: var(--muted); background: var(--surface-3); }
 
-/* interrupteur à deux positions d'un widget « Manipuler » (boutons-bascules aria-pressed) */
-.seg { display: flex; gap: 3px; padding: 3px; border-radius: 11px; background: var(--surface-2); border: 1px solid var(--line-2); }
-.seg button {
+/* interrupteur à boutons d'un widget « Manipuler » (boutons-bascules aria-pressed).
+   Limité à .widget : le brouillon a son propre .seg (Texte / Stylo), défini plus bas. */
+.widget .seg { display: flex; gap: 3px; padding: 3px; border-radius: 11px; background: var(--surface-2); border: 1px solid var(--line-2); }
+.widget .seg button {
   flex: 1 1 0; min-width: 0; min-height: 2.3rem; padding: .3rem .7rem; border: 0; border-radius: 8px; cursor: pointer;
   font: inherit; font-size: .86rem; font-weight: 600; color: var(--muted); background: transparent;
   transition: background-color .15s, color .15s;
 }
-.seg button:hover { color: var(--text); }
-.seg button[aria-pressed="true"] { color: var(--text); background: var(--surface-3); box-shadow: inset 0 0 0 1px var(--line-3), 0 1px 0 rgba(0, 0, 0, .25); }
-.seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
-@media (pointer: coarse) { .seg button { min-height: 2.75rem; } }
+.widget .seg button:hover { color: var(--text); }
+.widget .seg button[aria-pressed="true"] { color: var(--text); background: var(--surface-3); box-shadow: inset 0 0 0 1px var(--line-3), 0 1px 0 rgba(0, 0, 0, .25); }
+.widget .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+@media (pointer: coarse) { .widget .seg button { min-height: 2.75rem; } }
 
 /* combustion complète / incomplète côte à côte (cartes du cours) */
 .compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin: .75rem 0; }
@@ -797,6 +825,19 @@ main.chapter.v2 { padding-top: 2.25rem; }
   .compare > div { padding: .6rem 0; }
   .compare > div + div { border-left: 0; border-top: 1px solid var(--line-2); }
 }
+
+/* tableau d'avancement (chapitre 4) : défile sur téléphone, dernière ligne = état final */
+table.adv { width: 100%; }
+.adv th, .adv td { padding: .45rem .7rem; text-align: center; white-space: nowrap; }
+.adv tbody th { text-align: left; background: var(--surface-2); }
+.adv tbody tr:last-child td { font-weight: 600; color: var(--text); }
+.adv td.is-zero { color: var(--ok); }
+.adv caption { caption-side: bottom; text-align: left; font-size: .82rem; color: var(--muted); padding-top: .35rem; }
+.adv-live .table-scroll > table { margin: .9rem 0 0; }
+@media (max-width: 560px) { .adv caption::after { content: " · glisse le tableau →"; } }
+.legend i.zone { background: color-mix(in srgb, var(--muted) 30%, transparent); border: 1px solid var(--line-3); }
+.formula-line { text-align: center; overflow-x: auto; overflow-y: hidden; margin: .6rem 0; }
+.widget .lab-stage > .seg { margin-bottom: .6rem; }
 
 /* vidéo du cours */
 .video-links { display: grid; gap: .5rem; margin: .75rem 0 0; padding: 0; list-style: none; }
@@ -941,6 +982,8 @@ main.chapter.v2 { padding-top: 2.25rem; }
   .answer .drill-check { flex: 1 1 auto; }
   .answer .drill-new { margin-left: 0; flex: 1 1 100%; }
 }
+.mcq-actions { display: flex; justify-content: flex-end; margin-top: .75rem; }
+.mcq-actions[hidden] { display: none; }
 .choices-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: .6rem; list-style: none; padding: 0; margin: 0; }
 .choice {
   width: 100%; height: 100%; text-align: left; font: inherit; font-size: .98rem; cursor: pointer; color: var(--text);

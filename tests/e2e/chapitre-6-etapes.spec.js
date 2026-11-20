@@ -1,4 +1,4 @@
-// Chapitres en 6 étapes (physique-1re : energie-enjeux, energie-interne, energie-chimique) : parcours complet,
+// Chapitres en 6 étapes (physique-1re : energie-enjeux, energie-interne, energie-chimique, combustions) : parcours complet,
 // widgets « Manipuler », brouillon intégré, calculatrice d'entraînement / d'examen, aucune erreur dans la console.
 const { test, expect } = require('@playwright/test');
 const fs = require('fs');
@@ -10,7 +10,8 @@ const KEY = 'progress:physique-1re/energie-enjeux';
 const CHAPTERS = [
   { url: URL, key: 'physique-1re/energie-enjeux', widget: '#w-energie', next: /energie-interne\.html$/ },
   { url: 'physique-1re/energie-interne.html', key: 'physique-1re/energie-interne', widget: '#w-du', next: /energie-chimique\.html$/ },
-  { url: 'physique-1re/energie-chimique.html', key: 'physique-1re/energie-chimique', widget: '#w-pc', next: /mesures-incertitudes\.html$/ }
+  { url: 'physique-1re/energie-chimique.html', key: 'physique-1re/energie-chimique', widget: '#w-pc', next: /combustions\.html$/ },
+  { url: 'physique-1re/combustions.html', key: 'physique-1re/combustions', widget: '#w-avancement', next: /mesures-incertitudes\.html$/ }
 ];
 const SIX_STEPS = CHAPTERS.map((c) => c.url);
 const ROOT = path.resolve(__dirname, '..', '..');
@@ -73,6 +74,8 @@ for (const ch of CHAPTERS) test.describe(`chapitre en 6 étapes : ${ch.key}`, ()
 
   test('parcours : série de 5 → évaluation ; < 15/20 reverrouille ; ≥ 15/20 valide', async ({ page, isMobile }) => {
     test.skip(isMobile, 'logique indépendante de l’appareil : vérifiée sur ordinateur');
+    // le plus long des tests (deux séries de 5, deux copies) : 25 s seul, plus de 60 s quand toute la suite tourne en parallèle
+    test.slow();
     await open(page);
     await page.evaluate((k) => localStorage.removeItem(k), KEY);
     await page.reload();
@@ -185,19 +188,35 @@ for (const ch of CHAPTERS) test.describe(`chapitre en 6 étapes : ${ch.key}`, ()
     await expect(page.locator('#w-drill .drill-new')).toBeHidden(); // un seul « Question suivante »
   });
 
+  test('entraînement : un QCM peut aussi être passé', async ({ page }) => {
+    await open(page);
+    await page.evaluate(() => { const r = document.querySelector('#w-drill'); for (let i = 0; i < 80 && !r.courseDrill.current().choices; i++) r.courseDrill.next(); });
+    const before = await page.evaluate(() => document.querySelector('#w-drill').courseDrill.current().html);
+    const skip = page.locator('#w-drill .drill-new');
+    await expect(skip).toBeVisible();
+    await expect(page.locator('#w-drill .mcq-actions .drill-new')).toHaveCount(1);
+    await skip.click();
+    expect(await page.evaluate(() => document.querySelector('#w-drill').courseDrill.current().html)).not.toBe(before);
+    // revenu dans la ligne de réponse pour une question à saisir
+    await page.evaluate(() => { const r = document.querySelector('#w-drill'); for (let i = 0; i < 80 && r.courseDrill.current().choices; i++) r.courseDrill.next(); });
+    await expect(page.locator('#w-drill .answer .drill-new')).toBeVisible();
+    await expect(page.locator('#w-drill .mcq-actions')).toBeHidden();
+  });
+
   test('entraînement : une erreur fréquente est expliquée avant la solution', async ({ page }) => {
     await open(page);
     await page.evaluate(() => { const r = document.querySelector('#w-drill'); for (let i = 0; i < 50 && !(r.courseDrill.current().traps || []).length; i++) r.courseDrill.next(); });
-    const trap = await page.evaluate(() => {
+    const { trap, answer } = await page.evaluate(() => {
       const c = document.querySelector('#w-drill').courseDrill.current();
       const t = c.traps.find((x) => Math.abs(x.value - c.answer) > Math.abs(c.answer) * 0.02);
-      return t.value;
+      return { trap: t.value, answer: c.answer };
     });
     await page.locator('#w-drill .answer input').fill(typed(trap));
     await page.locator('#w-drill .drill-check').click();
     await expect(page.locator('#w-drill .verdict.hint .v-title')).toHaveText('Erreur fréquente');
     await expect(page.locator('#w-drill .solution-panel')).toHaveCount(0);
-    await page.locator('#w-drill .answer input').fill('1');
+    // seconde réponse forcément fausse (« 1 » peut être la bonne réponse : nombre stœchiométrique, 1 mol restante…)
+    await page.locator('#w-drill .answer input').fill(typed(answer * 3.7 + 1));
     await page.locator('#w-drill .drill-check').click();
     await expect(page.locator('#w-drill .verdict.ko')).toBeVisible();
     await expect(page.locator('#w-drill .solution-panel')).toBeVisible();
@@ -398,6 +417,130 @@ test.describe('chapitre 3 : énergie chimique', () => {
     for (const x of r) { expect(x.w).toBeGreaterThan(240); expect(x.w).toBeLessThanOrEqual(x.card); }
     const over = await page.locator('#cours .box, #exemples .box').evaluateAll((b) => b.filter((x) => x.scrollWidth > x.clientWidth + 1).length);
     expect(over).toBe(0);
+  });
+});
+
+/* ---------- Chapitre 4 : équation de réaction et molécules ---------- */
+test.describe('chapitre 4 : équation de réaction et molécules', () => {
+  const URL4 = 'physique-1re/combustions.html';
+  const kpi = (w, i) => w.locator('.kpi').nth(i);
+  test('couleurs : chaque espèce a la même couleur dans l’équation, le curseur, la légende et le graphique', async ({ page }) => {
+    await open(page, URL4);
+    const r = await page.evaluate(() => {
+      const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim().toLowerCase();
+      const rgb = (hex) => { const n = parseInt(hex.slice(1), 16); return `rgb(${n >> 16}, ${(n >> 8) & 255}, ${n & 255})`; };
+      const w = document.querySelector('#w-avancement');
+      return ['fuel', 'O2'].map((q) => ({
+        q, want: css('--q-' + q), rgb: rgb(css('--q-' + q)),
+        formula: getComputedStyle(w.querySelector('.eq-live .q-' + q)).color,
+        slider: getComputedStyle(w.querySelector(`.slider[style*="--q-${q})"]`)).getPropertyValue('--tone').trim().toLowerCase(),
+        legend: getComputedStyle(w.querySelector(`.legend i[style*="--q-${q})"]`)).backgroundColor,
+        plot: window.Course.color('--q-' + q).toLowerCase()
+      }));
+    });
+    for (const x of r) {
+      expect(x.formula, x.q).toBe(x.rgb);
+      expect(x.slider, x.q).toBe(x.want);
+      expect(x.legend, x.q).toBe(x.rgb);
+      expect(x.plot, x.q).toBe(x.want);
+    }
+    // la masse m : même couleur dans la formule et le curseur du troisième graphique
+    const m = await page.evaluate(() => {
+      const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim().toLowerCase();
+      const rgb = (hex) => { const n = parseInt(hex.slice(1), 16); return `rgb(${n >> 16}, ${(n >> 8) & 255}, ${n & 255})`; };
+      const w = document.querySelector('#w-alcane');
+      return { want: css('--q-m'), rgb: rgb(css('--q-m')), formula: getComputedStyle(w.querySelector('.lab-formula .q-m')).color,
+        slider: getComputedStyle(w.querySelector('.slider[style*="--q-m)"]')).getPropertyValue('--tone').trim().toLowerCase() };
+    });
+    expect(m.formula).toBe(m.rgb);
+    expect(m.slider).toBe(m.want);
+  });
+
+  test('manipuler : tableau d’avancement du cours et des exercices 1 et 3', async ({ page }) => {
+    await open(page, URL4);
+    const w = page.locator('#w-avancement');
+    await w.locator('.preset', { hasText: 'Cours' }).click();
+    await expect(w.locator('.preset', { hasText: 'Cours' })).toHaveAttribute('aria-pressed', 'true');
+    await expect(kpi(w, 0).locator('.kpi-value')).toContainText(/^5\s*mol/);
+    await expect(kpi(w, 1).locator('.kpi-value')).toHaveText('CH₄');
+    await expect(kpi(w, 1).locator('.kpi-sub')).toContainText('il reste 2 mol de O₂');
+    await expect(kpi(w, 2).locator('.kpi-value')).toContainText(/^5\s*mol/);
+    await expect(kpi(w, 2).locator('.kpi-sub')).toContainText('120 L');
+    const finals = w.locator('.adv-live tbody tr:last-child td');
+    await expect(finals).toHaveCount(5);
+    for (const [i, v] of [[1, '0'], [2, '2'], [3, '5'], [4, '10']]) await expect(finals.nth(i)).toHaveText(v);
+    await expect(finals.nth(1)).toHaveClass(/is-zero/);
+    // exercice 3 : c'est le dioxygène qui limite, alors qu'il y en a plus que d'éthanol
+    await w.locator('.preset', { hasText: 'Exercice 3' }).click();
+    await expect(w.locator('.fuel-seg button[data-fuel="ethanol"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(kpi(w, 0).locator('.kpi-value')).toContainText(/^2\s*mol/);
+    await expect(kpi(w, 1).locator('.kpi-value')).toHaveText('O₂');
+    await expect(kpi(w, 3).locator('.kpi-sub')).toContainText('108 g');
+    await expect(finals.nth(2)).toHaveClass(/is-zero/);
+    // exercice 1 : 0,1 mol de pentane
+    await w.locator('.preset', { hasText: 'Exercice 1' }).click();
+    await expect(kpi(w, 0).locator('.kpi-value')).toContainText('0,1');
+    await expect(kpi(w, 2).locator('.kpi-value')).toContainText('0,5');
+    await expect(w.locator('.eq-live')).toContainText('C5H12');
+    // l'interrupteur montre les produits, la légende suit
+    await w.locator('.view-seg button[data-view="prod"]').click();
+    await expect(w.locator('.view-seg button[data-view="prod"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(w.locator('.legend li[data-for="prod"]').first()).toBeVisible();
+    await expect(w.locator('.legend li[data-for="reac"]').first()).toBeHidden();
+    await expect(w.locator('.preset', { hasText: 'Exercice 1' })).toHaveAttribute('aria-pressed', 'true');
+    // changer de combustible désélectionne le préréglage
+    await w.locator('.fuel-seg button[data-fuel="propane"]').click();
+    await expect(w.locator('.preset', { hasText: 'Exercice 1' })).toHaveAttribute('aria-pressed', 'false');
+    await expect(w.locator('.slider .fuel-name').first()).toHaveText('C₃H₈');
+  });
+
+  test('manipuler : ajuster une équation, atome par atome', async ({ page }) => {
+    await open(page, URL4);
+    const w = page.locator('#w-ajuster');
+    await w.locator('.preset', { hasText: 'à ajuster' }).click();
+    await expect(kpi(w, 0).locator('.kpi-value')).toHaveText('3 ≠ 1');
+    await expect(kpi(w, 0).locator('.badge')).toHaveClass(/mid/);
+    await expect(kpi(w, 3).locator('.kpi-value')).toHaveText('À ajuster');
+    await w.locator('.preset', { hasText: 'Propane · ajustée' }).click();
+    for (const i of [0, 1, 2]) await expect(kpi(w, i).locator('.badge.good')).toBeVisible();
+    await expect(kpi(w, 2).locator('.kpi-value')).toHaveText('10 = 10');
+    await expect(kpi(w, 3).locator('.kpi-sub')).toContainText('Plus petits entiers');
+    await w.locator('.preset', { hasText: 'Butane' }).click();
+    await expect(kpi(w, 2).locator('.kpi-value')).toHaveText('26 = 26');
+    await expect(kpi(w, 3).locator('.badge.good')).toBeVisible();
+    // un autre combustible repart de 1 partout
+    await w.locator('.fuel-seg button[data-fuel="ethanol"]').click();
+    expect(await w.locator('[data-k="b"]').inputValue()).toBe('1');
+    await expect(kpi(w, 2).locator('.kpi-value')).toHaveText('3 = 3'); // C2H6O + O2 → CO2 + H2O : O 1 + 2 = 2 + 1
+    await expect(kpi(w, 0).locator('.kpi-value')).toHaveText('2 ≠ 1');
+  });
+
+  test('manipuler : masses d’un alcane brûlé, exercices 1 et 4, conservation de la masse', async ({ page }) => {
+    await open(page, URL4);
+    const w = page.locator('#w-alcane');
+    await w.locator('.preset', { hasText: 'Hentriacontane' }).click();
+    await expect(kpi(w, 0).locator('.kpi-value')).toHaveText('Hentriacontane');
+    await expect(kpi(w, 0).locator('.kpi-sub')).toContainText('436 g/mol');
+    await expect(kpi(w, 1).locator('.kpi-value')).toContainText('0,0459');
+    await expect(kpi(w, 2).locator('.kpi-value')).toContainText('62,6');
+    await expect(kpi(w, 3).locator('.badge.good')).toBeVisible();
+    await w.locator('.preset', { hasText: 'Pentane' }).click();
+    await expect(kpi(w, 1).locator('.kpi-value')).toContainText('0,1');
+    await expect(kpi(w, 2).locator('.kpi-value')).toContainText('22'); // 5 × 0,1 mol × 44 g/mol
+    await expect(w.locator('.eq-live')).toContainText('C5H12');
+  });
+
+  test('cours : figures lisibles, tableaux défilants, rien ne déborde des cartes', async ({ page }) => {
+    await open(page, URL4);
+    const r = await page.locator('#cours .fig').evaluateAll((f) => f.map((x) => ({ w: x.getBoundingClientRect().width, card: x.closest('.box').getBoundingClientRect().width })));
+    expect(r.length).toBe(2);
+    for (const x of r) { expect(x.w).toBeGreaterThan(240); expect(x.w).toBeLessThanOrEqual(x.card); }
+    // les solutions s'ouvrent : les tableaux d'avancement restent dans leur carte
+    await page.locator('#exemples details.solution').evaluateAll((d) => d.forEach((x) => { x.open = true; }));
+    const over = await page.locator('#cours .box, #exemples .box, .widget').evaluateAll((b) => b.filter((x) => x.scrollWidth > x.clientWidth + 1).map((x) => x.id || x.className));
+    expect(over).toEqual([]);
+    expect(await page.locator('table.adv').count()).toBeGreaterThanOrEqual(7);
+    for (const t of await page.locator('table.adv').all()) expect(await t.evaluate((x) => !!x.closest('.table-scroll'))).toBe(true);
   });
 });
 

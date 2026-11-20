@@ -239,7 +239,8 @@ class SixStepsTests(unittest.TestCase):
 
     def test_chapitres_de_physique_refondus(self):
         keys = [k for k, _, _ in self.six_step_chapters()]
-        for key in ("physique-1re/energie-enjeux", "physique-1re/energie-interne", "physique-1re/energie-chimique"):
+        for key in ("physique-1re/energie-enjeux", "physique-1re/energie-interne", "physique-1re/energie-chimique",
+                    "physique-1re/combustions"):
             self.assertIn(key, keys)
 
     def test_banque_de_questions_chargee_par_la_page(self):
