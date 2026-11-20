@@ -125,6 +125,8 @@ test('chaque graphique a un bouton plein écran qui fonctionne', async ({ page }
 
 test('tous les widgets à graphique de toutes les pages ont le bouton plein écran', async ({ page }) => {
   test.skip(test.info().project.name !== 'desktop', 'vérification structurelle : une seule fois');
+  // ouvre toutes les pages (47 et plus, KaTeX chargé depuis le CDN) : près d'une minute à elle seule
+  test.slow();
   for (const url of PAGES.slice(1)) {
     await open(page, url);
     const missing = await page.evaluate(() => Array.from(document.querySelectorAll('.widget'))
@@ -135,6 +137,8 @@ test('tous les widgets à graphique de toutes les pages ont le bouton plein écr
 
 test('chaque exercice a un bouton calculatrice juste après « Vérifier »', async ({ page }) => {
   test.skip(test.info().project.name !== 'desktop', 'vérification structurelle : une seule fois');
+  // ouvre toutes les pages (47 et plus, KaTeX chargé depuis le CDN) : près d'une minute à elle seule
+  test.slow();
   let drills = 0;
   for (const url of PAGES.slice(1)) {
     await open(page, url);

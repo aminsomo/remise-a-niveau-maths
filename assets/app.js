@@ -121,7 +121,9 @@
     '\\QPC': '\\htmlClass{q-PC}{\\mathit{PC}}', '\\Qdm': '\\htmlClass{q-m}{\\Delta m}',
     '\\Qrho': '\\htmlClass{q-rho}{\\rho}', '\\Qd': '\\htmlClass{q-rho}{d}', '\\QV': '\\htmlClass{q-V}{V}',
     // chapitre 4 : équation de réaction (quantité de matière, masse molaire, volume molaire)
-    '\\Qn': '\\htmlClass{q-n}{n}', '\\QM': '\\htmlClass{q-M}{M}', '\\QVm': '\\htmlClass{q-V}{V_m}'
+    '\\Qn': '\\htmlClass{q-n}{n}', '\\QM': '\\htmlClass{q-M}{M}', '\\QVm': '\\htmlClass{q-V}{V_m}',
+    // chapitre 5 : électricité en régime continu (tension d'un récepteur, du générateur, intensité, résistance)
+    '\\Qu': '\\htmlClass{q-u}{U}', '\\QEg': '\\htmlClass{q-gen}{E}', '\\QI': '\\htmlClass{q-I}{I}', '\\QR': '\\htmlClass{q-R}{R}'
   };
   function katexOptions(extra) {
     return Object.assign({

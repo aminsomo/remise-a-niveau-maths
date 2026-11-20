@@ -175,6 +175,15 @@ window.COURSE = /* BEGIN-JSON */ {
           ]
         },
         {
+          "slug": "electricite-continu",
+          "title": "Électricité en régime continu",
+          "summary": "Flécher une tension, conventions générateur et récepteur, loi des mailles, loi des nœuds, loi d’Ohm U = R × I.",
+          "tags": [
+            "énergie",
+            "essentiel"
+          ]
+        },
+        {
           "slug": "mesures-incertitudes",
           "title": "Mesures et incertitudes",
           "summary": "Unités SI, chiffres significatifs, erreurs, incertitude-type, écart normalisé.",

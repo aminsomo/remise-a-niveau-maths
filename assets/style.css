@@ -80,6 +80,16 @@
   --q-prod: #e0638f;         /* atomes côté produits (validé avec --q-reac) */
   --q-n: #9085e9;            /* quantité de matière n (formules et indicateurs, jamais une courbe) */
   --q-M: #c98500;            /* masse molaire M (formules et indicateurs) */
+  /* chapitre 5 (électricité en régime continu) : tension d'un récepteur en orange (les flèches rouges des
+     schémas du cours), tension du générateur en bleu, intensité en vert, résistance en violet. Un graphique
+     en montre au plus trois, validés ensemble (toutes les paires, deux thèmes) : générateur + récepteurs ;
+     I + I1 + I2 (branche 1 ambre, branche 2 violet). La résistance ne partage jamais un graphique avec I2. */
+  --q-u: #e46a39;            /* tension aux bornes d'un récepteur U */
+  --q-gen: #4f95ec;          /* tension du générateur E */
+  --q-I: #22ad7c;            /* intensité I */
+  --q-R: #9085e9;            /* résistance R */
+  --q-I1: #c98500;           /* intensité de la branche 1 */
+  --q-I2: #9085e9;           /* intensité de la branche 2 */
 
   /* noms historiques (pages non encore refondues) */
   --accent-2: var(--rose);
@@ -155,6 +165,12 @@
   --q-prod: #c2336a;
   --q-n: #6250d6;
   --q-M: #9a6400;
+  --q-u: #c24a17;
+  --q-gen: #2a78d6;
+  --q-I: #0e8a5f;
+  --q-R: #6250d6;
+  --q-I1: #9a6400;
+  --q-I2: #6250d6;
   --plot-grid: rgba(13, 18, 30, .07);
   --plot-axis: #6b7080;
   --shadow: 0 1px 2px rgba(13, 18, 30, .05), 0 10px 30px -18px rgba(13, 18, 30, .25);
@@ -348,6 +364,12 @@ section > p, section > ul, section > ol { max-width: 72ch; }
 .q-prod { color: var(--q-prod); }
 .q-n { color: var(--q-n); }
 .q-M { color: var(--q-M); }
+.q-u { color: var(--q-u); }
+.q-gen { color: var(--q-gen); }
+.q-I { color: var(--q-I); }
+.q-R { color: var(--q-R); }
+.q-I1 { color: var(--q-I1); }
+.q-I2 { color: var(--q-I2); }
 
 /* bouton « Solution » : toute la largeur, cliquable */
 details.solution { margin-top: 1rem; border-top: 0; padding-top: 0; }
@@ -762,6 +784,33 @@ main.chapter.v2 { padding-top: 2.25rem; }
 /* figures du cours (SVG en ligne, couleurs des grandeurs) */
 .fig-wrap { margin: .9rem 0 .6rem; }
 .fig { display: block; width: 100%; max-width: 26rem; height: auto; margin-inline: auto; font-family: var(--font); }
+/* schémas électriques (chapitre 5) : fils et dipôles à l'encre du texte, chaque flèche à la couleur de sa grandeur */
+.fig.circuit { max-width: 30rem; }
+.circuit text { fill: var(--text); font-size: 15px; }
+.circuit .sub { font-size: 12px; }
+.circuit .q { font-style: italic; }
+.circuit .w, .circuit .cp { fill: none; stroke: var(--text); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.circuit .dot { fill: var(--text); }
+.circuit .sym { font-weight: 700; font-size: 14px; }
+.circuit .sym .q { font-style: normal; }
+.circuit .nm { font-size: 13.5px; font-weight: 600; fill: var(--muted); }
+.circuit .nm.in { font-size: 12.5px; fill: var(--text); }
+.circuit .nm .q { font-style: normal; }
+.circuit .pt, .circuit .pm { font-weight: 700; }
+.circuit .term { font-size: 11px; font-weight: 700; fill: var(--muted); letter-spacing: .02em; }
+.circuit .read { font-size: 13.5px; font-weight: 600; }
+.circuit .cap { font-size: 13.5px; fill: var(--muted); }
+.circuit .arr path { fill: none; stroke: var(--c); stroke-width: 2; stroke-linecap: round; }
+.circuit .arr .hd { fill: var(--c); stroke: none; }
+.circuit .arr text { fill: var(--c); font-weight: 600; }
+.circuit .rot path { fill: none; stroke: var(--muted); stroke-width: 1.6; }
+.circuit .rot .hd { fill: var(--muted); stroke: none; }
+.circuit .rot text { fill: var(--muted); }
+/* sur téléphone, un schéma prend toute la largeur de sa carte : son texte reste lisible */
+@media (max-width: 560px) {
+  .box > .fig-wrap:has(> .circuit) { margin-inline: -1.1rem; }
+  .sol-body > .fig-wrap:has(> .circuit) { margin-inline: -.85rem; }
+}
 
 /* sens du transfert thermique : corps chaud → corps froid */
 .heat-flow { display: flex; align-items: center; gap: .5rem; margin: .9rem 0; }
