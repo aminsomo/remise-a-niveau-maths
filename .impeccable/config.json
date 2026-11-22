@@ -99,6 +99,21 @@
         ],
         "createdAt": "2026-11-20T17:40:00.000Z",
         "reason": "False positive of the static scan: flagged .widget containers (#w-drill, #exam, #validation-card) are empty in source and filled by app.js; rendered pages checked at 1366x900, iPhone 13 and iPhone SE"
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "createdAt": "2026-11-22T14:05:33.359Z",
+        "reason": "Claude triage: Geist is the site-wide self-hosted font of the README design direction (Linear/Raycast), used by every page; incumbent choice, not introduced by chapter 6"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "physique-1re/electricite-variable.html"
+        ],
+        "createdAt": "2026-11-22T14:05:33.364Z",
+        "reason": "Claude triage: flagged containers are #w-drill, #exam and #validation-card, empty in static markup and filled by app.js at runtime inside .widget padding clamp(1rem,3vw,1.5rem); verified in rendered screenshots on desktop and iPhone SE"
       }
     ]
   }
