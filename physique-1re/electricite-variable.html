@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Électricité en régime variable · STI2D → Prépa</title>
+<meta name="description" content="Physique-chimie 1re STI2D, chapitre 6 : régime variable, grandeur périodique et motif, période et fréquence f = 1/T, valeurs maximale, moyenne et efficace (Ueff = Umax/√2), tension alternative, lecture d’un oscillogramme, composante continue et composante alternative. Cours, exemples, graphiques à manipuler, entraînement et évaluation sur 20.">
+<link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/core.js"></script>
+<script defer src="../assets/chapters.js"></script>
+<script defer src="../assets/app.js"></script>
+<script defer src="../assets/brouillon.js"></script>
+<script defer src="electricite-variable.js"></script>
+</head>
+<body data-root="../" data-chapter="physique-1re/electricite-variable">
+<main class="chapter v2">
+  <header class="chapter-head">
+    <h1>Électricité en régime variable</h1>
+    <p class="lead">La tension d’une prise de courant, le signal d’un générateur basses fréquences, l’horloge d’un microcontrôleur : en régime variable, tensions et intensités changent au cours du temps.
+      Dans ce chapitre : lire un chronogramme et un oscillogramme, trouver la période \(\QTp\) et la fréquence \(\Qf = \dfrac{1}{\QTp}\), les valeurs maximale, moyenne et efficace, puis séparer la composante continue de la composante alternative.</p>
+    <ul class="meta">
+      <li>Physique-chimie · 1re STI2D</li>
+      <li>Chapitre 6</li>
+      <li>6 étapes : cours, exemples, manipulation, entraînement, évaluation, validation</li>
+    </ul>
+  </header>
+
+  <!-- ===================================================== 1. COURS -->
+  <section class="step" id="cours">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">1</span>
+      <div>
+        <h2>Cours</h2>
+        <p>Les définitions du chapitre, dans l’ordre du cours. Sur tous les chronogrammes, une tension est tracée en orange et une intensité en vert ; la valeur moyenne est en bleu, la valeur efficace en vert.</p>
+      </div>
+    </header>
+
+    <h3 class="part-title"><span class="roman">I.</span> Régime continu et régime variable</h3>
+    <div class="bento">
+      <article class="box def" id="c-regimes">
+        <p class="box-title">Régime continu, régime variable</p>
+        <ul class="steps-list">
+          <li>Si les grandeurs électriques d’un circuit (tensions ou intensités) ne varient pas au cours du temps, le circuit fonctionne en <b>régime continu</b>. La tension est notée \(U\) et l’intensité \(I\), en majuscules.</li>
+          <li>Si elles varient au cours du temps, le circuit fonctionne en <b>régime variable</b>. La tension est notée \(\Qut\) et l’intensité \(i(t)\), en minuscules : leur valeur dépend de l’instant \(t\).</li>
+          <li>Le graphique d’une grandeur en fonction du temps s’appelle un <b>chronogramme</b> ; affiché par un oscilloscope, c’est un <b>oscillogramme</b>.</li>
+        </ul>
+        <figure class="fig-wrap" data-fig="regimes"></figure>
+      </article>
+
+      <article class="box def" id="c-periodique">
+        <p class="box-title">Grandeur variable périodique</p>
+        <p>Si une grandeur variable se répète identique à elle-même à intervalles de temps réguliers, elle est <b>périodique</b>. La partie de la grandeur qui se répète s’appelle le <b>motif</b>.</p>
+        <figure class="fig-wrap" data-fig="motif"></figure>
+        <p class="note">Les formes les plus courantes : sinusoïdale (la tension du secteur), en créneaux ou rectangulaire (les signaux numériques), triangulaire, en dents de scie.</p>
+      </article>
+    </div>
+
+    <h3 class="part-title"><span class="roman">II.</span> Les caractéristiques d’une grandeur périodique</h3>
+    <div class="bento">
+      <article class="box def" id="c-periode">
+        <p class="box-title">Période</p>
+        <p>C’est la durée au bout de laquelle le motif de la grandeur périodique se répète. Elle est notée \(\QTp\) et s’exprime en <b>secondes</b> (s).</p>
+        <p>Sur un chronogramme, on la lit entre deux sommets successifs, ou entre deux passages par la même valeur dans le même sens.</p>
+        <figure class="fig-wrap" data-fig="periode"></figure>
+        <p class="note">Pour plus de précision, on mesure la durée de plusieurs motifs, puis on divise : si 3 motifs durent 60 ms, \(\QTp = 20\ \mathrm{ms}\).</p>
+      </article>
+
+      <article class="box prop" id="c-frequence">
+        <p class="box-title">Fréquence</p>
+        <p>C’est le nombre de motifs répétés par seconde. Elle est notée \(\Qf\) et s’exprime en <b>hertz</b> (Hz).</p>
+        <div class="formula">\[\Qf = \dfrac{1}{\QTp}\]<p class="formula-units">\(\Qf\) en hertz (Hz), \(\QTp\) en secondes (s)</p></div>
+        <p>Inversement, \(\QTp = \dfrac{1}{\Qf}\). La tension du secteur a pour période \(\QTp = 20\ \mathrm{ms} = 0{,}020\ \mathrm{s}\), donc \(\Qf = \dfrac{1}{0{,}020} = 50\ \mathrm{Hz}\) : 50 motifs par seconde.</p>
+        <p class="note">Conversions : \(1\ \mathrm{ms} = 0{,}001\ \mathrm{s}\), \(1\ \mu\mathrm{s} = 0{,}000\,001\ \mathrm{s}\) et \(1\ \mathrm{kHz} = 1\,000\ \mathrm{Hz}\). Plus les motifs sont courts, plus la fréquence est grande.</p>
+      </article>
+
+      <article class="box def" id="c-umax">
+        <p class="box-title">Valeur maximale de la tension</p>
+        <p>Elle est notée \(\hat{u}\) ou \(\QUmax\). C’est la plus grande valeur que prend la tension.</p>
+        <figure class="fig-wrap" data-fig="valeurs"></figure>
+        <p class="note">La plus petite valeur est la valeur minimale \(\q{u}{U_{\min}}\). Pour une sinusoïde centrée sur zéro, \(\q{u}{U_{\min}} = -\QUmax\) : l’écart entre le creux et le sommet (la valeur crête à crête) vaut \(2\,\QUmax\), ce n’est pas la valeur maximale.</p>
+      </article>
+
+      <article class="box method" id="c-tracer">
+        <p class="box-title">Méthode : tracer une sinusoïde</p>
+        <ol class="steps-list">
+          <li>Trouver la période ; si l’énoncé donne la fréquence, \(\QTp = \dfrac{1}{\Qf}\).</li>
+          <li>Placer cinq points par période : \(0\) au départ, \(\QUmax\) à \(\dfrac{\QTp}{4}\), \(0\) à \(\dfrac{\QTp}{2}\), \(-\QUmax\) à \(\dfrac{3\QTp}{4}\) et \(0\) à \(\QTp\).</li>
+          <li>Relier ces points par une courbe arrondie, sans angle aux sommets, puis recommencer à chaque période.</li>
+        </ol>
+        <figure class="fig-wrap" data-fig="tracer"></figure>
+      </article>
+
+      <article class="box method wide" id="c-oscillo">
+        <p class="box-title">Méthode : lire un oscillogramme</p>
+        <ul class="steps-list">
+          <li>L’écran de l’oscilloscope est quadrillé : 10 divisions horizontales et 8 verticales.</li>
+          <li><b>Durée</b> = nombre de divisions × <b>balayage horizontal</b> (en ms/div ou µs/div).</li>
+          <li><b>Tension</b> = nombre de divisions × <b>sensibilité verticale</b> (en V/div), en comptant à partir de l’axe central.</li>
+        </ul>
+        <figure class="fig-wrap" data-fig="oscilloCours"></figure>
+        <p class="osc-set">Balayage horizontal : <b>1 ms/div</b> · sensibilité verticale : <b>5 V/div</b></p>
+        <p class="measure">Deux sommets successifs sont séparés de 4 divisions : \(\QTp = 4 \times 1 = 4\ \mathrm{ms}\), donc \(\Qf = \dfrac{1}{0{,}004} = 250\ \mathrm{Hz}\). Le sommet est à 2 divisions de l’axe central : \(\QUmax = 2 \times 5 = 10\ \mathrm{V}\).</p>
+      </article>
+    </div>
+
+    <h3 class="part-title"><span class="roman">III.</span> Valeur moyenne et valeur efficace</h3>
+    <div class="bento">
+      <article class="box def" id="c-moyenne">
+        <p class="box-title">Valeur moyenne</p>
+        <p>La valeur moyenne \(\Qmoy\) est la valeur constante qui donnerait, sur une période, la même aire sous la courbe. Une aire au-dessus de l’axe des temps compte en plus, une aire en dessous compte en moins.</p>
+        <p>Pour un signal en créneaux qui vaut \(U_1\) pendant \(t_1\), puis \(U_2\) pendant \(t_2\) :</p>
+        <div class="formula">\[\Qmoy = \dfrac{U_1 \times t_1 + U_2 \times t_2}{\QTp}\]</div>
+        <figure class="fig-wrap" data-fig="moyenne"></figure>
+        <p>Ici \(\Qmoy = \dfrac{9 \times 1 + (-3) \times 2}{3}\), soit \(\dfrac{9 - 6}{3} = 1\ \mathrm{V}\).</p>
+        <p class="note">Une sinusoïde est symétrique par rapport à sa valeur moyenne : \(\Qmoy = \dfrac{\QUmax + U_{\min}}{2}\). La valeur moyenne se mesure avec un voltmètre en position <b>DC</b>.</p>
+      </article>
+
+      <article class="box def" id="c-alternatif">
+        <p class="box-title">Grandeur alternative</p>
+        <div class="formula"><p>Une grandeur périodique est <b>alternative</b> lorsque sa <b>valeur moyenne est nulle</b> : ses aires positives et négatives se compensent.</p></div>
+        <figure class="fig-wrap" data-fig="alternatif"></figure>
+        <p class="note">Changer de signe ne suffit pas : à droite, le créneau prend des valeurs négatives, mais sa valeur moyenne vaut 2 V. Il n’est pas alternatif.</p>
+      </article>
+
+      <article class="box prop" id="c-efficace">
+        <p class="box-title">Valeur efficace</p>
+        <p>La valeur efficace d’une tension est égale à la valeur de la tension <b>continue</b> qui produirait le même éclairement dans une lampe. Elle est notée \(\QUeff\) et se mesure avec un voltmètre en mode <b>AC</b>.</p>
+        <div class="formula"><p>Pour un signal sinusoïdal (sans composante continue) :</p>\[\QUeff = \dfrac{\QUmax}{\sqrt{2}}\]<p class="formula-units">soit \(\QUeff \approx 0{,}71 \times \QUmax\)</p></div>
+        <figure class="fig-wrap" data-fig="efficace"></figure>
+        <p class="note">La tension du secteur a pour valeur efficace 230 V : sa valeur maximale vaut \(230 \times \sqrt{2} \approx 325\ \mathrm{V}\).</p>
+      </article>
+
+      <article class="box method" id="c-efficace-creneau">
+        <p class="box-title">Pour aller plus loin : valeur efficace d’un créneau</p>
+        <p>Une lampe chauffe et éclaire selon le <b>carré</b> de la tension (\(P = \dfrac{U^2}{R}\)). Le carré de la valeur efficace est donc la moyenne de \(u^2\) sur une période :</p>
+        <div class="formula">\[\QUeff = \sqrt{\dfrac{U_1^2 \times t_1 + U_2^2 \times t_2}{\QTp}}\]</div>
+        <p>Pour le créneau de la valeur moyenne (9 V pendant 1 ms, −3 V pendant 2 ms) : \(\QUeff = \sqrt{\dfrac{81 \times 1 + 9 \times 2}{3}}\), soit \(\sqrt{33} \approx 5{,}74\ \mathrm{V}\).</p>
+        <p class="note">La formule \(\dfrac{\QUmax}{\sqrt{2}}\) ne vaut que pour une sinusoïde sans composante continue : ici, elle donnerait \(6{,}36\ \mathrm{V}\), une valeur fausse.</p>
+      </article>
+    </div>
+
+    <h3 class="part-title"><span class="roman">IV.</span> Tension sinusoïdale avec une composante continue</h3>
+    <div class="bento">
+      <article class="box def" id="c-composante">
+        <p class="box-title">Composante continue et composante alternative</p>
+        <p>Un signal périodique \(s(t)\) peut toujours se décomposer en :</p>
+        <ul class="steps-list">
+          <li>sa <b>composante continue</b> \(\q{moy}{\langle s\rangle}\), qui est sa valeur moyenne (l’« offset ») ;</li>
+          <li>sa <b>composante alternative</b> \(s_{\text{alt}}(t)\), de valeur moyenne nulle.</li>
+        </ul>
+        <div class="formula">\[s(t) = \q{moy}{\langle s\rangle} + s_{\text{alt}}(t)\]</div>
+        <figure class="fig-wrap" data-fig="decomposition"></figure>
+      </article>
+
+      <article class="box prop" id="c-multimetre">
+        <p class="box-title">Mesurer au multimètre</p>
+        <p>Tous les multimètres permettent de mesurer :</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Position</th><th>Ce que le multimètre affiche</th></tr></thead>
+          <tbody>
+            <tr><td><b>DC</b></td><td>la valeur moyenne \(\q{moy}{\langle s\rangle}\) du signal</td></tr>
+            <tr><td><b>AC</b></td><td>la valeur efficace \(\q{eff}{s_{\text{alt,eff}}}\) de la composante alternative</td></tr>
+          </tbody>
+        </table></div>
+        <p>La valeur efficace du signal complet s’en déduit :</p>
+        <div class="formula">\[\q{eff}{S_{\text{eff}}} = \sqrt{\q{moy}{\langle s\rangle}^2 + \q{eff}{s_{\text{alt,eff}}}^2}\]</div>
+        <p class="note">Pour une tension alternative (sans composante continue), la position AC donne directement \(\QUeff\). Certains multimètres (dits « TRMS ») ont une position AC+DC qui affiche directement la valeur efficace du signal complet.</p>
+      </article>
+
+      <article class="box prop" id="c-composante-exemple">
+        <p class="box-title">Exemple du cours : calculer \(\QUeff\) en trois étapes</p>
+        <figure class="fig-wrap" data-fig="coursExemple"></figure>
+        <ol class="steps-list">
+          <li><b>Valeur moyenne.</b> Une sinusoïde est symétrique par rapport à sa valeur moyenne : on la lit sur l’axe de symétrie, \(\q{moy}{\langle U\rangle} = 2\ \mathrm{V}\). Par le calcul : \(\q{moy}{\langle U\rangle} = \dfrac{\QUmax + U_{\min}}{2}\), soit \(\dfrac{5 + (-1)}{2} = 2\ \mathrm{V}\).</li>
+          <li><b>Valeur efficace de la partie alternative.</b> L’amplitude est l’écart entre \(\q{moy}{\langle U\rangle}\) et \(\QUmax\) : \(\q{u}{U_m} = 5 - 2 = 3\ \mathrm{V}\). Donc \(\QUalt = \dfrac{\q{u}{U_m}}{\sqrt{2}}\), soit \(\dfrac{3}{\sqrt{2}} \approx 2{,}12\ \mathrm{V}\).</li>
+          <li><b>Valeur efficace.</b> \(\QUeff = \sqrt{\q{moy}{\langle U\rangle}^2 + \QUalt^2}\), soit \(\sqrt{2^2 + 4{,}5} = \sqrt{8{,}5} \approx 2{,}92\ \mathrm{V}\).</li>
+        </ol>
+        <p class="note">Le cours trouve 2,91 V en arrondissant \(\QUalt\) à 2,12 V avant de l’élever au carré. Garde les valeurs exactes jusqu’au bout : \(\left(\dfrac{3}{\sqrt{2}}\right)^2 = \dfrac{9}{2} = 4{,}5\).</p>
+      </article>
+
+      <article class="box warning" id="c-erreurs">
+        <p class="box-title">Les erreurs fréquentes</p>
+        <ul class="steps-list">
+          <li>Garder des <b>millisecondes</b> dans \(\Qf = \dfrac{1}{\QTp}\) : \(\dfrac{1}{20} = 0{,}05\), alors que \(\dfrac{1}{0{,}020\ \mathrm{s}} = 50\ \mathrm{Hz}\).</li>
+          <li>Lire la période entre un sommet et le creux suivant : ce n’est qu’une <b>demi</b>-période.</li>
+          <li>Compter la valeur maximale du creux au sommet : on compte à partir de zéro (ou de l’axe central de l’oscilloscope).</li>
+          <li>Appliquer \(\dfrac{\QUmax}{\sqrt{2}}\) à un créneau, ou à une sinusoïde qui a une composante continue.</li>
+          <li>Croire qu’une tension qui change de signe est alternative : il faut une valeur moyenne <b>nulle</b>.</li>
+          <li>Additionner les composantes : \(\QUeff \neq \Qmoy + \QUalt\).</li>
+        </ul>
+      </article>
+
+      <aside class="box def wide" id="videos">
+        <p class="box-title">Les vidéos du cours</p>
+        <ul class="video-links">
+          <li><a href="https://www.youtube.com/results?search_query=p%C3%A9riode+fr%C3%A9quence+chronogramme+tension+p%C3%A9riodique+lyc%C3%A9e"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>Période et fréquence d’une tension périodique<small>Partie II du cours · recherche YouTube</small></span></a></li>
+          <li><a href="https://www.youtube.com/results?search_query=lire+un+oscillogramme+sensibilit%C3%A9+verticale+balayage"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>Lire un oscillogramme : balayage et sensibilité<small>Partie II du cours · recherche YouTube</small></span></a></li>
+          <li><a href="https://www.youtube.com/results?search_query=valeur+moyenne+valeur+efficace+tension+STI2D"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>Valeur moyenne et valeur efficace<small>Partie III du cours · recherche YouTube</small></span></a></li>
+          <li><a href="https://www.youtube.com/results?search_query=composante+continue+composante+alternative+multim%C3%A8tre+DC+AC"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>Composante continue, composante alternative, multimètre DC et AC<small>Partie IV du cours · recherche YouTube</small></span></a></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===================================================== 2. EXEMPLES -->
+  <section class="step" id="exemples">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">2</span>
+      <div>
+        <h2>Exemples concrets</h2>
+        <p>Les exercices de la fiche, résolus pas à pas. Cherche d’abord sur une feuille, puis ouvre la solution.</p>
+      </div>
+    </header>
+    <div class="bento">
+      <article class="box example" id="ex-1a">
+        <p class="box-title">Exercice 1 (n° 14 p. 52) : oscillogramme 1</p>
+        <figure class="fig-wrap" data-fig="osc1"></figure>
+        <p>Détermine la valeur maximale, la période, la fréquence, la valeur moyenne et la valeur efficace de cette tension.</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <figure class="fig-wrap" data-fig="osc1sol"></figure>
+            <ol class="steps-list">
+              <li>Le sommet de la courbe est à 4 V : \(\QUmax = 4\ \mathrm{V}\).</li>
+              <li>Deux sommets successifs sont à 0 ms et 70 ms : \(\QTp = 70\ \mathrm{ms} = 0{,}070\ \mathrm{s}\).</li>
+              <li>\(\Qf = \dfrac{1}{\QTp}\), soit \(\dfrac{1}{0{,}070} \approx 14{,}3\ \mathrm{Hz}\).</li>
+              <li>La courbe va de 4 V à −4 V, symétrique par rapport à l’axe des temps : \(\Qmoy = 0\ \mathrm{V}\), la tension est alternative.</li>
+              <li>\(\QUeff = \dfrac{\QUmax}{\sqrt{2}}\), soit \(\dfrac{4}{\sqrt{2}} \approx 2{,}83\ \mathrm{V}\).</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example" id="ex-1b">
+        <p class="box-title">Exercice 1 (n° 14 p. 52) : oscillogramme 2</p>
+        <figure class="fig-wrap" data-fig="osc2"></figure>
+        <p>Détermine la valeur maximale, la période, la fréquence, la valeur moyenne et la valeur efficace de cette tension.</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <figure class="fig-wrap" data-fig="osc2sol"></figure>
+            <ol class="steps-list">
+              <li>Le sommet de la courbe est à 12 V : \(\QUmax = 12\ \mathrm{V}\).</li>
+              <li>Les sommets sont à 0 ms, 2,2 ms et 4,4 ms : deux périodes durent 4,4 ms, donc \(\QTp = 2{,}2\ \mathrm{ms} = 0{,}0022\ \mathrm{s}\).</li>
+              <li>\(\Qf = \dfrac{1}{0{,}0022} \approx 455\ \mathrm{Hz}\).</li>
+              <li>La courbe va de 12 V à −12 V : \(\Qmoy = 0\ \mathrm{V}\), la tension est alternative.</li>
+              <li>\(\QUeff = \dfrac{12}{\sqrt{2}} \approx 8{,}49\ \mathrm{V}\).</li>
+            </ol>
+            <p class="note">Mesurer deux périodes plutôt qu’une rend la lecture plus précise.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example" id="ex-2a">
+        <p class="box-title">Exercice 2 : tracer la tension (figure 10)</p>
+        <p>Trace le chronogramme de la tension \(u\) sinusoïdale de période 20 ms et d’amplitude 25 V.</p>
+        <figure class="fig-wrap" data-fig="fig10"></figure>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>\(\QTp = 20\ \mathrm{ms}\) : sur la figure 10, un grand carreau vaut 5 ms, une période occupe 4 grands carreaux.</li>
+              <li>Cinq points par période : 0 V à 0 ms, 25 V à 5 ms, 0 V à 10 ms, −25 V à 15 ms, 0 V à 20 ms ; puis 25 V à 25 ms.</li>
+              <li>On relie ces points par une courbe arrondie.</li>
+            </ol>
+            <figure class="fig-wrap" data-fig="fig10sol"></figure>
+            <p class="note">On peut aussi commencer par un sommet : seul l’instant de départ change, pas la période ni la valeur maximale.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example" id="ex-2b">
+        <p class="box-title">Exercice 2 : tracer l’intensité (figure 11)</p>
+        <p>Trace le chronogramme de l’intensité \(i\) sinusoïdale de fréquence 200 Hz et d’amplitude 0,3 A.</p>
+        <figure class="fig-wrap" data-fig="fig11"></figure>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>\(\QTp = \dfrac{1}{\Qf}\), soit \(\dfrac{1}{200} = 0{,}005\ \mathrm{s} = 5\ \mathrm{ms}\).</li>
+              <li>Cinq points : 0 A à 0 ms, 0,3 A à 1,25 ms, 0 A à 2,5 ms, −0,3 A à 3,75 ms, 0 A à 5 ms.</li>
+              <li>On relie ces points par une courbe arrondie, puis on continue jusqu’à 6 ms.</li>
+            </ol>
+            <figure class="fig-wrap" data-fig="fig11sol"></figure>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example" id="ex-3a">
+        <p class="box-title">Exercice 3 (n° 13 p. 51) : signal a</p>
+        <figure class="fig-wrap" data-fig="ex3a"></figure>
+        <p>Détermine la période, la fréquence, la valeur moyenne et la valeur efficace de ce signal.</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <figure class="fig-wrap" data-fig="ex3asol"></figure>
+            <ul class="legend"><li><i class="dash" style="color: var(--q-moy)"></i><span>\(\Qmoy = -2\ \mathrm{V}\)</span></li><li><i class="dash" style="color: var(--q-eff)"></i><span>\(\QUeff \approx 4{,}47\ \mathrm{V}\)</span></li></ul>
+            <ol class="steps-list">
+              <li>Le motif (6 V pendant 1 s, −4 V pendant 4 s) recommence à 5 s : \(\QTp = 5\ \mathrm{s}\).</li>
+              <li>\(\Qf = \dfrac{1}{5} = 0{,}2\ \mathrm{Hz}\).</li>
+              <li>\(\Qmoy = \dfrac{6 \times 1 + (-4) \times 4}{5}\), soit \(\dfrac{6 - 16}{5} = -2\ \mathrm{V}\).</li>
+              <li>\(\QUeff = \sqrt{\dfrac{6^2 \times 1 + (-4)^2 \times 4}{5}}\), soit \(\sqrt{\dfrac{36 + 64}{5}} = \sqrt{20} \approx 4{,}47\ \mathrm{V}\).</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example" id="ex-3b">
+        <p class="box-title">Exercice 3 (n° 13 p. 51) : signal b</p>
+        <figure class="fig-wrap" data-fig="ex3b"></figure>
+        <p>Détermine la période, la fréquence, la valeur moyenne et la valeur efficace de ce signal.</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <figure class="fig-wrap" data-fig="ex3bsol"></figure>
+            <ul class="legend"><li><i class="dash" style="color: var(--q-moy)"></i><span>\(\Qmoy = 3{,}6\ \mathrm{V}\)</span></li><li><i class="dash" style="color: var(--q-eff)"></i><span>\(\QUeff \approx 5{,}69\ \mathrm{V}\)</span></li></ul>
+            <ol class="steps-list">
+              <li>Le motif (9 V pendant 10 s, 6 V pendant 20 s, −3 V pendant 10 s, 0 V pendant 10 s) recommence à 50 s : \(\QTp = 50\ \mathrm{s}\).</li>
+              <li>\(\Qf = \dfrac{1}{50} = 0{,}02\ \mathrm{Hz}\).</li>
+              <li>Sur une période, palier par palier : l’aire \(u \times t\) (pour la valeur moyenne) et \(u^2 \times t\) (pour la valeur efficace).</li>
+            </ol>
+            <div class="table-scroll"><table class="tight">
+              <thead><tr><th>\(u\) (V)</th><th>\(t\) (s)</th><th>\(u \times t\)</th><th>\(u^2 \times t\)</th></tr></thead>
+              <tbody>
+                <tr><td>9</td><td>10</td><td>90</td><td>810</td></tr>
+                <tr><td>6</td><td>20</td><td>120</td><td>720</td></tr>
+                <tr><td>−3</td><td>10</td><td>−30</td><td>90</td></tr>
+                <tr><td>0</td><td>10</td><td>0</td><td>0</td></tr>
+                <tr><th>Total</th><th>50</th><th>180</th><th>1 620</th></tr>
+              </tbody>
+            </table></div>
+            <ol class="steps-list" start="4" style="counter-reset: s 3">
+              <li>\(\Qmoy = \dfrac{180}{50} = 3{,}6\ \mathrm{V}\).</li>
+              <li>\(\QUeff = \sqrt{\dfrac{1\,620}{50}} = \sqrt{32{,}4} \approx 5{,}69\ \mathrm{V}\).</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example" id="ex-3c">
+        <p class="box-title">Exercice 3 (n° 13 p. 51) : signal c</p>
+        <figure class="fig-wrap" data-fig="ex3c"></figure>
+        <p>Détermine la période, la fréquence, la valeur moyenne et la valeur efficace de ce signal.</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <figure class="fig-wrap" data-fig="ex3csol"></figure>
+            <ul class="legend"><li><i class="dash" style="color: var(--q-moy)"></i><span>\(\Qmoy = 2\ \mathrm{V}\)</span></li><li><i class="dash" style="color: var(--q-eff)"></i><span>\(\QUeff \approx 6{,}11\ \mathrm{V}\)</span></li></ul>
+            <ol class="steps-list">
+              <li>La tension monte de −8 V à 12 V en 50 ms, puis le motif recommence : \(\QTp = 50\ \mathrm{ms} = 0{,}050\ \mathrm{s}\).</li>
+              <li>\(\Qf = \dfrac{1}{0{,}050} = 20\ \mathrm{Hz}\).</li>
+              <li>La tension monte régulièrement : sa moyenne est le milieu, \(\Qmoy = \dfrac{-8 + 12}{2} = 2\ \mathrm{V}\). Les deux triangles de part et d’autre de la droite à 2 V ont la même aire.</li>
+              <li>Pour aller plus loin : sur une montée régulière de \(a\) à \(b\), la moyenne de \(u^2\) vaut \(\dfrac{a^2 + ab + b^2}{3}\) (résultat admis). \(\QUeff = \sqrt{\dfrac{64 - 96 + 144}{3}}\), soit \(\sqrt{\dfrac{112}{3}} \approx 6{,}11\ \mathrm{V}\).</li>
+            </ol>
+            <p class="note">Ce n’est pas une sinusoïde : \(\dfrac{12}{\sqrt{2}} \approx 8{,}49\ \mathrm{V}\) serait faux.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example" id="ex-3d">
+        <p class="box-title">Exercice 3 : ces signaux sont-ils alternatifs ?</p>
+        <p>Peut-on qualifier les signaux a, b et c d’alternatifs ?</p>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <div class="table-scroll"><table class="tight">
+              <thead><tr><th>Signal</th><th>\(\Qmoy\)</th><th>Alternatif ?</th></tr></thead>
+              <tbody>
+                <tr><td>a</td><td>−2 V</td><td>non</td></tr>
+                <tr><td>b</td><td>3,6 V</td><td>non</td></tr>
+                <tr><td>c</td><td>2 V</td><td>non</td></tr>
+              </tbody>
+            </table></div>
+            <p>Aucun n’est alternatif : leur valeur moyenne n’est pas nulle. Pourtant, tous les trois prennent des valeurs positives et des valeurs négatives : changer de signe ne suffit pas.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example" id="ex-5a">
+        <p class="box-title">Exercice 5 (type DS), 1re partie : une tension sinusoïdale</p>
+        <figure class="fig-wrap" data-fig="ex5a"></figure>
+        <p class="osc-set">Balayage horizontal : <b>0,5 ms/div</b> · sensibilité verticale : <b>2 V/div</b></p>
+        <ol class="steps-list" style="--tone: var(--amber)">
+          <li>Donne la valeur de la tension maximale \(\QUmax\).</li>
+          <li>Donne la valeur de la période \(\QTp\).</li>
+          <li>Déduis-en la fréquence.</li>
+          <li>Calcule la tension efficace \(\QUeff\).</li>
+          <li>Quel appareil mesure la tension efficace ? Précise son réglage (AC, DC ou AC+DC).</li>
+          <li>Cette tension est-elle alternative ? Justifie.</li>
+        </ol>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <figure class="fig-wrap" data-fig="ex5asol"></figure>
+            <ol class="steps-list">
+              <li>Le sommet est à 2,5 divisions de l’axe central : \(\QUmax = 2{,}5 \times 2 = 5\ \mathrm{V}\).</li>
+              <li>Deux sommets successifs sont séparés de 2 divisions : \(\QTp = 2 \times 0{,}5 = 1\ \mathrm{ms} = 0{,}001\ \mathrm{s}\).</li>
+              <li>\(\Qf = \dfrac{1}{0{,}001} = 1\,000\ \mathrm{Hz}\).</li>
+              <li>\(\QUeff = \dfrac{\QUmax}{\sqrt{2}}\), soit \(\dfrac{5}{\sqrt{2}} \approx 3{,}54\ \mathrm{V}\).</li>
+              <li>Un voltmètre (multimètre), branché en dérivation, en position AC : la tension n’a pas de composante continue.</li>
+              <li>Oui : la sinusoïde est symétrique par rapport à l’axe central, sa valeur moyenne est nulle.</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example" id="ex-5b">
+        <p class="box-title">Exercice 5 (type DS), 2e partie : une tension en créneaux</p>
+        <figure class="fig-wrap" data-fig="ex5b"></figure>
+        <ol class="steps-list" style="--tone: var(--amber)">
+          <li>Donne la valeur de la fréquence de cette tension.</li>
+          <li>Détermine la valeur maximale \(\hat{u}\).</li>
+          <li>Détermine la valeur moyenne \(\Qmoy\) en expliquant ta démarche.</li>
+          <li>La tension est-elle alternative ? Justifie.</li>
+          <li>Comment mesurer cette valeur moyenne ? Précise l’appareil et son réglage.</li>
+        </ol>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <figure class="fig-wrap" data-fig="ex5bsol"></figure>
+            <ol class="steps-list">
+              <li>Deux fronts montants successifs sont à 20 µs et 420 µs : \(\QTp = 400\ \mu\mathrm{s} = 4 \times 10^{-4}\ \mathrm{s}\), donc \(\Qf = \dfrac{1}{4 \times 10^{-4}} = 2\,500\ \mathrm{Hz}\).</li>
+              <li>\(\hat{u} = 3\ \mathrm{V}\).</li>
+              <li>La tension vaut 3 V pendant 200 µs, puis −5 V pendant 200 µs : \(\Qmoy = \dfrac{3 \times 200 + (-5) \times 200}{400} = -1\ \mathrm{V}\). Les deux paliers durent autant : c’est aussi la demi-somme \(\dfrac{3 + (-5)}{2}\).</li>
+              <li>Non : elle prend des valeurs positives et négatives, mais sa valeur moyenne vaut −1 V, elle n’est pas nulle.</li>
+              <li>Avec un voltmètre (multimètre) branché en dérivation, en position DC.</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================================================== 3. MANIPULER -->
+  <section class="step" id="manipuler">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">3</span>
+      <div>
+        <h2>Manipuler</h2>
+        <p>Bouge les curseurs et prédis le résultat avant de regarder. Les couleurs sont celles du cours : tension en orange, valeur moyenne en bleu, valeur efficace en vert ; période en ambre et fréquence en rose dans les formules.</p>
+      </div>
+    </header>
+    <div class="bento">
+      <div class="widget" id="w-sinus">
+        <p class="widget-title">Période et fréquence : combien de motifs par seconde ?</p>
+        <p class="hint">Raccourcis la période : les motifs se resserrent, il y en a davantage dans la fenêtre de 100 ms, et la fréquence \(\Qf = \dfrac{1}{\QTp}\) augmente. La droite verte marque la valeur efficace \(\QUeff = \dfrac{\QUmax}{\sqrt{2}}\).</p>
+        <div class="lab">
+          <div class="lab-stage">
+            <canvas class="plot tall" aria-label="Chronogramme d’une tension sinusoïdale, u en volts en fonction de t en millisecondes, avec la valeur efficace et une période cotée"></canvas>
+            <ul class="legend">
+              <li><i style="background: var(--q-u)"></i><span>tension \(\Qut\)</span></li>
+              <li><i class="dash" style="color: var(--q-eff)"></i><span>valeur efficace \(\QUeff\)</span></li>
+              <li><i style="background: var(--text)"></i><span>une période \(\QTp\)</span></li>
+            </ul>
+          </div>
+          <div class="lab-side">
+            <div class="lab-formula">\(\Qf = \dfrac{1}{\QTp}\)</div>
+            <div class="sliders">
+              <div class="slider" style="--tone: var(--q-u)">
+                <div class="slider-top"><label class="name" for="sl-um">Valeur maximale \(\QUmax\)</label><span><output data-show="u" for="sl-um" data-digits="1"></output> V</span></div>
+                <input id="sl-um" type="range" data-k="u" min="1" max="25" step="0.5" value="25">
+              </div>
+              <div class="slider" style="--tone: var(--q-per)">
+                <div class="slider-top"><label class="name" for="sl-tp">Période \(\QTp\)</label><span><output data-show="T" for="sl-tp" data-digits="0"></output> ms</span></div>
+                <input id="sl-tp" type="range" data-k="T" min="5" max="100" step="1" value="20">
+              </div>
+            </div>
+            <div>
+              <p class="presets-label">Préréglages</p>
+              <div class="presets"></div>
+            </div>
+            <div class="kpis"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget" id="w-creneau">
+        <p class="widget-title">Signal en créneaux : valeur moyenne, valeur efficace, alternatif ?</p>
+        <p class="hint">La tension vaut \(U_1\) pendant \(t_1\), puis \(U_2\) jusqu’à la fin de la période \(\QTp = 5\ \mathrm{s}\). La valeur moyenne égalise les aires (une aire sous l’axe compte en moins) ; la valeur efficace vient des carrés. La tension est alternative quand sa valeur moyenne est nulle.</p>
+        <div class="lab">
+          <div class="lab-stage">
+            <canvas class="plot tall" aria-label="Chronogramme d’une tension en créneaux, u en volts en fonction de t en secondes, avec sa valeur moyenne et sa valeur efficace"></canvas>
+            <ul class="legend">
+              <li><i style="background: var(--q-u)"></i><span>tension \(\Qut\) et aires sous la courbe</span></li>
+              <li><i class="dash" style="color: var(--q-moy)"></i><span>valeur moyenne \(\Qmoy\)</span></li>
+              <li><i class="dash" style="color: var(--q-eff)"></i><span>valeur efficace \(\QUeff\)</span></li>
+            </ul>
+          </div>
+          <div class="lab-side">
+            <div class="lab-formula">\(\Qmoy = \dfrac{U_1 t_1 + U_2 t_2}{\QTp}\)</div>
+            <div class="sliders">
+              <div class="slider" style="--tone: var(--q-u)">
+                <div class="slider-top"><label class="name" for="sl-u1">Premier palier \(U_1\)</label><span><output data-show="u1" for="sl-u1" data-digits="0"></output> V</span></div>
+                <input id="sl-u1" type="range" data-k="u1" min="-10" max="10" step="1" value="6">
+              </div>
+              <div class="slider" style="--tone: var(--q-u)">
+                <div class="slider-top"><label class="name" for="sl-u2">Second palier \(U_2\)</label><span><output data-show="u2" for="sl-u2" data-digits="0"></output> V</span></div>
+                <input id="sl-u2" type="range" data-k="u2" min="-10" max="10" step="1" value="-4">
+              </div>
+              <div class="slider" style="--tone: var(--q-per)">
+                <div class="slider-top"><label class="name" for="sl-t1">Durée \(t_1\) du premier palier</label><span><output data-show="t1" for="sl-t1" data-digits="1"></output> s</span></div>
+                <input id="sl-t1" type="range" data-k="t1" min="0.5" max="4.5" step="0.5" value="1">
+              </div>
+            </div>
+            <div>
+              <p class="presets-label">Préréglages</p>
+              <div class="presets"></div>
+            </div>
+            <div class="kpis"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget" id="w-composante">
+        <p class="widget-title">Composante continue + composante alternative : ce que lit le multimètre</p>
+        <p class="hint">La sinusoïde d’amplitude \(\q{u}{U_m}\) est décalée de sa composante continue \(\Qmoy\). En position DC, le multimètre lit \(\Qmoy\) ; en position AC, \(\QUalt = \dfrac{\q{u}{U_m}}{\sqrt{2}}\). La valeur efficace réunit les deux : \(\QUeff = \sqrt{\Qmoy^2 + \QUalt^2}\).</p>
+        <div class="lab">
+          <div class="lab-stage">
+            <canvas class="plot tall" aria-label="Chronogramme d’une tension sinusoïdale décalée, u en volts en fonction de t en secondes, avec sa valeur moyenne, sa valeur efficace et son amplitude"></canvas>
+            <ul class="legend">
+              <li><i style="background: var(--q-u)"></i><span>tension \(\Qut\)</span></li>
+              <li><i class="dash" style="color: var(--q-moy)"></i><span>composante continue \(\Qmoy\)</span></li>
+              <li><i class="dash" style="color: var(--q-eff)"></i><span>valeur efficace \(\QUeff\)</span></li>
+            </ul>
+          </div>
+          <div class="lab-side">
+            <div class="lab-formula">\(\QUeff = \sqrt{\Qmoy^2 + \QUalt^2}\)</div>
+            <div class="sliders">
+              <div class="slider" style="--tone: var(--q-moy)">
+                <div class="slider-top"><label class="name" for="sl-moy">Composante continue \(\Qmoy\)</label><span><output data-show="m" for="sl-moy" data-digits="1"></output> V</span></div>
+                <input id="sl-moy" type="range" data-k="m" min="-4" max="6" step="0.5" value="2">
+              </div>
+              <div class="slider" style="--tone: var(--q-u)">
+                <div class="slider-top"><label class="name" for="sl-am">Amplitude \(\q{u}{U_m}\)</label><span><output data-show="a" for="sl-am" data-digits="1"></output> V</span></div>
+                <input id="sl-am" type="range" data-k="a" min="0" max="5" step="0.5" value="3">
+              </div>
+            </div>
+            <div>
+              <p class="presets-label">Préréglages</p>
+              <div class="presets"></div>
+            </div>
+            <div class="kpis"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 4. ENTRAÎNEMENT -->
+  <section class="step" id="entrainement">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">4</span>
+      <div>
+        <h2>Entraînement</h2>
+        <p>Des questions qui se renouvellent à l’infini. Réussis <b>5 réponses de suite du premier coup</b> pour débloquer l’évaluation. Le brouillon et la calculatrice restent à portée de main pendant que tu réponds.</p>
+      </div>
+    </header>
+    <div class="bento work">
+      <div class="widget" id="w-drill"></div>
+      <div class="workspace-host" id="ws-train"></div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 5. ÉVALUATION -->
+  <section class="step" id="evaluation">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">5</span>
+      <div>
+        <h2>Évaluation</h2>
+        <p>Une copie sur 20 points, corrigée à la fin, sans limite de temps. La calculatrice passe en mode examen : seulement les calculs d’une calculatrice standard.</p>
+      </div>
+    </header>
+    <div class="bento work">
+      <div class="widget exam-card" id="exam"></div>
+      <div class="workspace-host" id="ws-exam"></div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 6. VALIDATION -->
+  <section class="step" id="validation">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">6</span>
+      <div>
+        <h2>Validation</h2>
+        <p>Au moins 15/20 : le chapitre est validé et le suivant s’ouvre. En dessous : retour à l’entraînement pour une nouvelle série de 5.</p>
+      </div>
+    </header>
+    <div class="widget valid-card" id="validation-card"></div>
+  </section>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var C = window.CourseCore, CB = window.ChapterBank, Bank = CB.make(), F = CB.FIG;
+  /** Nombre à la française avec un vrai signe moins (−), 0 jamais écrit −0. */
+  function num(x, sig) { return Math.abs(x) < 1e-9 ? '0' : C.fmtNum(x, sig || 3).replace('-', '−'); }
+  /** Facteur entre parenthèses quand il est négatif : 6 × 1 + (−4) × 4. */
+  function par(x) { return x < 0 ? '(' + num(x) + ')' : num(x); }
+
+  /* ---------- chronogrammes du cours et des exemples (dessinés par electricite-variable.js) ---------- */
+  var FIGS = {
+    regimes: function () { return F.regimes(); },
+    motif: function () { return F.motif(); },
+    periode: function () { return F.periode(); },
+    valeurs: function () { return F.valeurs(); },
+    tracer: function () { return F.tracer(); },
+    oscilloCours: function () { return F.oscilloCours(); },
+    moyenne: function () { return F.moyenne(); },
+    alternatif: function () { return F.alternatif(); },
+    efficace: function () { return F.efficace(); },
+    decomposition: function () { return F.decomposition(); },
+    coursExemple: function () { return F.coursExemple(); },
+    osc1: function () { return F.osc1(false); },
+    osc1sol: function () { return F.osc1(true); },
+    osc2: function () { return F.osc2(false); },
+    osc2sol: function () { return F.osc2(true); },
+    fig10: function () { return F.fig10(false); },
+    fig10sol: function () { return F.fig10(true); },
+    fig11: function () { return F.fig11(false); },
+    fig11sol: function () { return F.fig11(true); },
+    ex3a: function () { return F.ex3('a', false); },
+    ex3asol: function () { return F.ex3('a', true); },
+    ex3b: function () { return F.ex3('b', false); },
+    ex3bsol: function () { return F.ex3('b', true); },
+    ex3c: function () { return F.ex3('c', false); },
+    ex3csol: function () { return F.ex3('c', true); },
+    ex5a: function () { return F.ex5a(false); },
+    ex5asol: function () { return F.ex5a(true); },
+    ex5b: function () { return F.ex5b(false); },
+    ex5bsol: function () { return F.ex5b(true); }
+  };
+  document.querySelectorAll('figure[data-fig]').forEach(function (f) { f.innerHTML = FIGS[f.dataset.fig](); });
+
+  /** Cote d'une période sur un graphique : double flèche de a à b à la hauteur y, étiquette au-dessus. */
+  function period(g, a, b, y, label) {
+    var m = (a + b) / 2;
+    g.arrow(m, y, a, y, '--text', null, { width: 1.6 });
+    g.arrow(m, y, b, y, '--text', null, { width: 1.6 });
+    g.text(m, y, label, '--text', { align: 'center', baseline: 'bottom', dy: -5, size: 12.5, bold: true, halo: true });
+  }
+
+  /* ---------- Manipuler 1 : période et fréquence d'une sinusoïde ---------- */
+  var wS = document.getElementById('w-sinus');
+  var VS = { xmin: -4, xmax: 104, ymin: -33, ymax: 33 };
+  var GS = Course.plot(wS.querySelector('canvas'), Object.assign({ xlabel: 't (ms)', ylabel: 'u (V)', xstep: 10, ystep: 10 }, VS));
+  var kpiS = Course.kpis(wS.querySelector('.kpis'), [
+    { id: 'T', label: '<span>Période \\(\\QTp\\) en secondes</span>', tone: '--q-per' },
+    { id: 'f', label: '<span>Fréquence \\(\\Qf = \\dfrac{1}{\\QTp}\\)</span>', tone: '--q-f' },
+    { id: 'n', label: 'Motifs dans la fenêtre de 100 ms', tone: '--text' },
+    { id: 'e', label: '<span>Valeur efficace \\(\\QUeff\\)</span>', tone: '--q-eff' }
+  ]);
+  Course.presets(wS.querySelector('.presets'), [
+    { label: 'Exercice 2 · 25 V et 20 ms', values: { u: 25, T: 20 } },
+    { label: 'Oscillogramme 1 · 4 V et 70 ms', values: { u: 4, T: 70 } },
+    { label: 'Période deux fois plus courte · 10 ms', values: { u: 25, T: 10 } }
+  ]);
+  Course.onInput(wS, function (v) {
+    var U = v.u, Tp = v.T, f = 1000 / Tp, eff = U / Math.SQRT2;
+    GS.draw = function (g) {
+      g.seg(0, eff, 104, eff, '--q-eff', { dash: [7, 5], width: 2 });
+      g.fn(function (t) { return U * Math.sin(2 * Math.PI * t / Tp); }, '--q-u', { width: 2.6, from: 0, to: 104 });
+      // une période : entre deux sommets successifs, sinon entre deux passages par 0 en montant
+      var a = Tp / 4 + Tp <= 104 ? Tp / 4 : 0, y = U + 2.5;
+      period(g, a, a + Tp, y, 'T = ' + num(Tp) + ' ms');
+      g.point(a, a ? U : 0, '--q-u', null, { r: 5 });
+      g.point(a + Tp, a ? U : 0, '--q-u', null, { r: 5 });
+      g.text(103, eff, 'Ueff = ' + num(eff) + ' V', '--text', { align: 'right', baseline: 'top', dy: 5, size: 12.5, bold: true, halo: true });
+    };
+    GS.redraw(VS);
+    kpiS({
+      T: { value: num(Tp / 1000), unit: 's', sub: num(Tp) + ' ms ÷ 1 000' },
+      f: { value: num(f), unit: 'Hz', sub: '1 ÷ ' + num(Tp / 1000) + ' s' },
+      n: { value: num(100 / Tp), unit: 'motifs', sub: '100 ms ÷ ' + num(Tp) + ' ms, soit f × 0,1 s' },
+      e: { value: num(eff), unit: 'V', sub: num(U) + ' V ÷ √2' }
+    });
+  });
+
+  /* ---------- Manipuler 2 : créneaux, valeur moyenne et valeur efficace ---------- */
+  var wC = document.getElementById('w-creneau');
+  var VC = { xmin: -0.4, xmax: 12.6, ymin: -12, ymax: 12 };
+  var GC = Course.plot(wC.querySelector('canvas'), Object.assign({ xlabel: 't (s)', ylabel: 'u (V)', xstep: 1, ystep: 2 }, VC));
+  var kpiC = Course.kpis(wC.querySelector('.kpis'), [
+    { id: 'm', label: '<span>Valeur moyenne \\(\\Qmoy\\)</span>', tone: '--q-moy' },
+    { id: 'e', label: '<span>Valeur efficace \\(\\QUeff\\)</span>', tone: '--q-eff' },
+    { id: 'alt', label: 'Tension alternative ?', tone: '--text' }
+  ]);
+  Course.presets(wC.querySelector('.presets'), [
+    { label: 'Exercice 3 a · 6 V et −4 V, 1 s sur 5 s', values: { u1: 6, u2: -4, t1: 1 } },
+    { label: 'Exercice 5 · 3 V et −5 V, moitié-moitié', values: { u1: 3, u2: -5, t1: 2.5 } },
+    { label: 'Alternatif sans symétrie · 8 V et −2 V', values: { u1: 8, u2: -2, t1: 1 } }
+  ]);
+  Course.onInput(wC, function (v) {
+    var Tp = 5, t1 = v.t1, t2 = Tp - t1, U1 = v.u1, U2 = v.u2;
+    var moy = (U1 * t1 + U2 * t2) / Tp, eff = Math.sqrt((U1 * U1 * t1 + U2 * U2 * t2) / Tp);
+    function u(t) { var p = ((t % Tp) + Tp) % Tp; return p < t1 ? U1 : U2; }
+    GC.draw = function (g) {
+      // aires sous la courbe, palier par palier (une aire sous l'axe compte en moins)
+      for (var k = 0; k * Tp < 12.6; k++) {
+        var a = k * Tp, b = Math.min(12.6, a + t1), c = Math.min(12.6, a + Tp);
+        g.area(function () { return U1; }, a, b, '--q-u', { alpha: 0.16 });
+        if (c > b) g.area(function () { return U2; }, b, c, '--q-u', { alpha: 0.16 });
+      }
+      g.seg(0, moy, 12.6, moy, '--q-moy', { dash: [7, 5], width: 2 });
+      g.seg(0, eff, 12.6, eff, '--q-eff', { dash: [7, 5], width: 2 });
+      g.fn(u, '--q-u', { width: 2.6, from: 0, to: 12.6 });
+      var close = Math.abs(eff - moy) < 2.2, up = moy >= 0 || close;
+      g.text(12.5, eff, 'Ueff = ' + num(eff) + ' V', '--text', { align: 'right', baseline: 'bottom', dy: -5, size: 12.5, bold: true, halo: true });
+      g.text(12.5, moy, '⟨u⟩ = ' + num(moy) + ' V', '--text', { align: 'right', baseline: up && !close ? 'bottom' : 'top', dy: up && !close ? -5 : 5, size: 12.5, bold: true, halo: true });
+    };
+    GC.redraw(VC);
+    var alt = Math.abs(moy) < 1e-9;
+    kpiC({
+      m: { value: num(moy), unit: 'V', sub: '(' + par(U1) + ' × ' + num(t1) + ' + ' + par(U2) + ' × ' + num(t2) + ') ÷ 5' },
+      e: { value: num(eff), unit: 'V', sub: '√((' + par(U1) + '² × ' + num(t1) + ' + ' + par(U2) + '² × ' + num(t2) + ') ÷ 5)' },
+      alt: { value: alt ? 'oui' : 'non', badge: alt ? { cls: 'good', icon: 'check', text: 'valeur moyenne nulle' } : { cls: 'info', text: (U1 * U2 < 0 ? 'elle change de signe, mais ' : '') + '⟨u⟩ ≠ 0' } }
+    });
+  });
+
+  /* ---------- Manipuler 3 : composante continue et composante alternative ---------- */
+  var wM = document.getElementById('w-composante');
+  var VM = { xmin: -0.5, xmax: 16.6, ymin: -10, ymax: 12 };
+  var GM = Course.plot(wM.querySelector('canvas'), Object.assign({ xlabel: 't (s)', ylabel: 'u (V)', xstep: 2, ystep: 2 }, VM));
+  var kpiM = Course.kpis(wM.querySelector('.kpis'), [
+    { id: 'dc', label: '<span>Multimètre en DC : \\(\\Qmoy\\)</span>', tone: '--q-moy' },
+    { id: 'ac', label: '<span>Multimètre en AC : \\(\\QUalt\\)</span>', tone: '--q-eff' },
+    { id: 'eff', label: '<span>Valeur efficace \\(\\QUeff\\)</span>', tone: '--q-eff' },
+    { id: 'ext', label: 'Valeurs maximale et minimale', tone: '--q-u' }
+  ]);
+  Course.presets(wM.querySelector('.presets'), [
+    { label: 'Exemple du cours · 2 V et 3 V', values: { m: 2, a: 3 } },
+    { label: 'Alternative · 0 V et 3 V', values: { m: 0, a: 3 } },
+    { label: 'Continue · 2 V et 0 V', values: { m: 2, a: 0 } }
+  ]);
+  Course.onInput(wM, function (v) {
+    var M = v.m, A = v.a, alt = A / Math.SQRT2, eff = Math.sqrt(M * M + alt * alt), W = 2 * Math.PI;
+    GM.draw = function (g) {
+      g.seg(0, M, 16.6, M, '--q-moy', { dash: [7, 5], width: 2 });
+      g.seg(0, eff, 16.6, eff, '--q-eff', { dash: [7, 5], width: 2 });
+      g.fn(function (t) { return M + A * Math.cos(t); }, '--q-u', { width: 2.6, from: 0, to: 16.6 });
+      if (A >= 1) {
+        g.arrow(W, M, W, M + A, '--text', null, { width: 1.6 });
+        g.text(W, M + A, 'Um = ' + num(A) + ' V', '--text', { align: 'center', baseline: 'bottom', dy: -7, size: 12.5, bold: true, halo: true });
+      }
+      // Ueff ≥ |⟨u⟩| : l'étiquette de Ueff au-dessus de sa droite, celle de ⟨u⟩ en dessous de la sienne
+      g.text(16.5, eff, 'Ueff = ' + num(eff) + ' V', '--text', { align: 'right', baseline: 'bottom', dy: -5, size: 12.5, bold: true, halo: true });
+      g.text(16.5, M, '⟨u⟩ = ' + num(M) + ' V', '--text', { align: 'right', baseline: 'top', dy: 5, size: 12.5, bold: true, halo: true });
+    };
+    GM.redraw(VM);
+    kpiM({
+      dc: { value: num(M), unit: 'V', sub: 'la composante continue' },
+      ac: { value: num(alt), unit: 'V', sub: num(A) + ' V ÷ √2' },
+      eff: A === 0 ? { value: num(eff), unit: 'V', badge: { cls: 'info', text: 'tension continue : Ueff = |⟨u⟩|' } }
+        : M === 0 ? { value: num(eff), unit: 'V', badge: { cls: 'good', icon: 'check', text: 'alternative : Ueff = Um ÷ √2' } }
+          : { value: num(eff), unit: 'V', sub: '√(' + par(M) + '² + ' + num(alt) + '²)' },
+      ext: { value: num(M + A) + ' / ' + num(M - A), unit: 'V', sub: '⟨u⟩ + Um et ⟨u⟩ − Um' }
+    });
+  });
+
+  /* ---------- Entraînement, évaluation, validation ---------- */
+  var train = document.getElementById('ws-train');
+  Course.trainer('#w-drill', Bank.training, { workspace: train });
+  Course.exam('#exam', { build: Bank.exam, count: CB.EXAM_QUESTIONS, workspace: document.getElementById('ws-exam'), trainWorkspace: train });
+  Course.validation('#validation-card');
+});
+</script>
+</body>
+</html>

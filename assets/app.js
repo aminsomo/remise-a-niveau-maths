@@ -123,7 +123,11 @@
     // chapitre 4 : équation de réaction (quantité de matière, masse molaire, volume molaire)
     '\\Qn': '\\htmlClass{q-n}{n}', '\\QM': '\\htmlClass{q-M}{M}', '\\QVm': '\\htmlClass{q-V}{V_m}',
     // chapitre 5 : électricité en régime continu (tension d'un récepteur, du générateur, intensité, résistance)
-    '\\Qu': '\\htmlClass{q-u}{U}', '\\QEg': '\\htmlClass{q-gen}{E}', '\\QI': '\\htmlClass{q-I}{I}', '\\QR': '\\htmlClass{q-R}{R}'
+    '\\Qu': '\\htmlClass{q-u}{U}', '\\QEg': '\\htmlClass{q-gen}{E}', '\\QI': '\\htmlClass{q-I}{I}', '\\QR': '\\htmlClass{q-R}{R}',
+    // chapitre 6 : régime variable (période, fréquence, valeurs maximale, moyenne et efficace)
+    '\\QTp': '\\htmlClass{q-per}{T}', '\\Qf': '\\htmlClass{q-f}{f}', '\\QUmax': '\\htmlClass{q-u}{U_{\\max}}',
+    '\\Qmoy': '\\htmlClass{q-moy}{\\langle u\\rangle}', '\\QUeff': '\\htmlClass{q-eff}{U_{\\text{eff}}}',
+    '\\QUalt': '\\htmlClass{q-eff}{U_{\\text{alt,eff}}}', '\\Qut': '\\htmlClass{q-u}{u(t)}'
   };
   function katexOptions(extra) {
     return Object.assign({

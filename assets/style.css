@@ -90,6 +90,16 @@
   --q-R: #9085e9;            /* résistance R */
   --q-I1: #c98500;           /* intensité de la branche 1 */
   --q-I2: #9085e9;           /* intensité de la branche 2 */
+  /* chapitre 6 (électricité en régime variable) : la courbe d'une tension reste orange (--q-u), celle d'une
+     intensité verte (--q-I). Valeur moyenne (la composante continue) en bleu, comme la tension continue du
+     générateur au chapitre 5 ; valeur efficace en vert. Seul trio qui passe le validateur avec l'orange de u
+     (toutes les paires, deux thèmes) : u + moyenne + efficace. Une intensité ne partage jamais un graphique
+     avec une valeur efficace. Période (ambre) et fréquence (rose) : formules, curseurs et indicateurs, jamais
+     une courbe à côté de u (l'ambre et l'orange se confondent). */
+  --q-per: #c98500;          /* période T */
+  --q-f: #e0638f;            /* fréquence f */
+  --q-moy: #4f95ec;          /* valeur moyenne ⟨u⟩, composante continue */
+  --q-eff: #22ad7c;          /* valeur efficace U_eff */
 
   /* noms historiques (pages non encore refondues) */
   --accent-2: var(--rose);
@@ -171,6 +181,10 @@
   --q-R: #6250d6;
   --q-I1: #9a6400;
   --q-I2: #6250d6;
+  --q-per: #9a6400;
+  --q-f: #c2336a;
+  --q-moy: #2a78d6;
+  --q-eff: #0e8a5f;
   --plot-grid: rgba(13, 18, 30, .07);
   --plot-axis: #6b7080;
   --shadow: 0 1px 2px rgba(13, 18, 30, .05), 0 10px 30px -18px rgba(13, 18, 30, .25);
@@ -370,6 +384,10 @@ section > p, section > ul, section > ol { max-width: 72ch; }
 .q-R { color: var(--q-R); }
 .q-I1 { color: var(--q-I1); }
 .q-I2 { color: var(--q-I2); }
+.q-per { color: var(--q-per); }
+.q-f { color: var(--q-f); }
+.q-moy { color: var(--q-moy); }
+.q-eff { color: var(--q-eff); }
 
 /* bouton « Solution » : toute la largeur, cliquable */
 details.solution { margin-top: 1rem; border-top: 0; padding-top: 0; }
@@ -811,6 +829,54 @@ main.chapter.v2 { padding-top: 2.25rem; }
   .box > .fig-wrap:has(> .circuit) { margin-inline: -1.1rem; }
   .sol-body > .fig-wrap:has(> .circuit) { margin-inline: -.85rem; }
 }
+/* chronogrammes et écrans d'oscilloscope (chapitre 6) : quadrillage discret, axes à l'encre du texte, chaque
+   courbe à la couleur de sa grandeur ; les repères de lecture (T, Umax, divisions) restent à l'encre du texte */
+.fig.chrono { max-width: 32rem; }
+.chrono text { fill: var(--text); font-size: 14px; }
+.chrono .sub { font-size: 11px; }
+.chrono .q { font-style: italic; }
+.chrono .g2 { fill: none; stroke: var(--plot-grid); stroke-width: 1; }
+.chrono .g1 { fill: none; stroke: color-mix(in srgb, var(--plot-axis) 32%, transparent); stroke-width: 1; }
+.chrono .axis { fill: none; stroke: var(--plot-axis); stroke-width: 1.4; }
+.chrono .axis.hd { fill: var(--plot-axis); stroke: none; }
+.chrono .tk { font-size: 12.5px; fill: var(--muted); font-variant-numeric: tabular-nums; }
+.chrono .ax { font-size: 13.5px; font-weight: 600; fill: var(--muted); }
+.chrono .sig path { fill: none; stroke: var(--c); stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; }
+.chrono .hl path { fill: none; stroke: var(--c); stroke-width: 2; stroke-dasharray: 7 5; }
+.chrono .area { fill: var(--c); opacity: .16; }
+.chrono .band { fill: color-mix(in srgb, var(--accent) 9%, transparent); stroke: color-mix(in srgb, var(--accent) 40%, transparent); stroke-dasharray: 3 3; }
+.chrono .pt { fill: var(--c); stroke: var(--surface); stroke-width: 2; }
+.chrono .mk path { fill: none; stroke: var(--text); stroke-width: 1.5; }
+.chrono .mk .hd { fill: var(--text); stroke: none; }
+.chrono .lab { font-weight: 600; }
+.chrono .tk, .chrono .lab, .chrono .ax { paint-order: stroke; stroke: var(--surface); stroke-width: 3.5px; stroke-linejoin: round; }
+.chrono .cap { font-size: 13.5px; fill: var(--muted); }
+.chrono .sym { font-size: 26px; font-weight: 600; fill: var(--muted); }
+.osc .scr { fill: color-mix(in srgb, var(--surface-3) 60%, var(--bg)); stroke: var(--line-3); }
+.osc .g1 { stroke: var(--line-2); }
+.osc .g0 { fill: none; stroke: var(--line-3); stroke-width: 1.2; }
+.osc-set { font-size: .92rem; color: var(--muted); text-align: center; margin-top: -.2rem; }
+.osc-set b { color: var(--text); font-weight: 600; white-space: nowrap; }
+/* sur téléphone, un chronogramme prend toute la largeur de sa carte (ou de sa solution) et, réduit à 60–70 %
+   de sa taille, grossit ses textes d'autant : graduations et étiquettes restent au-dessus de 9,5 px */
+@media (max-width: 560px) {
+  .box > .fig-wrap:has(> .chrono) { margin-inline: -1.1rem; }
+  .sol-body > .fig-wrap:has(> .chrono) { margin-inline: -1rem; }
+  .chrono:not(.mini) text { font-size: 17px; }
+  .chrono:not(.mini) .tk { font-size: 16px; }
+  .chrono:not(.mini) .ax, .chrono:not(.mini) .cap { font-size: 16.5px; }
+  .chrono:not(.mini) .sub { font-size: 13px; }
+  .chrono:not(.mini) .sym { font-size: 30px; }
+}
+/* QCM dont les choix sont des chronogrammes : un tracé lisible par choix */
+.choices-grid:has(.chrono) { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+.choice:has(.chrono) { flex-direction: column; align-items: stretch; gap: .45rem; }
+.choice:has(.chrono) > .key-hint { align-self: flex-start; }
+.choice:has(.chrono) > span:last-child { flex: 1 1 auto; min-width: 0; }
+.choice .fig.chrono { max-width: 18rem; }
+/* tableau de calcul d'une solution (chapitre 6, exercice 3 b) : colonnes serrées, toute la largeur de la solution sur téléphone */
+table.tight th, table.tight td { padding: .45rem .6rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+@media (max-width: 560px) { .sol-body > .table-scroll:has(> table.tight) { margin-inline: -1rem; max-width: none; } }
 
 /* sens du transfert thermique : corps chaud → corps froid */
 .heat-flow { display: flex; align-items: center; gap: .5rem; margin: .9rem 0; }

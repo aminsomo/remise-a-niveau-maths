@@ -184,6 +184,15 @@ window.COURSE = /* BEGIN-JSON */ {
           ]
         },
         {
+          "slug": "electricite-variable",
+          "title": "Électricité en régime variable",
+          "summary": "Grandeur périodique, période et fréquence f = 1/T, valeurs maximale, moyenne et efficace Ueff = Umax/√2, oscillogramme, composante continue.",
+          "tags": [
+            "énergie",
+            "essentiel"
+          ]
+        },
+        {
           "slug": "mesures-incertitudes",
           "title": "Mesures et incertitudes",
           "summary": "Unités SI, chiffres significatifs, erreurs, incertitude-type, écart normalisé.",

@@ -27,8 +27,8 @@ Chaque chapitre est réécrit et amélioré à partir des PDF de cours et d'exer
 - [x] 2. Énergie interne (PDF de cours et d'exercices fournis)
 - [x] 3. Énergie chimique (PDF de cours et d'exercices fournis)
 - [x] 4. Équation de réaction et molécules (PDF de cours et d'exercices fournis)
-- [ ] 5. Électricité régime continu (PDF de cours et d'exercices fournis)
-- [ ] 6. Électricité régime variable
+- [x] 5. Électricité régime continu (PDF de cours et d'exercices fournis)
+- [ ] 6. Électricité régime variable (PDF de cours, de cours 2 et d'exercices fournis)
 - [ ] 7. Puissance électrique
 - [ ] 8. Solution aqueuse
 - [ ] 9. Oxydoréduction et piles
@@ -232,6 +232,13 @@ Au chapitre 5, la tension d'un récepteur est orange (`\Qu`, ou `\q{u}{U_{AB}}`)
 `\q{gen}{U_{ED}}`), l'intensité verte (`\QI`) et la résistance violette (`\QR`) ; les deux branches du montage en
 dérivation ont leur couleur (`--q-I1` ambre, `--q-I2` violet). Les schémas électriques sont dessinés en SVG par
 `FIG` dans `physique-1re/electricite-continu.js` (les mêmes pour le cours, les exemples, les graphiques et les questions).
+Au chapitre 6, la courbe d'une tension reste orange (`\Qut`, `\QUmax`) et celle d'une intensité verte ; la valeur moyenne
+est bleue (`\Qmoy`, comme la tension continue du générateur), la valeur efficace verte (`\QUeff`, `\QUalt`), la période
+ambre (`\QTp`) et la fréquence rose (`\Qf`). Seul le trio orange + bleu + vert passe le validateur avec l'orange de la
+tension : un graphique ne montre que la tension, sa valeur moyenne et sa valeur efficace ; période et fréquence restent dans
+les formules, les curseurs et les indicateurs. Les chronogrammes et les écrans d'oscilloscope sont dessinés en SVG par
+`chrono` et `oscillo` dans `physique-1re/electricite-variable.js` ; les tests relisent les graduations et la courbe de chaque
+dessin pour recalculer la période et les valeurs maximale, moyenne et efficace.
 
 Automatique, sans rien écrire dans les pages :
 
