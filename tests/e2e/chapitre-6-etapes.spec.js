@@ -1,4 +1,5 @@
-// Chapitres en 6 étapes (physique-1re : energie-enjeux, energie-interne, energie-chimique, combustions, electricite-continu) : parcours complet,
+// Chapitres en 6 étapes (physique-1re : energie-enjeux, energie-interne, energie-chimique, combustions, electricite-continu,
+// electricite-variable) : parcours complet,
 // widgets « Manipuler », brouillon intégré, calculatrice d'entraînement / d'examen, aucune erreur dans la console.
 const { test, expect } = require('@playwright/test');
 const fs = require('fs');
@@ -12,7 +13,8 @@ const CHAPTERS = [
   { url: 'physique-1re/energie-interne.html', key: 'physique-1re/energie-interne', widget: '#w-du', next: /energie-chimique\.html$/ },
   { url: 'physique-1re/energie-chimique.html', key: 'physique-1re/energie-chimique', widget: '#w-pc', next: /combustions\.html$/ },
   { url: 'physique-1re/combustions.html', key: 'physique-1re/combustions', widget: '#w-avancement', next: /electricite-continu\.html$/ },
-  { url: 'physique-1re/electricite-continu.html', key: 'physique-1re/electricite-continu', widget: '#w-maille', next: /mesures-incertitudes\.html$/ }
+  { url: 'physique-1re/electricite-continu.html', key: 'physique-1re/electricite-continu', widget: '#w-maille', next: /electricite-variable\.html$/ },
+  { url: 'physique-1re/electricite-variable.html', key: 'physique-1re/electricite-variable', widget: '#w-creneau', next: /mesures-incertitudes\.html$/ }
 ];
 const SIX_STEPS = CHAPTERS.map((c) => c.url);
 const ROOT = path.resolve(__dirname, '..', '..');
@@ -653,6 +655,129 @@ test.describe('chapitre 5 : électricité en régime continu', () => {
       await page.evaluate(() => document.querySelector('#w-drill').courseDrill.next());
     }
     expect(seen).toBeGreaterThan(0);
+    const over = await page.locator('#w-drill').evaluate((x) => x.scrollWidth > x.clientWidth + 1);
+    expect(over).toBe(false);
+  });
+});
+
+test.describe('chapitre 6 : électricité en régime variable', () => {
+  const URL6 = 'physique-1re/electricite-variable.html';
+  const kpi = (w, i) => w.locator('.kpi').nth(i);
+  test('couleurs : chaque grandeur a la même couleur dans la formule, le curseur, la légende et le graphique', async ({ page }) => {
+    await open(page, URL6);
+    const list = await page.evaluate(() => {
+      const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim().toLowerCase();
+      const rgb = (hex) => { const n = parseInt(hex.slice(1), 16); return `rgb(${n >> 16}, ${(n >> 8) & 255}, ${n & 255})`; };
+      const one = (wid, q) => {
+        const w = document.querySelector(wid), f = w.querySelector('.lab-formula .q-' + q), s = w.querySelector(`.slider[style*="--q-${q})"]`);
+        const leg = w.querySelector(`.legend i[style*="--q-${q})"]`);
+        return {
+          q: wid + ' ' + q, want: css('--q-' + q), rgb: rgb(css('--q-' + q)),
+          formula: f ? getComputedStyle(f).color : null,
+          slider: s ? getComputedStyle(s).getPropertyValue('--tone').trim().toLowerCase() : null,
+          legend: leg ? getComputedStyle(leg)[leg.classList.contains('dash') ? 'color' : 'backgroundColor'] : null,
+          plot: window.Course.color('--q-' + q).toLowerCase()
+        };
+      };
+      return [one('#w-sinus', 'u'), one('#w-sinus', 'per'), one('#w-sinus', 'f'), one('#w-sinus', 'eff'), one('#w-creneau', 'u'), one('#w-creneau', 'moy'), one('#w-creneau', 'eff'),
+        one('#w-composante', 'moy'), one('#w-composante', 'u'), one('#w-composante', 'eff')];
+    });
+    for (const x of list) {
+      if (x.formula !== null) expect(x.formula, x.q).toBe(x.rgb);
+      if (x.slider !== null) expect(x.slider, x.q).toBe(x.want);
+      if (x.legend !== null) expect(x.legend, x.q).toBe(x.rgb);
+      expect(x.plot, x.q).toBe(x.want);
+    }
+    // chaque grandeur citée apparaît au moins une fois dans une formule, un curseur ou une légende
+    for (const x of list) expect([x.formula, x.slider, x.legend].some((v) => v !== null), x.q).toBe(true);
+  });
+
+  test('manipuler : période et fréquence (exercice 2, oscillogramme 1)', async ({ page }) => {
+    await open(page, URL6);
+    const w = page.locator('#w-sinus');
+    await w.locator('.preset', { hasText: 'Exercice 2' }).click();
+    await expect(w.locator('.preset', { hasText: 'Exercice 2' })).toHaveAttribute('aria-pressed', 'true');
+    await expect(kpi(w, 0).locator('.kpi-value')).toContainText('0,02');
+    await expect(kpi(w, 1).locator('.kpi-value')).toContainText(/^50\s*Hz/);
+    await expect(kpi(w, 2).locator('.kpi-value')).toContainText(/^5\s*motifs/);
+    await expect(kpi(w, 3).locator('.kpi-value')).toContainText('17,7');
+    await w.locator('.preset', { hasText: 'Oscillogramme 1' }).click();
+    await expect(kpi(w, 1).locator('.kpi-value')).toContainText('14,3');
+    await expect(kpi(w, 3).locator('.kpi-value')).toContainText('2,83');
+  });
+
+  test('manipuler : créneaux, valeur moyenne, valeur efficace, alternatif ou non', async ({ page }) => {
+    await open(page, URL6);
+    const w = page.locator('#w-creneau');
+    await w.locator('.preset', { hasText: 'Exercice 3 a' }).click();
+    await expect(kpi(w, 0).locator('.kpi-value')).toContainText('−2');
+    await expect(kpi(w, 1).locator('.kpi-value')).toContainText('4,47');
+    await expect(kpi(w, 2).locator('.kpi-value')).toContainText('non');
+    await expect(kpi(w, 2).locator('.badge')).toContainText('change de signe');
+    await w.locator('.preset', { hasText: 'Exercice 5' }).click();
+    await expect(kpi(w, 0).locator('.kpi-value')).toContainText('−1');
+    await w.locator('.preset', { hasText: 'Alternatif sans symétrie' }).click();
+    await expect(kpi(w, 0).locator('.kpi-value')).toContainText(/^0\s*V/);
+    await expect(kpi(w, 2).locator('.badge.good')).toBeVisible();
+  });
+
+  test('manipuler : composante continue et composante alternative (exemple du cours)', async ({ page }) => {
+    await open(page, URL6);
+    const w = page.locator('#w-composante');
+    await w.locator('.preset', { hasText: 'Exemple du cours' }).click();
+    await expect(kpi(w, 0).locator('.kpi-value')).toContainText(/^2\s*V/);
+    await expect(kpi(w, 1).locator('.kpi-value')).toContainText('2,12');
+    await expect(kpi(w, 2).locator('.kpi-value')).toContainText('2,92');
+    await expect(kpi(w, 3).locator('.kpi-value')).toContainText('5 / −1');
+    await w.locator('.preset', { hasText: 'Continue' }).click();
+    await expect(kpi(w, 2).locator('.badge.info')).toBeVisible();
+    await w.locator('.preset', { hasText: 'Alternative' }).click();
+    await expect(kpi(w, 2).locator('.badge.good')).toBeVisible();
+  });
+
+  test('cours et exemples : tous les chronogrammes sont dessinés, lisibles, rien ne déborde', async ({ page }) => {
+    await open(page, URL6);
+    await page.locator('#exemples details.solution').evaluateAll((d) => d.forEach((x) => { x.open = true; }));
+    const figs = await page.locator('figure[data-fig]').evaluateAll((f) => f.map((x) => {
+      const svg = x.querySelector('svg.chrono'), card = x.closest('.box').getBoundingClientRect();
+      const w = svg ? svg.getBoundingClientRect().width : 0, t = svg && (svg.querySelector('.tk') || svg.querySelector('.lab'));
+      // taille réelle des graduations (ou des étiquettes), une fois le dessin mis à l'échelle
+      const font = t ? parseFloat(getComputedStyle(t).fontSize) * w / svg.viewBox.baseVal.width : null;
+      return { name: x.dataset.fig, ok: !!svg && svg.getAttribute('aria-label').length > 20, w, font, card: card.width };
+    }));
+    expect(figs.length).toBeGreaterThanOrEqual(25);
+    for (const f of figs) {
+      expect(f.ok, f.name).toBe(true);
+      expect(f.w, f.name).toBeGreaterThan(230);
+      if (f.font !== null) expect(f.font, f.name).toBeGreaterThanOrEqual(9.5); // lisible même sur iPhone SE
+      expect(f.w, f.name).toBeLessThanOrEqual(f.card);
+    }
+    const over = await page.locator('#cours .box, #exemples .box, .widget, .table-scroll').evaluateAll((b) => b.filter((x) => x.scrollWidth > x.clientWidth + 1).map((x) => x.id || x.className));
+    expect(over).toEqual([]);
+  });
+
+  test('entraînement : chronogrammes et tracés à choisir restent lisibles dans la carte', async ({ page }) => {
+    await open(page, URL6);
+    const seen = new Set();
+    for (let i = 0; i < 80 && seen.size < 4; i++) {
+      const kind = await page.evaluate(() => document.querySelector('#w-drill').courseDrill.current().kind);
+      // les choix d'un QCM précédent restent dans la page, masqués : seuls les dessins affichés comptent
+      const figs = await page.locator('#w-drill svg.chrono').evaluateAll((s) => s.filter((x) => !x.closest('[hidden]')).map((x) => {
+        const w = x.getBoundingClientRect().width, t = x.querySelector('.tk');
+        return { w, card: x.closest('.widget').getBoundingClientRect().width, font: t ? parseFloat(getComputedStyle(t).fontSize) * w / x.viewBox.baseVal.width : null };
+      }));
+      if (figs.length && ['tracer', 'lectureSinus', 'oscillogramme', 'moyenneCreneau'].includes(kind)) {
+        seen.add(kind);
+        for (const f of figs) {
+          expect(f.w, kind).toBeGreaterThan(200);
+          expect(f.w, kind).toBeLessThanOrEqual(f.card);
+          if (f.font !== null) expect(f.font, kind).toBeGreaterThanOrEqual(9.5);
+        }
+        if (kind === 'tracer') await expect(page.locator('#w-drill .choice svg.chrono')).toHaveCount(3);
+      }
+      await page.evaluate(() => document.querySelector('#w-drill').courseDrill.next());
+    }
+    expect(seen.size).toBeGreaterThanOrEqual(3);
     const over = await page.locator('#w-drill').evaluate((x) => x.scrollWidth > x.clientWidth + 1);
     expect(over).toBe(false);
   });
