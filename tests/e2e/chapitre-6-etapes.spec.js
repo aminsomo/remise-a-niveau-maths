@@ -1,5 +1,5 @@
 // Chapitres en 6 étapes (physique-1re : energie-enjeux, energie-interne, energie-chimique, combustions, electricite-continu,
-// electricite-variable) : parcours complet,
+// electricite-variable, energie-electrique) : parcours complet,
 // widgets « Manipuler », brouillon intégré, calculatrice d'entraînement / d'examen, aucune erreur dans la console.
 const { test, expect } = require('@playwright/test');
 const fs = require('fs');
@@ -14,7 +14,8 @@ const CHAPTERS = [
   { url: 'physique-1re/energie-chimique.html', key: 'physique-1re/energie-chimique', widget: '#w-pc', next: /combustions\.html$/ },
   { url: 'physique-1re/combustions.html', key: 'physique-1re/combustions', widget: '#w-avancement', next: /electricite-continu\.html$/ },
   { url: 'physique-1re/electricite-continu.html', key: 'physique-1re/electricite-continu', widget: '#w-maille', next: /electricite-variable\.html$/ },
-  { url: 'physique-1re/electricite-variable.html', key: 'physique-1re/electricite-variable', widget: '#w-creneau', next: /mesures-incertitudes\.html$/ }
+  { url: 'physique-1re/electricite-variable.html', key: 'physique-1re/electricite-variable', widget: '#w-creneau', next: /energie-electrique\.html$/ },
+  { url: 'physique-1re/energie-electrique.html', key: 'physique-1re/energie-electrique', widget: '#w-sinus', next: /mesures-incertitudes\.html$/ }
 ];
 const SIX_STEPS = CHAPTERS.map((c) => c.url);
 const ROOT = path.resolve(__dirname, '..', '..');
@@ -778,6 +779,134 @@ test.describe('chapitre 6 : électricité en régime variable', () => {
       await page.evaluate(() => document.querySelector('#w-drill').courseDrill.next());
     }
     expect(seen.size).toBeGreaterThanOrEqual(3);
+    const over = await page.locator('#w-drill').evaluate((x) => x.scrollWidth > x.clientWidth + 1);
+    expect(over).toBe(false);
+  });
+});
+
+test.describe('chapitre 7 : puissance électrique', () => {
+  const URL7 = 'physique-1re/energie-electrique.html';
+  const kpi = (w, i) => w.locator('.kpi').nth(i);
+  test('couleurs : chaque grandeur a la même couleur dans la formule, le curseur, la légende et le graphique', async ({ page }) => {
+    await open(page, URL7);
+    const list = await page.evaluate(() => {
+      const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim().toLowerCase();
+      const rgb = (hex) => { const n = parseInt(hex.slice(1), 16); return `rgb(${n >> 16}, ${(n >> 8) & 255}, ${n & 255})`; };
+      const one = (wid, q) => {
+        const w = document.querySelector(wid), f = w.querySelector('.lab-formula .q-' + q), s = w.querySelector(`.slider[style*="--q-${q})"]`);
+        const leg = w.querySelector(`.legend i[style*="--q-${q})"]`);
+        return {
+          q: wid + ' ' + q, want: css('--q-' + q), rgb: rgb(css('--q-' + q)),
+          formula: f ? getComputedStyle(f).color : null,
+          slider: s ? getComputedStyle(s).getPropertyValue('--tone').trim().toLowerCase() : null,
+          legend: leg ? getComputedStyle(leg)[leg.classList.contains('dash') ? 'color' : 'backgroundColor'] : null,
+          plot: window.Course.color('--q-' + q).toLowerCase()
+        };
+      };
+      return [one('#w-convention', 'P'), one('#w-convention', 'u'), one('#w-convention', 'I'), one('#w-convention', 'gen'),
+        one('#w-sinus', 'P'), one('#w-sinus', 'u'), one('#w-sinus', 'I'), one('#w-sinus', 'eta'),
+        one('#w-joule', 'P'), one('#w-joule', 'R'), one('#w-joule', 'I'), one('#w-joule', 't')];
+    });
+    for (const x of list) {
+      if (x.formula !== null) expect(x.formula, x.q).toBe(x.rgb);
+      if (x.slider !== null) expect(x.slider, x.q).toBe(x.want);
+      if (x.legend !== null) expect(x.legend.replace(/rgba\((\d+), (\d+), (\d+), [\d.]+\)/, 'rgb($1, $2, $3)'), x.q).toBe(x.rgb);
+      expect(x.plot, x.q).toBe(x.want);
+      expect([x.formula, x.slider, x.legend].some((v) => v !== null), x.q).toBe(true);
+    }
+    // u(t) en orange et i(t) en vert dans le chronogramme, jamais sur le graphique rose de p(t)
+    const sig = await page.locator('#w-sinus .chrono-live .sig').evaluateAll((g) => g.map((x) => getComputedStyle(x.querySelector('path')).stroke));
+    const want = await page.evaluate(() => ['--q-u', '--q-I'].map((v) => { const n = parseInt(getComputedStyle(document.documentElement).getPropertyValue(v).trim().slice(1), 16); return `rgb(${n >> 16}, ${(n >> 8) & 255}, ${n & 255})`; }));
+    expect(sig).toEqual(want);
+  });
+
+  test('manipuler : convention et signe de P (exercices 1 et 2, batterie qui alimente)', async ({ page }) => {
+    await open(page, URL7);
+    const w = page.locator('#w-convention');
+    await w.locator('.preset', { hasText: 'Exercice 1' }).click();
+    await expect(w.locator('.preset', { hasText: 'Exercice 1' })).toHaveAttribute('aria-pressed', 'true');
+    await expect(w.locator('.seg button[data-set="gen"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(kpi(w, 0).locator('.kpi-value')).toContainText(/^−48\s*W/);
+    await expect(kpi(w, 1).locator('.kpi-value')).toContainText('en récepteur');
+    await expect(kpi(w, 1).locator('.badge')).toContainText('il reçoit 48 W');
+    await expect(w.locator('.circuit-live svg')).toContainText('= −12 V');
+    await expect(w.locator('.circuit-live svg')).toHaveAttribute('aria-label', /convention générateur/);
+    await w.locator('.preset', { hasText: 'Exercice 2' }).click();
+    await expect(w.locator('.seg button[data-set="rec"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(kpi(w, 0).locator('.kpi-value')).toContainText(/^72\s*W/);
+    await expect(kpi(w, 1).locator('.kpi-value')).toContainText('en récepteur');
+    await expect(kpi(w, 2).locator('.kpi-value')).toContainText(/^4\s320\s*J/);
+    await w.locator('.preset', { hasText: 'alimente' }).click();
+    await expect(kpi(w, 1).locator('.kpi-value')).toContainText('en générateur');
+    // changer de convention avec les mêmes valeurs : le dipôle change de fonctionnement
+    await w.locator('.seg button[data-set="gen"]').click();
+    await expect(w.locator('.preset[aria-pressed="true"]')).toHaveCount(0);
+    await expect(kpi(w, 1).locator('.kpi-value')).toContainText('en récepteur');
+    await expect(w.locator('.circuit-live svg')).toHaveAttribute('aria-label', /convention générateur/);
+  });
+
+  test('manipuler : puissance moyenne en sinusoïdal, P = k × Ueff × Ieff', async ({ page }) => {
+    await open(page, URL7);
+    const w = page.locator('#w-sinus');
+    await w.locator('.preset', { hasText: 'Radiateur' }).click();
+    await expect(kpi(w, 0).locator('.kpi-value')).toContainText(/^2\s000\s*W/);
+    await expect(kpi(w, 2).locator('.badge.good')).toBeVisible();
+    await expect(kpi(w, 3).locator('.badge.good')).toBeVisible(); // p(t) ≥ 0 : en phase
+    await w.locator('.preset', { hasText: 'k = 0,75' }).click();
+    await expect(kpi(w, 0).locator('.kpi-value')).toContainText(/^86[23]\s*W/); // 0,75 × 230 × 5 = 862,5 W
+    await expect(kpi(w, 3).locator('.kpi-value')).toContainText('−');
+    await expect(kpi(w, 3).locator('.badge.info')).toBeVisible();
+    await w.locator('.preset', { hasText: 'k = 0,95' }).click();
+    await expect(kpi(w, 0).locator('.kpi-value')).toContainText(/^1\s090\s*W/);
+    await expect(w.locator('.chrono-live svg')).toHaveAttribute('aria-label', /en retard/);
+  });
+
+  test('manipuler : effet Joule, P = R × I² (exercice 4)', async ({ page }) => {
+    await open(page, URL7);
+    const w = page.locator('#w-joule');
+    await w.locator('.preset', { hasText: 'R₁' }).click();
+    await expect(kpi(w, 0).locator('.kpi-value')).toContainText(/^9\s*V/);
+    await expect(kpi(w, 1).locator('.kpi-value')).toContainText(/^8,1\s*W/);
+    await expect(kpi(w, 2).locator('.kpi-value')).toContainText(/^4\s860\s*J/);
+    await w.locator('.preset', { hasText: 'R₂' }).click();
+    await expect(kpi(w, 1).locator('.kpi-value')).toContainText(/^16,2\s*W/);
+    await w.locator('.preset', { hasText: 'doublée' }).click();
+    await expect(kpi(w, 1).locator('.kpi-value')).toContainText(/^32,4\s*W/); // 4 × 8,1 W
+  });
+
+  test('cours et exemples : schémas et chronogrammes dessinés, lisibles, rien ne déborde', async ({ page }) => {
+    await open(page, URL7);
+    await page.locator('#exemples details.solution').evaluateAll((d) => d.forEach((x) => { x.open = true; }));
+    const figs = await page.locator('figure[data-fig]').evaluateAll((f) => f.map((x) => {
+      const svg = x.querySelector('svg.circuit, svg.chrono'), card = x.closest('.box').getBoundingClientRect();
+      const w = svg ? svg.getBoundingClientRect().width : 0, t = svg && (svg.querySelector('.tk') || svg.querySelector('.lab') || svg.querySelector('text'));
+      // taille réelle des textes, une fois le dessin mis à l'échelle
+      const font = t ? parseFloat(getComputedStyle(t).fontSize) * w / svg.viewBox.baseVal.width : null;
+      return { name: x.dataset.fig, ok: !!svg && svg.getAttribute('aria-label').length > 20, w, font, card: card.width };
+    }));
+    expect(figs.length).toBeGreaterThanOrEqual(9);
+    for (const f of figs) {
+      expect(f.ok, f.name).toBe(true);
+      expect(f.w, f.name).toBeGreaterThan(230);
+      if (f.font !== null) expect(f.font, f.name).toBeGreaterThanOrEqual(9); // lisible même sur iPhone SE
+      expect(f.w, f.name).toBeLessThanOrEqual(f.card);
+    }
+    const over = await page.locator('#cours .box, #exemples .box, .widget, .table-scroll').evaluateAll((b) => b.filter((x) => x.scrollWidth > x.clientWidth + 1).map((x) => x.id || x.className));
+    expect(over).toEqual([]);
+  });
+
+  test('entraînement : les questions avec schéma restent dans la carte', async ({ page }) => {
+    await open(page, URL7);
+    let seen = 0;
+    for (let i = 0; i < 60 && seen < 4; i++) {
+      const figs = await page.locator('#w-drill svg.circuit').evaluateAll((s) => s.filter((x) => !x.closest('[hidden]')).map((x) => ({ w: x.getBoundingClientRect().width, card: x.closest('.widget').getBoundingClientRect().width })));
+      if (figs.length) {
+        seen++;
+        for (const f of figs) { expect(f.w).toBeGreaterThan(200); expect(f.w).toBeLessThanOrEqual(f.card); }
+      }
+      await page.evaluate(() => document.querySelector('#w-drill').courseDrill.next());
+    }
+    expect(seen).toBeGreaterThan(0);
     const over = await page.locator('#w-drill').evaluate((x) => x.scrollWidth > x.clientWidth + 1);
     expect(over).toBe(false);
   });

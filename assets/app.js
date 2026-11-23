@@ -127,7 +127,11 @@
     // chapitre 6 : régime variable (période, fréquence, valeurs maximale, moyenne et efficace)
     '\\QTp': '\\htmlClass{q-per}{T}', '\\Qf': '\\htmlClass{q-f}{f}', '\\QUmax': '\\htmlClass{q-u}{U_{\\max}}',
     '\\Qmoy': '\\htmlClass{q-moy}{\\langle u\\rangle}', '\\QUeff': '\\htmlClass{q-eff}{U_{\\text{eff}}}',
-    '\\QUalt': '\\htmlClass{q-eff}{U_{\\text{alt,eff}}}', '\\Qut': '\\htmlClass{q-u}{u(t)}'
+    '\\QUalt': '\\htmlClass{q-eff}{U_{\\text{alt,eff}}}', '\\Qut': '\\htmlClass{q-u}{u(t)}',
+    // chapitre 7 : puissance électrique (une tension reste orange et une intensité verte, même efficaces ;
+    // la puissance est rose, le facteur de puissance k violet comme le rendement : deux rapports sans unité)
+    '\\Qit': '\\htmlClass{q-I}{i(t)}', '\\Qpt': '\\htmlClass{q-P}{p(t)}', '\\Qpm': '\\htmlClass{q-P}{\\langle p(t)\\rangle}',
+    '\\QUe': '\\htmlClass{q-u}{U_{\\text{eff}}}', '\\QIe': '\\htmlClass{q-I}{I_{\\text{eff}}}', '\\Qk': '\\htmlClass{q-eta}{k}'
   };
   function katexOptions(extra) {
     return Object.assign({
