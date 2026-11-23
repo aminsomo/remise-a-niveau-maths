@@ -28,8 +28,8 @@ Chaque chapitre est réécrit et amélioré à partir des PDF de cours et d'exer
 - [x] 3. Énergie chimique (PDF de cours et d'exercices fournis)
 - [x] 4. Équation de réaction et molécules (PDF de cours et d'exercices fournis)
 - [x] 5. Électricité régime continu (PDF de cours et d'exercices fournis)
-- [ ] 6. Électricité régime variable (PDF de cours, de cours 2 et d'exercices fournis)
-- [ ] 7. Puissance électrique
+- [x] 6. Électricité régime variable (PDF de cours, de cours 2 et d'exercices fournis)
+- [ ] 7. Puissance électrique (PDF de cours et d'exercices fournis)
 - [ ] 8. Solution aqueuse
 - [ ] 9. Oxydoréduction et piles
 - [ ] 10. Notion d'onde
@@ -221,7 +221,8 @@ flowchart LR
 
 Formules en couleur : les macros KaTeX `\QE`, `\QEr`, `\QEu`, `\QEp`, `\QP`, `\Qt`, `\Qeta` (chapitre 1),
 `\QU`, `\QQ`, `\QT`, `\QdT`, `\QTi`, `\QTf`, `\QTeq`, `\Qm`, `\Qc`, `\QL` (chapitre 2), `\QPC`, `\Qdm`, `\Qrho`, `\Qd`,
-`\QV` (chapitre 3), `\Qn`, `\QM`, `\QVm` (chapitre 4), `\Qu`, `\QEg`, `\QI`, `\QR` (chapitre 5) et `\q{classe}{…}`
+`\QV` (chapitre 3), `\Qn`, `\QM`, `\QVm` (chapitre 4), `\Qu`, `\QEg`, `\QI`, `\QR` (chapitre 5), `\QTp`, `\Qf`, `\QUmax`, `\Qmoy`, `\QUeff`, `\QUalt`, `\Qut` (chapitre 6),
+`\Qit`, `\Qpt`, `\Qpm`, `\QUe`, `\QIe`, `\Qk` (chapitre 7) et `\q{classe}{…}`
 donnent à chaque grandeur la couleur `--q-*` utilisée par ses curseurs, ses cartes et ses courbes. Deux grandeurs
 qui partagent un graphique ont toujours des teintes validées ensemble (daltonisme et vision normale) ; la masse
 `--q-m` ne sert qu'aux formules et aux curseurs, jamais à une courbe.
@@ -239,6 +240,13 @@ tension : un graphique ne montre que la tension, sa valeur moyenne et sa valeur 
 les formules, les curseurs et les indicateurs. Les chronogrammes et les écrans d'oscilloscope sont dessinés en SVG par
 `chrono` et `oscillo` dans `physique-1re/electricite-variable.js` ; les tests relisent les graduations et la courbe de chaque
 dessin pour recalculer la période et les valeurs maximale, moyenne et efficace.
+Au chapitre 7, une tension reste orange et une intensité verte, même efficaces (`\QUe`, `\QIe`) ; la puissance est rose
+(`\QP`, `\Qpt`), l'énergie bleue (`\QE`), la durée ambre (`\Qt`) et le facteur de puissance `\Qk` violet, comme le
+rendement. Le rose ne passe le validateur ni avec l'orange ni avec le vert : la puissance instantanée p(t) a son propre
+graphique, sous le chronogramme SVG de u(t) et i(t). Sur les schémas, toutes les flèches de tension sont orange : la
+convention se lit sur le sens des flèches, jamais sur leur couleur. Les schémas (`dipole`, exercices 3 à 5) et les
+chronogrammes sont dessinés en SVG dans `physique-1re/energie-electrique.js` ; les tests relisent le sens des flèches et les
+valeurs de chaque énoncé pour refaire les calculs (lois des nœuds, des mailles, d'Ohm, P = U × I, bilans de puissance).
 
 Automatique, sans rien écrire dans les pages :
 

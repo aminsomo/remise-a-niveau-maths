@@ -193,20 +193,20 @@ window.COURSE = /* BEGIN-JSON */ {
           ]
         },
         {
+          "slug": "energie-electrique",
+          "title": "Puissance électrique",
+          "summary": "P = U × I, puissance instantanée et moyenne, P = k × Ueff × Ieff, conventions générateur et récepteur, E = P × Δt, effet Joule P = R × I².",
+          "tags": [
+            "énergie",
+            "essentiel"
+          ]
+        },
+        {
           "slug": "mesures-incertitudes",
           "title": "Mesures et incertitudes",
           "summary": "Unités SI, chiffres significatifs, erreurs, incertitude-type, écart normalisé.",
           "tags": [
             "méthode",
-            "essentiel"
-          ]
-        },
-        {
-          "slug": "energie-electrique",
-          "title": "Énergie électrique",
-          "summary": "Circuits, valeurs moyenne et efficace, lois de Kirchhoff, Ohm, Joule, P = UI.",
-          "tags": [
-            "énergie",
             "essentiel"
           ]
         },

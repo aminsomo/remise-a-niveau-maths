@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Énergie électrique · STI2D → Prépa</title>
+<title>Puissance électrique · STI2D → Prépa</title>
+<meta name="description" content="Physique-chimie 1re STI2D, chapitre 7 : puissance électrique P = U × I en régime continu, puissance instantanée p(t) = u(t) × i(t) et puissance moyenne, P = k × Ueff × Ieff en régime sinusoïdal, conventions générateur et récepteur, énergie E = P × Δt, dipôles passifs résistifs, P = R × I² et effet Joule. Cours, exemples, graphiques à manipuler, entraînement et évaluation sur 20.">
+<link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -12,199 +14,664 @@
 <script defer src="../assets/chapters.js"></script>
 <script defer src="../assets/app.js"></script>
 <script defer src="../assets/brouillon.js"></script>
+<script defer src="energie-electrique.js"></script>
 </head>
 <body data-root="../" data-chapter="physique-1re/energie-electrique">
-<main class="chapter">
+<main class="chapter v2">
   <header class="chapter-head">
-    <p class="kicker">Physique-chimie 1re · Énergie</p>
-    <h1>Énergie électrique</h1>
-    <p class="lead">Lire un chronogramme, distinguer valeur moyenne et valeur efficace, utiliser les lois des nœuds et des mailles et la loi d'Ohm, calculer une puissance et une énergie :
-      ce sont les outils de base de tout système électrique, du chargeur de téléphone à la ligne haute tension.</p>
-    <p class="prereq">Prérequis : <a href="energie-enjeux.html">puissance et énergie</a>.</p>
+    <h1>Puissance électrique</h1>
+    <p class="lead">Un radiateur, un moteur de perceuse, une batterie qui se charge : chaque dipôle d’un circuit reçoit ou fournit de l’énergie électrique, plus ou moins vite. C’est sa puissance.
+      Dans ce chapitre : calculer une puissance en régime continu (\(\QP = \Qu \times \QI\)) et en régime sinusoïdal (\(\QP = \Qk \times \QUe \times \QIe\)), savoir si un dipôle fonctionne en générateur ou en récepteur grâce aux conventions, calculer une énergie \(\QE = \QP \times \Qt\), puis l’effet Joule \(\QP = \QR \times \QI^2\).</p>
+    <ul class="meta">
+      <li>Physique-chimie · 1re STI2D</li>
+      <li>Chapitre 7</li>
+      <li>6 étapes : cours, exemples, manipulation, entraînement, évaluation, validation</li>
+    </ul>
   </header>
 
-  <section>
-    <h2>1. Circuit, conventions, mesures</h2>
-    <div class="box def"><p class="box-title">Intensité et tension</p>
-      <ul>
-        <li>L'<b>intensité</b> \(i\) (en ampères, A) mesure le débit de charges électriques dans un fil. Elle se mesure avec un <b>ampèremètre</b> branché <b>en série</b> (dans le circuit, sur le chemin du courant).</li>
-        <li>La <b>tension</b> \(u_{AB} = v_A - v_B\) (en volts, V) est une différence de « niveau électrique » entre deux points. Elle se mesure avec un <b>voltmètre</b> branché <b>en dérivation</b> (aux bornes du dipôle).</li>
-        <li>On les représente par des flèches et on choisit un sens : elles sont alors <b>algébriques</b> (positives ou négatives).</li>
-      </ul>
-    </div>
-    <div class="box def"><p class="box-title">Conventions générateur et récepteur</p>
-      <p>En <b>convention récepteur</b>, les flèches de \(u\) et de \(i\) sont en sens opposés ; en <b>convention générateur</b>, dans le même sens.
-        Avec la convention récepteur, la puissance \(p = u \times i\) est <b>reçue</b> par le dipôle : si \(p > 0\), il se comporte en récepteur (il consomme) ; si \(p &lt; 0\), il se comporte en générateur (il fournit).
-        Une batterie, par exemple, est récepteur quand on la charge et générateur quand elle alimente un appareil.</p>
-    </div>
-    <div class="box prop"><p class="box-title">Lois de Kirchhoff</p>
-      <ul>
-        <li><b>Loi des nœuds</b> : la somme des intensités qui arrivent à un nœud est égale à la somme de celles qui en repartent (les charges ne s'accumulent pas).</li>
-        <li><b>Loi des mailles</b> : en faisant le tour d'une maille (une boucle fermée) dans un sens choisi, la somme algébrique des tensions est nulle.
-          Conséquences : en série les tensions s'ajoutent ; en dérivation, deux dipôles ont la même tension.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section>
-    <h2>2. Grandeurs variables : moyenne et efficace</h2>
-    <div class="box def"><p class="box-title">Valeurs caractéristiques d'une grandeur périodique</p>
-      <ul>
-        <li>La <b>valeur instantanée</b> \(u(t)\) est la valeur à un instant donné ; la <b>période</b> \(T\) est la durée d'un motif et la <b>fréquence</b> \(f = \dfrac1T\) (Hz) ; on relève aussi les valeurs maximale et minimale.</li>
-        <li>La <b>valeur moyenne</b> \(\langle u\rangle\) (ou \(U_{\text{moy}}\)) est la <b>composante continue</b>. Sur un chronogramme, c'est la hauteur qui égalise les aires au-dessus et en dessous.
-          Ce qui reste, \(u - \langle u\rangle\), est la <b>composante alternative</b> (de moyenne nulle).</li>
-        <li>La <b>valeur efficace</b> \(U\) (ou \(U_{\text{eff}}\)) est la tension continue qui produirait <b>le même échauffement</b> (effet Joule) dans une résistance.
-          Pour une sinusoïde d'amplitude \(U_{\max}\) et de moyenne nulle : \(U = \dfrac{U_{\max}}{\sqrt2}\). La tension du secteur : 230 V efficaces, 325 V d'amplitude.</li>
-      </ul>
-      <p>Au multimètre : position DC (ou « = ») pour la valeur moyenne ; position AC+DC (appareil TRMS) pour la valeur efficace.</p>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 1 — tension créneau</p>
-      <p>Une tension vaut 12 V pendant 3 ms puis 0 V pendant 1 ms, périodiquement. Fréquence, valeur moyenne, valeur efficace ?</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>\(T = 4\) ms, \(f = 250\) Hz. \(\langle u\rangle = \dfrac{12 \times 3 + 0 \times 1}{4} = 9\) V.</p>
-        <p>\(U^2 = \dfrac{12^2 \times 3}{4} = 108\), donc \(U \approx 10{,}4\) V (la valeur efficace d'un créneau dépasse sa moyenne).</p>
-      </details>
-    </div>
-  </section>
-
-  <section>
-    <h2>3. Loi d'Ohm, effet Joule, puissance</h2>
-    <div class="box prop"><p class="box-title">Le résistor</p>
-      <ul>
-        <li><b>Loi d'Ohm</b> (convention récepteur) : \(u = R\,i\), avec \(R\) la résistance en ohms (Ω). Elle n'est valable que dans un certain domaine : si le résistor chauffe trop, \(R\) change.</li>
-        <li>Résistances en <b>série</b> : \(R_{\text{éq}} = R_1 + R_2\). En <b>dérivation</b> : \(\dfrac{1}{R_{\text{éq}}} = \dfrac{1}{R_1} + \dfrac{1}{R_2}\).</li>
-        <li><b>Effet Joule</b> : toute l'énergie reçue par un résistor est convertie en chaleur. Puissance : \(P = U I = R I^2 = \dfrac{U^2}{R}\).</li>
-      </ul>
-    </div>
-    <div class="box prop"><p class="box-title">Puissance et énergie électriques</p>
-      <p>En continu, un dipôle reçoit la puissance \(P = U \times I\). Sur une durée \(\Delta t\) : \(E = P \times \Delta t\).
-        Un générateur réel (pile, batterie) se modélise par \(U = E - rI\) (\(E\) : tension à vide, \(r\) : résistance interne) : il fournit \(EI\), en perd \(rI^2\) en chaleur, et donne \(UI\) au circuit.</p>
-    </div>
-    <div class="box example"><p class="box-title">Exemple 2 — pertes en ligne</p>
-      <p>Une ligne de résistance 2 Ω transporte 10 kW. Pertes Joule si la tension est 400 V ? et 20 000 V ?</p>
-      <details class="solution"><summary>Solution</summary>
-        <p>À 400 V : \(I = 10\,000/400 = 25\) A, pertes \(2 \times 25^2 = 1\,250\) W (12,5 % de la puissance !).</p>
-        <p>À 20 000 V : \(I = 0{,}5\) A, pertes \(2 \times 0{,}5^2 = 0{,}5\) W. C'est pour cela qu'on transporte l'électricité sous très haute tension.</p>
-      </details>
-    </div>
-    <div class="box warning"><p class="box-title">Sécurité électrique</p>
-      <p>Le danger vient du courant qui traverse le corps (quelques dizaines de mA suffisent). Protections : le disjoncteur (coupe en cas de surintensité),
-        le différentiel 30 mA (coupe en cas de fuite vers la terre : il protège les personnes), la prise de terre, la double isolation.
-        En TP : on câble et on modifie un montage hors tension, et on vérifie le calibre des appareils.</p>
-    </div>
-  </section>
-
-  <section>
-    <h2>4. L'essentiel à retenir</h2>
-    <div class="box prop"><p class="box-title">Formulaire</p>
-      <ul>
-        <li>Ampèremètre en série, voltmètre en dérivation. Convention récepteur : \(p = ui > 0\) ⇔ récepteur.</li>
-        <li>Nœuds : \(\sum I_{\text{entrants}} = \sum I_{\text{sortants}}\) ; mailles : \(\sum U = 0\).</li>
-        <li>\(u = Ri\) ; série \(R_1 + R_2\) ; dérivation \(\dfrac{1}{R} = \dfrac{1}{R_1} + \dfrac{1}{R_2}\).</li>
-        <li>\(P = UI = RI^2 = \dfrac{U^2}{R}\) ; \(E = P\Delta t\) ; générateur réel \(U = E - rI\).</li>
-        <li>Sinusoïde : \(U = \dfrac{U_{\max}}{\sqrt2}\) ; \(\langle u\rangle\) = composante continue.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section>
-    <h2>5. Manipuler</h2>
-    <div class="widget" id="w-sig">
-      <p class="widget-title">Chronogramme : valeur moyenne et valeur efficace</p>
-      <p class="hint">Ajoute une composante continue, change la forme du signal : compare la ligne de la moyenne (orange) et celle de la valeur efficace (violette).</p>
-      <div class="controls">
-        <label>forme <select data-k="sh"><option value="sin">sinusoïde</option><option value="sq">créneau</option><option value="tri">triangle</option></select></label>
-        <label>amplitude (V) <input type="range" data-k="A" min="0" max="50" step="0.5" value="6"> <output data-show="A"></output></label>
-        <label>composante continue (V) <input type="range" data-k="c" min="-30" max="30" step="0.5" value="0"> <output data-show="c"></output></label>
-        <label>rapport cyclique <input type="range" data-k="a" min="0.1" max="0.9" step="0.05" value="0.5"> <output data-show="a" data-digits="2"></output></label>
+  <!-- ===================================================== 1. COURS -->
+  <section class="step" id="cours">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">1</span>
+      <div>
+        <h2>Cours</h2>
+        <p>Les définitions et les formules du chapitre, dans l’ordre du cours. Sur les schémas et les graphiques, une tension est en orange, une intensité en vert, une puissance en rose et une énergie en bleu.</p>
       </div>
-      <canvas class="plot"></canvas>
-      <div class="readout" aria-live="polite"></div>
+    </header>
+
+    <h3 class="part-title"><span class="roman">I.</span> La puissance électrique</h3>
+    <div class="bento">
+      <article class="box prop" id="c-continu">
+        <p class="box-title">En régime continu</p>
+        <p>La puissance reçue (ou consommée) par un dipôle en régime continu vaut :</p>
+        <div class="formula">\[\QP = \Qu \times \QI\]<p class="formula-units">\(\QP\) en watts (W), \(\Qu\) en volts (V), \(\QI\) en ampères (A)</p></div>
+        <p>Une lampe sous \(12\ \mathrm{V}\), traversée par un courant de \(0{,}5\ \mathrm{A}\), reçoit \(\QP = 12 \times 0{,}5 = 6\ \mathrm{W}\).</p>
+        <p class="note">C’est la puissance <b>reçue</b> quand le dipôle est fléché en convention récepteur. Avec les conventions (partie II), le signe de \(\QP\) dit si le dipôle reçoit ou fournit de l’énergie.</p>
+      </article>
+
+      <article class="box def" id="c-instantanee">
+        <p class="box-title">En régime variable : la puissance instantanée</p>
+        <p>En régime variable, la tension \(\Qut\) et l’intensité \(\Qit\) changent à chaque instant. La puissance instantanée reçue par un dipôle vaut, à chaque instant :</p>
+        <div class="formula">\[\Qpt = \Qut \times \Qit\]</div>
+        <figure class="fig-wrap" data-fig="ui"></figure>
+        <ul class="legend">
+          <li><i style="background: var(--q-u)"></i><span>tension \(\Qut\)</span></li>
+          <li><i style="background: var(--q-I)"></i><span>intensité \(\Qit\)</span></li>
+        </ul>
+        <p class="note">Quand \(\Qut\) et \(\Qit\) ont le même signe, \(\Qpt > 0\) : à cet instant, le dipôle reçoit de l’énergie.</p>
+      </article>
+
+      <article class="box def" id="c-moyenne">
+        <p class="box-title">La puissance moyenne</p>
+        <p>La puissance moyenne \(\Qpm\) est la valeur moyenne du produit \(\Qut \times \Qit\) sur une période :</p>
+        <div class="formula">\[\Qpm = \langle \Qut \times \Qit \rangle\]</div>
+        <figure class="fig-wrap" data-fig="pt"></figure>
+        <ul class="legend">
+          <li><i style="background: var(--q-P)"></i><span>puissance instantanée \(\Qpt\)</span></li>
+          <li><i class="dash" style="color: var(--q-P)"></i><span>puissance moyenne \(\QP = \Qpm\)</span></li>
+        </ul>
+        <p>Pour un conducteur ohmique sous \(\QUe = 10\ \mathrm{V}\), traversé par \(\QIe = 2\ \mathrm{A}\) : \(\Qpt\) varie entre 0 et 40 W, deux fois par période de la tension. Sa valeur moyenne vaut 20 W.</p>
+        <p class="note">On fait la moyenne du <b>produit</b>, pas le produit des moyennes. Pour une tension alternative, \(\langle u\rangle = 0\) : le produit des moyennes donnerait 0 W, alors que la résistance chauffe.</p>
+      </article>
+
+      <article class="box prop" id="c-sinus">
+        <p class="box-title">En régime sinusoïdal</p>
+        <p>En régime sinusoïdal, la puissance moyenne est notée \(\QP\). Elle vaut :</p>
+        <div class="formula">\[\QP = \Qk \times \QUe \times \QIe\]<p class="formula-units">\(\Qk\) : facteur de puissance (sans unité), \(\QUe\) : tension efficace (V), \(\QIe\) : intensité efficace (A)</p></div>
+        <p>Le facteur de puissance dépend du dipôle :</p>
+        <div class="table-scroll"><table class="fit">
+          <thead><tr><th>Dipôle</th><th>Facteur de puissance</th></tr></thead>
+          <tbody>
+            <tr><td>conducteur ohmique</td><td>\(\Qk = 1\), donc \(\QP = \QUe \times \QIe\)</td></tr>
+            <tr><td>moteur</td><td>\(\Qk\) compris entre 0,75 et 0,95</td></tr>
+          </tbody>
+        </table></div>
+        <p>Un radiateur sous 230 V, traversé par 8,7 A : \(\QP = 230 \times 8{,}7 \approx 2\,000\ \mathrm{W}\). Un moteur sous 230 V, traversé par 5 A, avec \(\Qk = 0{,}8\) : \(\QP = 0{,}8 \times 230 \times 5 = 920\ \mathrm{W}\).</p>
+        <p class="note">Dans un moteur, le courant est en retard sur la tension : par moments, \(\Qpt < 0\). Le facteur \(\Qk < 1\) en tient compte.</p>
+      </article>
     </div>
-    <div class="widget" id="w-drill">
-      <p class="widget-title">Entraînement : circuits et puissances</p>
-      <p class="hint">3 chiffres significatifs, dans l'unité demandée.</p>
+
+    <h3 class="part-title"><span class="roman">II.</span> Convention générateur et convention récepteur</h3>
+    <div class="bento">
+      <article class="box def" id="c-roles">
+        <p class="box-title">Récepteurs, générateurs, dipôles réversibles</p>
+        <p>Dans un circuit électrique, les dipôles se comportent comme :</p>
+        <ul class="steps-list">
+          <li>des <b>récepteurs</b> : ils reçoivent de la puissance électrique (résistance, moteur électrique, lampe…) ;</li>
+          <li>des <b>générateurs</b> : ils fournissent de la puissance électrique (GBF, cellule photovoltaïque…).</li>
+        </ul>
+        <p>Certains dipôles peuvent jouer les deux rôles : accumulateur électrique, bobine, condensateur… Une batterie est récepteur quand elle se charge, générateur quand elle alimente un appareil.</p>
+        <p class="note">Récepteurs et générateurs n’ont pas le même mode de fonctionnement : on a donc défini deux conventions pour les représenter.</p>
+      </article>
+
+      <article class="box method" id="c-methode">
+        <p class="box-title">Méthode : générateur ou récepteur ?</p>
+        <ol class="steps-list">
+          <li>Regarder les flèches : \(\Qu\) et \(\QI\) dans le même sens, convention générateur ; de sens opposés, convention récepteur.</li>
+          <li>Calculer \(\QP = \Qu \times \QI\) <b>en gardant les signes</b>. Si une valeur manque, la trouver avec la loi des nœuds, la loi des mailles ou la loi d’Ohm.</li>
+          <li>Conclure avec le tableau ci-dessous.</li>
+        </ol>
+        <p class="note">Une batterie fléchée en convention récepteur, avec \(\Qu = 24\ \mathrm{V}\) et \(\QI = -3\ \mathrm{A}\) : \(\QP = 24 \times (-3) = -72\ \mathrm{W} < 0\). Elle fonctionne en générateur : elle fournit 72 W à l’appareil qu’elle alimente.</p>
+      </article>
+
+      <article class="box prop wide" id="c-conventions">
+        <p class="box-title">Les deux conventions et le signe de la puissance</p>
+        <figure class="fig-wrap" data-fig="conventions"></figure>
+        <p>On calcule \(\QP = \Qu \times \QI\) avec les valeurs fléchées, puis on lit le tableau :</p>
+        <div class="table-scroll"><table class="fit">
+          <thead><tr><th>Convention générateur</th><th>Convention récepteur</th></tr></thead>
+          <tbody>
+            <tr><td>\(\Qu\) et \(\QI\) fléchées dans le même sens</td><td>\(\Qu\) et \(\QI\) fléchées en sens opposés</td></tr>
+            <tr><td>\(\QP > 0\) : le dipôle fonctionne en <b>générateur</b>, il fournit de l’énergie</td><td>\(\QP > 0\) : le dipôle fonctionne en <b>récepteur</b>, il reçoit de l’énergie</td></tr>
+            <tr><td>\(\QP < 0\) : il fonctionne en <b>récepteur</b>, il reçoit de l’énergie</td><td>\(\QP < 0\) : il fonctionne en <b>générateur</b>, il fournit de l’énergie</td></tr>
+          </tbody>
+        </table></div>
+        <p class="note">En convention récepteur, \(\QP\) est la puissance <b>reçue</b> ; en convention générateur, la puissance <b>fournie</b>. Une valeur négative veut dire que l’énergie circule dans l’autre sens. La convention est un choix de fléchage : un générateur peut très bien être fléché en convention récepteur.</p>
+      </article>
+    </div>
+
+    <h3 class="part-title"><span class="roman">III.</span> L’énergie électrique</h3>
+    <div class="bento">
+      <article class="box prop" id="c-energie">
+        <p class="box-title">Énergie et puissance</p>
+        <p>L’énergie électrique \(\QE\) reçue ou fournie par un appareil de puissance moyenne \(\QP\) pendant une durée \(\Qt\) est égale à :</p>
+        <div class="formula">\[\QE = \QP \times \Qt\]<p class="formula-units">\(\QE\) en joules (J), \(\QP\) en watts (W), \(\Qt\) en secondes (s)</p></div>
+        <p>Une lampe de 60 W allumée pendant 10 min, soit 600 s : \(\QE = 60 \times 600 = 36\,000\ \mathrm{J}\).</p>
+      </article>
+
+      <article class="box method" id="c-kwh">
+        <p class="box-title">Le kilowattheure</p>
+        <p>Avec \(\QP\) en kilowatts (kW) et \(\Qt\) en heures (h), \(\QE\) est en <b>kilowattheures</b> (kWh), l’unité des factures d’électricité.</p>
+        <div class="table-scroll"><table class="fit">
+          <thead><tr><th>Unité</th><th>En joules</th></tr></thead>
+          <tbody>
+            <tr><td>1 Wh (1 W pendant 1 h)</td><td>\(3\,600\ \mathrm{J}\)</td></tr>
+            <tr><td>1 kWh = 1 000 Wh</td><td>\(3{,}6 \times 10^{6}\ \mathrm{J}\)</td></tr>
+          </tbody>
+        </table></div>
+        <p>Un radiateur de 2 000 W allumé pendant 3 h : \(\QE = 2 \times 3 = 6\ \mathrm{kWh}\), soit \(6 \times 3{,}6 \times 10^{6} = 2{,}16 \times 10^{7}\ \mathrm{J}\).</p>
+        <p class="note">Le kW mesure une puissance, le kWh une énergie : ne pas les confondre.</p>
+      </article>
+    </div>
+
+    <h3 class="part-title"><span class="roman">IV.</span> Comportement énergétique des dipôles passifs résistifs</h3>
+    <div class="bento">
+      <article class="box def" id="c-passif">
+        <p class="box-title">Dipôle passif, dipôle ohmique</p>
+        <ul class="steps-list">
+          <li>Un dipôle est <b>passif</b> si sa caractéristique \(\Qu = f(\QI)\) passe par l’origine : sans courant, pas de tension à ses bornes.</li>
+          <li>Les dipôles ohmiques, appelés aussi <b>résistances</b>, sont des conducteurs passifs résistifs. La tension à leurs bornes est proportionnelle à l’intensité qui les traverse :</li>
+        </ul>
+        <div class="formula">\[\Qu = \QR \times \QI\]<p class="formula-units">\(\Qu\) : tension efficace ou valeur continue (V), \(\QR\) : résistance (Ω), \(\QI\) : intensité efficace ou valeur continue (A)</p></div>
+        <figure class="fig-wrap" data-fig="carac"></figure>
+        <ul class="legend">
+          <li><i style="background: var(--q-R)"></i><span>résistance de 10 Ω : dipôle passif</span></li>
+          <li><i style="background: var(--muted)"></i><span>pile : 9 V sans courant, dipôle actif</span></li>
+        </ul>
+      </article>
+
+      <article class="box prop" id="c-joule">
+        <p class="box-title">Puissance et énergie : l’effet Joule</p>
+        <p>Avec \(\QP = \Qu \times \QI\) et \(\Qu = \QR \times \QI\), la puissance reçue par une résistance est :</p>
+        <div class="formula">\[\QP = \QR \times \QI^2\]</div>
+        <p>L’énergie reçue par une résistance est entièrement dissipée sous forme de <b>chaleur</b> : c’est l’<b>effet Joule</b>.</p>
+        <div class="formula">\[\QE = \QR \times \QI^2 \times \Qt\]</div>
+        <p>Une résistance \(\QR = 10\ \Omega\) traversée par \(\QI = 0{,}9\ \mathrm{A}\) : \(\QP = 10 \times 0{,}9^2 = 8{,}1\ \mathrm{W}\). En 10 min, \(\QE = 8{,}1 \times 600 = 4\,860\ \mathrm{J}\).</p>
+        <p class="note">L’intensité est au carré : si elle double, la puissance est multipliée par 4. C’est pourquoi l’électricité est transportée sous très haute tension, avec un courant faible : les pertes par effet Joule dans les lignes restent petites.</p>
+      </article>
+
+      <article class="box warning" id="c-erreurs">
+        <p class="box-title">Les erreurs fréquentes</p>
+        <ul class="steps-list">
+          <li>Oublier le <b>signe</b> : avec les conventions, \(\QP\) peut être négative, et ce signe a un sens.</li>
+          <li>Lire la convention sur le nom du dipôle : elle se lit sur le <b>sens des flèches</b>.</li>
+          <li>Oublier \(\Qk\) pour un moteur : \(\QP = \Qk \times \QUe \times \QIe\), pas \(\QUe \times \QIe\).</li>
+          <li>Garder des minutes dans \(\QE = \QP \times \Qt\) pour un résultat en joules : la durée doit être en secondes.</li>
+          <li>Oublier le carré dans \(\QP = \QR \times \QI^2\), ou garder des milliampères.</li>
+          <li>Confondre le kW (une puissance) et le kWh (une énergie).</li>
+        </ul>
+      </article>
+
+      <aside class="box def" id="videos">
+        <p class="box-title">Les vidéos du cours</p>
+        <ul class="video-links">
+          <li><a href="https://www.youtube.com/results?search_query=puissance+%C3%A9lectrique+P%3DUI+premi%C3%A8re+STI2D"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>La puissance électrique P = U × I<small>Partie I du cours · recherche YouTube</small></span></a></li>
+          <li><a href="https://www.youtube.com/results?search_query=convention+g%C3%A9n%C3%A9rateur+convention+r%C3%A9cepteur+signe+puissance"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>Conventions générateur et récepteur, signe de la puissance<small>Partie II du cours · recherche YouTube</small></span></a></li>
+          <li><a href="https://www.youtube.com/results?search_query=%C3%A9nergie+%C3%A9lectrique+kWh+joule+E%3DP%C3%97t"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>Énergie électrique : joules et kilowattheures<small>Partie III du cours · recherche YouTube</small></span></a></li>
+          <li><a href="https://www.youtube.com/results?search_query=effet+joule+P%3DRI%C2%B2+r%C3%A9sistance+lyc%C3%A9e"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.3 9.3v5.4l4.5-2.7z"/></svg><span>L’effet Joule : P = R × I²<small>Partie IV du cours · recherche YouTube</small></span></a></li>
+        </ul>
+      </aside>
     </div>
   </section>
 
-  <section>
-    <h2>Quiz</h2>
-    <div class="quiz">
-      <div class="q" data-answer="1">
-        <p>Un voltmètre se branche :</p>
-        <ol class="choices"><li>en série</li><li>en dérivation</li><li>indifféremment</li><li>uniquement en alternatif</li></ol>
-        <p class="explain">Il mesure une différence de potentiel entre deux points.</p>
+  <!-- ===================================================== 2. EXEMPLES -->
+  <section class="step" id="exemples">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">2</span>
+      <div>
+        <h2>Exemples concrets</h2>
+        <p>Les exercices de la fiche, résolus pas à pas. Cherche d’abord sur une feuille, puis ouvre la solution.</p>
       </div>
-      <div class="q" data-answer="2">
-        <p>Deux courants de 2 A et 3 A arrivent à un nœud ; un seul courant \(i\) en repart. \(i =\)</p>
-        <ol class="choices"><li>1 A</li><li>6 A</li><li>5 A</li><li>−5 A</li></ol>
-        <p class="explain">Loi des nœuds : ce qui entre ressort, \(i = 2 + 3 = 5\) A.</p>
+    </header>
+    <div class="bento">
+      <article class="box example" id="ex-1">
+        <p class="box-title">Exercice 1 : un générateur réversible</p>
+        <p>La tension aux bornes du générateur réversible G vaut \(\Qu = -12\ \mathrm{V}\). Il fournit une puissance \(\QP = -48\ \mathrm{W}\).</p>
+        <figure class="fig-wrap" data-fig="ex1"></figure>
+        <ol class="steps-list" style="--tone: var(--amber)">
+          <li>Quelle est la convention utilisée ?</li>
+          <li>Calcule l’intensité \(\QI\) du courant.</li>
+          <li>G fonctionne-t-il en générateur ou en récepteur ?</li>
+        </ol>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>Les flèches de \(\Qu\) et de \(\QI\) sont dans le même sens : convention générateur.</li>
+              <li>\(\QP = \Qu \times \QI\), donc \(\QI = \dfrac{\QP}{\Qu} = \dfrac{-48}{-12} = 4\ \mathrm{A}\).</li>
+              <li>Convention générateur et \(\QP = -48\ \mathrm{W} < 0\) : G fonctionne en <b>récepteur</b>. Il reçoit 48 W, comme une batterie qui se charge.</li>
+            </ol>
+            <p class="note">En convention générateur, \(\QP\) est la puissance fournie : « fournir −48 W », c’est recevoir 48 W.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example" id="ex-2">
+        <p class="box-title">Exercice 2 : une batterie</p>
+        <p>Une batterie est un dipôle réversible : récepteur quand elle se charge, générateur quand elle est utilisée. La tension à ses bornes vaut \(\Qu = 24\ \mathrm{V}\) et l’intensité du courant \(\QI = 3\ \mathrm{A}\).</p>
+        <figure class="fig-wrap" data-fig="ex2"></figure>
+        <ol class="steps-list" style="--tone: var(--amber)">
+          <li>Quelle est la convention d’orientation utilisée ?</li>
+          <li>Calcule la puissance \(\QP = \Qu \times \QI\).</li>
+          <li>La batterie fonctionne-t-elle en générateur ou en récepteur ?</li>
+        </ol>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>Les flèches de \(\Qu\) et de \(\QI\) sont de sens opposés : convention récepteur.</li>
+              <li>\(\QP = \Qu \times \QI = 24 \times 3 = 72\ \mathrm{W}\).</li>
+              <li>Convention récepteur et \(\QP = 72\ \mathrm{W} > 0\) : la batterie reçoit 72 W, elle fonctionne en <b>récepteur</b>. Elle se charge.</li>
+            </ol>
+            <p class="note">La fiche demande « la puissance fournie par la batterie ». Avec ce fléchage, \(\QP = \Qu \times \QI\) est la puissance <b>reçue</b> : la batterie fournit \(-72\ \mathrm{W}\), c’est-à-dire qu’elle n’alimente pas le circuit, elle se recharge.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example wide" id="ex-3">
+        <p class="box-title">Exercice 3 : nœuds, mailles et puissance</p>
+        <p class="measure">Données : \(\q{I}{I_1} = 0{,}13\ \mathrm{A}\), \(\q{I}{I_3} = 0{,}25\ \mathrm{A}\), \(\Qu = 19\ \mathrm{V}\) et \(\q{u}{U_3} = 11\ \mathrm{V}\).</p>
+        <figure class="fig-wrap" data-fig="ex3"></figure>
+        <ol class="steps-list" style="--tone: var(--amber)">
+          <li>Calcule la valeur de \(\q{I}{I_2}\). Précise la loi utilisée.</li>
+          <li>Calcule la valeur de \(\q{u}{U_1}\). Précise la loi utilisée.</li>
+          <li>Calcule la puissance \(\q{P}{P_2}\) du dipôle \(\mathrm{D_2}\).</li>
+          <li>Quelle est la convention (générateur ou récepteur) utilisée pour \(\mathrm{D_2}\) ? Justifie.</li>
+          <li>\(\mathrm{D_2}\) fonctionne-t-il en générateur ou en récepteur ? Justifie.</li>
+        </ol>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>Loi des nœuds au nœud de droite : \(\q{I}{I_1}\) et \(\q{I}{I_2}\) y entrent, \(\q{I}{I_3}\) en sort. \(\q{I}{I_1} + \q{I}{I_2} = \q{I}{I_3}\), donc \(\q{I}{I_2} = 0{,}25 - 0{,}13 = 0{,}12\ \mathrm{A}\).</li>
+              <li>Loi des mailles dans la maille D₁, R₁, R₃, parcourue dans le sens horaire : \(\Qu - \q{u}{U_1} - \q{u}{U_3} = 0\), donc \(\q{u}{U_1} = 19 - 11 = 8\ \mathrm{V}\).</li>
+              <li>\(\q{P}{P_2} = \q{u}{U_1} \times \q{I}{I_2} = 8 \times 0{,}12 = 0{,}96\ \mathrm{W}\).</li>
+              <li>\(\q{u}{U_1}\) est fléchée vers la gauche, \(\q{I}{I_2}\) vers la droite : flèches de sens opposés, convention récepteur.</li>
+              <li>Convention récepteur et \(\q{P}{P_2} = 0{,}96\ \mathrm{W} > 0\) : \(\mathrm{D_2}\) fonctionne en <b>récepteur</b>, il reçoit 0,96 W.</li>
+            </ol>
+            <p class="note">Pour aller plus loin : \(\mathrm{D_1}\) est en convention générateur (\(\Qu\) et \(\q{I}{I_3}\) vers le haut), \(\q{P}{P_1} = 19 \times 0{,}25 = 4{,}75\ \mathrm{W}\) : il fournit 4,75 W. C’est exactement ce que reçoivent R₁ (\(8 \times 0{,}13 = 1{,}04\ \mathrm{W}\)), D₂ (0,96 W) et R₃ (\(11 \times 0{,}25 = 2{,}75\ \mathrm{W}\)).</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example wide" id="ex-4">
+        <p class="box-title">Exercice 4 : la puissance reçue par le dipôle AB</p>
+        <p class="measure">Données : \(\q{R}{R_1} = 10\ \Omega\), \(\q{R}{R_2} = \q{R}{R_3} = 80{,}0\ \Omega\) et \(\q{u}{U_2} = 36\ \mathrm{V}\).</p>
+        <figure class="fig-wrap" data-fig="ex4"></figure>
+        <ol class="steps-list" style="--tone: var(--amber)">
+          <li>Calcule dans l’ordre \(\q{I}{I_2}\), \(\q{I}{I_3}\), \(\q{I}{I_1}\), \(\q{u}{U_1}\) et \(\Qu\), en nommant les lois utilisées.</li>
+          <li>Détermine la puissance reçue par le dipôle AB.</li>
+        </ol>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>Loi d’Ohm pour R₂ : \(\q{I}{I_2} = \dfrac{\q{u}{U_2}}{\q{R}{R_2}} = \dfrac{36}{80} = 0{,}45\ \mathrm{A}\).</li>
+              <li>Loi d’Ohm pour R₃, soumise à la même tension (en dérivation) : \(\q{I}{I_3} = \dfrac{36}{80} = 0{,}45\ \mathrm{A}\).</li>
+              <li>Loi des nœuds : \(\q{I}{I_1} = \q{I}{I_2} + \q{I}{I_3} = 0{,}45 + 0{,}45 = 0{,}9\ \mathrm{A}\).</li>
+              <li>Loi d’Ohm pour R₁ : \(\q{u}{U_1} = \q{R}{R_1} \times \q{I}{I_1} = 10 \times 0{,}9 = 9\ \mathrm{V}\).</li>
+              <li>Loi des mailles : \(\Qu = \q{u}{U_1} + \q{u}{U_2} = 9 + 36 = 45\ \mathrm{V}\).</li>
+              <li>Le dipôle AB est en convention récepteur (\(\Qu\) fléchée vers A, \(\q{I}{I_1}\) entre par A) : \(\QP = \Qu \times \q{I}{I_1} = 45 \times 0{,}9 = 40{,}5\ \mathrm{W}\).</li>
+            </ol>
+            <p class="note">Vérification par l’effet Joule : \(10 \times 0{,}9^2 + 80 \times 0{,}45^2 + 80 \times 0{,}45^2 = 8{,}1 + 16{,}2 + 16{,}2 = 40{,}5\ \mathrm{W}\). Sur la fiche, la flèche de \(\q{u}{U_1}\) est dessinée dans le sens du courant : pour écrire \(\q{u}{U_1} = \q{R}{R_1} \times \q{I}{I_1}\), il faut la flécher en convention récepteur, vers A, comme sur ce schéma.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="box example wide" id="ex-5">
+        <p class="box-title">Exercice 5 (type DS) : un générateur, une résistance et deux dipôles</p>
+        <p class="measure">Un générateur alimente une résistance et deux dipôles D₂ et D₃. Mesures : \(\Qu = 12\ \mathrm{V}\), \(\q{u}{U_1} = 3\ \mathrm{V}\), \(\q{R}{R_1} = 10\ \Omega\) ; la puissance de D₃ vaut \(\q{P}{P_3} = -0{,}18\ \mathrm{W}\).</p>
+        <figure class="fig-wrap" data-fig="ex5"></figure>
+        <ol class="steps-list" style="--tone: var(--amber)">
+          <li>Quelle est la convention (générateur ou récepteur) utilisée pour \(\mathrm{D_3}\) ? Justifie.</li>
+          <li>\(\mathrm{D_3}\) fonctionne-t-il en générateur ou en récepteur ? Justifie.</li>
+          <li>Calcule la tension \(\q{u}{U_2}\) aux bornes de \(\mathrm{D_2}\). Précise la loi utilisée.</li>
+          <li>Calcule l’intensité \(\q{I}{I_3}\).</li>
+          <li>Calcule l’intensité \(\q{I}{I_1}\).</li>
+          <li>Calcule l’intensité \(\q{I}{I_2}\). Précise la loi utilisée.</li>
+          <li>\(\mathrm{D_2}\) fonctionne-t-il en générateur ou en récepteur ? Explique ton raisonnement et montre tes calculs.</li>
+        </ol>
+        <details class="solution"><summary>Solution</summary>
+          <div class="sol-body">
+            <ol class="steps-list">
+              <li>\(\q{u}{U_3}\) et \(\q{I}{I_3}\) sont toutes deux fléchées vers le haut, dans le même sens : convention générateur.</li>
+              <li>Convention générateur et \(\q{P}{P_3} = -0{,}18\ \mathrm{W} < 0\) : \(\mathrm{D_3}\) fonctionne en <b>récepteur</b>, il reçoit 0,18 W.</li>
+              <li>Loi des mailles dans la maille G, R₁, D₂ : \(\Qu - \q{u}{U_1} - \q{u}{U_2} = 0\), donc \(\q{u}{U_2} = 12 - 3 = 9\ \mathrm{V}\).</li>
+              <li>D₃ est en dérivation avec D₂ : \(\q{u}{U_3} = \q{u}{U_2} = 9\ \mathrm{V}\). \(\q{P}{P_3} = \q{u}{U_3} \times \q{I}{I_3}\), donc \(\q{I}{I_3} = \dfrac{-0{,}18}{9} = -0{,}02\ \mathrm{A}\) : le courant circule en réalité vers le bas dans D₃.</li>
+              <li>Loi d’Ohm pour R₁ : \(\q{I}{I_1} = \dfrac{\q{u}{U_1}}{\q{R}{R_1}} = \dfrac{3}{10} = 0{,}3\ \mathrm{A}\).</li>
+              <li>Loi des nœuds au nœud du haut (\(\q{I}{I_1}\) et \(\q{I}{I_3}\) entrent, \(\q{I}{I_2}\) sort) : \(\q{I}{I_2} = \q{I}{I_1} + \q{I}{I_3} = 0{,}3 + (-0{,}02) = 0{,}28\ \mathrm{A}\).</li>
+              <li>D₂ : \(\q{u}{U_2}\) vers le haut, \(\q{I}{I_2}\) vers le bas, convention récepteur. \(\q{P}{P_2} = \q{u}{U_2} \times \q{I}{I_2} = 9 \times 0{,}28 = 2{,}52\ \mathrm{W} > 0\) : \(\mathrm{D_2}\) fonctionne en <b>récepteur</b>, il reçoit 2,52 W.</li>
+            </ol>
+            <p class="note">Bilan : le générateur fournit \(\Qu \times \q{I}{I_1} = 12 \times 0{,}3 = 3{,}6\ \mathrm{W}\) ; R₁ reçoit \(3 \times 0{,}3 = 0{,}9\ \mathrm{W}\), D₂ 2,52 W et D₃ 0,18 W. Au total, \(0{,}9 + 2{,}52 + 0{,}18 = 3{,}6\ \mathrm{W}\) : rien ne se perd.</p>
+          </div>
+        </details>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================================================== 3. MANIPULER -->
+  <section class="step" id="manipuler">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">3</span>
+      <div>
+        <h2>Manipuler</h2>
+        <p>Bouge les curseurs et prédis le résultat avant de regarder. Les couleurs sont celles du cours : tension en orange, intensité en vert, puissance en rose, énergie en bleu, résistance en violet.</p>
       </div>
-      <div class="q" data-answer="0">
-        <p>La valeur efficace d'une tension sinusoïdale d'amplitude 325 V vaut environ :</p>
-        <ol class="choices"><li>230 V</li><li>325 V</li><li>162 V</li><li>0 V</li></ol>
-        <p class="explain">\(325/\sqrt2 \approx 230\) V : la tension du secteur.</p>
+    </header>
+    <div class="bento">
+      <div class="widget" id="w-convention">
+        <p class="widget-title">Convention et signe de \(\QP\) : le dipôle reçoit-il ou fournit-il de l’énergie ?</p>
+        <p class="hint">Choisis la convention, puis règle \(\Qu\) et \(\QI\), avec leur signe. Le point \((\QI\,;\,\Qu)\) tombe dans un quart du graphique : le quart dit si le dipôle fonctionne en générateur ou en récepteur. Change de convention : les zones s’échangent, car la même flèche de courant avec une flèche de tension retournée change le signe de \(\QP\).</p>
+        <div class="lab">
+          <div class="lab-stage">
+            <figure class="fig-wrap circuit-live" aria-live="polite"></figure>
+            <canvas class="plot tall" aria-label="Plan de l’intensité I, en ampères, et de la tension U, en volts : le point de fonctionnement du dipôle et les zones où il fonctionne en générateur ou en récepteur"></canvas>
+            <ul class="legend">
+              <li><i class="area" style="background: var(--q-gen)"></i><span>zone générateur : le dipôle fournit de l’énergie</span></li>
+              <li><i class="zone"></i><span>zone récepteur : il reçoit de l’énergie</span></li>
+              <li><i style="background: var(--text)"></i><span>point de fonctionnement \((\QI\,;\,\Qu)\)</span></li>
+            </ul>
+          </div>
+          <div class="lab-side">
+            <div class="lab-formula">\(\QP = \Qu \times \QI\)</div>
+            <div class="seg" role="group" aria-label="Convention de fléchage">
+              <button type="button" data-set="rec" aria-pressed="true">Convention récepteur</button>
+              <button type="button" data-set="gen" aria-pressed="false">Convention générateur</button>
+            </div>
+            <input type="hidden" data-k="conv" value="rec">
+            <div class="sliders">
+              <div class="slider" style="--tone: var(--q-u)">
+                <div class="slider-top"><label class="name" for="sl-u">Tension \(\Qu\)</label><span><output data-show="u" for="sl-u" data-digits="0"></output> V</span></div>
+                <input id="sl-u" type="range" data-k="u" min="-30" max="30" step="1" value="24">
+              </div>
+              <div class="slider" style="--tone: var(--q-I)">
+                <div class="slider-top"><label class="name" for="sl-i">Intensité \(\QI\)</label><span><output data-show="i" for="sl-i" data-digits="1"></output> A</span></div>
+                <input id="sl-i" type="range" data-k="i" min="-5" max="5" step="0.1" value="3">
+              </div>
+            </div>
+            <div>
+              <p class="presets-label">Préréglages</p>
+              <div class="presets"></div>
+            </div>
+            <div class="kpis"></div>
+          </div>
+        </div>
       </div>
-      <div class="q" data-answer="3">
-        <p>Un résistor de 50 Ω parcouru par 2 A dissipe :</p>
-        <ol class="choices"><li>100 W</li><li>25 W</li><li>52 W</li><li>200 W</li></ol>
-        <p class="explain">\(P = RI^2 = 50 \times 4\).</p>
+
+      <div class="widget" id="w-sinus">
+        <p class="widget-title">Régime sinusoïdal : la puissance moyenne est la moyenne de \(\Qpt = \Qut \times \Qit\)</p>
+        <p class="hint">En haut, la tension et l’intensité ; en bas, leur produit \(\Qpt\), instant par instant. Avec \(\Qk = 1\), \(\Qut\) et \(\Qit\) changent de signe ensemble : \(\Qpt\) ne devient jamais négative. Baisse \(\Qk\) : le courant prend du retard, \(\Qpt\) devient négative par moments et la puissance moyenne \(\QP = \Qk \times \QUe \times \QIe\) diminue.</p>
+        <div class="lab">
+          <div class="lab-stage">
+            <figure class="fig-wrap chrono-live" aria-live="polite"></figure>
+            <ul class="legend">
+              <li><i style="background: var(--q-u)"></i><span>tension \(\Qut\)</span></li>
+              <li><i style="background: var(--q-I)"></i><span>intensité \(\Qit\)</span></li>
+            </ul>
+            <canvas class="plot tall" aria-label="Puissance instantanée p(t), en watts, en fonction du temps t, en millisecondes, avec la puissance moyenne P et l’instant choisi"></canvas>
+            <ul class="legend">
+              <li><i style="background: var(--q-P)"></i><span>puissance instantanée \(\Qpt\)</span></li>
+              <li><i class="dash" style="color: var(--q-P)"></i><span>puissance moyenne \(\QP\)</span></li>
+              <li><i class="dash" style="color: var(--muted)"></i><span>instant \(t\) choisi</span></li>
+            </ul>
+          </div>
+          <div class="lab-side">
+            <div class="lab-formula">\(\QP = \Qk \times \QUe \times \QIe\)</div>
+            <div class="sliders">
+              <div class="slider" style="--tone: var(--q-u)">
+                <div class="slider-top"><label class="name" for="sl-ue">Tension efficace \(\QUe\)</label><span><output data-show="u" for="sl-ue" data-digits="0"></output> V</span></div>
+                <input id="sl-ue" type="range" data-k="u" min="0" max="250" step="5" value="230">
+              </div>
+              <div class="slider" style="--tone: var(--q-I)">
+                <div class="slider-top"><label class="name" for="sl-ie">Intensité efficace \(\QIe\)</label><span><output data-show="i" for="sl-ie" data-digits="1"></output> A</span></div>
+                <input id="sl-ie" type="range" data-k="i" min="0" max="10" step="0.1" value="5">
+              </div>
+              <div class="slider" style="--tone: var(--q-eta)">
+                <div class="slider-top"><label class="name" for="sl-k">Facteur de puissance \(\Qk\)</label><span><output data-show="k" for="sl-k" data-digits="2"></output></span></div>
+                <input id="sl-k" type="range" data-k="k" min="0.5" max="1" step="0.01" value="0.8">
+              </div>
+              <div class="slider" style="--tone: var(--muted)">
+                <div class="slider-top"><label class="name" for="sl-t">Instant \(t\)</label><span><output data-show="t" for="sl-t" data-digits="1"></output> ms</span></div>
+                <input id="sl-t" type="range" data-k="t" min="0" max="40" step="0.5" value="5">
+              </div>
+            </div>
+            <div>
+              <p class="presets-label">Préréglages</p>
+              <div class="presets"></div>
+            </div>
+            <div class="kpis"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget" id="w-joule">
+        <p class="widget-title">Effet Joule : la puissance augmente comme le carré de l’intensité</p>
+        <p class="hint">Pour une résistance, \(\QP = \QR \times \QI^2\) : la courbe de \(\QP\) en fonction de \(\QI\) est une parabole. Le point gris montre ce qui se passe quand l’intensité double : la puissance est multipliée par 4. L’énergie dissipée en chaleur pendant \(\Qt\) vaut \(\QE = \QP \times \Qt\).</p>
+        <div class="lab">
+          <div class="lab-stage">
+            <canvas class="plot tall" aria-label="Puissance P, en watts, reçue par une résistance R en fonction de l’intensité I, en ampères : une parabole"></canvas>
+            <ul class="legend">
+              <li><i style="background: var(--q-P)"></i><span>\(\QP = \QR \times \QI^2\)</span></li>
+              <li><i class="dash" style="color: var(--muted)"></i><span>lecture de \(\QI\) et de \(\QP\)</span></li>
+              <li><i style="background: var(--muted)"></i><span>intensité doublée : \(\QP\) multipliée par 4</span></li>
+            </ul>
+          </div>
+          <div class="lab-side">
+            <div class="lab-formula">\(\QP = \QR \times \QI^2\)</div>
+            <div class="sliders">
+              <div class="slider" style="--tone: var(--q-R)">
+                <div class="slider-top"><label class="name" for="sl-r">Résistance \(\QR\)</label><span><output data-show="r" for="sl-r" data-digits="0"></output> Ω</span></div>
+                <input id="sl-r" type="range" data-k="r" min="1" max="100" step="1" value="10">
+              </div>
+              <div class="slider" style="--tone: var(--q-I)">
+                <div class="slider-top"><label class="name" for="sl-ij">Intensité \(\QI\)</label><span><output data-show="i" for="sl-ij" data-digits="2"></output> A</span></div>
+                <input id="sl-ij" type="range" data-k="i" min="0" max="3" step="0.05" value="0.9">
+              </div>
+              <div class="slider" style="--tone: var(--q-t)">
+                <div class="slider-top"><label class="name" for="sl-dt">Durée \(\Qt\)</label><span><output data-show="d" for="sl-dt" data-digits="0"></output> min</span></div>
+                <input id="sl-dt" type="range" data-k="d" min="1" max="60" step="1" value="10">
+              </div>
+            </div>
+            <div>
+              <p class="presets-label">Préréglages</p>
+              <div class="presets"></div>
+            </div>
+            <div class="kpis"></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="videos">
-    <h2>Pour aller plus loin en vidéo</h2>
-    <ul class="videos">
-      <li><a href="https://www.youtube.com/results?search_query=valeur+moyenne+valeur+efficace+chronogramme+STI2D">Valeur moyenne et valeur efficace<small>Recherche YouTube</small></a></li>
-      <li><a href="https://www.youtube.com/results?search_query=loi+des+mailles+loi+des+noeuds+exercice">Lois des nœuds et des mailles<small>Recherche YouTube</small></a></li>
-      <li><a href="https://www.youtube.com/results?search_query=effet+joule+puissance+electrique+premiere">Effet Joule et puissance électrique<small>Recherche YouTube</small></a></li>
-    </ul>
+  <!-- ===================================================== 4. ENTRAÎNEMENT -->
+  <section class="step" id="entrainement">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">4</span>
+      <div>
+        <h2>Entraînement</h2>
+        <p>Des questions qui se renouvellent à l’infini. Réussis <b>5 réponses de suite du premier coup</b> pour débloquer l’évaluation. Le brouillon et la calculatrice restent à portée de main pendant que tu réponds.</p>
+      </div>
+    </header>
+    <div class="bento work">
+      <div class="widget" id="w-drill"></div>
+      <div class="workspace-host" id="ws-train"></div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 5. ÉVALUATION -->
+  <section class="step" id="evaluation">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">5</span>
+      <div>
+        <h2>Évaluation</h2>
+        <p>Une copie sur 20 points, corrigée à la fin, sans limite de temps. La calculatrice passe en mode examen : seulement les calculs d’une calculatrice standard.</p>
+      </div>
+    </header>
+    <div class="bento work">
+      <div class="widget exam-card" id="exam"></div>
+      <div class="workspace-host" id="ws-exam"></div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 6. VALIDATION -->
+  <section class="step" id="validation">
+    <header class="step-head">
+      <span class="step-badge" aria-hidden="true">6</span>
+      <div>
+        <h2>Validation</h2>
+        <p>Au moins 15/20 : le chapitre est validé et le suivant s’ouvre. En dessous : retour à l’entraînement pour une nouvelle série de 5.</p>
+      </div>
+    </header>
+    <div class="widget valid-card" id="validation-card"></div>
   </section>
 </main>
 <script>
 window.addEventListener('DOMContentLoaded', function () {
-  var R = Course.rand, P = Course.pick, A = Course.approx;
-  var w = document.getElementById('w-sig'), out = w.querySelector('.readout');
-  var G = Course.plot(w.querySelector('canvas'), { xlabel: 't (ms)', ylabel: 'u (V)' });
-  Course.onInput(w, function (v) {
-    var T = 10;
-    var wave = function (t) {
-      var ph = ((t % T) + T) % T / T;
-      if (v.sh === 'sin') return v.c + v.A * Math.sin(2 * Math.PI * ph);
-      if (v.sh === 'sq') return v.c + (ph < v.a ? v.A : 0);
-      return v.c + (ph < v.a ? v.A * ph / v.a : v.A * (1 - ph) / (1 - v.a));
+  var C = window.CourseCore, CB = window.ChapterBank, Bank = CB.make(), F = CB.FIG, PH = CB.PHYS;
+  /** Nombre à la française avec un vrai signe moins (−), 0 jamais écrit −0. */
+  function num(x, sig) { return Math.abs(x) < 1e-9 ? '0' : C.fmtNum(x, sig || 3).replace('-', '−'); }
+  /** Facteur entre parenthèses quand il est négatif : 24 × (−3). */
+  function par(x) { return x < 0 ? '(' + num(x) + ')' : num(x); }
+
+  /* ---------- schémas et chronogrammes du cours et des exemples (dessinés par energie-electrique.js) ---------- */
+  var FIGS = {
+    ui: function () { return F.ui({ k: 1 }); },
+    pt: function () { return F.pt(); },
+    conventions: function () { return F.conventions(); },
+    carac: function () { return F.carac(); },
+    ex1: function () { return F.ex1(); },
+    ex2: function () { return F.ex2(); },
+    ex3: function () { return F.ex3(); },
+    ex4: function () { return F.ex4(); },
+    ex5: function () { return F.ex5(); }
+  };
+  document.querySelectorAll('figure[data-fig]').forEach(function (f) { f.innerHTML = FIGS[f.dataset.fig](); });
+
+  /* ---------- Manipuler 1 : convention et signe de P ---------- */
+  var wV = document.getElementById('w-convention'), figV = wV.querySelector('.circuit-live');
+  var convIn = wV.querySelector('[data-k="conv"]'), segV = wV.querySelectorAll('.seg button');
+  // marge en haut : les boutons de zoom (coin haut droit, plus grands sur téléphone) ne cachent pas les points usuels
+  var VV = { xmin: -5.6, xmax: 5.6, ymin: -33, ymax: 43 };
+  var GV = Course.plot(wV.querySelector('canvas'), Object.assign({ xlabel: 'I (A)', ylabel: 'U (V)', xstep: 1, ystep: 10 }, VV));
+  var kpiV = Course.kpis(wV.querySelector('.kpis'), [
+    { id: 'p', label: '<span>Puissance \\(\\QP = \\Qu \\times \\QI\\)</span>', tone: '--q-P' },
+    { id: 'mode', label: 'Le dipôle fonctionne', tone: '--q-gen' },
+    { id: 'e', label: '<span>Énergie échangée en 1 min : \\(\\QE = |\\QP| \\times \\Qt\\)</span>', tone: '--q-E' }
+  ]);
+  var presetV = Course.presets(wV.querySelector('.presets'), [
+    { label: 'Exercice 1 · −12 V et 4 A, convention générateur', values: { conv: 'gen', u: -12, i: 4 } },
+    { label: 'Exercice 2 · batterie en charge, 24 V et 3 A', values: { conv: 'rec', u: 24, i: 3 } },
+    { label: 'La batterie alimente un appareil · 24 V et −3 A', values: { conv: 'rec', u: 24, i: -3 } }
+  ]);
+  segV.forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (convIn.value === b.dataset.set) return;
+      convIn.value = b.dataset.set;
+      presetV.forEach(function (p) { p.setAttribute('aria-pressed', 'false'); });
+      convIn.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
+  Course.onInput(wV, function (v) {
+    var gen = v.conv === 'gen', U = v.u, I = v.i, P = U * I;
+    var md = Math.abs(P) < 1e-9 ? null : gen === (P > 0) ? 'gen' : 'rec', cv = 'convention ' + (gen ? 'générateur' : 'récepteur');
+    segV.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.set === v.conv)); });
+    figV.innerHTML = F.dipole({ sym: 'D', iDir: 'r', uDir: gen ? 'r' : 'l', ix: 'r', i: 'I = ' + num(I) + ' A', u: 'U = ' + num(U) + ' V',
+      label: 'Le dipôle D, fléché en ' + cv + ' : I = ' + num(I) + ' A, U = ' + num(U) + ' V.' });
+    GV.draw = function (g) {
+      // quarts du plan : U × I > 0 en haut à droite et en bas à gauche ; en convention générateur, c'est la zone générateur
+      [[1, 1], [-1, -1], [1, -1], [-1, 1]].forEach(function (q) {
+        var isGen = gen === (q[0] * q[1] > 0);
+        g.area(function () { return q[1] > 0 ? 1000 : 0; }, q[0] > 0 ? 0 : -100, q[0] > 0 ? 100 : 0, isGen ? '--q-gen' : '--muted', { alpha: isGen ? 0.16 : 0.07, lower: function () { return q[1] > 0 ? 0 : -1000; } });
+        // nom de la zone au bord extérieur, à mi-hauteur : loin des boutons de zoom (coin haut droit) et des points usuels
+        g.text(q[0] * 5.45, q[1] * 17, isGen ? 'générateur' : 'récepteur', isGen ? '--q-gen' : '--muted', { align: q[0] > 0 ? 'right' : 'left', size: 12.5, bold: true, halo: true });
+      });
+      if (Math.abs(U) > 1e-9 && Math.abs(I) > 1e-9) {
+        g.seg(I, 0, I, U, '--muted', { dash: [4, 4], width: 1.3 });
+        g.seg(0, U, I, U, '--muted', { dash: [4, 4], width: 1.3 });
+      }
+      g.point(I, U, '--text', null, { r: 6 });
+      // étiquette sous le point (au-dessus seulement près du bas) : jamais sous les boutons de zoom du coin haut droit
+      var right = I <= 2.2, below = U > -20;
+      g.text(I, U, 'P = ' + num(P) + ' W', '--text', { align: right ? 'left' : 'right', dx: right ? 10 : -10, dy: below ? 10 : -10, baseline: below ? 'top' : 'bottom', size: 12.5, bold: true, halo: true });
     };
-    var n = 2000, s = 0, s2 = 0;
-    for (var i = 0; i < n; i++) { var y = wave((i + 0.5) * T / n); s += y; s2 += y * y; }
-    var moy = s / n, eff = Math.sqrt(s2 / n);
-    w.querySelector('[data-k="a"]').closest('label').hidden = v.sh === 'sin';
-    G.draw = function (g) {
-      g.fn(wave, '--c1');
-      g.seg(0, moy, 25, moy, '--c4', { width: 2, dash: [8, 4] });
-      g.seg(0, eff, 25, eff, '--c3', { width: 2, dash: [3, 3] });
-      g.text(24.6, moy, '⟨u⟩', '--c4', { align: 'right', baseline: 'bottom', bold: true });
-      g.text(24.6, eff, 'U', '--c3', { align: 'right', baseline: 'bottom', bold: true });
-    };
-    var Y0 = Math.max(12, (Math.abs(v.c) + v.A) * 1.2);
-    G.redraw({ xmin: 0, xmax: 25, ymin: -Y0, ymax: Y0 });
-    out.textContent = 'période T = 10 ms   f = 100 Hz\nvaleur moyenne ⟨u⟩ = ' + Course.fmt(moy, 2) + ' V   valeur efficace U = ' + Course.fmt(eff, 2) + ' V' +
-      '\nUmax = ' + Course.fmt(v.c + v.A, 2) + ' V   Umin = ' + Course.fmt(v.sh === 'sin' ? v.c - v.A : v.c, 2) + ' V';
+    GV.redraw(VV);
+    kpiV({
+      p: { value: num(P), unit: 'W', sub: par(U) + ' V × ' + par(I) + ' A' },
+      mode: md === null ? { value: 'ni l’un ni l’autre', badge: { cls: 'info', text: 'P = 0 : aucun échange d’énergie' } }
+        : { value: md === 'gen' ? 'en générateur' : 'en récepteur', badge: { cls: 'info', text: cv + ', P ' + (P > 0 ? '> 0' : '< 0') + ' : il ' + (md === 'gen' ? 'fournit ' : 'reçoit ') + num(Math.abs(P)) + ' W' } },
+      e: { value: num(Math.abs(P) * 60), unit: 'J', sub: num(Math.abs(P)) + ' W × 60 s' + (md === 'gen' ? ', fournis au circuit' : md === 'rec' ? ', reçus du circuit' : '') }
+    });
   });
 
-  Course.drill('#w-drill', function () {
-    var k = R(0, 4), T = function (q) { return String(q).replace('.', '{,}'); };
-    if (k === 0) { var Rr = P([10, 22, 47, 100, 220, 470]), I = R(1, 50) / 100, U = Rr * I;
-      return { html: '<p>Un résistor de \\(' + Rr + '\\ \\Omega\\) est parcouru par \\(' + T(I) + '\\) A. Tension à ses bornes (V) ?</p>', answer: U, tol: A(U, true), explain: '\\(U = RI\\).' }; }
-    if (k === 1) { var U1 = P([5, 12, 24, 230]), Rx = P([4, 10, 50, 100]), Pw = U1 * U1 / Rx;
-      return { html: '<p>Un résistor de \\(' + Rx + '\\ \\Omega\\) est soumis à \\(' + U1 + '\\) V continus. Puissance dissipée (W) ?</p>', answer: Pw, tol: A(Pw, true), explain: '\\(P = U^2/R\\).' }; }
-    if (k === 2) { var E0 = P([4.5, 9, 12, 24]), u1 = Math.round(E0 * R(2, 8) * 10) / 100;
-      return { html: '<p>Dans une maille, un générateur de \\(' + T(E0) + '\\) V alimente deux résistors en série. L\'un a \\(' + T(u1) + '\\) V à ses bornes. Tension aux bornes de l\'autre (V) ?</p>', answer: E0 - u1, tol: A(E0 - u1, true), explain: 'Loi des mailles : \\(E = u_1 + u_2\\).' }; }
-    if (k === 3) { var Um = P([10, 12, 24, 325, 400]), Ueff = Um / Math.SQRT2;
-      return { html: '<p>Valeur efficace (V) d\'une tension sinusoïdale d\'amplitude \\(' + Um + '\\) V ?</p>', answer: Ueff, tol: A(Ueff, true), explain: '\\(U = U_{\\max}/\\sqrt2\\).' }; }
-    var Pa = P([60, 500, 1500, 2000]), h = R(1, 8), kwh = Pa * h / 1000;
-    return { html: '<p>Un appareil de \\(' + Pa + '\\) W fonctionne ' + h + ' h. Énergie consommée (kWh) ?</p>', answer: kwh, tol: A(kwh, true), explain: '\\(E = P\\Delta t\\), avec \\(P\\) en kW et \\(\\Delta t\\) en h.' };
+  /* ---------- Manipuler 2 : régime sinusoïdal, p(t) et puissance moyenne ---------- */
+  var wS = document.getElementById('w-sinus'), figS = wS.querySelector('.chrono-live');
+  var GS = Course.plot(wS.querySelector('canvas'), { xmin: -1, xmax: 41, ymin: -300, ymax: 2700, xlabel: 't (ms)', ylabel: 'p (W)', xstep: 10 });
+  var kpiS = Course.kpis(wS.querySelector('.kpis'), [
+    { id: 'p', label: '<span>Puissance moyenne \\(\\QP = \\Qk \\times \\QUe \\times \\QIe\\)</span>', tone: '--q-P' },
+    { id: 'inst', label: '<span>À l’instant \\(t\\) : \\(\\Qpt = \\Qut \\times \\Qit\\)</span>', tone: '--q-P' },
+    { id: 'ui', label: '<span>Produit \\(\\QUe \\times \\QIe\\)</span>', tone: '--text' },
+    { id: 'min', label: '<span>Plus petite valeur de \\(\\Qpt\\)</span>', tone: '--q-P' }
+  ]);
+  Course.presets(wS.querySelector('.presets'), [
+    { label: 'Radiateur · 230 V, 8,7 A, k = 1', values: { u: 230, i: 8.7, k: 1 } },
+    { label: 'Moteur · 230 V, 5 A, k = 0,75', values: { u: 230, i: 5, k: 0.75 } },
+    { label: 'Le même moteur, k = 0,95', values: { u: 230, i: 5, k: 0.95 } }
+  ]);
+  Course.onInput(wS, function (v) {
+    var U = v.u, I = v.i, k = v.k, t0 = v.t, P = PH.mean(U, I, k), pmax = PH.max(U, I, k), pmin = PH.min(U, I, k);
+    var u0 = PH.u(U, t0), i0 = PH.i(I, k, t0), p0 = u0 * i0;
+    figS.innerHTML = F.ui({ k: k, t0: t0, label: 'Tension u(t), en orange, et intensité i(t), en vert, de période 20 ms ; facteur de puissance ' + num(k, 2) + (k >= 0.999 ? ' : elles sont en phase.' : ' : i(t) est en retard sur u(t).') + ' Le trait pointillé marque l’instant t = ' + num(t0) + ' ms.' });
+    var span = Math.max(pmax, 10), y0 = Math.min(pmin * 1.3, -0.12 * span), y1 = span * 1.35; // marge pour les boutons de zoom
+    GS.draw = function (g) {
+      var f = function (t) { return PH.p(U, I, k, t); };
+      g.area(function (t) { return Math.max(0, f(t)); }, 0, 41, '--q-P', { alpha: 0.2 });
+      g.area(function (t) { return Math.min(0, f(t)); }, 0, 41, '--q-P', { alpha: 0.08 });
+      g.seg(0, P, 41, P, '--q-P', { dash: [7, 5], width: 2 });
+      g.fn(f, '--q-P', { width: 2.6, from: 0, to: 41 });
+      g.seg(t0, y0, t0, y1, '--muted', { dash: [4, 4], width: 1.3 });
+      g.point(t0, p0, '--q-P', null, { r: 6 });
+      g.text(40.6, P, 'P = ' + num(P) + ' W', '--text', { align: 'right', baseline: 'bottom', dy: -5, size: 12.5, bold: true, halo: true });
+    };
+    GS.redraw({ xmin: -1, xmax: 41, ymin: y0, ymax: y1 });
+    kpiS({
+      p: { value: num(P), unit: 'W', sub: num(k, 2) + ' × ' + num(U) + ' V × ' + num(I) + ' A' },
+      inst: { value: num(p0), unit: 'W', sub: 'u = ' + num(u0) + ' V × i = ' + num(i0) + ' A' },
+      ui: k >= 0.999 ? { value: num(U * I), unit: 'W', badge: { cls: 'good', icon: 'check', text: 'k = 1, conducteur ohmique : P = Ueff × Ieff' } }
+        : { value: num(U * I), unit: 'W', sub: 'P = k × ' + num(U * I) + ' W, plus petite' },
+      min: pmin < -1e-9 ? { value: num(pmin), unit: 'W', badge: { cls: 'info', text: 'p(t) < 0 par moments : le dipôle rend un peu d’énergie' } }
+        : { value: '0', unit: 'W', badge: { cls: 'good', icon: 'check', text: 'p(t) ≥ 0 : il reçoit de l’énergie à chaque instant' } }
+    });
   });
+
+  /* ---------- Manipuler 3 : effet Joule, P = R × I² ---------- */
+  var wJ = document.getElementById('w-joule');
+  var GJ = Course.plot(wJ.querySelector('canvas'), { xmin: -0.12, xmax: 3.12, ymin: -8, ymax: 100, xlabel: 'I (A)', ylabel: 'P (W)', xstep: 0.5, positive: true });
+  var kpiJ = Course.kpis(wJ.querySelector('.kpis'), [
+    { id: 'u', label: '<span>Tension \\(\\Qu = \\QR \\times \\QI\\)</span>', tone: '--q-u' },
+    { id: 'p', label: '<span>Puissance \\(\\QP = \\QR \\times \\QI^2\\)</span>', tone: '--q-P' },
+    { id: 'e', label: '<span>Énergie dissipée \\(\\QE = \\QP \\times \\Qt\\)</span>', tone: '--q-E' }
+  ]);
+  Course.presets(wJ.querySelector('.presets'), [
+    { label: 'Exercice 4 · R₁ = 10 Ω et I₁ = 0,9 A', values: { r: 10, i: 0.9, d: 10 } },
+    { label: 'Exercice 4 · R₂ = 80 Ω et I₂ = 0,45 A', values: { r: 80, i: 0.45, d: 10 } },
+    { label: 'Intensité doublée · 10 Ω et 1,8 A', values: { r: 10, i: 1.8, d: 10 } }
+  ]);
+  Course.onInput(wJ, function (v) {
+    var R = v.r, I = v.i, P = R * I * I, U = R * I, E = P * v.d * 60, top = R * 9 * 1.14;
+    GJ.draw = function (g) {
+      g.fn(function (x) { return R * x * x; }, '--q-P', { width: 2.6, from: 0, to: 3.12 });
+      if (I > 0) {
+        g.seg(I, 0, I, P, '--muted', { dash: [4, 4], width: 1.3 });
+        g.seg(0, P, I, P, '--muted', { dash: [4, 4], width: 1.3 });
+        // l'intensité doublée : quatre fois plus de puissance
+        if (2 * I <= 3.05) {
+          g.point(2 * I, 4 * P, '--muted', null, { r: 5 });
+          g.text(2 * I, 4 * P, '2I → 4P', '--muted', { align: 'right', dx: -10, dy: -2, baseline: 'bottom', size: 12.5, bold: true, halo: true });
+        }
+        g.point(I, P, '--q-P', null, { r: 6 });
+        var right = I <= 1.6;
+        g.text(I, P, 'I = ' + num(I) + ' A · P = ' + num(P) + ' W', '--text', { align: right ? 'left' : 'right', dx: right ? 10 : -10, dy: right ? 6 : -8, baseline: right ? 'top' : 'bottom', size: 12.5, bold: true, halo: true });
+      }
+    };
+    GJ.redraw({ xmin: -0.12, xmax: 3.12, ymin: -top * 0.08, ymax: top });
+    kpiJ({
+      u: { value: num(U), unit: 'V', sub: num(R) + ' Ω × ' + num(I) + ' A' },
+      p: { value: num(P), unit: 'W', sub: num(R) + ' × ' + num(I) + '², soit U × I' },
+      e: { value: num(E), unit: 'J', sub: num(P) + ' W × ' + num(v.d * 60) + ' s, soit ' + num(E / 3600) + ' Wh' }
+    });
+  });
+
+  /* ---------- Entraînement, évaluation, validation ---------- */
+  var train = document.getElementById('ws-train');
+  Course.trainer('#w-drill', Bank.training, { workspace: train });
+  Course.exam('#exam', { build: Bank.exam, count: CB.EXAM_QUESTIONS, workspace: document.getElementById('ws-exam'), trainWorkspace: train });
+  Course.validation('#validation-card');
 });
 </script>
 </body>

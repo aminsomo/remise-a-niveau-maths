@@ -877,6 +877,12 @@ main.chapter.v2 { padding-top: 2.25rem; }
 /* tableau de calcul d'une solution (chapitre 6, exercice 3 b) : colonnes serrées, toute la largeur de la solution sur téléphone */
 table.tight th, table.tight td { padding: .45rem .6rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
 @media (max-width: 560px) { .sol-body > .table-scroll:has(> table.tight) { margin-inline: -1rem; max-width: none; } }
+/* tableau du cours qui tient dans la carte (chapitre 7) : toute la largeur, cellules qui passent à la ligne, plus serré sur téléphone */
+table.fit { width: 100%; }
+table.fit th, table.fit td { vertical-align: top; }
+/* note d’une carte pleine largeur : moins de 80 caractères par ligne (52ch, le « 0 » est plus large qu’une lettre moyenne) */
+.box.wide > p.note { max-width: 52ch; }
+@media (max-width: 560px) { table.fit { font-size: .86rem; } table.fit th, table.fit td { padding: .5rem .55rem; } }
 
 /* sens du transfert thermique : corps chaud → corps froid */
 .heat-flow { display: flex; align-items: center; gap: .5rem; margin: .9rem 0; }
